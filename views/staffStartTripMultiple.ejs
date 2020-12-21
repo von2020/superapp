@@ -123,7 +123,11 @@
                                     <br>
                                     <br>
                                     <form action="/logistics/staff_start_trip" method="POST">
-                                        <button id='<%=trip.id%>' class="btn btn-ld btn-success rounded-pill" style="float: right;" type="submit"> Start Trip</button>
+                                        <%if (trip.requester_status == ['REQUESTED']) { %>
+                                            <button id='<%=trip.id%>' class="btn btn-ld btn-success rounded-pill" style="float: right;" type="submit"> Start Trip</button>
+                                           <% } else { %>  
+                                               <td>Trip Completed</td>
+                                           <% } %>
                                     </form>
                                 </div>
                             </div>

@@ -91,15 +91,26 @@
 
                                     <!--- this is the place to insert maps to get the list of the things-->
                                     <div id="map" style="height: 400px; width: auto;"></div>
-                                    <button class="btn-lg btn-primary" type="submit"
-                                        style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
-                                        >Start Journey</button>
+                                    
 
                 </form>
-                <form class="" action="/logistics/staff_multiple_endTrip" method="post">
+
+                <%if (trip.request_type == ['dropoff']) { %>
+    
                     <button class="btn-lg btn-danger" type="button"
+                        style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
+                        data-toggle="modal" data-target="#qualificationsModal">End Trip</button>
+              
+                    
+                <% } else { %>
+                    <button class="btn-lg btn-primary" type="submit"
                     style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
-                    data-toggle="modal" data-target="#exampleModalCenter_two">End Trip</button>
+                    >Start Journey</button>
+                        
+                <% } %>
+
+                <form class="" action="/logistics/staff_multiple_endTrip" method="post">
+                    
 
 
                 <!-- Modal -->

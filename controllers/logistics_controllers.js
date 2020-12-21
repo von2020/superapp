@@ -651,7 +651,7 @@ class Logistics {
                                 res.redirect('/logistics/staff_multiple_returnToOffice');
                             } 
                             else {
-                                res.redirect('/logistics/staff_multiple_endTrip');
+                                res.redirect('/logistics/staff_multiple_startTrip');
                         }
                     }
                 }
@@ -1030,6 +1030,7 @@ class Logistics {
 
             console.log('the trip info highlighted here', trip_info)
             if (trip.driver_status == "BACK_TO_OFFICE") return res.redirect('/logistics/multiple_returnToOffice') // comeback to this.
+            if (trip.driver_status == "COMPLETED") return res.redirect('/logistics/start_trip')
             if (result.statusCode == '200') {
                 //multipleRequestPosition(req, res, trip)
                 console.log("this is the trip status you are interested in", trip)
@@ -1426,7 +1427,9 @@ class Logistics {
             });
 
             console.log('the trip info highlighted here', trip_info)
+            if (trip[0].requester_status == "COMPLETED") return res.redirect('staff_start_trip')
             if (trip_info[0] == undefined) return res.redirect('/logistics/staff_multiple_returnToOffice') // comeback to this.
+
             if (result.statusCode == '200') {
                 //multipleRequestPosition(req, res, trip)
                 console.log("this is the trip status you are interested in", trip)

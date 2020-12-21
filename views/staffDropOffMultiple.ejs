@@ -86,10 +86,7 @@
 
                                     <!--- this is the place to insert maps to get the list of the things-->
                                     <div id="map" style="height: 400px; width: auto;"></div>
-                                    <button class="btn-lg btn-primary" type="button"
-                                        style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
-                                        data-toggle="modal" data-target="#exampleModalCenter">Arrive Destination
-                                        </button>
+                                    
 
 
                                     <!-- Modal -->
@@ -114,8 +111,12 @@
 
                                                     <div class="form-group">
                                                         <label for="exampleFormControlSelect1">Arrival Fuel Reading</label>
-                                                        <input name="fuel" class="form-control" id="fuel"
-                                                            required>
+                                                        <select name="fuel" class="form-control" id="fuel" required>
+                                                            <option >Full</option>
+                                                            <option >Half Full</option>
+                                                            <option >Half Empty</option>
+                                                            <option >Empty</option>
+                                                        </select>
                                                     </div>
 
                                                 </div>
@@ -127,12 +128,24 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                </form>
+                                <%if (trip.request_type == ['dropoff']) { %>
+    
+                                    <button class="btn-lg btn-danger" type="button"
+                                    style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
+                                    data-toggle="modal" data-target="#qualificationsModal"> End Trip</button>
+                              
+                                    
+                                <% } else { %>
+                                  <button class="btn-lg btn-primary" type="button"
+                                  style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
+                                  data-toggle="modal" data-target="#exampleModalCenter">Arrived Destination
+                                </button>
+                              
+                                <% } %>
                
                 <form class="" action="/logistics/staff_multiple_endTrip" method="post">
-                    <button class="btn-lg btn-danger" type="button"
-                    style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
-                    data-toggle="modal" data-target="#exampleModalCenter_two">End Trip</button>
+                    
 
 
                 <!-- Modal -->
