@@ -11,6 +11,8 @@ const {
     getActiveUsers,
     viewActiveUsers,
     handleViewActiveUsers,
+    activeUsersInactive,
+    handleActiveUsersInactive,
     getInActiveUsers,
     viewInActiveUsers,
     handleViewInActiveUsers,
@@ -32,6 +34,9 @@ router.get('/getActiveUsers', [adminCheckSession], getActiveUsers);
 // this is the route to view all the users
 router.get('/viewActiveUsers', [adminCheckSession], viewActiveUsers);
 router.post('/viewActiveUsers', [adminCheckSession], handleViewActiveUsers);
+
+router.get('/activeUsersInactive', [adminCheckSession], activeUsersInactive);
+router.post('/handleActiveUsersInactive', [adminCheckSession], handleActiveUsersInactive);
 
 // this are the routes for the inactive users 
 router.get('/getInActiveUsers', [adminCheckSession], getInActiveUsers);

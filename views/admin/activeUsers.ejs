@@ -66,6 +66,7 @@
                         <th>Phone</th>
                         <th>Title</th>
                         <th> View User </th>
+                        <th> Make User Inactive </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -76,6 +77,7 @@
                           <td><%= user.phone%></td>
                           <td><%= user.title%></td>
                           <td><a href="/admin/manage/viewActiveUsers?id=<%=user.id%>" id='<%=user.id%>' class="btn btn-sm btn-success rounded-pill" > Veiw Details</a></td>
+                          <td><a href="/admin/manage//activeUsersInactive?id=<%=user.id%>" id='<%=user.id%>' class="btn btn-sm btn-danger rounded-pill" > Make User Inactive</a></td>
 
                         </tr>
                         <% })%>

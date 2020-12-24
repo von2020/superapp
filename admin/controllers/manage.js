@@ -20,10 +20,11 @@ class admin_manage_controllers {
             const {result, resbody} = await getUsers(token);
             const users = resbody;
             req.session.users = resbody;
+            // console.log("users", users)
             if (result.statusCode == '200') {
                 res.render('admin/activeUsers' , {userDetails, users});
             } else {
-                resMessageRedirect(res, req, 'error_msg', 'Something went wrong start this trip again','/admin/manage/getInActiveUsers')
+                resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/getInActiveUsers')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -45,6 +46,8 @@ class admin_manage_controllers {
                 return user.id == user_id
             });
             user = user[0]
+            
+            console.log("user", user)
             
             res.render('admin/viewActiveUsers', {userDetails, user, subs: subs.resbody})
         } catch(err){
@@ -76,6 +79,60 @@ class admin_manage_controllers {
 
             if (result.statusCode == '200') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully updated the profile of ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getActiveUsers')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', `Updates could not be made on the profile of  ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getActiveUsers')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+
+    }
+
+    static async activeUsersInactive (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const user_id = req.query.id;
+        req.session.user_id = user_id;
+        const users = req.session.users;
+        try{
+            
+            const subs = await getSubs();
+
+            var user = users.filter(function (user) {
+                return user.id == user_id
+            });
+            user = user[0]
+            console.log("user", user)
+            
+            
+            res.render('admin/activeUsersInactive', {userDetails, user, subs: subs.resbody})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async handleActiveUsersInactive (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const user_id = req.session.user_id;
+
+        const query = {
+            email: req.body.email,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone: req.body.phone,
+            title: req.body.title,
+            is_active: false
+            
+        }
+
+        console.log('query', query)
+        try{
+            const {result, resbody} = await updateUsers(query, token, user_id);
+
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully made ${query.first_name + ' '+ query.last_name} inactive`,'/admin/manage/getActiveUsers')
             } else {
                 resMessageRedirect(res, req, 'error_msg', `Updates could not be made on the profile of  ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getActiveUsers')
             }
