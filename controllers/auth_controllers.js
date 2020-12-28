@@ -56,48 +56,36 @@ class auth_controllers {
 
     // Handle the register post request.
     static async handleRegister (req, res) {
-        req.session.destroy(function(err) {
-            if (err) return console.log('error',err)
-          });
-
+        // req.session.destroy(function(err) {
+        //     if (err) return console.log('error',err)
+        //   });
         const query = {
             old_password : req.body.old_password,
             new_password : req.body.confirm_password,
         }
 
-        // const query = {
-        //     email: req.body.email,
-        //     first_name: req.body.first_name,
-        //     last_name: req.body.last_name,
-        //     phone: req.body.phone,
-        //     title: req.body.title,
-        //     password: req.body.password,
-        //     confirm_password: req.body.confirm_password,
-        //     upline: parseInt(req.body.upline) ,
-        //     subsidiary: parseInt(req.body.subsidiary),
-        //     department: parseInt(req.body.department),
-        //     role: parseInt(req.body.role)
-        // }
+        
+        const id = req.body.email
+
+        
+        console.log('id', id)
+
+        
 
         console.log('query', query)
 
         let errors = [];
-        try{
+        try{    
             //const { error, value} = validateRegister(query); // i do not think i am responisble for setting up the status numbers so i deleted a code that was here check if this is the case
             if (req.body.password != req.body.confirm_password) {
-                //errors.push({msg: 'Something went wrong, Re-Fill your credentials.'}); // error.details[0].message
-                // you need to come back to this place and the place that is logging your values and stop routing through a proxy.
-                //if (req.body.password != req.body.confirm_password) {
+                
                     errors.push({msg: 'Your passwords do not match '})
-                //} // the return i placed here made thisexit the function
-                // this logic has to be fixed.
-                // the validation logic needs to change
+                
                 req.flash('errors', errors);
                 console.error('Error from the validation logic', error) //use winston here
                 return res.redirect('/register');
                 
             } else {
-                //const {result, resbody} = await createRegister(query);
                 const {result, resbody} = await updatePassword(query, id);
                 console.log(result.statusCode)
                 console.log(resbody)

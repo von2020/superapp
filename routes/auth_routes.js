@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { forwardAuthenticate, checkSession} = require('../middlewares/checksession');
+const { forwardAuthenticate, checkSession, checkSessionAccount} = require('../middlewares/checksession');
 
 
 //require the controllers from the controllers route
@@ -20,7 +20,7 @@ const {
 } = auth_controllers;
 
 router.get('/register', displayRegister);
-router.post('/register', handleRegister)
+router.post('/register', handleRegister);
 
 // this was an attempt to use this route to get the values in ajax in the request page.
 // router.get('/departments', handleDeps)
