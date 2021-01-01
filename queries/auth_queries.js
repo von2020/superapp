@@ -1,4 +1,4 @@
-const {getResponse, getResponse_get, putResponseparam} = require('../utils/query_util');
+const {getResponse, getResponse_get, putResponseparam, postResponse} = require('../utils/query_util');
 
 class auth_queries {
 
@@ -77,6 +77,28 @@ class auth_queries {
             if (err) console.log('login error', err)
         }
     }
+
+    static async reset_password(query, token) {
+        const url = 'accounts/password_reset/';
+        try {
+            const {result, resbody} = await postResponse(query, url)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async reset_password_confirm(query, token) {
+        const url = 'accounts/password_reset/confirm/';
+        try {
+            const {result, resbody} = await postResponse(query, url)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('error', err)
+        }
+    };
 
     static async updatePassword(query, id) {
         const url = `accounts/change_password?param=${id}`

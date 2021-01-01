@@ -12,6 +12,8 @@ const {
     createRegister,
     loginRequest,
     updatePassword,
+    reset_password,
+    reset_password_confirm,
     getDeb1
 } = auth_queries;
 
@@ -82,7 +84,7 @@ class auth_controllers {
                     errors.push({msg: 'Your passwords do not match '})
                 
                 req.flash('errors', errors);
-                console.error('Error from the validation logic', error) //use winston here
+                console.error('Error from the validation logic', errors) //use winston here
                 return res.redirect('/register');
                 
             } else {
@@ -108,6 +110,114 @@ class auth_controllers {
     
     };
 
+    static async resetPassword (req, res) {
+        
+        res.render('reset_password');
+    };
+
+    static async handleResetPassword (req, res) {
+        
+        const query = {
+            email: req.body.email    
+        }
+        console.log("query", query);
+        try{
+            const {result, resbody} = await reset_password(query)
+            if (result.statusCode == 200){
+                
+                    req.flash('success_msg', 'Reset Password Mail Sent');
+                    return res.redirect ('/reset-password');
+                    
+                    
+            }
+                
+            else if (result.statusCode == 400) {
+                req.session.failed = resbody
+                console.log('failed users',resbody)
+                req.flash('error', 'Bad request');
+                res.redirect('/reset-password');
+                return;
+            }
+            else {
+                req.flash('error_msg', 'Something went wrong contact IT support');
+                res.redirect('/reset-password');
+                return; 
+            }
+            
+        }
+        catch(err) {
+            if (err) return console.log(err)
+        }
+    
+    }
+
+    static async resetPasswordConfirm (req, res) {
+        
+            const id = req.query.token
+
+            req.session.user_reg_id = id
+            
+            console.log('id', id)
+        res.render('reset-password-auth', {id});
+    };
+
+    static async handleResetPasswordConfirm (req, res) {
+        // req.session.destroy(function(err) {
+        //     if (err) return console.log('error',err)
+        //   });
+
+        // const id = req.query.token
+
+        // req.session.user_reg_id = id
+            
+        // console.log('id', id)
+
+        const query = {
+            password : req.body.confirm_password,
+            token    : req.body.token,
+        }
+
+        
+        
+
+        
+
+        console.log('query', query)
+
+        let errors = [];
+        try{    
+            //const { error, value} = validateRegister(query); // i do not think i am responisble for setting up the status numbers so i deleted a code that was here check if this is the case
+            if (req.body.password != req.body.confirm_password) {
+                
+                    errors.push({msg: 'Your passwords do not match '})
+                
+                req.flash('errors', errors);
+                console.log('Error from the validation logic', errors) //use winston here
+                return res.redirect('/reset-password-confirm');
+                
+            } else {
+                const {result, resbody} = await reset_password_confirm(query);
+                console.log("result",result.statusCode)
+                const details = resbody;
+                console.log("details", resbody)
+                if ( result.statusCode == 200 ) {
+                    req.flash('success_msg', 'Password Changed Successfully');
+                    return res.redirect('/login')          
+                }
+                // there should be a logic here for the 400 error.   
+                else  {
+                    req.flash('error_msg', details.password);
+                    return res.redirect('/reset-password-confirm')
+                }  
+            }
+        }
+
+        catch (err){
+             if (err) return console.log('error', err)
+        }
+
+    
+    };
 
     static async displayLogin (req, res) {
         res.render('index');

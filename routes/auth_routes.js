@@ -16,6 +16,10 @@ const {
     displayDashboard,
     logout,
     authorization,
+    resetPassword,
+    handleResetPassword,
+    resetPasswordConfirm,
+    handleResetPasswordConfirm,
     handleDeps
 } = auth_controllers;
 
@@ -24,6 +28,12 @@ router.post('/register', handleRegister);
 
 // this was an attempt to use this route to get the values in ajax in the request page.
 // router.get('/departments', handleDeps)
+
+router.get('/reset-password', resetPassword);
+router.post('/reset-password', handleResetPassword);
+
+router.get('/reset-password-confirm', resetPasswordConfirm);
+router.post('/reset-password-confirm', handleResetPasswordConfirm);
 
 router.get('/login', forwardAuthenticate, displayLogin);
 router.post('/login', handleLogin);
