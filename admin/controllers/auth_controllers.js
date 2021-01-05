@@ -19,7 +19,7 @@ class auth_controllers {
 
         if (error) {
             req.flash('error_msg', 'This email does not match the standard email format')
-            res.redirect('/admin/login')
+            res.redirect('/admin')
             return console.error('login error', error)
         } // i dont think i need this tbh
         
@@ -32,7 +32,7 @@ class auth_controllers {
             if (result.statusCode == 200){
                 if (resbody.role != 'Super Admin') {
                     req.flash('error', 'Login to the user profile');
-                    return res.redirect ('/login')
+                    return res.redirect ('')
                 }
                 req.session.userDetails = resbody
                 console.log(req.session.userDetails)
@@ -41,12 +41,12 @@ class auth_controllers {
             }
             else if (result.statusCode == 400) {
                 req.flash('error', 'Bad request');
-                res.redirect('/admin/login');
+                res.redirect('/admin');
                 return;
             }
             else {
                 req.flash('error_msg', 'Something went wrong contact IT support');
-                res.redirect('/admin/login');
+                res.redirect('/admin');
                 return; 
             }
             
@@ -70,7 +70,7 @@ class auth_controllers {
         req.session.destroy(function(err) {
             if (err) return console.log('error',err)
           });
-          res.redirect('/admin/login')
+          res.redirect('/admin')
     }
     
 

@@ -18,8 +18,8 @@ const {
 
 // for the registration aspect , we are going to add a part that allows a super admin already created to add new super admins.
 
-router.get('/login', adminForwardAuthenticate, displayLogin);
-router.post('/login', handleLogin);
+router.get('', adminForwardAuthenticate, displayLogin);
+router.post('', handleLogin);
 
 router.get('/dashboard', adminCheckSession, displayDashboard);
 

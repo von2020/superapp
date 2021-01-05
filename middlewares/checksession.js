@@ -11,7 +11,7 @@ class Authenticate {
     static checkSession (req, res, next) { //this may need to be edited cause it does not make that much sense atm.
         if (!req.session.userDetails) {
             req.flash('error', 'You are not logged in');
-            res.redirect ('/login');        
+            res.redirect ('');        
         } else if (req.session.userDetails) {
             return next()
         }   
@@ -32,7 +32,7 @@ class Authenticate {
     static adminCheckSession(req, res, next) {
         if (!req.session.userDetails) { // || req.session.userDetails.role != 'Super Admin' // find a work around for this
             req.flash('error', 'You are not logged in');
-            res.redirect('/admin/login');
+            res.redirect('/admin');
         } else if (req.session.userDetails) {
             if(req.session.userDetails.role == 'Super Admin') {
                 return next()

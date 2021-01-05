@@ -93,7 +93,7 @@ class auth_controllers {
                 console.log(resbody)
                 if ( result.statusCode == 200 ) {
                     req.flash('success_msg', 'Account Now Active');
-                    return res.redirect('/login')          
+                    return res.redirect('')          
                 }
                 // there should be a logic here for the 400 error.   
                 else  {
@@ -202,7 +202,7 @@ class auth_controllers {
                 console.log("details", resbody)
                 if ( result.statusCode == 200 ) {
                     req.flash('success_msg', 'Password Changed Successfully');
-                    return res.redirect('/login')          
+                    return res.redirect('')          
                 }
                 // there should be a logic here for the 400 error.   
                 else  {
@@ -228,7 +228,7 @@ class auth_controllers {
 
         if (error) {
             req.flash('error_msg', 'This email does not match the standard email format')
-            res.redirect('/login')
+            res.redirect('')
             return console.error('login error', error)
         } // i dont think i need this tbh
         
@@ -241,7 +241,7 @@ class auth_controllers {
             if (result.statusCode == 200){
                 if (resbody.role == 'Super Admin') {
                     req.flash('error', 'Login to the admin profile');
-                    return res.redirect ('/admin/login')
+                    return res.redirect ('/admin')
                 }
                 req.session.userDetails = resbody
                 console.log(req.session.userDetails)
@@ -250,12 +250,12 @@ class auth_controllers {
             }
             else if (result.statusCode == 400) {
                 req.flash('error', 'Bad request');
-                res.redirect('/login');
+                res.redirect('');
                 return;
             }
             else {
                 req.flash('error_msg', 'Something went wrong contact IT support');
-                res.redirect('/login');
+                res.redirect('');
                 return; 
             }
             
@@ -285,7 +285,7 @@ class auth_controllers {
         req.session.destroy(function(err) {
             if (err) return console.log('error',err)
           });
-          res.redirect('/login')
+          res.redirect('')
     }
     
 
