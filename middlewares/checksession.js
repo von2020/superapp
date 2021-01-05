@@ -11,7 +11,7 @@ class Authenticate {
     static checkSession (req, res, next) { //this may need to be edited cause it does not make that much sense atm.
         if (!req.session.userDetails) {
             req.flash('error', 'You are not logged in');
-            res.redirect ('');        
+            res.redirect ('/');        
         } else if (req.session.userDetails) {
             return next()
         }   

@@ -35,8 +35,8 @@ router.post('/reset-password', handleResetPassword);
 router.get('/reset-password-confirm', resetPasswordConfirm);
 router.post('/reset-password-confirm', handleResetPasswordConfirm);
 
-router.get('', forwardAuthenticate, displayLogin);
-router.post('', handleLogin);
+router.get('/', forwardAuthenticate, displayLogin);
+router.post('/', handleLogin);
 
 router.get('/dashboard', checkSession, displayDashboard);
 
