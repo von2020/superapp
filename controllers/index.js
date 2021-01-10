@@ -1,11 +1,13 @@
 const auth_controllers = require('./auth_controllers');
 const request_controllers = require('./request_controllers');
 const failities_controllers = require('./facilities_controllers');
-const logistics_controllers = require('./logistics_controllers')
+const logistics_controllers = require('./logistics_controllers');
+const dashboard_controllers = require('./dashboard_controllers')
 
 module.exports = {
     auth_controllers,
     request_controllers,
     failities_controllers,
-    logistics_controllers
+    logistics_controllers,
+    dashboard_controllers
 };

@@ -23,10 +23,12 @@ const {
     handleCreateSingleUsers,
     failedUsers,
     handleFailedUsers,
+    displayProfile,
     getFailedUsers
 } = admin_manage_controllers;
 
 
+router.get('/profile', [adminCheckSession], displayProfile);
 
 // this route is used to get the list of all active users
 router.get('/getActiveUsers', [adminCheckSession], getActiveUsers);

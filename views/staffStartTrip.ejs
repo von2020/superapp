@@ -103,8 +103,9 @@
                           <td><%= item.trip_type%></td>
                           <td><%= item.vehicle_info%></td>
                           <%if (item.requester_status == ['REQUESTED']) { %>
-                            <td> <a href="/logistics/staffHandleStartTrip" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View Trip</button></td>
-                              
+                            <td> <a href="/logistics/staffHandleStartTrip" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Start Trip</button></td>
+                              <% } else if (item.requester_status == ['The trip for this request has not been created!']){ %>  
+                                <td> <a href="#" id='<%=item.id%>'  > Trip has not been registered by driver </button></td>
                               <% } else if (item.requester_status == ['BACK_TO_OFFICE']){ %>  
                                 <td> <a href="/logistics/handleStartTrip" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Return To Office </button></td>
                               <% } else { %>  

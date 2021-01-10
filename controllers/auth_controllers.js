@@ -14,6 +14,7 @@ const {
     updatePassword,
     reset_password,
     reset_password_confirm,
+    getTotals,
     getDeb1
 } = auth_queries;
 
@@ -267,13 +268,28 @@ class auth_controllers {
 
     static async displayDashboard (req, res) {
         var userDetails = req.session.userDetails
-        if (userDetails.role == 'Staff') {
-            res.render('dashboard_staff', {userDetails}) 
-        } else if (userDetails.role == 'Driver') {
-            res.render('dashboard_driver', {userDetails})
-        } else{
-            res.render('dashboard', {userDetails})
+        const token = userDetails.token
+
+        try{
+            const {result, resbody} = await getTotals(token);
+            const totals = resbody;
+            req.session.totals = resbody;
+            console.log("totals", totals)
+            if (result.statusCode == '200') {
+                if (userDetails.role == 'Staff') {
+                    res.render('dashboard_staff', {userDetails}) 
+                } else if (userDetails.role == 'Driver') {
+                    res.render('dashboard_driver', {userDetails})
+                } else{
+                    res.render('dashboard', {userDetails})
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
         }
+        
     };
 
     static async authorization (req, res) {

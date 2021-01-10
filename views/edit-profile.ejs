@@ -36,13 +36,7 @@
 
 			<div class="page-content">
                 <%- include('.././partials/messages')%>
-				<nav class="page-breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Request</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Create Car Request</li>
-					</ol>
-				</nav>
-				
+								
 				<div class="row">
 					<div class="col-md-12 grid-margin stretch-card">
 						<div class="card">
@@ -50,19 +44,19 @@
 								<h6 class="card-title">Inputs</h6>
 
 								
-                                <form class="" action="/admin/manage/viewInActiveUsers" method="post">
+                                <form class="" action="/admin/manage/viewActiveUsers" method="post">
                                     
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">First Name</label>
-                                                <input name= "first_name" class="form-control" id="first_name" value="<%= user.first_name %>" required>
+                                                <input name= "first_name" class="form-control" id="first_name" value="<%= userDetails.first_name %>"readonly required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Last Name</label>
-                                                <input name= "last_name" class="form-control" id="last_name" value="<%= user.last_name %>" required>
+                                                <input name= "last_name" class="form-control" id="last_name" value="<%= userDetails.last_name %>" readonly required>
                                             </div>
                                         </div>
 									  </div>
@@ -71,13 +65,13 @@
 										<div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Email</label>
-                                                <input name= "email" class="form-control" id="email"  value="<%= user.email %>" required>
+                                                <input name= "email" class="form-control" id="email"  value="<%= userDetails.email %>"readonly required>
                                             </div>
 										</div>
 										<div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Phone</label>
-                                                <input name= "phone" class="form-control" id="Phone" value="<%= user.phone %>" required>
+                                                <input name= "phone" class="form-control" id="Phone" value="<%= userDetails.phone %>" required>
                                             </div>
 										</div>
 									  </div>
@@ -86,43 +80,57 @@
 										<div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Title</label>
-                                                <input name= "title" class="form-control" id="title" value="<%= user.title %>" required>
+                                                <input name= "title" class="form-control" id="title" value="<%= userDetails.title %>" required>
                                             </div>
-										</div> 
+										</div>
 										<div class="col">
 											<div class="form-group">
                                                 <label for="exampleFormControlSelect1">Creation Date</label>
                                                 <input name= "date" class="form-control" id="date" value="<%= user.created_on %>" readonly required>
                                             </div>
 										</div>
+										 
+										
+					  
 									  </div>
-									  <div class="row">
+
+									   <div class="row"> 
 										<div class="col">
 											<% var x =  user.last_login %>
 											<% if (typeof x == 'object') { %>
-                                                 <% var login = 'N/A' %>
-                                            <% } else {%>
-                                                <% var login = user.last_login %>
-												<% }%>
+												 <% var login = 'N/A' %>
+											
 											<div class="form-group">
                                                 <label for="exampleFormControlSelect1">Last Login Date</label>
                                                 <input name= "last_login" class="form-control" id="last_login" value="<%= login %>" readonly required>
 											</div>
-                                            
+										<% } %>
 										</div>
-										<div class="col">
-											<div class="form-group">
-                                                <label for="exampleFormControlSelect1">Destination</label>
-                                                <input name= "destination" class="form-control" id="destination" value="<%= user.last_name %>" required>
-                                            </div>
-										</div>
+										
 									  </div>
-
 									  <div class="row">
 										<div class="col">
 											<div class="form-group">
                                                 <label for="exampleFormControlSelect1">Subsidiary</label>
-												<select class="form-control" id="subsidiary" name="subsidiary" onchange="changeFun()">
+												<input name= "subsidiary" class="form-control" id="subsidiary" value="<%= userDetails.subsidiary %>" readonly required>
+                                            </div>
+										</div>
+										<div class="col"> 
+											<div class="form-group" id="divdepartment">
+											  <label for="exampleFormControlSelect1">Department</label>
+											  <input name= "department_id" class="form-control" id="department" value="<%= userDetails.department %>" readonly required>
+											</div>
+										</div> 
+										  
+										  
+									  </div>
+										
+
+									  <div class="row">
+										<div class="col">
+											<div class="form-group" id="divupline">
+                                                <label for="exampleFormControlSelect1">Upline</label>
+												<select class="form-control" id="upline" name="upline" onchange="changeFun()">
 													<option selected> --- </option>
 													<% 
 																			  subs.forEach((sub, i) => { 
@@ -132,37 +140,18 @@
 																			  }) 
 																			%>
 												  </select>
-                                            </div>
-										</div>
-										
-										<div class="col">
-											<div class="form-group" id="divdepartment">
-											  <label for="exampleFormControlSelect1">Department</label>
-											  <select class='form-control' id='department' name='department' onchange='changeFun2()'>
-					  
-											  </select>
 											</div>
 										  </div>
-									  </div>
-
-									  <div class="row">
-										<div class="col">
-											<div class="form-group" id="divupline">
-											  <label for="exampleFormControlSelect1">Upline</label>
-											  <select class='form-control' id='upline' name='upline' onchange='changeFun_role()'>
-					  
-											  </select>
-											</div>
-										  </div>
-										  <div class="col">
+										<!-- <div class="col">
 											<div class="form-group" id="divrole">
 											  <label for="exampleFormControlSelect1">Role</label>
 											  <select class='form-control' id='role' name='role'>
 					  
 											  </select>
 											</div>
-										  </div>
-									  </div>
+										  </div> -->
+										
+									  </div> 
 
 									  
 									  <script>
@@ -246,9 +235,10 @@
 										}
 									  </script>
 								<!-- need to come back here to add the list of all the subsidiaries and uplines in case it needs to be changed, just copy from the old registration page-->
-									<button class="btn-lg btn-primary" type="submit">Update User detail</button>
-									<!-- <button class="btn-lg btn-danger" type="submit">Delete User</button> -->
+									<!-- <button class="btn-lg btn-primary" type="submit">Update User detail</button> -->
+									
 								</form>
+								
 							</div>
 						</div>
 					</div>

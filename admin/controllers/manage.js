@@ -258,7 +258,7 @@ class admin_manage_controllers {
             if (result.statusCode == '200') {
                 res.render('admin/userUpload' , {userDetails, users});
             } else {
-                resMessageRedirect(res, req, 'error_msg', 'Something went wrong start this trip again','/admin/manage/createUsers')
+                resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/createUsers')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -384,6 +384,11 @@ class admin_manage_controllers {
         };
 
     };
+
+    static async displayProfile (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('admin/admin_profile', {userDetails}) 
+        };
 
     static async handleFailedUsers (req, res) {
         const query = {
