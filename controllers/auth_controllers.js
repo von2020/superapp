@@ -292,6 +292,11 @@ class auth_controllers {
         
     };
 
+    static async displayPrivacyPolicy (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('privacy_policy', {userDetails}) 
+        };
+    
     static async authorization (req, res) {
         var userDetails = req.session.userDetails
         res.render('authorization', {userDetails})

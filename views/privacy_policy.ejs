@@ -25,38 +25,25 @@
 <body>
 	<div class="main-wrapper">
 
-        <!-- Insert the sidebar partial here-->
-        <% if (userDetails.role == 'Staff') { %>
-            <%- include('./bars/sidebar_staff') %>
-            <% } else if (userDetails.role == 'Supervisor') { %>
-            <%- include('./bars/sidebar_sup') %>
-            <%  } else if (userDetails.role == 'Driver Admin') { %>
-            <%- include('./bars/sidebar_driver') %>
-            <%  } else if (userDetails.role == 'Driver') { %>
-            <%- include('./bars/sidebar_carDriver') %>
-            <%  } else { %>
-            <%- include('./bars/sidebar') %>
-            <%  } %>
+        
 	
 		<div class="page-wrapper">
 				
-        <!-- partial:partials/_navbar.html, this represents the topbar bar -->
-        <%- include('./bars/topbar') %>
-        <!-- partial -->
+       
 
 			<div class="page-content">
-                <%- include('./partials/messages')%>
+                
 								
 				<div >
           <h3>PRIVACY NOTICE</h3><br>
           <h4>1. Introduction</h4><br>
           <p>Welcome to Telnet (Nigeria) Limited.<br>
 
-            Telnet (Nigeria) Limited (“us”, “we”, or “our”)<br> operates telnetsuperapp.com.ng (hereinafter referred to as “Service”).<br>
+            Telnet (Nigeria) Limited (“us”, “we”, or “our”) operates telnetsuperapp.com.ng (hereinafter referred to as “Service”).
             
-            Our Privacy Policy governs your visit to telnetsuperapp.com.ng , and <br>explains how we collect, safeguard and disclose information that results from <br>your use of our Service.<br>
-            We use your data to provide and improve Service. By using Service, you <br>agree to the collection and use of information in accordance with this policy. <br>Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy <br>have the same meanings as in our Terms and Conditions.<br>
-            Our Terms and Conditions (“Terms”) govern all use of our Service and <br>together with the Privacy Policy constitutes your agreement with us<br> (“agreement”).<br>
+            Our Privacy Policy governs your visit to telnetsuperapp.com.ng , and explains how we collect, safeguard and disclose information that results from your use of our Service.
+            We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.
+            Our Terms and Conditions (“Terms”) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (“agreement”).
             
             </p>
             <h4>2. Definitions</h4><br>

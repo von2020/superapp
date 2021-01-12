@@ -16,17 +16,14 @@ static async displayProfile (req, res) {
     res.render('profile', {userDetails}) 
     };
 
-static async displayPrivacyPolicy (req, res) {
-    var userDetails = req.session.userDetails
-    res.render('privacy_policy', {userDetails}) 
-    };
+
 
 static async editProfile (req, res) {
     const userDetails = req.session.userDetails;
     const token = userDetails.token;
     const user_id = req.query.id;
     req.session.user_id = user_id;
-    const id = userDetails.department;
+    const id = userDetails.department_id;
     // req.session.department = id;
 
     console.log("id", id);

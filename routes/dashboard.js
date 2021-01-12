@@ -9,7 +9,7 @@ const {dashboard_controllers} = require('../controllers/index')
 // the list of the controllers
 const {
     displayProfile,
-    displayPrivacyPolicy,
+    
     editProfile
     
 } = dashboard_controllers;
@@ -18,7 +18,7 @@ const {
 
 // this is used to the get the list of trips for a particular driver.
 router.get('/profile', [checkSession], displayProfile);
-router.get('/privacy-policy', [checkSession], displayPrivacyPolicy);
+
 router.get('/edit_profile', [checkSession], editProfile);
 
 

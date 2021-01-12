@@ -57,6 +57,11 @@ class auth_controllers {
         }
     }
 
+    static async adminDisplayPrivacyPolicy (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('admin/admin_privacy_policy', {userDetails}) 
+        };
+        
     static async displayDashboard (req, res) {
         var userDetails = req.session.userDetails
         const token = userDetails.token

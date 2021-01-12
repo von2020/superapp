@@ -13,6 +13,7 @@ const {
     handleLogin,
     displayDashboard,
     logout,
+    adminDisplayPrivacyPolicy,
     authorization,
 } = auth_controllers;
 
@@ -20,6 +21,8 @@ const {
 
 router.get('', adminForwardAuthenticate, displayLogin);
 router.post('', handleLogin);
+
+router.get('/privacy-policy',  adminDisplayPrivacyPolicy);
 
 router.get('/dashboard', adminCheckSession, displayDashboard);
 
