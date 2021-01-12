@@ -93,12 +93,12 @@ class auth_controllers {
                 console.log(result.statusCode)
                 console.log(resbody)
                 if ( result.statusCode == 200 ) {
-                    req.flash('success_msg', 'Account Now Active');
-                    return res.redirect('/')          
+                    req.flash('success_msg', resbody.status);
+                    return res.redirect('/register')          
                 }
                 // there should be a logic here for the 400 error.   
                 else  {
-                    req.flash('error_msg', 'Something went wrong, contact admin');
+                    req.flash('error_msg', resbody.old_password);
                     return res.redirect('/register')
                 }  
             }
@@ -135,7 +135,7 @@ class auth_controllers {
             else if (result.statusCode == 400) {
                 req.session.failed = resbody
                 console.log('failed users',resbody)
-                req.flash('error', 'Bad request');
+                req.flash('error', 'Email Not Registered');
                 res.redirect('/reset-password');
                 return;
             }
@@ -277,11 +277,11 @@ class auth_controllers {
             console.log("totals", totals)
             if (result.statusCode == '200') {
                 if (userDetails.role == 'Staff') {
-                    res.render('dashboard_staff', {userDetails}) 
+                    res.render('dashboard_staff', {userDetails, totals}) 
                 } else if (userDetails.role == 'Driver') {
-                    res.render('dashboard_driver', {userDetails})
+                    res.render('dashboard_driver', {userDetails, totals})
                 } else{
-                    res.render('dashboard', {userDetails})
+                    res.render('dashboard', {userDetails, totals})
                 }
             } else {
                 resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')

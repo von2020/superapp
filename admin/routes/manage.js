@@ -24,11 +24,14 @@ const {
     failedUsers,
     handleFailedUsers,
     displayProfile,
+    adminDisplayPrivacyPolicy,
     getFailedUsers
 } = admin_manage_controllers;
 
 
 router.get('/profile', [adminCheckSession], displayProfile);
+
+router.get('/admin-display-privacy', [adminCheckSession], adminDisplayPrivacyPolicy);
 
 // this route is used to get the list of all active users
 router.get('/getActiveUsers', [adminCheckSession], getActiveUsers);

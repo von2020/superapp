@@ -6,6 +6,7 @@ const {auth_queries} = require('../queries');
 
 const {
     loginRequest,
+    getTotals,
 } = auth_queries;
 
 class auth_controllers {
@@ -58,7 +59,18 @@ class auth_controllers {
 
     static async displayDashboard (req, res) {
         var userDetails = req.session.userDetails
-        res.render('admin/admin_dashboard', {userDetails}) 
+        const token = userDetails.token
+
+        try{
+            const {result, resbody} = await getTotals(token);
+            const totals = resbody;
+            req.session.totals = resbody;
+            console.log("totals", totals)
+        res.render('admin/admin_dashboard', {userDetails, totals}) 
+    
+        }catch(err){
+            if (err) console.log('error', err)
+        }
     };
 
     static async authorization (req, res) {

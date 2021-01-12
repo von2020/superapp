@@ -67,7 +67,7 @@ class auth_queries {
     };
 
     static async getTotals(token) {
-        const url = 'accounts/totals';
+        const url = 'accounts/dashboard_total';
         try {
             const { result, resbody } = await getResponse_request(url, token)
             return { result, resbody }

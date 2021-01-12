@@ -16,6 +16,11 @@ static async displayProfile (req, res) {
     res.render('profile', {userDetails}) 
     };
 
+static async displayPrivacyPolicy (req, res) {
+    var userDetails = req.session.userDetails
+    res.render('privacy_policy', {userDetails}) 
+    };
+
 static async editProfile (req, res) {
     const userDetails = req.session.userDetails;
     const token = userDetails.token;

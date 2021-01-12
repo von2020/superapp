@@ -32,6 +32,11 @@ class admin_manage_controllers {
   
     };
 
+    static async adminDisplayPrivacyPolicy (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('admin/admin_privacy_policy', {userDetails}) 
+        };
+
     static async viewActiveUsers (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;

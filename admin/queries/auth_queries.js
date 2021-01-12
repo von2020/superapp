@@ -1,4 +1,4 @@
-const {getResponse, getResponse_get} = require('../../utils/query_util');
+const {getResponse, getResponse_get, getResponse_request} = require('../../utils/query_util');
 
 class auth_queries {
 
@@ -12,6 +12,17 @@ class auth_queries {
             return {result, resbody}
 
         }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getTotals(token) {
+        const url = 'accounts/dashboard_total';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
