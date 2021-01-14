@@ -155,6 +155,25 @@ static postResponse(query, url) {
 });
 };
 
+static postResponse_reset(query, url) {
+  return new Promise ( (resolve, reject) => {
+  
+      const body = JSON.stringify(query);
+      const options = {
+        headers: {
+          'content-Type': 'application/json',
+        },
+        url: `${url}`,
+        body,
+      };
+      request.post(options, (error, result, resBody) => {
+        if (error) reject(error);
+        var resbody = JSON.parse(result.body);
+        resolve({result, resbody})
+      });
+});
+};
+
 }
 
 module.exports = Consumers

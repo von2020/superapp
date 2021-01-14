@@ -1,4 +1,4 @@
-const {getResponse, getResponse_get, putResponseparam, postResponse, getResponse_request} = require('../utils/query_util');
+const {getResponse, getResponse_get, putResponseparam, postResponse,postResponse_reset, getResponse_request} = require('../utils/query_util');
 
 class auth_queries {
 
@@ -90,9 +90,9 @@ class auth_queries {
     }
 
     static async reset_password(query, token) {
-        const url = 'accounts/password_reset/';
+        const url = 'http://173.212.208.45:8000/api/password_reset/';
         try {
-            const {result, resbody} = await postResponse(query, url)
+            const {result, resbody} = await postResponse_reset(query, url)
             return {result, resbody}
             
         }catch(err){
@@ -101,9 +101,9 @@ class auth_queries {
     };
 
     static async reset_password_confirm(query, token) {
-        const url = 'accounts/password_reset/confirm/';
+        const url = 'http://173.212.208.45:8000/api/password_reset/confirm/';
         try {
-            const {result, resbody} = await postResponse(query, url)
+            const {result, resbody} = await postResponse_reset(query, url)
             return {result, resbody}
             
         }catch(err){

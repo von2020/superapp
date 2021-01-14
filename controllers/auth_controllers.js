@@ -153,10 +153,10 @@ class auth_controllers {
     }
 
     static async resetPasswordConfirm (req, res) {
-        
-            const id = req.query.token
+         console.log(req.query)
+            const id = req.query.token;
 
-            req.session.user_reg_id = id
+            // req.session.user_reg_id = id
             
             console.log('id', id)
         res.render('reset-password-auth', {id});
@@ -250,12 +250,14 @@ class auth_controllers {
                 return;
             }
             else if (result.statusCode == 400) {
-                req.flash('error', 'Bad request');
+                console.log("resbody", resbody)
+                req.flash('error', resbody.error);
                 res.redirect('/');
                 return;
             }
             else {
-                req.flash('error_msg', 'Something went wrong contact IT support');
+                console.log("resbody", resbody)
+                req.flash('error_msg', resbody.error);
                 res.redirect('/');
                 return; 
             }

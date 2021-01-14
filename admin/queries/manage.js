@@ -97,6 +97,19 @@ class admin_manage_queries {
             if (err) console.log('login error', err)
         }
     };
+
+    static async getUpline_edit (id) {
+        const url = `accounts/uplines/${id}`;
+
+        try {
+            const {result, resbody} = await getResponse_get(url)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async getDept () {
         const url = 'accounts/departments';
 

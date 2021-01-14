@@ -41,12 +41,14 @@ class auth_controllers {
                 return;
             }
             else if (result.statusCode == 400) {
-                req.flash('error', 'Bad request');
+                console.log("resbody", resbody)
+                req.flash('error', resbody.error);
                 res.redirect('/admin');
                 return;
             }
             else {
-                req.flash('error_msg', 'Something went wrong contact IT support');
+                console.log("resbody", resbody)
+                req.flash('error_msg', resbody.error);
                 res.redirect('/admin');
                 return; 
             }
@@ -61,7 +63,7 @@ class auth_controllers {
         var userDetails = req.session.userDetails
         res.render('admin/admin_privacy_policy', {userDetails}) 
         };
-        
+
     static async displayDashboard (req, res) {
         var userDetails = req.session.userDetails
         const token = userDetails.token

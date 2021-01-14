@@ -26,26 +26,16 @@
 	<div class="main-wrapper">
 
         <!-- Insert the sidebar partial here-->
-        <% if (userDetails.role == 'Staff') { %>
-            <%- include('./bars/sidebar_staff') %>
-            <% } else if (userDetails.role == 'Supervisor') { %>
-            <%- include('./bars/sidebar_sup') %>
-            <%  } else if (userDetails.role == 'Driver Admin') { %>
-            <%- include('./bars/sidebar_driver') %>
-            <%  } else if (userDetails.role == 'Driver') { %>
-            <%- include('./bars/sidebar_carDriver') %>
-            <%  } else { %>
-            <%- include('./bars/sidebar') %>
-            <%  } %>
+        <%- include('./bars/admin_sidebar') %>
 	
 		<div class="page-wrapper">
 				
         <!-- partial:partials/_navbar.html, this represents the topbar bar -->
-        <%- include('./bars/topbar') %>
+        <%- include('./bars/admin_topbar') %>
         <!-- partial -->
 
 			<div class="page-content">
-                <%- include('./partials/messages')%>
+                <%- include('.././partials/messages')%>
 								
 				<div class="row">
 					<div class="col-md-12 grid-margin stretch-card">
@@ -54,7 +44,7 @@
 								<h6 class="card-title">Inputs</h6>
 
 								
-                                <form class="" action="/dashboard/edit_profile" method="post">
+                                <form class="" action="/admin/manage/edit-profile" method="post">
                                     
                                     <div class="row">
                                         <div class="col">
@@ -251,7 +241,7 @@
 			</div>
 			
 			<!-- partial:partials/_footer.html -->
-            <%- include('./bars/footer') %>
+            <%- include('./bars/admin_footer') %>
 			<!-- partial -->
 	
 		</div>
