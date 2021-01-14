@@ -432,9 +432,7 @@ class admin_manage_controllers {
             phone: req.body.phone,
             title: req.body.title,
             upline: req.body.upline ,
-            subsidiary: req.body.subsidiary,
-            department: req.body.department,
-            role: req.body.role
+            
         }
 
         console.log('query', query)
