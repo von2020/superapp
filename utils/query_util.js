@@ -117,6 +117,26 @@ static putResponse(query, url, token) {
 });
 };
 
+static putResponse_image(query, url) {
+  return new Promise ( (resolve, reject) => {
+  
+      const body = JSON.stringify(query);
+      const options = {
+        headers: {
+          'content-Type': 'form-data',
+          'Authorization': `Token ${token}`
+        },
+        url: `${baseUrl}${url}`,
+        body,
+      };
+      request.put(options, (error, result, resBody) => {
+        if (error) reject(error);
+        var resbody = JSON.parse(result.body);
+        resolve({result, resbody})
+      });
+});
+};
+
 static putResponseparam(query, url) {
   return new Promise ( (resolve, reject) => {
   

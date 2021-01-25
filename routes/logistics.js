@@ -10,6 +10,8 @@ const {logistics_controllers} = require('../controllers/index')
 const {
     getTrips,
     createTrip,
+    uploadImage,
+    handleUploadImage,
     handlecreateTrip,
     endTrip,
     handleEndTrip,
@@ -58,6 +60,9 @@ router.get('/getTrip', [checkSession], getTrips)
 
 router.get('/createTrip', [checkSession], createTrip)
 router.post('/createTrip', [checkSession], handlecreateTrip)
+
+// router.get('/upload_image', [checkSession], uploadImage)
+// router.post('/upload_image', [checkSession], handleUploadImage)
 
 // this are the routes to start the trip
 router.get('/trip', [checkSession], startTrip)

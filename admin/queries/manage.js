@@ -26,6 +26,29 @@ class admin_manage_queries {
         }
     };
 
+    static async carRequests(token) {
+        const url = 'core/vrequest';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+
+    static async uplinequery(query, token, id) {
+        const url = `core/vrequest/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    }; 
+
 
     //update the account of a user
     static async updateUsers(query, token, user_id) {

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { adminCheckSession} = require('../../middlewares/checksession');
-const {} = require('../../middlewares/authorization')
+const {superAdminAuthorize} = require('../../middlewares/authorization')
 
 // require the list of request controllers
 const {admin_manage_controllers} = require('../controllers/index')
@@ -11,6 +11,9 @@ const {
     getActiveUsers,
     viewActiveUsers,
     handleViewActiveUsers,
+    viewRequest,
+    memberRequest,
+    uplineApprove,
     activeUsersInactive,
     handleActiveUsersInactive,
     getInActiveUsers,
@@ -25,9 +28,34 @@ const {
     handleFailedUsers,
     displayProfile,
     editProfile,
+    viewmanageRequest,
+    manageMemberRequest,
+    manageUplineApprove,
+    renderReassign,
+    assignVehicle,
+    handleAssignVehicle,
     handleEditProfile,
     getFailedUsers
 } = admin_manage_controllers;
+
+router.get('/view_request', [adminCheckSession, superAdminAuthorize], viewRequest);
+router.get('/individual_request', [adminCheckSession, superAdminAuthorize], memberRequest);
+
+router.post('/individual_request', [adminCheckSession, superAdminAuthorize], uplineApprove);
+
+//this is for the driver admin to be able to accept or reject requests;
+router.get('/viewmanage_request', [adminCheckSession, superAdminAuthorize], viewmanageRequest);
+
+router.get('/viewindividual_request', [adminCheckSession, superAdminAuthorize], manageMemberRequest);
+
+router.post('/viewindividual_request', [adminCheckSession, superAdminAuthorize], manageUplineApprove);
+
+router.get('/reassign', [adminCheckSession, superAdminAuthorize], renderReassign);
+
+// this is to assign a vehicle to a client once the request has been approved
+
+router.get('/assign_vehicle', [adminCheckSession, superAdminAuthorize], assignVehicle);
+router.get('/handleassign_vehicle', [adminCheckSession, superAdminAuthorize], handleAssignVehicle)
 
 
 router.get('/profile', [adminCheckSession], displayProfile);

@@ -1,7 +1,7 @@
-body{
+body {
   padding: 0px;
   margin: 0px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .header {
@@ -24,19 +24,17 @@ body{
 
 .blue {
   color: Blue;
-
 }
 
 .front-page-container {
-  height: 100% ;
-  overflow: hidden ;
+  height: 100%;
+  overflow: hidden;
 }
-
 
 .form-container {
   display: flex;
   align-items: center;
-  margin:auto;
+  margin: auto;
   width: 650px;
   height: 100%;
 }
@@ -46,19 +44,19 @@ body{
   margin: auto;
 }
 
-.form-group{
+.form-group {
   display: flex;
   justify-content: space-between;
 }
 
 h1 {
-  color: #111B60;
+  color: #111b60;
   font-size: 40px;
 }
 
 p {
   font-size: 18px;
-  color: #72778F;
+  color: #72778f;
 }
 
 .form-item {
@@ -72,11 +70,12 @@ p {
 
 .side-img img {
   object-fit: contain;
+  /* width: 100%; */
 }
 
 .checkbox {
   display: flex;
-  margin:auto;
+  margin: auto;
 }
 
 .form-bottom {
@@ -84,11 +83,12 @@ p {
   width: 50%;
 }
 
-.form-top{
+.form-top {
   margin-top: 30px;
 }
 
-.form-bottom label, .form-bottom p {
+.form-bottom label,
+.form-bottom p {
   font-weight: 400;
   font-size: 15px;
   margin: 0;
@@ -100,10 +100,10 @@ p {
 
 .form-line {
   width: 40px;
-  border: 0.5px solid #A2A6BB;
+  border: 0.5px solid #a2a6bb;
 }
 
-.checkbox input[type=checkbox] {
+.checkbox input[type="checkbox"] {
   width: 12px;
   height: 12px;
   margin-right: 5px;
@@ -113,7 +113,7 @@ p {
 input {
   height: 50px;
   padding: 10px 20px;
-  background: #EEF4FE;
+  background: #eef4fe;
   outline: none;
   border: 0;
   width: 100%;
@@ -125,11 +125,11 @@ label {
   margin-bottom: 10px;
   font-size: 15px;
   font-weight: 600;
-  color: #72778F;
+  color: #72778f;
 }
 
 button {
-  background: #4848FF;
+  background: #4848ff;
   padding: 10px 20px;
   border: 0px;
   height: 50px;
@@ -153,4 +153,107 @@ footer {
 footer p {
   color: white;
   font-size: 13px;
+}
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    margin-top: 40px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .side-img {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .header {
+    position: fixed;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+  }
+
+  .header h1 {
+    color: white;
+    margin: auto;
+    font-weight: 900;
+    font-size: 30px;
+    text-transform: uppercase;
+  }
+
+  form h1 {
+    font-size: 25px;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .form-line {
+    align-self: center;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  form p {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .form-top {
+    margin-top: 40px;
+    display: block;
+    margin: auto;
+  }
+
+  .form-bottom {
+    margin: auto;
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .form-bottom .form-item {
+    width: 45%;
+  }
+
+  .checkbox input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 0;
+  }
+
+  .form-item {
+    margin: auto;
+    width: 80%;
+  }
+
+  button {
+    display: block;
+    width: 80%;
+    align-self: center;
+    margin: 20px auto !important;
+    /* margin-top: 50px; */
+  }
+
+  .copywrite {
+    display: block;
+    margin: 0;
+  }
+
+  .copywrite p {
+    display: none;
+    width: 80%;
+    color: #111b60;
+    /* text-align: center; */
+    margin: 0 0 0 40px;
+    padding: 0;
+  }
 }

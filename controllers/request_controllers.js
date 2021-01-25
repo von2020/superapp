@@ -255,10 +255,10 @@ class Requests {
         const token = userDetails.token;
         const car_request = req.session.managecar_request;
         const id = car_request.id; // you need to come back to all of this.
-
+        console.log("id", id)
         var stringValue = req.body.button;
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED'   //returns true
-
+        
         const query = {
             requester: car_request.requester,
             trip_type:  car_request.trip_type,
@@ -266,7 +266,7 @@ class Requests {
             priority: car_request.priority,
             destination: car_request.destination,
             purpose: car_request.purpose,
-            upline: 29,//car_request.upline, // this was taking out to see 
+            upline: userDetails.upline_id,//car_request.upline, // this was taking out to see 
             driver_admin_approval: boolValue,
             driver_admin_reason: req.body.driver_admin_reason,
             trip_duration:  car_request.trip_duration 
@@ -279,7 +279,7 @@ class Requests {
 
             const {result, resbody} = await uplinequery(query, token, id);
             const data = resbody;
-
+            console.log("resbody", resbody)
             if (result.statusCode == 200) {
                 if (resbody.driver_admin_status == 'APPROVED'){
                     req.session.approved = resbody

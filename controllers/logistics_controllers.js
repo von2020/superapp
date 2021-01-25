@@ -1,12 +1,16 @@
 const { logistics_queries } = require('../queries/index');
 const { } = require('../utils/query_util');
+const { } = require('../node_modules/form-data');
+const { } = require('../node_modules/axios');
+const { } = require('fs');
 const { resMessageRedirect, getDate, checkRequest, multipleRequestPosition } = require('../utils/reusables');
-
+var FormData = require('form-data');
 //store the list of the queries
 const {
     tripList,
     tripCreate,
     tripStart,
+    imageUpload,
     updateDriverStatus,
     stafftripStart
 } = logistics_queries;
@@ -106,6 +110,74 @@ class Logistics {
             if (err) console.log('error', err)
         }
     };
+
+    // static async uploadImage(req, res) {
+    //     const userDetails = req.session.userDetails
+    //     const token = userDetails.token
+    //     const created_trip = req.session.created_trip;
+    //     try {
+    //         const { result, resbody } = await tripStart(token);
+    //         var trips = resbody
+    //         var trip = [trips]
+            
+            // may need to come back here and include the validation logic to check the states of these things
+
+            // if (result.statusCode == '200') {
+            //     console.log('trip',trip)
+            //     res.render('upload_image', { userDetails, trip, trips });
+            // }
+            // else if (result.statusCode == '401') {
+            //     resMessageRedirect(res, req, 'error_msg', 'You are not authorized to view this page', '/logistics/getTrip')
+                // you may need to add a middleware to make sure only the right personal can see this.
+    //         } else {
+    //             resMessageRedirect(res, req, 'error_msg', 'Something went wrong contact admin', '/logistics/getTrip')
+    //         }
+    //     }catch (err) {
+    //         if (err) console.log('error', err)
+    //     }
+    // };
+
+    // static async handleUploadImage(req, res) {
+    //     const userDetails = req.session.userDetails
+    //     const token = userDetails.token
+    //     const trip = req.session.started_trip
+    //     const id = trip.trip_id
+
+        // const query = {
+        //     departure_meter_snapshot: req.body.departure_meter_snapshot
+        // }
+        // console.log("see", req.body.departure_meter_snapshot)
+        // var query = new FormData();
+        // query.append('departure_meter_snapshot', req.body.departure_meter_snapshot);
+
+        // console.log('query', query)
+        // console.log('id', id)
+        // try {
+        //     const { result, resbody } = await imageUpload(query, token, id);
+        //     const image = resbody
+        //     console.log('this is the image', image)
+        //     req.session.trips_dropoff = trips
+        //     if (result.statusCode == '200') {
+        //         console.log('this is trips 0', trips)
+                // if (trips.request_type == 'waitforme' && trips.trip_type == 'single') { 
+                //     return res.redirect('/logistics/waitDropoff')
+                // }
+                // res.redirect('/logistics/dropoff')
+                //res.render('tripStarted', {userDetails, trips});
+            // } else if (result.statusCode == '401') {
+            //     resMessageRedirect(res, req, 'error_msg', 'You are not authorized to view this page', '/logistics/getTrip')
+                // you may need to add a middleware to make sure only the right personal can see this.
+            // } else {
+            //     resMessageRedirect(res, req, 'error_msg', 'Something went wrong contact admin', '/logistics/getTrip')
+            // }
+
+            // may need to come back here and include the validation logic to check the states of these things
+
+
+    //     } catch (err) {
+    //         if (err) console.log('error', err)
+    //     }
+    // }
 
     static async startTrip(req, res) {
         const userDetails = req.session.userDetails
@@ -662,10 +734,10 @@ class Logistics {
                 // var trip = trips
                 // res.render('staffStartTrip', { userDetails, trip, trips });
             } else if (result.statusCode == '401') {
-                resMessageRedirect(res, req, 'error_msg', 'You are not authorized to view this page', '/logistics/dashboard')
+                resMessageRedirect(res, req, 'error_msg', `${trips.message}`, '/dashboard')
                 // you may need to add a middleware to make sure only the right personal can see this.
             } else {
-                resMessageRedirect(res, req, 'error_msg', 'Something went wrong contact admin', '/logistics/dashboard')
+                resMessageRedirect(res, req, 'error_msg', `${trips.message}`, '/dashboard')
             }
         } catch (err) {
             if (err) console.log('error', err)
@@ -1266,10 +1338,10 @@ class Logistics {
                 console.log("this is the trip status you are interested in", trip)
                 res.render('staffStartTripMultiple', { userDetails, trip });
             } else if (result.statusCode == '401') {
-                resMessageRedirect(res, req, 'error_msg', 'You are not authorized to view this page', '/logistics/staffStartTrip')
+                resMessageRedirect(res, req, 'error_msg', 'You are not authorized to view this page', '/logistics/staff_start_trip')
                 // you may need to add a middleware to make sure only the right personal can see this.
             } else {
-                resMessageRedirect(res, req, 'error_msg', 'Something went wrong contact admin', '/logistics/staffStartTrip')
+                resMessageRedirect(res, req, 'error_msg', 'Something went wrong contact admin', '/logistics/staff_start_trip')
             }
         } catch (err) {
             if (err) console.log('error', err)
@@ -1541,7 +1613,7 @@ class Logistics {
             pickup_coordinate: trip.pickup_coordinate,
             multitrip_set: multitrip_set,
             requester_rate_driver: null ,// come back to this.
-            requester_status: "GOING_BACK_TO_OFFICE"
+            requester_status: "BACK_TO_OFFICE"
         };
 
         console.log('the query of the return journey', query)

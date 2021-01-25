@@ -1,4 +1,4 @@
-const {getResponse_request, postResponse_request, putResponse, postResponse, getResponse_get}  = require('../utils/query_util');
+const {getResponse_request, postResponse_request,putResponse_image, putResponse, postResponse, getResponse_get}  = require('../utils/query_util');
 
 class Logistic_queries {
 
@@ -6,6 +6,17 @@ class Logistic_queries {
         const url = 'core/driver_trip';
         try {
             const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async imageUpload(id) {
+        const url = `core/trip/${id}/upload`;
+        try {
+            const {result, resbody} = await putResponse_image(query, url, token)
             return {result, resbody}
             
         }catch(err){

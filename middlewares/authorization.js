@@ -18,6 +18,15 @@ class Authorize {
         };
 
     };
+    static superAdminAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Super Admin') {
+            return next()
+        } else {
+
+            return res.redirect('/authorization')
+        };
+
+    };
 
     static supervisorAuthorize (req, res, next) {
         if (req.session.userDetails.role == 'Supervisor') {
