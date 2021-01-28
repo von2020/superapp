@@ -73,14 +73,17 @@ class Facilities {
         try {
             const {result, resbody} = await listVehicle(token);
             const vehicles = resbody
+            console.log('vehicles', vehicles)
             if (result.statusCode == 200) {
-                res.render('assignVehicleShow', {userDetails, request, vehicles});
+                res.render('assignVehicleShow', {userDetails, vehicles});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
             }
         }catch(err) {
             if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
         }
 
     };
