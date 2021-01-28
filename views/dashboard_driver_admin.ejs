@@ -30,52 +30,34 @@
 <body>
 	<div class="main-wrapper">
 
-    <%- include('./bars/admin_sidebar') %>
+    <% if (userDetails.role == 'Staff') { %>
+      <%- include('./bars/sidebar_staff') %>
+      <% } else if (userDetails.role == 'Supervisor') { %>
+      <%- include('./bars/sidebar_sup') %>  
+      <%  } else if (userDetails.role == 'Driver Admin') { %>
+      <%- include('./bars/sidebar_driver') %>  
+      <%  } else if (userDetails.role == 'Director') { %>
+      <%- include('./bars/sidebar_director') %>
+      <%  } else if (userDetails.role == 'Group Managing Director') { %>
+      <%- include('./bars/sidebar_gmd') %>  
+      <%  } else if (userDetails.role == 'Driver') { %>
+      <%- include('./bars/sidebar_carDriver') %>  
+      <%  } else { %>
+      <%- include('./bars/sidebar') %>    
+      <%  } %>
 	
 		<div class="page-wrapper">
 				
-      <%- include('./bars/admin_topbar') %>
+      <%- include('./bars/topbar') %>
 
       
       <div class="page-content">
-        <%- include('.././partials/messages')%>
+        <%- include('./partials/messages')%>
         <div class="row">
           <div class="col-md-2 grid-margin">
             <div class="card">
               <div class="card-body">
                  <!-- <h6 id="totalStaff" class="card-title">Staff</h6> --> 
-                <h6 class="card-title">Staff</h6>
-                <h1 id="totalStaff">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="card-title">Department</h6>
-                <h1 id="totalDepartment">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="card-title">Subsidiary</h6>
-                <h1 id="totalSubsidiary">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h6  class="card-title">Supervisors</h6>
-                <h1 id="totalSupervisors">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2 grid-margin">
-            <div class="card">
-              <div class="card-body">
                 <h6 class="card-title">Drivers</h6>
                 <h1 id="totalDrivers">0</h1>
               </div>
@@ -84,42 +66,74 @@
           <div class="col-md-2 grid-margin">
             <div class="card">
               <div class="card-body">
-                <h6  class="card-title">Vehicles</h6>
+                <h6 class="card-title">Trips</h6>
+                <h1 id="totalTrips">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Totla Vehicles</h6>
                 <h1 id="totalVehicles">0</h1>
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- <div class="row">
-          <div class="col-xl-6 grid-margin stretch-card">
+          <div class="col-md-3 grid-margin">
             <div class="card">
               <div class="card-body">
-                <h6 class="card-title">Trips In Each Department</h6>
-                <canvas id="TripsInSubsidiaryID"></canvas>
+                <h6  class="card-title">Available Vehicles</h6>
+                <h1 id="availableVehicles">0</h1>
               </div>
             </div>
           </div>
-          <div class="col-xl-6 grid-margin stretch-card">
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Request</h6>
+                <h1 id="totalRequest">0</h1>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6  class="card-title">Vehicles</h6>
+                <h1 id="totalVehicles">0</h1>
+              </div>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Trips and Request By Subsidiary</h6>
+                <canvas id="RequestInSubsidiaryID"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-xl-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <h6 class="card-title">Request in Each Subsdiary</h6>
                 <canvas id="RequestInSubsidiaryID"></canvas>
               </div>
             </div>
-          </div>
-        </div> -->
+          </div> -->
+        </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
-          <table id="RequestInfo" class="table table-bordered table-hover">
+          <table id="TripRange" class="table table-bordered table-hover">
               <thead>
               <tr>
-                <th>Requester Name</th>
-                <th>Requester Email</th>
-                <th>Requester Role</th>
-                <th>Date Requested</th>
-                <th>Requester Upline</th>
+                <th>Request</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Department</th>
+                <th>Subsidiary</th>
               </tr>
               </thead>
               <tbody  id="result">
@@ -127,7 +141,7 @@
               </tbody>
           </table>
           </div>
-        </div>
+        </div> -->
 
          <!-- <div class="row">
           <div class="col-xl-6 grid-margin stretch-card">
@@ -208,7 +222,7 @@
 			</div>
 
 			 <!-- partial:../../partials/_footer.html --> 
-       <%- include('./bars/admin_footer') %>
+       <%- include('./bars/footer') %>
 			 <!-- partial --> 
 	
 		</div>
@@ -232,17 +246,17 @@
       // *Total No* //
       //var url = "dashboard.ejs";
       $.ajax({
-        url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/accounts/totals',
+        url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/driver_admin_totals',
         type:'GET',
         dataType: 'json',
         success:function(data){
             if(data){
-                $('#totalStaff').html('<h1>'+ data.total_staff +'</h1>');
-                $('#totalDepartment').html('<h1>'+ data.total_department +'</h1>');
-                $('#totalSubsidiary').html('<h1>'+ data.total_subsidiary +'</h1>');
-                $('#totalSupervisors').html('<h1>'+ data.total_supervisor +'</h1>');  
-                $('#totalDrivers').html('<h1>'+ data.total_driver +'</h1>');  
-                $('#totalVehicles').html('<h1>'+ data.total_vehicle +'</h1>');  
+                $('#totalDrivers').html('<h1>'+ data.total_drivers +'</h1>');
+                $('#totalTrips').html('<h1>'+ data.total_trips +'</h1>');
+                $('#totalVehicles').html('<h1>'+ data.total_vehicles +'</h1>');
+                $('#availableVehicles').html('<h1>'+ data.available_vehicles +'</h1>');  
+                $('#totalRequest').html('<h1>'+ data.total_request +'</h1>');  
+                // $('#totalVehicles').html('<h1>'+ data.total_vehicle +'</h1>');  
             }               
         }, 
         error:function(data){
@@ -251,17 +265,17 @@
       });
 
       // *RequestInSubsidiary Bar Chart right* //
-    var RequestInSubsidiary = function(iteco,softworks,telnet){
+    var RequestInSubsidiary = function(iteco_r, iteco_t, softworks_r, softworks_t, telnet_r, telnet_t){
         if($('#RequestInSubsidiaryID').length) {
           new Chart($("#RequestInSubsidiaryID"), {
             type: 'bar',
             data: {
-              labels: [ "iTECO", "Softworks", "TELNET"],
+              labels: [ "iTECO Trips", "iTECO Request", "Softworks Trips", "Softworks Request", "TELNET Trips", "TELNET Request"],
               datasets: [
                 {
                   label: "Subsidiary",
-                  backgroundColor: ["#66d1d1","#b1cfec","#fa8072"],
-                  data: [iteco,softworks,telnet]
+                  backgroundColor: ["#66d1d1","#b1cfec","#fa8072, #66d1d1","#b1cfec","#fa8072"],
+                  data: [iteco_r, iteco_t, softworks_r, softworks_t, telnet_r, telnet_t]
                 }
               ]
             },
@@ -273,15 +287,18 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/total_vrequest_subsidiaries',
+          url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/total_subsidiary_request_type',
           type:'GET',
           dataType: 'json',
           success:function(data){
               if(data){
-                let iteco     = data.iteco_vehicle_request_count;
-                let softworks = data.softworks_vehicle_request_count;
-                let telnet    = data.telnet_vehicle_request_count;
-                RequestInSubsidiary(iteco,softworks,telnet);
+                let iteco_r     = data.iteco_request_count;
+                let iteco_t = data.iteco_total_trips;
+                let telnet_r    = data.telnet_request_count;
+                let telnet_t     = data.telnet_total_trips;
+                let softworks_r = data.softworks_request_count;
+                let softworks_t   = data.softworks_total_trips;
+                RequestInSubsidiary(iteco_r, iteco_t, softworks_r, softworks_t, telnet_r, telnet_t);
               }               
           }, 
           error:function(data){
@@ -313,7 +330,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/total_subsidiary_trip',
+          url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/total_subsidiary_request_type',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -329,108 +346,26 @@
           }
         });
 
-
-//         $(document).ready(function() {
-//     $('#example').DataTable( {
-//         "ajax": "data/objects.txt",
-//         "columns": [
-//             { "data": "name" },
-//             { "data": "position" },
-//             { "data": "office" },
-//             { "data": "extn" },
-//             { "data": "start_date" },
-//             { "data": "salary" }
-//         ]
-//     } );
-// } );
-
-
-jQuery(document).ready(function($) {
- 
- var jobtable = $('#RequestInfo').DataTable({
-   ajax: {
-    url: "https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/vrequest/all_requests",
-          dataSrc: "",
-          type:'GET',
-          dataType: 'json',
-		  beforeSend: function (xhr) {
-                xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
-            },
-   },
-   columns: [
-          {
-              data: "requester_name"
-          },
-          {
-              data: "requester_email"
-          },
-          {
-              data: "requester_role"
-          },
-          {
-              data: "request_date"
-          },
-          {
-              data: "requester_upline"
-          },
-          
-      ]
-   
- });
-});
-
-
-
-
-
-
-        $("#RequestInfoooo").DataTable({
+        $("#TripRange").DataTable({
       ajax: {
-          url: "https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/vrequest/all_requests",
-          dataSrc: "",
-          type:'GET',
-          dataType: 'json',
-		  beforeSend: function (xhr) {
-                xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
-            },
-            success:function(data){
-              if(data){
-               
-                
-               // console.log(data)
-                // let requester_name = data.data.requester_name;
-                //console.log(data);
-
-                // $.each(data, function(key, value) {
-                //     //For example
-                //     let requester_name = value.requester_name;
-                //     // console.log(value.requester_name)
-                //     // console.log(value.requester_email)
-                //     // console.log(value.requester_role)
-                // });
-                
-              }               
-          }, 
-          error:function(data){
-            console.log("Error Occurred!!")
-          }
-          
+          url: "https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/trip_range",
+          dataSrc: ""
       },
       columns: [
           {
-              data: "requester_name"
+              data: "assigned_vehicle__vehicle_request"
           },
           {
-              data: "requester_email"
+              data: "assigned_vehicle__vehicle_request__requester__first_name"
           },
           {
-              data: "requester_role"
+              data: "assigned_vehicle__vehicle_request__requester__last_name"
           },
           {
-              data: "request_date"
+              data: "assigned_vehicle__vehicle_request__requester__department__name"
           },
           {
-              data: "requester_upline"
+              data: "assigned_vehicle__vehicle_request__requester__subsidiary__name"
           },
           
       ]

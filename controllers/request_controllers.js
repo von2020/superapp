@@ -250,7 +250,7 @@ class Requests {
             });
             req.session.managecarRequests = resbody
             if (result.statusCode == 200) {
-                res.render('manageRequest',{userDetails, data})
+                res.render('allRequests_director',{userDetails, data})
             } else {
                 req.flash('error_msg', 'The request could not be made');
                 res.redirect('/requests/manage_request')
@@ -357,7 +357,29 @@ class Requests {
             if (err) return console.error('Error', err);
         }
 
-    }; 
+    };
+    
+    static async listVehicles (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+            const {result, resbody} = await listVehicle(token);
+            const vehicles = resbody
+            if (result.statusCode == 200) {
+                res.render('available_vehicle_list', {userDetails, vehicles});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard_director')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
 
     static async renderReassign (req, res) {
         const userDetails = req.session.userDetails;

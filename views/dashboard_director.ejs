@@ -30,15 +30,29 @@
 <body>
 	<div class="main-wrapper">
 
-    <%- include('./bars/admin_sidebar') %>
+        <% if (userDetails.role == 'Staff') { %>
+            <%- include('./bars/sidebar_staff') %>
+            <% } else if (userDetails.role == 'Supervisor') { %>
+            <%- include('./bars/sidebar_sup') %>  
+            <%  } else if (userDetails.role == 'Driver Admin') { %>
+            <%- include('./bars/sidebar_driver') %>  
+            <%  } else if (userDetails.role == 'Director') { %>
+            <%- include('./bars/sidebar_director') %>
+            <%  } else if (userDetails.role == 'Group Managing Director') { %>
+            <%- include('./bars/sidebar_gmd') %>  
+            <%  } else if (userDetails.role == 'Driver') { %>
+            <%- include('./bars/sidebar_carDriver') %>  
+            <%  } else { %>
+            <%- include('./bars/sidebar') %>    
+            <%  } %>
 	
 		<div class="page-wrapper">
 				
-      <%- include('./bars/admin_topbar') %>
+            <%- include('./bars/topbar') %>
 
       
       <div class="page-content">
-        <%- include('.././partials/messages')%>
+        <%- include('./partials/messages')%>
         <div class="row">
           <div class="col-md-2 grid-margin">
             <div class="card">
@@ -91,7 +105,7 @@
           </div>
         </div>
 
-        <!-- <div class="row">
+        <div class="row">
           <div class="col-xl-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -108,18 +122,18 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <div class="row">
           <div class="col-md-12">
-          <table id="RequestInfo" class="table table-bordered table-hover">
+          <table id="TripRange" class="table table-bordered table-hover">
               <thead>
               <tr>
-                <th>Requester Name</th>
-                <th>Requester Email</th>
-                <th>Requester Role</th>
-                <th>Date Requested</th>
-                <th>Requester Upline</th>
+                <th>Request</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Department</th>
+                <th>Subsidiary</th>
               </tr>
               </thead>
               <tbody  id="result">
@@ -208,7 +222,7 @@
 			</div>
 
 			 <!-- partial:../../partials/_footer.html --> 
-       <%- include('./bars/admin_footer') %>
+             <%- include('./bars/footer') %>
 			 <!-- partial --> 
 	
 		</div>
@@ -329,108 +343,26 @@
           }
         });
 
-
-//         $(document).ready(function() {
-//     $('#example').DataTable( {
-//         "ajax": "data/objects.txt",
-//         "columns": [
-//             { "data": "name" },
-//             { "data": "position" },
-//             { "data": "office" },
-//             { "data": "extn" },
-//             { "data": "start_date" },
-//             { "data": "salary" }
-//         ]
-//     } );
-// } );
-
-
-jQuery(document).ready(function($) {
- 
- var jobtable = $('#RequestInfo').DataTable({
-   ajax: {
-    url: "https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/vrequest/all_requests",
-          dataSrc: "",
-          type:'GET',
-          dataType: 'json',
-		  beforeSend: function (xhr) {
-                xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
-            },
-   },
-   columns: [
-          {
-              data: "requester_name"
-          },
-          {
-              data: "requester_email"
-          },
-          {
-              data: "requester_role"
-          },
-          {
-              data: "request_date"
-          },
-          {
-              data: "requester_upline"
-          },
-          
-      ]
-   
- });
-});
-
-
-
-
-
-
-        $("#RequestInfoooo").DataTable({
+        $("#TripRange").DataTable({
       ajax: {
-          url: "https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/vrequest/all_requests",
-          dataSrc: "",
-          type:'GET',
-          dataType: 'json',
-		  beforeSend: function (xhr) {
-                xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
-            },
-            success:function(data){
-              if(data){
-               
-                
-               // console.log(data)
-                // let requester_name = data.data.requester_name;
-                //console.log(data);
-
-                // $.each(data, function(key, value) {
-                //     //For example
-                //     let requester_name = value.requester_name;
-                //     // console.log(value.requester_name)
-                //     // console.log(value.requester_email)
-                //     // console.log(value.requester_role)
-                // });
-                
-              }               
-          }, 
-          error:function(data){
-            console.log("Error Occurred!!")
-          }
-          
+          url: "https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/trip_range",
+          dataSrc: ""
       },
       columns: [
           {
-              data: "requester_name"
+              data: "assigned_vehicle__vehicle_request"
           },
           {
-              data: "requester_email"
+              data: "assigned_vehicle__vehicle_request__requester__first_name"
           },
           {
-              data: "requester_role"
+              data: "assigned_vehicle__vehicle_request__requester__last_name"
           },
           {
-              data: "request_date"
+              data: "assigned_vehicle__vehicle_request__requester__department__name"
           },
           {
-              data: "requester_upline"
+              data: "assigned_vehicle__vehicle_request__requester__subsidiary__name"
           },
           
       ]

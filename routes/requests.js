@@ -19,6 +19,7 @@ const {
     manageMemberRequest,
     manageUplineApprove,
     assignVehicle,
+    listVehicles,
     renderReassign,
     handleAssignVehicle
 } = request_controllers;
@@ -47,6 +48,7 @@ router.get('/reassign', [checkSession, driverAuthorize], renderReassign);
 router.get('/assign_vehicle', [checkSession, driverAuthorize], assignVehicle);
 router.get('/handleassign_vehicle', [checkSession, driverAuthorize], handleAssignVehicle)
 
+router.get('/available_vehicles', [checkSession, driverAuthorize], listVehicles);
 // get's the list of the request to be managed
 
 

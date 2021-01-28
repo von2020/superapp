@@ -282,6 +282,12 @@ class auth_controllers {
                     res.render('dashboard_staff', {userDetails, totals}) 
                 } else if (userDetails.role == 'Driver') {
                     res.render('dashboard_driver', {userDetails, totals})
+                } else if (userDetails.role == 'Driver Admin') {
+                    res.render('dashboard_driver_admin', {userDetails, totals})
+                } else if (userDetails.role == 'Director') {
+                    res.render('dashboard_director', {userDetails, totals})
+                } else if (userDetails.role == 'Group Managing Director') {
+                    res.render('dashboard_gmd', {userDetails, totals})
                 } else{
                     res.render('dashboard', {userDetails, totals})
                 }
