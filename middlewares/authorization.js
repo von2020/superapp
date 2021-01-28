@@ -9,6 +9,24 @@ class Authorize {
 
     };
 
+    static directorAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Director') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
+    static gmdAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'GMD') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
     static supervisorAuthorize (req, res, next) {
         if (req.session.userDetails.role == 'Supervisor') {
             return next()

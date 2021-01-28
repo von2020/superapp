@@ -642,6 +642,7 @@ class Logistics {
         const userDetails = req.session.userDetails
         const token = userDetails.token
         const created_trip = req.session.created_trip;
+        console.log('value', req.session.created_trip)
         try {
             // const { result, resbody } = await stafftripStart(token);
             // var trips = resbody
@@ -741,6 +742,7 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', 'Trip not Created or Registered', '/dashboard')
         }
     };
 

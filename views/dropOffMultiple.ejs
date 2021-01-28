@@ -39,6 +39,10 @@
         <%- include('./bars/sidebar_sup') %>
         <%  } else if (userDetails.role == 'Driver Admin') { %>
         <%- include('./bars/sidebar_driver') %>
+        <%  } else if (userDetails.role == 'Director') { %>
+        <%- include('./bars/sidebar_director') %>
+        <%  } else if (userDetails.role == 'Group Managing Director') { %>
+        <%- include('./bars/sidebar_gmd') %>  
         <%  } else if (userDetails.role == 'Driver') { %>
         <%- include('./bars/sidebar_carDriver') %>
         <%  } else { %>

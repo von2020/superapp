@@ -6,15 +6,37 @@ const {
     updateUsers,
     uplinequery,
     carRequests,
+    listVehicle,
     bulkUpload,
     singleUpload,
     getSubs,
+    getDept,
+    carRequests_admin,
     getUpline,
     getUpline_edit,
     getInactiveUsers
 } = admin_manage_queries;
 
 class admin_manage_controllers {
+
+    static async getAllDepartments (req, res) {
+        const userDetails = req.session.userDetails
+        const token = userDetails.token
+
+        try{
+            const {result, resbody} = await getDept(token);
+            const data = resbody;
+            req.session.users = resbody;
+            console.log("data", data)
+            if (result.statusCode == '200') {
+                res.render('admin/all_departments' , {userDetails, data});
+            } else {
+                resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/getInActiveUsers')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
 
     static async getActiveUsers (req, res) {
         const userDetails = req.session.userDetails
@@ -43,7 +65,7 @@ class admin_manage_controllers {
         const token = userDetails.token;
 
         try{
-            const {result, resbody} = await carRequests(token);
+            const {result, resbody} = await carRequests_admin(token);
             const data_request = resbody;
             console.log('vehicle request', resbody)
 
@@ -185,7 +207,7 @@ class admin_manage_controllers {
                 if (resbody.driver_admin_status == 'APPROVED'){
                     req.session.approved = resbody
 
-                    res.redirect('/admin/manage/assign_vehicle')
+                    res.redirect('/admin/manage/vehicle_list')
                     // here it will not route back because the driver admin approval value is not here.
                 } else {
                     req.flash('success_msg', 'You have succesfully rejected  a request')
@@ -212,14 +234,15 @@ class admin_manage_controllers {
         try {
             const {result, resbody} = await listVehicle(token);
             const vehicles = resbody
+            console.log(resbody)
             if (result.statusCode == 200) {
                 if (typeof(vehicles[0])=='undefined' ) { // this should include the prioriity as well  &&
                     return res.redirect('/admin/manage/reassign')
                 } 
                 res.render('admin/assignVehicle', {userDetails, request, vehicles});
             } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/manage/viewmanage_request')
+                req.flash('error_msg', resbody.response);
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
             if (err) return console.error('Error', err);
@@ -680,7 +703,7 @@ class admin_manage_controllers {
         const user_id = userDetails.id;
         // const user_id = req.query.id;
         // req.session.user_id = user_id;
-        const id = userDetails.department_id;
+        const id = userDetails.subsidiary_id;
         // req.session.department = id;
 
         console.log("id", id);

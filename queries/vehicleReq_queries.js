@@ -24,6 +24,17 @@ class vehicle_queries {
         }
     };
 
+    static async carRequests_director(token) {
+        const url = 'core/vrequest/director_view_all_requests';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async indRequests(token, id) {
         const url = `core/vrequest/${id}`;
         try {

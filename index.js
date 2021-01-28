@@ -43,6 +43,7 @@ app.use(session({
   secret: 'shhh',//config.get('sessionPrivatekey'), // this is stored in an environment variable not yet because we are still developing want people to be able to see what i am doing.
   resave: true, // this is set to true for some reason i dont really understand
   saveUninitialized: true,
+  cookie: { maxAge: 24*60*60*1000 },
   // cookie: { secure: true } //  why is this not included 
 }));
 

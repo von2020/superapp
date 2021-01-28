@@ -24,7 +24,7 @@ static async editProfile (req, res) {
     const user_id = userDetails.id;
     // const user_id = req.query.id;
     // req.session.user_id = user_id;
-    const id = userDetails.department_id;
+    const id = userDetails.subsidiary_id;
     // req.session.department = id;
 
     console.log("id", id);

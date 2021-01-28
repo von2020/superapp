@@ -5,6 +5,7 @@ const {} = require('../utils/query_util');
 const {
     sendRequest,
     carRequests,
+    carRequests_director,
     indRequests,
     getMyRequest,
     uplinequery,
@@ -139,6 +140,10 @@ class Requests {
             const {result, resbody} = await getMyRequest(token);
             const data = resbody;
 
+            console.log(data)
+            console.log(userDetails)
+            console.log('string')
+
             if (result.statusCode == 200) {
                 res.render('myRequests', {data, userDetails});
             } else {
@@ -208,6 +213,34 @@ class Requests {
         try{
             const {result, resbody} = await carRequests(token);
             const data_request = resbody;
+            console.log('see', data_request)
+
+            var dataApproved = data_request.filter(function (dataApproved){
+                return dataApproved.upline_approval == 'APPROVED'
+            });
+            var data = dataApproved.filter (function (data) {
+                return data.driver_admin_approval == 'PENDING'
+            });
+            req.session.managecarRequests = resbody
+            if (result.statusCode == 200) {
+                res.render('manageRequest',{userDetails, data})
+            } else {
+                req.flash('error_msg', 'The request could not be made');
+                res.redirect('/requests/manage_request')
+            }
+        }catch(err){
+            if (err) return console.error('Error', err)
+        }
+    };
+
+    static async viewmanageRequest_director (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+
+        try{
+            const {result, resbody} = await carRequests_director(token);
+            const data_request = resbody;
+            console.log('see', data_request)
 
             var dataApproved = data_request.filter(function (dataApproved){
                 return dataApproved.upline_approval == 'APPROVED'

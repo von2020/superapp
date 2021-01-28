@@ -34,9 +34,12 @@ const {
     renderReassign,
     assignVehicle,
     handleAssignVehicle,
+    getAllDepartments,
     handleEditProfile,
     getFailedUsers
 } = admin_manage_controllers;
+
+router.get('/all-departments', [adminCheckSession, superAdminAuthorize], getAllDepartments);
 
 router.get('/view_request', [adminCheckSession, superAdminAuthorize], viewRequest);
 router.get('/individual_request', [adminCheckSession, superAdminAuthorize], memberRequest);
@@ -54,7 +57,7 @@ router.get('/reassign', [adminCheckSession, superAdminAuthorize], renderReassign
 
 // this is to assign a vehicle to a client once the request has been approved
 
-router.get('/assign_vehicle', [adminCheckSession, superAdminAuthorize], assignVehicle);
+router.get('/vehicle_list', [adminCheckSession, superAdminAuthorize], assignVehicle);
 router.get('/handleassign_vehicle', [adminCheckSession, superAdminAuthorize], handleAssignVehicle)
 
 

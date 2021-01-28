@@ -26,8 +26,30 @@ class admin_manage_queries {
         }
     };
 
-    static async carRequests(token) {
+    static async listVehicle(token) {
+        const url = 'vehicle/available';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async carRequests_admin(token) {
         const url = 'core/vrequest';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async carRequests(token) {
+        const url = 'core/vrequest/all_requests';
         try {
             const {result, resbody} = await getResponse_request(url, token)
             return {result, resbody}

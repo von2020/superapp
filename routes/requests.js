@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { checkSession} = require('../middlewares/checksession');
-const {driverAuthorize, supervisorAuthorize} = require('../middlewares/authorization')
+const {driverAuthorize, supervisorAuthorize, directorAuthorize,} = require('../middlewares/authorization')
 
 // require the list of request controllers
 const {request_controllers} = require('../controllers/index')
@@ -9,6 +9,7 @@ const {request_controllers} = require('../controllers/index')
 // the list of the controllers
 const {
     createRequest,
+    viewmanageRequest_director,
     handleRequest,
     viewRequest,
     memberRequest,
@@ -25,13 +26,15 @@ const {
 router.get('/create_request',checkSession, createRequest);
 router.post('/create_request', handleRequest);
 
-router.get('/view_request', [checkSession, supervisorAuthorize], viewRequest);
-router.get('/individual_request', [checkSession, supervisorAuthorize], memberRequest);
+router.get('/view_request', [checkSession], viewRequest);
+router.get('/individual_request', [checkSession], memberRequest);
 
-router.post('/individual_request', [checkSession, supervisorAuthorize], uplineApprove);
+router.post('/individual_request', [checkSession], uplineApprove);
 
 //this is for the driver admin to be able to accept or reject requests;
 router.get('/viewmanage_request', [checkSession, driverAuthorize], viewmanageRequest);
+
+router.get('/viewmanage_request_director', [checkSession, directorAuthorize], viewmanageRequest_director);
 
 router.get('/viewindividual_request', [checkSession, driverAuthorize], manageMemberRequest);
 

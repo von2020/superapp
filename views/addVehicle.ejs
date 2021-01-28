@@ -33,7 +33,11 @@
 			<%  } else if (userDetails.role == 'Driver Admin') { %>
 			<%- include('./bars/sidebar_driver') %>  
 			<%  } else if (userDetails.role == 'Driver') { %>
-			<%- include('./bars/sidebar_carDriver') %>  
+			<%- include('./bars/sidebar_carDriver') %>
+			<%  } else if (userDetails.role == 'Director') { %>
+			<%- include('./bars/sidebar_director') %>
+			<%  } else if (userDetails.role == 'Group Managing Direc') { %>
+			<%- include('./bars/sidebar_gmd') %>  
 			<%  } else { %>
 			<%- include('./bars/sidebar') %>    
 			<%  } %>
