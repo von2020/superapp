@@ -77,6 +77,50 @@ class auth_queries {
         }
     };
 
+    static async getStaffCount(token) {
+        const url = 'core/user_count';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getDirectorCount(token) {
+        const url = 'core/director_count';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getSupervisorCount(token) {
+        const url = 'core/supervisor_count';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getDriverAdminCount(token) {
+        const url = 'core/driver_admin_count';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async loginRequest (query) {
         const url = 'accounts/login';
 
@@ -90,7 +134,7 @@ class auth_queries {
     }
 
     static async reset_password(query, token) {
-        const url = 'http://173.212.208.45:8000/api/password_reset/';
+        const url = 'https://telnetsupperapp.com.ng:8443/api/password_reset/';
         try {
             const {result, resbody} = await postResponse_reset(query, url)
             return {result, resbody}
@@ -101,7 +145,7 @@ class auth_queries {
     };
 
     static async reset_password_confirm(query, token) {
-        const url = 'http://173.212.208.45:8000/api/password_reset/confirm/';
+        const url = 'https://telnetsupperapp.com.ng:8443/api/password_reset/confirm/';
         try {
             const {result, resbody} = await postResponse_reset(query, url)
             return {result, resbody}

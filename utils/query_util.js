@@ -51,6 +51,28 @@ static getResponse_get(url) {
       });
 });
 };
+
+static getResponse_getT(url, token) {
+  return new Promise ( (resolve, reject) => {
+
+      const options = {
+        headers: {
+          'content-Type': 'application/json',
+          'Authorization': `Token ${token}`
+        },
+        url: `${baseUrl}${url}`
+      };
+      request.get(options, (error, result, resBody) => {
+        if (error) reject(error);
+        if (result.statusCode == '500') {
+          throw new Error('ERROR 500: Internal server error')
+        } else {
+          var resbody = JSON.parse(result.body);
+          resolve({result, resbody})
+        }
+      });
+});
+};
     static postResponse_request(query, url, token) {
       return new Promise ( (resolve, reject) => {
     

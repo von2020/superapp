@@ -30,6 +30,7 @@ class auth_controllers {
         }
         try{
             const {result, resbody} = await loginRequest(query)
+            console.log(resbody)
             if (result.statusCode == 200){
                 if (resbody.role != 'Super Admin') {
                     req.flash('error', 'Login to the user profile');

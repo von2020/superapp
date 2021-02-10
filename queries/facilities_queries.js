@@ -34,6 +34,17 @@ class vehicle_queries {
             if (err) console.log('login error', err)
         }
     };
+
+    static async allVehicle(token) {
+        const url = 'vehicle/vehicle';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
 };
 
 module.exports =  vehicle_queries;

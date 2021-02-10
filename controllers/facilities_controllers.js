@@ -6,6 +6,7 @@ const {resMessageRedirect} = require('../utils/reusables')
 const {
     sendRequest,
     getDrivers,
+    allVehicle,
     listVehicle
 } = facilities_queries;
 
@@ -71,7 +72,7 @@ class Facilities {
         const token = userDetails.token;
         
         try {
-            const {result, resbody} = await listVehicle(token);
+            const {result, resbody} = await allVehicle(token);
             const vehicles = resbody
             console.log('vehicles', vehicles)
             if (result.statusCode == 200) {

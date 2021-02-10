@@ -239,15 +239,15 @@ class Requests {
 
         try{
             const {result, resbody} = await carRequests_director(token);
-            const data_request = resbody;
-            console.log('see', data_request)
+            const data = resbody;
+            console.log('see', data)
 
-            var dataApproved = data_request.filter(function (dataApproved){
-                return dataApproved.upline_approval == 'APPROVED'
-            });
-            var data = dataApproved.filter (function (data) {
-                return data.driver_admin_approval == 'PENDING'
-            });
+            // var dataApproved = data_request.filter(function (dataApproved){
+            //     return dataApproved.upline_approval == 'APPROVED'
+            // });
+            // var data = dataApproved.filter (function (data) {
+            //     return data.driver_admin_approval == 'PENDING'
+            // });
             req.session.managecarRequests = resbody
             if (result.statusCode == 200) {
                 res.render('allRequests_director',{userDetails, data})

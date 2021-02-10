@@ -81,7 +81,7 @@
                 <div class="row justify-content-between">
                   <div>
                   <h6 class="card-title d-block">All Requests</h6>
-                  <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p>
+                  
                   </div>
 
                   <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -106,7 +106,9 @@
 
                       <tr>
                         <th>All Departments</th>
-                        
+                        <th>Subsidiary</th>
+                        <th>View Department</th>
+                        <th>Edit Department</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -114,7 +116,9 @@
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
                           <td><%= item.name%></td>
-                          
+                          <td><%= item.subsidiary_name%></td>
+                          <td><a href="/admin/manage/view-department?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View Department</a></td>
+                          <td><a href="/admin/manage/edit-department?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Edit Department</a></td>
                         <% })%>
                     </tbody>
                   </table>

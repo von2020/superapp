@@ -27,31 +27,17 @@
 	<div class="main-wrapper">
 
 <!-- Insert the sidebar partial here-->
-<% if (userDetails.role == 'Staff') { %>
-  <%- include('./bars/sidebar_staff') %>
-  <% } else if (userDetails.role == 'Supervisor') { %>
-  <%- include('./bars/sidebar_sup') %>  
-  <%  } else if (userDetails.role == 'Driver Admin') { %>
-  <%- include('./bars/sidebar_driver') %> 
-  <%  } else if (userDetails.role == 'Director') { %>
-  <%- include('./bars/sidebar_director') %>
-  <%  } else if (userDetails.role == 'Group Managing Director') { %>
-  <%- include('./bars/sidebar_gmd') %>   
-  <%  } else if (userDetails.role == 'Driver') { %>
-  <%- include('./bars/sidebar_carDriver') %>  
-  <%  } else { %>
-  <%- include('./bars/sidebar') %>    
-  <%  } %>
+<%- include('./bars/admin_sidebar') %>
 		<!-- partial -->
 	
 		<div class="page-wrapper">
 				
 			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
-      <%- include('./bars/topbar') %>
+            <%- include('./bars/admin_topbar') %>
 			<!-- partial -->
 
 			<div class="page-content">
-        <%- include('./partials/messages')%>
+                <%- include('.././partials/messages')%>
 
 				<!-- <nav class="page-breadcrumb">
 					<ol class="breadcrumb">
@@ -95,7 +81,7 @@
                 <div class="row justify-content-between">
                   <div>
                   <h6 class="card-title d-block">All Requests</h6>
-                  <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p>
+                  
                   </div>
 
                   <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -119,34 +105,23 @@
                     <thead>
 
                       <tr>
-                        <th>Staff Name</th>
-                        <th>Role</th>
-                        <th>Reqeust Type</th>
-                        <th>Priority</th>
-                        <th>Upline Name</th>
-                        
+                        <th>All Subsidiaries</th>
+                        <th>Subsidiary Short Name</th>
+                        <th>View Subsidiary</th>
+                        <th>Edit Subsidiary</th>
                       </tr>
                     </thead>
                     <tbody>
                       <% data.forEach((item) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <td><%= item.requester_name%></td>
-                          <td><%= item.requester_role %></td>
-                          <td><%= item.request_type%></td>
-                          <%if (item.priority == 1) { %>
-                            <td ><span class="badge badge-info">LOW</span></td>
-                          <% } else if(item.priority == 2) { %>
-                            <td ><span class="badge badge-primary">MEDIUM</span></td>
-                          <% } else{ %>
-                            <td ><span class="badge badge-danger">HIGH</span></td>
-                          <% } %>
-                          <td><button class="btn btn-danger rounded-pill"><%= item.requester_upline%></button></td>
-                          
-                            <% })%>
-                          </tr>
+                          <td><%= item.name%></td>
+                          <td><%= item.short_name%></td>
+                          <td><a href="/admin/manage/view-subsidiary?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View Subsidiary</a></td>
+                          <td><a href="/admin/manage/edit-subsidiary?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Edit Subsidiary</a></td>
+                        <% })%>
                     </tbody>
-                  </table>                    
+                  </table>
                 </div>
               </div>
             </div>
@@ -156,7 +131,7 @@
 			</div>
 
 			<!-- partial:partials/_footer.html -->
-      <%- include('./bars/footer') %>
+            <%- include('./bars/admin_footer') %>
 			<!-- partial -->
 	
 		</div>

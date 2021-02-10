@@ -14,6 +14,10 @@ const {
     displayLogin,
     handleLogin,
     displayDashboard,
+    staffDashboard,
+    supervisorDashboard,
+    directorDashboard,
+    driverAdminDashboard,
     logout,
     authorization,
     resetPassword,
@@ -41,6 +45,11 @@ router.get('/', forwardAuthenticate, displayLogin);
 router.post('/', handleLogin);
 
 router.get('/dashboard', checkSession, displayDashboard);
+
+router.get('/staff_dashboard', checkSession, staffDashboard);
+router.get('/supervisor_dashboard', checkSession, supervisorDashboard);
+router.get('/director_dashboard', checkSession, directorDashboard);
+router.get('/driver_admin_dashboard', checkSession, driverAdminDashboard);
 
 router.get('/authorization', authorization);
 

@@ -10,7 +10,14 @@ const {
     bulkUpload,
     singleUpload,
     getSubs,
+    viewSub,
+    getSubs_createusers,
     getDept,
+    viewDept,
+    editDepartment,
+    editSubsidiary,
+    addDepartment,
+    addSubsidiary,
     carRequests_admin,
     getUpline,
     getUpline_edit,
@@ -22,21 +29,334 @@ class admin_manage_controllers {
     static async getAllDepartments (req, res) {
         const userDetails = req.session.userDetails
         const token = userDetails.token
+        console.log('token', token)
 
         try{
-            const {result, resbody} = await getDept(token);
+            const {result, resbody} = await getDept();
             const data = resbody;
             req.session.users = resbody;
             console.log("data", data)
             if (result.statusCode == '200') {
                 res.render('admin/all_departments' , {userDetails, data});
             } else {
-                resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/getInActiveUsers')
+                resMessageRedirect(res, req, 'error_msg', `${data.detail}`,'/admin/dashboard')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${data.detail}`,'/admin/dashboard')
+        }
+    }
+
+    static async getAllSubsidiaries (req, res) {
+        const userDetails = req.session.userDetails
+        const token = userDetails.token
+        console.log('token', token)
+
+        try{
+            const {result, resbody} = await getSubs(token);
+            const data = resbody;
+            req.session.users = resbody;
+            console.log("data", data)
+            if (result.statusCode == '200') {
+                res.render('admin/all-subsidiaries' , {userDetails, data});
+            } else {
+                resMessageRedirect(res, req, 'error_msg', `${data.detail}`,'/admin/dashboard')
             }
         } catch(err){
             if (err) console.log('error', err)
         }
     }
+
+    
+    static async viewDepartment (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id', id)
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        try{
+            
+            const depts = await viewDept(id, token);
+
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            console.log("depts", depts.resbody)
+            
+            res.render('admin/viewDepartment', {userDetails, depts: depts.resbody})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async viewSubsidiary (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id', id)
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        try{
+            
+            const subs = await viewSub(id, token);
+
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            console.log("depts", subs.resbody)
+            
+            res.render('admin/view-subsidiary', {userDetails, subs: subs.resbody})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async editSubsidiary (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id', id)
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        try{
+            
+            const subs = await viewSub(id, token);
+
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            console.log("subs", subs.resbody)
+            
+            res.render('admin/edit-subsidiary', {userDetails, subs: subs.resbody})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async handleEditSubsidiary (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id
+
+        const query = {
+            name: req.body.name,
+            short_name: req.body.short_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await editSubsidiary(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully edited ${query.name }`,'/admin/manage/all-subsidiaries')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/admin/manage/all-subsidiaries')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/admin/manage/all-subsidiaries')
+        }
+    }
+
+    static async addSubsidiary (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        // const id = req.query.id;
+
+        // console.log('id', id)
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        try{
+            
+            // const depts = await viewDept(id, token);
+
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            // console.log("depts", depts.resbody)
+            
+            res.render('admin/add-subsidiary', {userDetails})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async handleAddSubsidiary (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        const query = {
+            name: req.body.name,
+            short_name: req.body.short_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await addSubsidiary(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.name }`,'/admin/manage/all-subsidiaries')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.response} `,'/admin/manage/all-subsidiaries')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/manage/all-subsidiaries')
+        }
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            
+            
+            
+  
+    };
+
+    static async editDepartment (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id', id)
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        try{
+            
+            const depts = await viewDept(id, token);
+
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            console.log("depts", depts.resbody)
+            
+            res.render('admin/edit-department', {userDetails, depts: depts.resbody})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async handleEditDepartment (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id
+
+        const query = {
+            name: req.body.name,
+            subsidiary_name: req.body.subsidiary_name,
+            short_name: req.body.short_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await editDepartment(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully edited ${query.name }`,'/admin/manage/all-departments')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/admin/manage/all-departments')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
+
+    static async addDepartment (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        // const id = req.query.id;
+
+        // console.log('id', id)
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        try{
+            
+            // const depts = await viewDept(id, token);
+
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            // console.log("depts", depts.resbody)
+            
+            res.render('admin/add_department', {userDetails})
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+  
+    };
+
+    static async handleAddDepartment (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        // req.session.user_id = user_id;
+        // const users = req.session.users;
+        const query = {
+            name: req.body.name,
+            subsidiary: req.body.subsidiary_id,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await addDepartment(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.name }`,'/admin/manage/all-departments')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.name}`,'/admin/manage/all-departments')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/manage/all-departments')
+        }
+            // var user = users.filter(function (user) {
+            //     return user.id == user_id
+            // });
+            // user = user[0]
+            
+            
+            
+            
+  
+    };
 
     static async getActiveUsers (req, res) {
         const userDetails = req.session.userDetails
@@ -54,6 +374,7 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/getInActiveUsers')
         }
   
     };
@@ -130,14 +451,14 @@ class admin_manage_controllers {
 
         try{
             const {result, resbody} = await carRequests(token);
-            const data_request = resbody;
+            const data = resbody;
 
-            var dataApproved = data_request.filter(function (dataApproved){
-                return dataApproved.upline_approval == 'APPROVED'
-            });
-            var data = dataApproved.filter (function (data) {
-                return data.driver_admin_approval == 'PENDING'
-            });
+            // var dataApproved = data_request.filter(function (dataApproved){
+            //     return dataApproved.upline_approval == 'APPROVED'
+            // });
+            // var data = dataApproved.filter (function (data) {
+            //     return data.driver_admin_approval == 'PENDING'
+            // });
             req.session.managecarRequests = resbody
             if (result.statusCode == 200) {
                 res.render('admin/manageRequest',{userDetails, data})
@@ -618,7 +939,10 @@ class admin_manage_controllers {
         const token = userDetails.token;
         
         try {
-            const subs = await getSubs();
+            const subs = await getSubs_createusers();
+
+            console.log('response',subs.resbody)
+
             res.render('admin/singleUserUpload', {userDetails, subs: subs.resbody}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)

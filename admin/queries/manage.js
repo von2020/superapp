@@ -1,4 +1,4 @@
-const { getResponse, getResponse_get, getResponse_request, putResponse, postResponse_request } = require('../../utils/query_util');
+const { getResponse, getResponse_get, getResponse_request, putResponse, postResponse_request, getResponse_getT } = require('../../utils/query_util');
 
 class admin_manage_queries {
 
@@ -11,7 +11,7 @@ class admin_manage_queries {
             return { result, resbody }
 
         } catch (err) {
-            if (err) console.log('login error', err)
+            if (err) console.log('error', err)
         }
     };
 
@@ -105,8 +105,20 @@ class admin_manage_queries {
             if (err) console.log('login error', err)
         }
     };
-    static async getSubs () {
+    static async getSubs (token) {
         const url = 'accounts/subsidiaries';
+
+        try {
+            const {result, resbody} = await getResponse_getT(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+    
+    static async getSubs_createusers () {
+        const url = 'accounts/account_subsidiary';
 
         try {
             const {result, resbody} = await getResponse_get(url)
@@ -116,7 +128,6 @@ class admin_manage_queries {
             if (err) console.log('login error', err)
         }
     };
-    
     //Get list of the roles
     static async getRole () {
         const url = 'accounts/roles';
@@ -163,6 +174,74 @@ class admin_manage_queries {
             return {result, resbody}
             
         }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewDept (id, token) {
+        const url = `accounts/department/${id}`;
+
+        try {
+            const {result, resbody} = await getResponse_getT(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewSub (id, token) {
+        const url = `accounts/subsidiary/${id}`;
+
+        try {
+            const {result, resbody} = await getResponse_getT(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async editDepartment(query, token, id) {
+        const url = `accounts/department/${id}`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async editSubsidiary(query, token, id) {
+        const url = `accounts/subsidiary/${id}`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async addDepartment(query, token) {
+        const url = 'accounts/departments';
+        try {
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async addSubsidiary(query, token) {
+        const url = 'accounts/subsidiaries';
+        try {
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };

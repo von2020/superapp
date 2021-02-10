@@ -300,6 +300,111 @@ class auth_controllers {
         
     };
 
+    static async staffDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+
+        try{
+            const {result, resbody} = await getTotals(token);
+            const totals = resbody;
+            req.session.totals = resbody;
+            console.log("totals", totals)
+            if (result.statusCode == '200') {
+                
+                    res.render('dashboard_staff', {userDetails, totals})
+                } 
+                else {
+                    resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                }
+        } catch(err){
+                if (err) console.log('error', err)
+            }
+        };
+
+    static async driverDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+
+        try{
+            const {result, resbody} = await getTotals(token);
+            const totals = resbody;
+            req.session.totals = resbody;
+            console.log("totals", totals)
+            if (result.statusCode == '200') {
+                
+                    res.render('dashboard_staff', {userDetails, totals})
+                } 
+                else {
+                    resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                }
+        } catch(err){
+                if (err) console.log('error', err)
+            }
+        };
+
+    static async supervisorDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+    
+            try{
+                const {result, resbody} = await getTotals(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                    
+                        res.render('dashboard_staff', {userDetails, totals})
+                    } 
+                    else {
+                        resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+            } catch(err){
+                    if (err) console.log('error', err)
+                }
+        };
+
+    static async directorDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+    
+            try{
+                const {result, resbody} = await getTotals(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                    
+                        res.render('dashboard_staff', {userDetails, totals})
+                    } 
+                    else {
+                        resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+            } catch(err){
+                    if (err) console.log('error', err)
+                }
+            };
+
+    static async driverAdminDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+        
+            try{
+                const {result, resbody} = await getTotals(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                        
+                    res.render('dashboard_staff', {userDetails, totals})
+                } 
+                else {
+                    resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+                } catch(err){
+                        if (err) console.log('error', err)
+                    }
+        };
+    
     static async displayPrivacyPolicy (req, res) {
         var userDetails = req.session.userDetails
         res.render('privacy_policy', {userDetails}) 

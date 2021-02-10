@@ -35,11 +35,39 @@ const {
     assignVehicle,
     handleAssignVehicle,
     getAllDepartments,
+    viewDepartment,
+    viewSubsidiary,
+    editSubsidiary,
+    editDepartment,
+    handleEditDepartment,
+    handleEditSubsidiary,
+    addDepartment,
+    addSubsidiary,
+    handleAddSubsidiary,
+    handleAddDepartment,
+    getAllSubsidiaries,
     handleEditProfile,
     getFailedUsers
 } = admin_manage_controllers;
 
 router.get('/all-departments', [adminCheckSession, superAdminAuthorize], getAllDepartments);
+router.get('/all-subsidiaries', [adminCheckSession, superAdminAuthorize], getAllSubsidiaries);
+
+router.get('/view-department', [adminCheckSession, superAdminAuthorize], viewDepartment);
+router.get('/view-subsidiary', [adminCheckSession, superAdminAuthorize], viewSubsidiary);
+
+router.get('/edit-department', [adminCheckSession, superAdminAuthorize], editDepartment);
+router.post('/edit-department', [adminCheckSession, superAdminAuthorize], handleEditDepartment);
+
+router.get('/edit-subsidiary', [adminCheckSession, superAdminAuthorize], editSubsidiary);
+router.post('/edit-subsidiary', [adminCheckSession, superAdminAuthorize], handleEditSubsidiary);
+
+
+router.get('/add-department', [adminCheckSession, superAdminAuthorize], addDepartment);
+router.post('/add-department', [adminCheckSession, superAdminAuthorize], handleAddDepartment);
+
+router.get('/add-subsidiary', [adminCheckSession, superAdminAuthorize], addSubsidiary);
+router.post('/add-subsidiary', [adminCheckSession, superAdminAuthorize], handleAddSubsidiary);
 
 router.get('/view_request', [adminCheckSession, superAdminAuthorize], viewRequest);
 router.get('/individual_request', [adminCheckSession, superAdminAuthorize], memberRequest);
