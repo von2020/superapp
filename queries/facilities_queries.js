@@ -537,6 +537,50 @@ class vehicle_queries {
         }
     };
 
+    static async repairStatus(query, token) {
+        const url = 'vehicle/repair_status';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async repairStatusList(token) {
+        const url = 'vehicle/repair_status';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewRepairStatus(token, id) {
+        const url = `vehicle/repair_status/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateRepairStatus_driver(query, token, id) {
+        const url = `vehicle/repair_status/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async updateCarFault(query, token, id) {
         const url = `vehicle/fault/${id}`;
         try {

@@ -94,18 +94,18 @@
                       </div>
                       <div class="row mt-5">
                         <div class="col-sm-12">
-                          <form class="" action="/facilities/viewbalanceservicingQueueFinance" method="post">
+                          <form class="" action="/facilities/viewRepairQueueBalance_finance" method="post">
                           <div class="thread-box">
                             <div class="thread-head d-flex justify-content-between p-4">
                               <div class="thread-desc d-flex">
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Vehicle Details</h5>
-                                  <p><span>vehicle: <a class="text-primary"><%= materials.vehicle%></a></span></p>
-                                  <p><span>servicing date: <a class="text-primary"><%= materials.servicing_date%></a></span></p>
-                                  <p><span>location: <a class="text-primary"><%= materials.location%></a></span></p>
-                                  <p><span>craeted by: <a class="text-primary"><%= materials.created_by%></a></span></p>
-                                  <p><span>balance amount: <a class="text-primary"><%= materials.balance_amount%></a></span></p>
+                                  <p><span>vehicle: <a class="text-primary"><%= queues.vehicle_name%></a></span></p>
+                                  <p><span>repair date: <a class="text-primary"><%= queues.repair_date%></a></span></p>
+                                  
+                                  <p><span>created by: <a class="text-primary"><%= queues.created_by%></a></span></p>
+                                  <p><span>balance amount: <a class="text-primary"><%= queues.balance_amount%></a></span></p>
 
                               </div>
                               </div>
@@ -115,16 +115,16 @@
                             </div>
                             <div class="thread-body p-5">
                               
-                                <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%= materials.bill_of_material%>" required>
-                                <input type="hidden" name="location" class="form-control" id="location" value="<%=materials.location%>" required>
-                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
+                                <input type="hidden" name="recommended" class="form-control" id="recommended" value="<%= queues.recommended%>" required>
+                                <input type="hidden" name="location" class="form-control" id="location" value="<%=queues.location%>" required>
+                                <input type="hidden" name="repair_date" class="form-control" id="servicing_date" value="<%=queues.servicing_date%>" required>
           
-                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
+                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=queues.created_by%>" required>
                                 
                                 
-                                <input type="hidden" name="finance_personnel" class="form-control" id="finance_personnel" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
+                                <input type="hidden" name="finance_name" class="form-control" id="finance_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
-                                <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.id%>" required>
+                                <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
           
                             </div>
                             <div class="thread-foot p-4 d-flex justify-content-between">

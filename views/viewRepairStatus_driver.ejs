@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
-    <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body>
@@ -58,7 +57,7 @@
                 <nav class="page-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Vehicle</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Repair Queue </li>
+                        <!-- <li class="breadcrumb-item active" aria-current="page">Bill Of Material</li> -->
                     </ol>
                 </nav>
 
@@ -69,7 +68,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Advance Invoice</h6>
+                                        <h6 class="card-title d-block">Vehicle Status</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -81,8 +80,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form class="" action="/facilities/viewRepairStatus_driver" method="post">
                                 <div class="table-responsive">
-                                    <table  class="table">
+                                    <table class="table">
 
                                         <thead>
                                             <tr>
@@ -92,36 +92,37 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th> Vehicle Name </th>
-                                                <td> <%= queues.vehicle_name%> </td>
+                                                <th> Vehicle Condition </th>
+                                                <td>
+                                                    <select class="form-control" id="vehicle_condition" name="vehicle_condition" >
+                                                        <option>------</option>
+                                                        <option>perfect</option>
+                                                        <option>adjust</option>
+                                                        <option>bad</option>
+                                                    </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Upload Invoice </th>
-                                                <td> <input type="file" name="data" class="form-control" id="advance_invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required> </td>
+                                                <th> Condition Comment </th>
+                                                <td><textarea name="condition_comment" class="form-control" id="condition_comment" required></textarea></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Technician Revisit</th>
+                                                <td><select class="form-control" id="technician_revisit" name="technician_revisit" >
+                                                    <option>------</option>
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                    </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Driver's Name </th>
+                                                <td> <input name="driver_name" class="form-control" id="driver_name" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" readonly> </td>
                                             </tr>
 
                                             
                                             
-                                            
-
-                                            
-
-                                            <tr>
-                                                <th> Created By </th>
-                                                <td> <%= queues.created_by%> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Payment Type </th>
-                                                <td> <%= queues.payment_type%> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Advance Invoice </th>
-                                                <td> <%= queues.advance_payment_invoice%> </td>
-                                            </tr>
-
                                             
                                         </tbody>
                                         
@@ -130,30 +131,24 @@
                                     </table>
                                     <br>
                                     <br>
+                                    
                                     <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
                                     
-                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
-
-                                    <input type="hidden" name="advance_payment" class="form-control" id="advance_payment" value="<%queues.advance_payment%>" required>
 
                                     
                                     
                                 </div>
-                                <!-- <input class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> -->
-                                <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
-                                    <span id="reqLoader" style="display: none;"> 
-                                         <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
-                                     </span> 
-                                    </button>
-                        
+                                <br>
+                                
+                                <button class="btn-lg btn-primary" type="submit">Save</button>
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-            
-           
+
             <!-- partial:partials/_footer.html -->
             <%- include('./bars/footer') %>
             <!-- partial -->
@@ -182,103 +177,6 @@
     <script src="../../../assets/js/dashboard.js"></script>
     <script src="../../../assets/js/data-table.js"></script>
     <!-- end custom js for this page -->
-
-    <script>
-        let data;
-        function convert(){
-            // alert('abeg');
-            var file = document.getElementById('advance_invoice').files[0];
-                getBase64(file);
-                console.log("begining")
-                console.log(data)
-            // var data = reader.result;
-        }
-
-        function getBase64(file) {            
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-              this.data = reader.result
-               // return data
-        };
-        reader.onerror = function (error) {
-        console.log('Error: ', error);
-        };
-    }
-function Submit(){
-    var loading = document.getElementById("reqBtn");
-    loading.disabled = true;
-    var loader = document.getElementById("reqLoader");
-    loader.style.display = "inline-block";
-
-var fileInput = document.getElementById('advance_invoice').value
-console.log(fileInput);
-
-if (fileInput == "") {
-                alert('Please Select a document to Continue');
-                loading.disabled = false; 
-                loader.style.display = "none";
-            }
-      else {      
-
-var file = document.getElementById('advance_invoice').files[0];
-        var reader = new FileReader();
-            reader.readAsDataURL(file);
-            if (file.size > 2000000) {
-                alert('file must be 2mb or less')
-                loading.disabled = false; 
-                loader.style.display = "none";
-            }
-            else 
-            {
-            reader.onload = function () {
-                console.log("starting")
-                    var ID = $('#id').val();
-                  console.log(ID)
-                    var putJSON = function (url) {
-return $.ajax({
-url: url,
-type: 'PUT',
-data:JSON.stringify({"advance_invoice"  : reader.result}),
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
-contentType: 'application/json'
-});
-};
-
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/queue_repair/${ID}/upload`).done(function(data, status){
-                      console.log("here",data),
-                      
-                      console.log("here")
-                      console.log("here",data)
-                      console.log(status)
-                      
-                      if (status == "success") {
-                        loading.disabled = false;
-                        loader.style.display = "none";
-                        alert('invoice upload successful')
-                    } else {
-                        loading.disabled = false; 
-                        loader.style.display = "none";
-                        alert('invoice upload Not successful')
-                      }
-            
-                    }).fail(function(){
-
-                    })
-               // return data
-        };
-    }
-        reader.onerror = function (error) {
-        console.log('Error: ', error);
-        };
-                    
-    }                 
-          
-}
-
-    </script>
-
-
 </body>
 
 </html>

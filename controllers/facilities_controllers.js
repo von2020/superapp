@@ -49,9 +49,12 @@ const {
     viewQuotation,
     updateQuotation,
     repairQueue,
+    repairStatus,
     viewRepairQueue,
     repairQueueList,
     updateRepairQueue,
+    updateRepairStatus_driver,
+    repairStatusList,
     sendBillOfMaterial,
     getBillOfMaterials,
     viewBillOfMaterials,
@@ -66,6 +69,7 @@ const {
     carServiceStatusList,
     viewServicingStatus,
     updateServicingStatus,
+    viewRepairStatus,
     servicingQueueList,
     tripDistance,
     vehicleDistance,
@@ -946,7 +950,7 @@ class Facilities {
         const token = userDetails.token;
         
         var query;
-        if (req.body.require_advance == 'yes') {
+        if (req.body.payment_type == 'advance') {
         query = {
             recommended: req.body.quotation,
             repair_date: req.body.repair_date,
@@ -975,7 +979,7 @@ class Facilities {
             if (result.statusCode == '201') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to repair queue`,'/facilities/repairQueueList')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response}  `,'/facilities/quotationList')
+                resMessageRedirect(res, req, 'error_msg', ` ${response.recommended}  `,'/facilities/quotationList')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -1013,10 +1017,10 @@ class Facilities {
         
         try {
             const {result, resbody} = await viewRepairQueue(token, id);
-            const materials = resbody
-            console.log('materials', materials)
+            const queues = resbody
+            console.log('queues', queues)
             if (result.statusCode == 200) {
-                res.render('repairAdvanceInvoice', {userDetails, materials});
+                res.render('repairAdvanceInvoice', {userDetails, queues});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -1037,10 +1041,10 @@ class Facilities {
         
         try {
             const {result, resbody} = await viewRepairQueue(token, id);
-            const materials = resbody
-            console.log('materials', materials)
+            const queues = resbody
+            console.log('queues', queues)
             if (result.statusCode == 200) {
-                res.render('repairBalanceInvoice', {userDetails, materials});
+                res.render('repairBalanceInvoice', {userDetails, queues});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -1350,15 +1354,154 @@ class Facilities {
             const {result, resbody} = await updateRepairQueue(query, token, id);
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
-                if(resbody.auditor_balance_approval == 'APPROVED') {
+                if(resbody.finance_balance_approval == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully approved balance invioce')
-                    res.redirect('/facilities/repairQueueList_auditor');
+                    res.redirect('/facilities/repairQueueList_finance');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected balance invoice')
-                    res.redirect('/facilities/repairQueueList_auditor');
+                    res.redirect('/facilities/repairQueueList_finance');
                 }
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/repairQueueList_auditor')
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/repairQueueList_finance')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
+
+    static async repairStatus (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewRepairQueue(token, id);
+            const queues = resbody
+            console.log('queues', queues)
+            if (result.statusCode == 200) {
+                res.render('carRepairStatus_driverAdmin', {userDetails, queues});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async handleRepairStatus (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        const query = {
+            queue_repair: req.body.id,
+            created_by: req.body.created_by,
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await repairStatus(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created vehicle repair status for vehicle`,'/facilities/repairQueueList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.repair_queue}  `,'/facilities/repairQueueList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+            
+    };
+
+    static async carRepairStatusList_driver (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await repairStatusList(token);
+            const vehicles = resbody
+            console.log('vehicles', vehicles)
+            if (result.statusCode == 200) {
+                res.render('repairStatusList_driver', {userDetails, vehicles});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+
+    static async viewRepairStatus_driver(req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewRepairStatus(token, id);
+            const queues = resbody
+            console.log('queues', queues)
+            if (result.statusCode == 200) {
+                res.render('viewRepairStatus_driver', {userDetails, queues});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async updateViewRepairStatus_driver (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        
+
+        const query = {
+            queue_repair: req.body.id,
+            vehicle_condition: req.body.vehicle_condition,
+            condition_comment: req.body.condition_comment,
+            technician_revisit: req.body.technician_revisit,
+            driver_name: req.body.driver_name,
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateRepairStatus_driver(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                
+                    req.flash('success_msg', 'You have successfully updated Vehicle Repairing Status')
+                    res.redirect('/facilities/carRepairStatusList_driver');
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/carRepairStatusList_driver')
             }
         } catch(err){
             if (err) console.log('error', err)

@@ -96,8 +96,8 @@
 
                                             
                                             <tr>
-                                                <th> Require Advance </th>
-                                                <td> <%= materials.require_advance%> </td>
+                                                <th> Payment Type </th>
+                                                <td> <%= materials.payment_type%> </td>
                                             </tr>
 
                                             <tr>
@@ -145,9 +145,9 @@
                                                 <td> <%= materials.updated_on%> </td>
                                             </tr>
 
-                                            <%if (materials.require_advance == 'yes') { %>
+                                            <%if (materials.payment_type == 'advance') { %>
                                                 <tr>
-                                                    <th>Adavance Amount</th>
+                                                    <th>Advance Amount</th>
                                                     <td> <input name="advance_amount"   class="form-control" id="advance_amount" required> </td>
                                                 </tr>
                                                 <% } else{ %>
@@ -188,6 +188,8 @@
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
                                     <input type="hidden" name="fault" class="form-control" id="fault" value="<%=materials.fault%>" required>
+
+                                    <input type="hidden" name="payment_type" class="form-control" id="payment_type" value="<%=materials.payment_type%>" required>
 
                                     
 

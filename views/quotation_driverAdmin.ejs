@@ -291,11 +291,13 @@
 
         function onclickfunction() {
 
-var description = $('#description').val();
-var unit_price = $('#unit_price').val();
-var quantity = $('#quantity').val();
+var body = $('#body').val();
+var technician = $('#technician').val();
+var document = $('#document').val();
+var invoice = $('#invoice').val();
+var amount_charged = $('#amount_charged').val();
 
-if (description == '' || unit_price == '' || quantity =='') {
+if (body == '' || technician == '' || document =='' || invoice =='' || amount_charged =='') {
 
   swal("kindly fill all fields!", {
     buttons: false,
@@ -304,9 +306,11 @@ if (description == '' || unit_price == '' || quantity =='') {
 } else {
 
   var details = {
-    description: description,
-    unit_price: unit_price,
-    quantity: quantity
+    body: body,
+    technician: technician,
+    document: document,
+    invoice: invoice,
+    amount_charged: amount_charged
   };
   values.push(details);
   appendFunction();
@@ -318,18 +322,22 @@ if (description == '' || unit_price == '' || quantity =='') {
   html += "<table class='table table-striped'>";
   html += "<thead>";
   html += "<tr>";
-  html += "<th>" + "description" + "</th>";
-  html += "<th>" + "unit_price" + "</th>";
-  html += "<th>" + "quantity" + "</th>";
+  html += "<th>" + "body" + "</th>";
+  html += "<th>" + "technician" + "</th>";
+  html += "<th>" + "document" + "</th>";
+  html += "<th>" + "invoice" + "</th>";
+  html += "<th>" + "amount_charged" + "</th>";
   html += "<th>" + "Action" + "</th>";
   html += "</tr>";
   html += "</thead>";
   html += "<tbody>";
   for (var i = 0; i < values.length; i++) {
     html += "<tr>";
-    html += "<td>" + values[i].description + "</td>";
-    html += "<td>" + values[i].unit_price + "</td>";
-    html += "<td>" + values[i].quantity + "</td>";
+    html += "<td>" + values[i].body + "</td>";
+    html += "<td>" + values[i].technician + "</td>";
+    html += "<td>" + values[i].document + "</td>";
+    html += "<td>" + values[i].invoice + "</td>";
+    html += "<td>" + values[i].amount_charged + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
     html += "</tr>";
@@ -354,18 +362,22 @@ var html = "<br>"
 html += "<table class='table table-striped'>";
 html += "<thead>";
 html += "<tr>";
-html += "<th>" + "description" + "</th>";
-html += "<th>" + "unit_price" + "</th>";
-html += "<th>" + "quantity" + "</th>";
+  html += "<th>" + "body" + "</th>";
+  html += "<th>" + "technician" + "</th>";
+  html += "<th>" + "document" + "</th>";
+  html += "<th>" + "invoice" + "</th>";
+  html += "<th>" + "amount_charged" + "</th>";
 html += "<th>" + "Action" + "</th>";
 html += "</tr>";
 html += "</thead>";
 html += "<tbody>";
 for (var i = 0; i < values.length; i++) {
   html += "<tr>";
-  html += "<td>" + values[i].description + "</td>";
-  html += "<td>" + values[i].unit_price + "</td>";
-  html += "<td>" + values[i].quantity + "</td>";
+    html += "<td>" + values[i].body + "</td>";
+    html += "<td>" + values[i].technician + "</td>";
+    html += "<td>" + values[i].document + "</td>";
+    html += "<td>" + values[i].invoice + "</td>";
+    html += "<td>" + values[i].amount_charged + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
   html += "</tr>";
@@ -414,37 +426,59 @@ if (fileInput == "" || fileInput2 == "" ) {
         }
   else {     
 
-var file = document.getElementByClassName('docfile').files[0];
-// var file2 = document.getElementById('invoice').files[0];
+var file = document.getElementById('document').files[0];
+var file2 = document.getElementById('invoice').files[0];
 
-file.forEach(filename);
+// file.forEach(filename);
 
-function filename(){
-    var doc = document.getElementById('document').value;
-    var inv = document.getElementById('invoice').value;
-}
+// function filename(){
+//     var doc = document.getElementById('document').value;
+//     var inv = document.getElementById('invoice').value;
+// }
 
     var reader = new FileReader();
-    // var reader2 = new FileReader();
+    var reader2 = new FileReader();
      reader.readAsDataURL(file);
-     
+     reader2.readAsDataURL(file2);
         
         
-        if (file.size > 2000000) {
+        if (file.size > 2000000 || file2.size > 2000000) {
             alert('file must be 2mb or less')
             loading.disabled = false; 
             loader.style.display = "none";
         
 
         }
-        else 
+        else if(file.size > 2000000 && file2.size > 2000000){
+          alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+              
+        else
         {
         reader.onload  = function () {
             console.log("starting")
             console.log(reader.result);
-             
+          };
+          
+        reader2.onload  = function () {
+            console.log("starting")
+            console.log(reader2.result);
+          };
+              
+          const files_upload =[
+          new Promise(resolve => reader.result),
+          new Promise(resolve => reader2.result)
 
-              var fault = $('#fault').val();
+          ]
+
+    
+
+    Promise.all(files_upload)
+  .then(data => {
+    
+    var fault = $('#fault').val();
               console.log(fault)
               var require_advance = $('#require_advance').val();
               console.log(require_advance)
@@ -492,11 +526,13 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
 
              })
            // return data
+          reader.onerror = function (error) {
+          console.log('Error: ', error);
     };
-}
-    reader.onerror = function (error) {
-    console.log('Error: ', error);
-    };
+
+  });
+
+    }
                 
   }   
       

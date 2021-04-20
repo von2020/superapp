@@ -96,6 +96,11 @@ const {
     carServiceStatusList_driver,
     updateViewServicingStatus_driver,
     handleServiceStatus,
+    repairStatus,
+    handleRepairStatus,
+    carRepairStatusList_driver,
+    viewRepairStatus_driver,
+    updateViewRepairStatus_driver,
     addBillOfMaterial,
     allBillOfMaterials,
     viewBillOfMaterials,
@@ -260,7 +265,15 @@ router.get('/repairQueueList_finance', [checkSession, financeAuthorize], repairQ
 router.get('/viewRepairQueue_finance', [checkSession, financeAuthorize], viewRepairAdvanceQueue_finance),
 router.post('/viewRepairQueue_finance', [checkSession, financeAuthorize], updateRepairAdvanceQueue_finance),
 router.get('/viewRepairQueueBalance_finance', [checkSession, financeAuthorize], viewRepairQueueBalance_finance),
-router.post('/viewRepairQueueBalance_auditor', [checkSession, financeAuthorize], updateBalanceCarRepairQueueFinance),
+router.post('/viewRepairQueueBalance_finance', [checkSession, financeAuthorize], updateBalanceCarRepairQueueFinance),
+
+router.get('/repairStatus', [checkSession, driverAuthorize], repairStatus),
+router.post('/repairStatus', [checkSession, driverAuthorize], handleRepairStatus),
+
+router.get('/carRepairStatusList_driver', [checkSession, carDriverAuthorize], carRepairStatusList_driver),
+
+router.get('/viewRepairStatus_driver', [checkSession, carDriverAuthorize], viewRepairStatus_driver),
+router.post('/viewRepairStatus_driver', [checkSession, carDriverAuthorize], updateViewRepairStatus_driver),
 
 router.get('/servicingList', [checkSession, driverAuthorize], servicingList),
 

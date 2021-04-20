@@ -68,7 +68,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Vehicle Servicing Queue</h6>
+                                        <h6 class="card-title d-block">Vehicle Repair Queue</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -97,18 +97,15 @@
                                             </tr>
                                             <tr>
                                                 <th> Vehicle </th>
-                                                <td> <%= queues.vehicle%> </td>
+                                                <td> <%= queues.vehicle_name%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Servicing Date </th>
-                                                <td> <%= queues.servicing_date%> </td>
+                                                <td> <%= queues.repair_date%> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th>Technician's Location</th>
-                                                <td> <%= queues.location%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> Created By </th>
@@ -167,9 +164,11 @@
                                                 <td> <a href="/facilities/viewBalanceInvoice_driverAdmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Balance Invoice</a>  </td>
                                             <% } %>
                                             </tr>
+
+                                            
                                             <tr>
-                                                <th> Create Servicing Status </th>
-                                                <td> <a href="/facilities/serviceStatus?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Create Servicing Status</a> </td>
+                                                <th> Create Repair Status </th>
+                                                <td> <a href="/facilities/repairStatus?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Create Servicing Status</a> </td>
                                             </tr>
                                         </tbody>
                                         
