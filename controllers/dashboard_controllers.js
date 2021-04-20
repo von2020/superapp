@@ -75,6 +75,16 @@ static async editProfile (req, res) {
         }
     }
 
+    static async directorReports (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('dashboard_director', {userDetails}) 
+        };
+
+    static async driverAdminReports (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('dashboard_driver_admin', {userDetails}) 
+        };
+
 };
 
 module.exports = Dashboard

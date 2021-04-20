@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Telnet SuperApp</title>
+	<!-- core:css -->
+	<link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+	<!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+	<!-- end plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<!-- endinject -->
+  <!-- Layout styles -->  
+  <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+  <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+</head>
+<body>
+	<div class="main-wrapper">
+
+<!-- Insert the sidebar partial here-->
+<%- include('./bars/admin_sidebar') %>
+		<!-- partial -->
+	
+		<div class="page-wrapper">
+				
+			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
+            <%- include('./bars/admin_topbar') %>
+			<!-- partial -->
+
+			<div class="page-content">
+                <%- include('.././partials/messages')%>
+
+				<!-- <nav class="page-breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Tables</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Data Table</li>
+					</ol>
+        </nav> -->
+        
+        <!-- <div class="row">
+          <div class="col-lg-12 col-xl-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                  <h6 class="card-title mb-0">Quick Statistics</h6>
+                  <div class="dropdown mb-2">
+                    <button class="btn p-0" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
+                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
+                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
+                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-muted mb-4">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
+                <div class="monthly-sales-chart-wrapper">
+                  <canvas id="monthly-sales-chart"></canvas>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>   -->
+
+				<div class="row">
+					<div class="col-md-12 grid-margin stretch-card">
+            <div class="card card-special">
+              <div class="card-body">
+                <div class="row justify-content-between">
+                  <div>
+                  <h6 class="card-title d-block">Bill Of Material</h6>
+                  
+                  </div>
+
+                  <div class="d-flex align-items-center flex-wrap text-nowrap ">
+                    <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
+                      <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
+                      <input type="text" class="form-control">
+                    </div>
+                    <!-- <button type="button" class="btn btn-primary btn-icon-text mr-2 d-none d-md-block">
+                      Car Request
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-icon-text mr-2 mb-2 mb-md-0">
+                      Gen Request
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
+                      Facilities Request
+                    </button> -->
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table id="dataTableExample" class="table" data-order=''>
+                    <thead>
+        
+                        <tr>
+                          <th>Material Name</th>
+                          <th>Vehicle Name</th>
+                          <th>Technician Name</th>
+                          <th>Created By</th>
+                          <th>Created On</th>
+                          <th>BU Head Approval</th>
+                          
+                          
+                          <th>View</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% materials.forEach((material) => {%>
+                      <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+                          <tr>
+                            <td><%= material.name%></td>
+                            <td><%= material.vehicle_name%></td>
+                            <td><%= material.technician_name%></td>
+                            <td><%= material.created_by%></td>
+                            <td><%= material.created_on%></td>
+                            <td><%= material.bu_head_approval%></td>
+                            
+                            
+                            <td><a href="/admin/manage/viewBillOfMaterialList?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
+                          </tr>
+                          <% })%>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- partial:partials/_footer.html -->
+            <%- include('./bars/admin_footer') %>
+			<!-- partial -->
+	
+		</div>
+	</div>
+
+	<!-- core:js -->
+	<script src="../../../assets/vendors/core/core.js"></script>
+	<!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="../../../assets/vendors/chartjs/Chart.min.js"></script>
+  <script src="../../../assets/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="../../../assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="../../../assets/vendors/apexcharts/apexcharts.min.js"></script>
+  <script src="../../../assets/vendors/progressbar.js/progressbar.min.js"></script>
+  <script src="../../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+	<!-- end plugin js for this page -->
+	<!-- inject:js -->
+	<script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+	<script src="../../../assets/js/template.js"></script>
+	<!-- endinject -->
+  <!-- custom js for this page -->
+  <script src="../../../assets/js/dashboard.js"></script>
+  <script src="../../../assets/js/data-table.js"></script>
+	<!-- end custom js for this page -->
+</body>
+</html>

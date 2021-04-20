@@ -22,3 +22,8 @@
     border-bottom:5px solid #f9fafb;
 }
 
+.signDoc .btn-primary  i {
+    font-size: 14px;
+    color: #fff;
+  }
+

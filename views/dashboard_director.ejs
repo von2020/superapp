@@ -34,6 +34,10 @@
             <%- include('./bars/sidebar_staff') %>
             <% } else if (userDetails.role == 'Supervisor') { %>
             <%- include('./bars/sidebar_sup') %>  
+            <% } else if (userDetails.role == 'Auditor') { %>
+            <%- include('./bars/sidebar_auditor') %> 
+            <% } else if (userDetails.role == 'Finance') { %>
+            <%- include('./bars/sidebar_finance') %>
             <%  } else if (userDetails.role == 'Driver Admin') { %>
             <%- include('./bars/sidebar_driver') %>  
             <%  } else if (userDetails.role == 'Director') { %>
@@ -246,7 +250,7 @@
       // *Total No* //
       //var url = "dashboard.ejs";
       $.ajax({
-        url:'https://cors-anywhere.herokuapp.com/https://173.212.208.45:8443/api/v1/accounts/totals',
+        url:'https://telnetsupperapp.com.ng:8443/api/v1/accounts/totals',
         type:'GET',
         dataType: 'json',
         success:function(data){
@@ -287,7 +291,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://cors-anywhere.herokuapp.com/https://173.212.208.45:8443/api/v1/core/total_vrequest_subsidiaries',
+          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_vrequest_subsidiaries',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -327,7 +331,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://cors-anywhere.herokuapp.com/https://173.212.208.45:8443/api/v1/core/total_subsidiary_trip',
+          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_trip',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -345,7 +349,7 @@
 
         $("#TripRange").DataTable({
       ajax: {
-          url: "https://cors-anywhere.herokuapp.com/https://173.212.208.45:8443/api/v1/core/trip_range",
+          url: "https://telnetsupperapp.com.ng:8443/api/v1/core/trip_range",
           dataSrc: ""
       },
       columns: [

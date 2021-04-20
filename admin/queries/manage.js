@@ -5,7 +5,7 @@ class admin_manage_queries {
 
     //Get list of the users that can approve members
     static async getUsers(token) {
-        const url = 'accounts/active_users';
+        const url = 'accounts/all_active';
         try {
             const { result, resbody } = await getResponse_request(url, token)
             return { result, resbody }
@@ -245,6 +245,73 @@ class admin_manage_queries {
             if (err) console.log('login error', err)
         }
     };
+
+    static async getBillOfMaterials(token) {
+        const url = 'vehicle/bill_of_materials';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewBillOfMaterials(token, id) {
+        const url = `vehicle/bill_of_material/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateBillOfMaterials(query, token, id) {
+        const url = `vehicle/bill_of_material/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+
+    static async quotationList(token) {
+        const url = `vehicle/recommend_quotation`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewQuotation(token, id) {
+        const url = `vehicle/recommend_quotation/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateQuotation(query, token, id) {
+        const url = `vehicle/recommend_quotation/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    }; 
 
 };
 

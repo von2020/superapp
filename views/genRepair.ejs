@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Telnet SuperApp</title>
+	<!-- core:css -->
+	<link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<!-- end plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<!-- endinject -->
+	<!-- Layout styles -->
+	<link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+	<!-- End layout styles -->
+	<link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOv0_40G3SdYjio79JjdMlNf2wmtybI7w&libraries=places&callback=initMap"></script>
+</head>
+
+<body >
+	<div class="main-wrapper">
+
+		<!-- Insert the sidebar partial here-->
+		<% if (userDetails.role == 'Staff') { %>
+		<%- include('./bars/sidebar_staff') %>
+		<% } else if (userDetails.role == 'Supervisor') { %>
+		<%- include('./bars/sidebar_sup') %>
+		<% } else if (userDetails.role == 'Auditor') { %>
+		<%- include('./bars/sidebar_auditor') %> 
+		<% } else if (userDetails.role == 'Finance') { %>
+		<%- include('./bars/sidebar_finance') %>
+		<%  } else if (userDetails.role == 'Driver Admin') { %>
+		<%- include('./bars/sidebar_driver') %>
+		<%  } else if (userDetails.role == 'Director') { %>
+		<%- include('./bars/sidebar_director') %>
+		<%  } else if (userDetails.role == 'Group Managing Director') { %>
+		<%- include('./bars/sidebar_gmd') %>  
+		<%  } else if (userDetails.role == 'Driver') { %>
+		<%- include('./bars/sidebar_carDriver') %>
+		<%  } else { %>
+		<%- include('./bars/sidebar') %>
+		<%  } %>
+
+		<div class="page-wrapper">
+
+			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
+			<%- include('./bars/topbar') %>
+			<!-- partial -->
+
+			<div class="page-content">
+				<%- include('./partials/messages')%>
+				<nav class="page-breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Reports</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Faults Report</li>
+					</ol>
+				</nav>
+
+				<div class="row">
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<!-- <h6 class="card-title">Inputs</h6> -->
+
+
+								<form class="" action="/facilities/faults_report" method="post" >
+									<!-- <div class="form-group" >
+										<label for="exampleFormControlSelect1 required">Request type</label>
+										<select class="form-control-lg" id="request-type" name="request_type" onchange="requestChangeFun()" required>
+											<option selected value="dropoff">Drop off</option>
+											<option  value="waitforme"> Wait for me</option>
+										</select>
+									</div> -->
+									<div class="form-group" id = "request">
+										<label for="exampleFormControlSelect1" >Fault Type</label>
+										<select class="form-control-lg" id="fault-type" name="fault_type"
+											onchange="changeFun()" required>
+											<option value="single" selected>Single Fault</option>
+											<option value="multiple">Multiple Faults</option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label for="exampleFormControlSelect1">SLA</label>
+										<input name="" class="form-control" id="" required>
+										<!-- <input type="hidden" id="latitude_input" /> -->
+										<!-- <input type="hidden" id="longitude_input" /> -->
+									</div>
+
+
+									<div class="form-group">
+										<!-- <label for="exampleFormControlSelect1">vehicle id</label> -->
+										<input name="vehicle_id" value="" class="form-control" id="purpose" hidden>
+									</div>
+
+                                    <div class="form-group">
+										<!-- <label for="exampleFormControlSelect1">driver id</label> -->
+										<input name="driver_id" value="" class="form-control" id="purpose" hidden>
+									</div>
+
+                                    
+
+                                    <div class="form-group">
+										<label for="exampleFormControlSelect1">Date</label>
+										<input name="fault_date" type="date" value="2020-01-01" class="form-control" id="purpose" required>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleFormControlSelect1">Faulty Part</label>
+										<input name="faulty_part" class="form-control" id="faulty-part" required>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleFormControlSelect1">Service Company</label>
+										<input name="faulty_part" class="form-control" id="faulty-part" required>
+									</div>
+
+									<div class="form-group">
+										<label for="exampleFormControlSelect1">Severity</label>
+										<select class="form-control-lg" id="severity" name="severity" required>
+											<option value="low" selected>Low</option>
+											<option value="high">High</option>
+											
+										</select>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleFormControlSelect1">Description</label>
+										<textarea name="description" class="form-control" id="description" required></textarea>
+									</div>
+
+									<div>
+										<p id="addMore" class="btn btn-light" style="float: right;"
+											onclick="onclickfunction()">add to list</p>
+									</div>
+
+									<div class="table-responsive" id="extrafeild"></div>
+
+
+									<button class="btn-lg btn-primary" type="submit">Submit</button>
+									<input name="random" id="random">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<script>
+				$(document).ready(function removeButton() {
+					$("#addMore").hide()
+					$("#random").hide()
+					$("#extrafeild").hide()
+					// $("#request").hide()
+				});
+			</script>
+			<script>
+				var searchInput = 'destination';
+				$(document).ready(function() {
+					var autocomplete;
+					autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+						types: ['geocode']
+					});
+					google.maps.event.addListener(autocomplete, 'place_changed', function() {
+						var near_place = autocomplete.getPlace();
+						document.getElementById('latitude_input').value = near_place.geometry.location.lat();
+						document.getElementById('longitude_input').value = near_place.geometry.location.log();
+
+						document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+						document.getElementById('longitude_view').innerHTML = near_place.geometry.location.log();
+					});
+				});
+				$(document).on('change', '#'+searchInput, function(){
+					document.getElementById('latitude_input').value ='';
+					document.getElementById('longitude_input').value ='';
+					document.getElementById('latitude_view').innerHTML ='';
+					document.getElementById('longitude_view').innerHTML ='';
+				})
+			</script>
+
+			<script>
+				var values = [];
+				function changeFun() {
+					var selectBox = document.getElementById("fault-type");
+					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+					if (selectedValue == 'multiple') {
+						$("#addMore").show();
+						$("#extrafeild").show();
+					} else if (selectedValue == 'single') {
+
+						$("#addMore").hide();
+						$("#extrafeild").hide();
+					}
+				};
+
+				function requestChangeFun() {
+					var selectBox = document.getElementById("request-type");
+					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+					if (selectedValue == 'waitforme') {
+						$("#request").show();
+					} else if (selectedValue == 'dropoff') {
+
+						$("#request").hide();
+					}
+				};
+
+				function onclickfunction() {
+
+					var faulty_part = $('#faulty-part').val();
+					var description = $('#description').val();
+					var severity = $('#severity').val();
+
+					if (faulty_part == '' || description == '' || severity == '') {
+
+						swal("kindly fill all fields!", {
+							buttons: false,
+							timer: 2000,  // disappears after 2 seconds
+						});
+					} else {
+
+						var details = {
+							faulty_part: faulty_part,
+							description: description,
+							severity: severity
+						};
+						values.push(details);
+						appendFunction();
+
+						// you can use the array. for each to set a value for the id
+						// or maybe you can use the post using jquery to send this to a route.
+
+						var html = "<br>"
+						html += "<table class='table table-striped'>";
+						html += "<thead>";
+						html += "<tr>";
+						html += "<th>" + "Faulty Part" + "</th>";
+						html += "<th>" + "Description" + "</th>";
+						html += "<th>" + "Severity" + "</th>";
+						html += "<th>" + "Action" + "</th>";
+						html += "</tr>";
+						html += "</thead>";
+						html += "<tbody>";
+						for (var i = 0; i < values.length; i++) {
+							html += "<tr>";
+							html += "<td>" + values[i].faulty_part + "</td>";
+							html += "<td>" + values[i].description + "</td>";
+							html += "<td>" + values[i].severity + "</td>";
+							html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+							html += "</tr>";
+						}
+						html += "</tbody>"
+						html += "</table>";
+						html += "<br>"
+
+						// display record
+						$("#extrafeild").html(html);
+
+
+
+					}
+				}
+
+				function deleteFunction(param) {
+					values.splice(param, 1)
+					appendFunction()
+
+					var html = "<br>"
+					html += "<table class='table table-striped'>";
+					html += "<thead>";
+					html += "<tr>";
+					html += "<th>" + "Faulty Part" + "</th>";
+					html += "<th>" + "Description" + "</th>";
+					html += "<th>" + "Severity" + "</th>";
+					html += "<th>" + "Action" + "</th>";
+					html += "</tr>";
+					html += "</thead>";
+					html += "<tbody>";
+					for (var i = 0; i < values.length; i++) {
+						html += "<tr>";
+						html += "<td>" + values[i].faulty_part + "</td>";
+						html += "<td>" + values[i].description + "</td>";
+						html += "<td>" + values[i].severity + "</td>";
+						html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+						html += "</tr>";
+					}
+					html += "</tbody>"
+					html += "</table>";
+					html += "<br>"
+
+					// display record
+					$("#extrafeild").html(html);
+
+					// show
+					if (employmentHistoryList.length > 0) {
+						$("#extrafeild").show();
+					};
+
+
+				}
+
+				function appendFunction() {
+					var x = JSON.stringify(values)
+					$('#random').val(x)
+				}
+
+
+
+			</script>
+
+
+			<!-- partial:partials/_footer.html -->
+			<%- include('./bars/footer') %>
+			<!-- partial -->
+
+		</div>
+	</div>
+
+	<!-- core:js -->
+	<script src="../../../assets/vendors/core/core.js"></script>
+	<!-- endinject -->
+	<!-- plugin js for this page -->
+	<!-- end plugin js for this page -->
+	<!-- inject:js -->
+	<script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+	<script src="../../../assets/js/template.js"></script>
+	<!-- endinject -->
+	<!-- custom js for this page -->
+	<script src="../../../assets/js/file-upload.js"></script>
+	<!-- end custom js for this page -->
+</body>
+
+</html>

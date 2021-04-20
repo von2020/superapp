@@ -19,44 +19,259 @@
                     <span class="link-title">Dashboard</span>
                   </a>
                 </li>
-                <li class="nav-item nav-category">Requests</li>
+                
                 <li class="nav-item">
-                  <a href="/requests/my_request" class="nav-link">
-                    <i class="link-icon" data-feather="inbox"></i>
-                    <span class="link-title">Requests</span>
+                  <a class="nav-link" data-toggle="collapse" href="#tables1" role="button" aria-expanded="false" aria-controls="tables">
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Car Requests</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
+                  <div class="collapse" id="tables1">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/requests/my_request" class="nav-link">Requests</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/requests/create_request" class="nav-link">Create Request</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/requests/viewmanage_request" class="nav-link">Manage Requests</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
                 </li>
                 <li class="nav-item">
-                  <a href="/requests/create_request" class="nav-link">
-                    <i class="link-icon" data-feather="file-plus"></i>
-                    <span class="link-title">Create Request</span>
+                  <a class="nav-link" data-toggle="collapse" href="#tables2" role="button" aria-expanded="false" aria-controls="tables">
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Manage Vehicles</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
+                  <div class="collapse" id="tables2">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/addVehicle" class="nav-link">Add Vehicle</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/vehicleList" class="nav-link">All Vehicles</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/requests/available_vehicles" class="nav-link">Available Vehicles</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#tables3" role="button" aria-expanded="false" aria-controls="tables">
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Car Servicing</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse" id="tables3">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/add_technician" class="nav-link">Add Technician</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/carTechnicianList" class="nav-link">All Technicians</a>
+                      </li>
+                      
+                      
+                      <li class="nav-item">
+                        <a href="/facilities/servicingList" class="nav-link">Vehicles Due Servicing</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/servicingQueueDriverAdmin" class="nav-link">Servicing Queue List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/carServiceStatusList" class="nav-link">Servicing Status List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/addBillOfMaterial" class="nav-link">Create Bill Of Materials</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/allBillOfMaterials" class="nav-link">All Bill Of Materials</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#tables8" role="button" aria-expanded="false" aria-controls="tables">
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Car Repair</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse" id="tables8">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/carTechnicianList" class="nav-link">All Technicians</a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="/facilities/carFaultList" class="nav-link">Faults List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/quotationList" class="nav-link">Quotation List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/repairQueueList" class="nav-link">Repair Queue List</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/carServiceStatusList" class="nav-link">Servicing Status List</a>
+                      </li> -->
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/addBillOfMaterial" class="nav-link">Create Bill Of Materials</a>
+                      </li> -->
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/allBillOfMaterials" class="nav-link">All Bill Of Materials</a>
+                      </li> -->
+                      
+                    </ul>
+                  </div>
                 </li>
                 
                 <li class="nav-item">
-                  <a href="/requests/viewmanage_request" class="nav-link">
-                    <i class="link-icon" data-feather="edit"></i>
-                    <span class="link-title">Manage Requests</span>
+                  <a class="nav-link" data-toggle="collapse" href="#tables4" role="button" aria-expanded="false" aria-controls="tables">
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Generator Servicing</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
+                  <div class="collapse" id="tables4">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/addGenerator" class="nav-link">Add Generator</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/generatorList" class="nav-link">Generator List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/addGenTechnician" class="nav-link">Add Technician</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genDueServicingList" class="nav-link">Due Servicing</a>
+                      </li>
+                      <!-- <li class="nav-item"> 
+                        <a href="/facilities/genServicingList_driverAdmin" class="nav-link">Servicing List</a>
+                      </li>  -->
+                      <li class="nav-item">
+                        <a href="/facilities/genServiceRequests" class="nav-link">Create Service Request</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genServiceRequestList" class="nav-link">Service Request List</a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="/facilities/requestFilesList" class="nav-link">Request Files List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genTechnicianList" class="nav-link">Service Company List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genDailyTotalConsumption" class="nav-link">Daily Consumption</a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="/facilities/genMaintenanceList" class="nav-link">Maintenance List</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#forms" role="button" aria-expanded="false" aria-controls="forms">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Diesel Procurement</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse" id="forms">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/dieselRequest" class="nav-link">Diesel Request</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/dieselSensorReading" class="nav-link">Diesel Sensor Reading</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/dieselTanker" class="nav-link">Diesel Tanker</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link"> Diesel Procurement </a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
                 <li class="nav-item">
-                  <a href="/facilities/addVehicle" class="nav-link">
-                    <i class="link-icon" data-feather="file-plus"></i>
-                    <span class="link-title">Add Vehicle</span>
+                  <a class="nav-link" data-toggle="collapse" href="#forms1" role="button" aria-expanded="false" aria-controls="forms">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Generator Repair</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
+                  <div class="collapse" id="forms1">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/generatorList_fault" class="nav-link">Generator List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genFaultList" class="nav-link">Faults List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genServiceCompanyList_sla" class="nav-link">Servicing Company List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/genSLA_list" class="nav-link">SLA List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/gen_repairList" class="nav-link">Repair List</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/phcnBilling" class="nav-link">PHCN Billing</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/phcnBillList" class="nav-link">PHCN Billing List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/phcnDailyReading" class="nav-link">PHCN Daily Reading</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/phcnPayment" class="nav-link"> PHCN Payment </a>
+                      </li> -->
+                    </ul>
+                  </div>
                 </li>
+
                 <li class="nav-item">
-                  <a href="/facilities/vehicleList" class="nav-link">
-                    <i class="link-icon" data-feather="inbox"></i>
-                    <span class="link-title">All Vehicles</span>
+                  <a class="nav-link" data-toggle="collapse" href="#forms4" role="button" aria-expanded="false" aria-controls="forms">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">PHCN</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
+                  <div class="collapse" id="forms4">
+                    <ul class="nav sub-menu">
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/phcnBilling" class="nav-link">PHCN Billing</a>
+                      </li> -->
+                      <li class="nav-item">
+                        <a href="/facilities/phcnBillList" class="nav-link">
+                          PHCN Billing
+                        </a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/phcnPayment" class="nav-link"> PHCN Payment </a>
+                      </li> -->
+                      <li class="nav-item">
+                        <a href="/facilities/AllPhcnBillPayment" class="nav-link">PHCN Billing Payment List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/allPhcnDailyReading_driverAdmin" class="nav-link">PHCN Daily Reading List</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
                 </li>
-                <li class="nav-item">
-                  <a href="/requests/available_vehicles" class="nav-link">
-                    <i class="link-icon" data-feather="inbox"></i>
-                    <span class="link-title">Available Vehicles</span>
-                  </a>
-                </li>
+
                 <li class="nav-item nav-category">Manage</li>
                 
                 
@@ -74,7 +289,40 @@
                     </ul>
                   </div>
                 </li>
-                <!-- <li class="nav-item nav-category">Reports</li> -->
+
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#table1" role="button" aria-expanded="false" aria-controls="tables">
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Distance History</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse" id="table1">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/facilities/tripDistanceList" class="nav-link">Trip Distance List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/facilities/vehicleDistanceList" class="nav-link">Vehicle Distance List</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
+                <li class="nav-item nav-category">Reports</li>
+                <li class="nav-item">
+                  <a href="/dashboard/driverAdminReports" class="nav-link">
+                    <i class="link-icon" data-feather="file-plus"></i>
+                    <span class="link-title">Reports</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/facilities/car_servicing_report" class="nav-link">
+                    <i class="link-icon" data-feather="file-plus"></i>
+                    <span class="link-title">Car Servicing</span>
+                  </a>
+                </li>
+                
+                  <!-- <a href="/dashboard/driverAdminReports" class="nav-link">Reports</a></li> -->
               </ul>
             </div>
           </nav>

@@ -33,6 +33,14 @@
   <%- include('./bars/sidebar_staff') %>
   <% } else if (userDetails.role == 'Supervisor') { %>
   <%- include('./bars/sidebar_sup') %>  
+  <% } else if (userDetails.role == 'Auditor') { %>
+  <%- include('./bars/sidebar_auditor') %> 
+  <% } else if (userDetails.role == 'Finance') { %>
+  <%- include('./bars/sidebar_finance') %>
+  <% } else if (userDetails.role == 'Procurement') { %>
+  <%- include('./bars/sidebar_procurement') %>
+  <% } else if (userDetails.role == 'Facility Officer') { %>
+  <%- include('./bars/sidebar_facility') %>
   <%  } else if (userDetails.role == 'Driver Admin') { %>
   <%- include('./bars/sidebar_driver') %>  
   <%  } else if (userDetails.role == 'Driver') { %>
@@ -169,20 +177,18 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOv0_40G3SdYjio79JjdMlNf2wmtybI7w&callback=initMap">
 </script>
 
-<%if (trips.request_type == ['dropoff']) { %>
+
     
-  <button class="btn-lg btn-danger" type="button"
-  style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
-  data-toggle="modal" data-target="#exampleModalCenter_two"> End Trip</button>
+  
 
   
-<% } else { %>
+
 <button class="btn-lg btn-primary" type="button"
 style="width: 150px; height: 35px; float: right; margin-top: 30px; padding: 0px;"
 data-toggle="modal" data-target="#exampleModalCenter" onclick="getLocation()">Arrived Destination
 </button>
 
-<% } %>
+
 
 
 <form class="" action="/logistics/waitDropOff" method="post">

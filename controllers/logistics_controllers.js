@@ -317,7 +317,7 @@ class Logistics {
                 if (trips.request_type == 'waitforme' && trips.trip_type == 'single') { // do this for everything
                     return res.redirect('/logistics/waitDropoff')
                 }
-                res.redirect('/logistics/dropoff')
+                res.redirect('/logistics/waitDropoff')
                 //res.render('tripStarted', {userDetails, trips});
             } else if (result.statusCode == '401') {
                 resMessageRedirect(res, req, 'error_msg', 'You are not authorized to view this page', '/logistics/getTrip')
@@ -362,6 +362,22 @@ class Logistics {
                         res.render('startTrip', { userDetails, trip });
                     }
                 }
+
+                else{
+                    if(trip[0].trip_info[0].driver_status == 'ARRIVED_DESTINATION'){
+                        req.session.started_trip = trip[0];
+                        res.redirect('/logistics/waitreturn')  
+                    }
+                    else if(trip[0].trip_info[0].driver_status == 'STARTED'){
+                    
+                        req.session.started_trip = trip[0];
+                        res.render('waittripStarted', { userDetails, trips });
+                    } 
+                    else {
+                    res.render('startTrip', { userDetails, trip });
+                }
+            }
+
             }
                 // req.session.started_trip = trip
                 
@@ -400,7 +416,7 @@ class Logistics {
         const userDetails = req.session.userDetails
         const token = userDetails.token
         const trip = req.session.started_trip
-        console.log('the trip that is failing', trip)
+        console.log('the trip', trip)
         const id = trip.trip_id
 
 
@@ -466,7 +482,7 @@ class Logistics {
         };
 
         console.log('The query to drop off drive is:', query)
-        console.log('trip pickup coordinate', req.body.pickup_try)
+        console.log('trip pickup coordinate', req.body.coordinate)
         try {
             const { result, resbody } = await updateDriverStatus(query, token, id);
             const trips = resbody
@@ -501,7 +517,7 @@ class Logistics {
 
                 if(trip[0].trip_type =='single'){
                     if(trip[0].request_type == 'waitforme'){
-                        if(trip[0].trip_info[0].driver_status == 'ARRIVE_DESTINATION'){
+                        if(trip[0].trip_info[0].driver_status == 'ARRIVED_DESTINATION'){
                             req.session.started_trip = trip[0];
                             res.render('waittripStarted2', { userDetails, trips });  
                         }
@@ -514,6 +530,20 @@ class Logistics {
                             res.redirect('/logistics/endTrip')
                     }
                 }
+                else{
+                    if(trip[0].trip_info[0].driver_status == 'ARRIVED_DESTINATION'){
+                        req.session.started_trip = trip[0];
+                        res.render('waittripStarted2', { userDetails, trips });  
+                    }
+                    else if(trip[0].trip_info[0].driver_status == 'BACK_TO_OFFICE'){
+                    
+                        req.session.started_trip = trip[0];
+                        res.render('tripStarted2', { userDetails, trips });
+                    } 
+                    else {
+                        res.redirect('/logistics/endTrip')
+                }
+            }
             }
                 // req.session.started_trip = trip
                 // res.render('waittripStarted2', { userDetails, trips });

@@ -29,7 +29,11 @@
 <% if (userDetails.role == 'Staff') { %>
   <%- include('./bars/sidebar_staff') %>
   <% } else if (userDetails.role == 'Supervisor') { %>
-  <%- include('./bars/sidebar_sup') %>  
+  <%- include('./bars/sidebar_sup') %> 
+  <% } else if (userDetails.role == 'Auditor') { %>
+  <%- include('./bars/sidebar_auditor') %> 
+  <% } else if (userDetails.role == 'Finance') { %>
+  <%- include('./bars/sidebar_finance') %>  
   <%  } else if (userDetails.role == 'Driver Admin') { %>
   <%- include('./bars/sidebar_driver') %>
   <%  } else if (userDetails.role == 'Director') { %>
@@ -104,7 +108,7 @@
                           <td><%= vehicle.fuel_type%></td>
                           <td><%= vehicle.plate%></td>
                         </tr>
-                        <% })%>
+                      <% })%>
                     </tbody>
                   </table>
                 </div>

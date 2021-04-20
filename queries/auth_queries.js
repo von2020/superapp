@@ -88,6 +88,17 @@ class auth_queries {
         }
     };
 
+    static async getDriverCount(token) {
+        const url = 'vehicle/driver_info';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async getDirectorCount(token) {
         const url = 'core/director_count';
         try {

@@ -21,6 +21,12 @@ const {
     carRequests_admin,
     getUpline,
     getUpline_edit,
+    getBillOfMaterials,
+    viewBillOfMaterials,
+    updateBillOfMaterials,
+    quotationList,
+    viewQuotation,
+    updateQuotation,
     getInactiveUsers
 } = admin_manage_queries;
 
@@ -296,21 +302,10 @@ class admin_manage_controllers {
     static async addDepartment (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
-        // const id = req.query.id;
-
-        // console.log('id', id)
-        // req.session.user_id = user_id;
-        // const users = req.session.users;
+        
         try{
             
-            // const depts = await viewDept(id, token);
-
-            // var user = users.filter(function (user) {
-            //     return user.id == user_id
-            // });
-            // user = user[0]
             
-            // console.log("depts", depts.resbody)
             
             res.render('admin/add_department', {userDetails})
         } catch(err){
@@ -323,8 +318,7 @@ class admin_manage_controllers {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
         
-        // req.session.user_id = user_id;
-        // const users = req.session.users;
+        
         const query = {
             name: req.body.name,
             subsidiary: req.body.subsidiary_id,
@@ -668,7 +662,7 @@ class admin_manage_controllers {
         const users = req.session.users;
         try{
             
-            const subs = await getSubs();
+            const subs = await getSubs(token);
 
             var user = users.filter(function (user) {
                 return user.id == user_id
@@ -724,7 +718,7 @@ class admin_manage_controllers {
         const users = req.session.users;
         try{
             
-            const subs = await getSubs();
+            const subs = await getSubs(token);
 
             var user = users.filter(function (user) {
                 return user.id == user_id
@@ -797,7 +791,7 @@ class admin_manage_controllers {
         req.session.user_id = user_id;
 
         try{
-            const subs = await getSubs();
+            const subs = await getSubs(token);
             var users = req.session.users;
 
             var user = users.filter(function (user) {
@@ -876,23 +870,37 @@ class admin_manage_controllers {
 
     }
 
+    // static async createUsers (req, res) {
+    //     const userDetails = req.session.userDetails
+    //     const token = userDetails.token
+    //     try{
+    //         const {result, resbody} = await getUsers(token);
+    //         const users = resbody;
+    //         req.session.users = resbody;
+    //         if (result.statusCode == '200') {
+    //             res.render('admin/userUpload' , {userDetails, users});
+    //         } else {
+    //             resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/createUsers')
+    //         }
+    //     } catch(err){
+    //         if (err) console.log('error', err)
+    //     }
+  
+    // };
+
     static async createUsers (req, res) {
         const userDetails = req.session.userDetails
         const token = userDetails.token
         try{
-            const {result, resbody} = await getUsers(token);
-            const users = resbody;
-            req.session.users = resbody;
-            if (result.statusCode == '200') {
-                res.render('admin/userUpload' , {userDetails, users});
-            } else {
-                resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/createUsers')
-            }
+            res.render('admin/userUpload' , {userDetails});
+            
         } catch(err){
             if (err) console.log('error', err)
         }
   
     };
+
+
 
     static async handleCreateUsers (req, res) {
         const userDetails = req.session.userDetails;
@@ -1111,6 +1119,180 @@ class admin_manage_controllers {
 
     
     };
+
+    static async billOfMaterialList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await getBillOfMaterials(token);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('admin/billOfMaterialList', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+         
+        };
+
+    static async viewBillOfMaterialList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewBillOfMaterials(token, id);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('admin/viewBillOfMaterial', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+         
+        };
+
+    static async updateBillOfMaterials (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            name: req.body.name,
+            vehicle: req.body.vehicle,
+            technician: req.body.technician,
+            bu_head_approval: boolValue,
+            bu_head_comment: req.body.bu_head_comment,
+            bu_head_name: req.body.bu_head_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateBillOfMaterials(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.bu_head_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved a request')
+                    res.redirect('/admin/manage/billOfMaterialList');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected a request')
+                    res.redirect('/admin/manage/billOfMaterialList');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/admin/manage/billOfMaterialList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
+
+
+    static async quotationList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await quotationList(token);
+            const faults = resbody
+            console.log('faults', faults)
+            if (result.statusCode == 200) {
+                res.render('admin/quotationList', {userDetails, faults});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async viewQuotation (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+            console.log('id', id)
+            const {result, resbody} = await viewQuotation(token, id);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('admin/viewQuotation', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async updateQuotation (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            fault: req.body.fault,
+            require_advance: req.body.require_advance,
+            bu_head_approval: boolValue,
+            bu_head_comment: req.body.bu_head_comment,
+            bu_head_name: req.body.bu_head_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateQuotation(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.bu_head_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved a request')
+                    res.redirect('/admin/manage/quotationList');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected a request')
+                    res.redirect('/admin/manage/quotationList');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/admin/manage/quotationList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
 
 }
 

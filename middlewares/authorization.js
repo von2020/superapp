@@ -9,6 +9,15 @@ class Authorize {
 
     };
 
+    static carDriverAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Driver') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
     static directorAuthorize (req, res, next) {
         if (req.session.userDetails.role == 'Director') {
             return next()
@@ -20,6 +29,33 @@ class Authorize {
 
     static gmdAuthorize (req, res, next) {
         if (req.session.userDetails.role == 'GMD') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
+    static auditorAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Auditor') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
+    static financeAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Finance') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
+    static facilityAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Facility Officer') {
             return next()
         } else {
             return res.render('authorization')

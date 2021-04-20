@@ -15,6 +15,10 @@ const {
     reset_password,
     reset_password_confirm,
     getTotals,
+    getStaffCount,
+    getDirectorCount,
+    getSupervisorCount,
+    getDriverAdminCount,
     getDeb1
 } = auth_queries;
 
@@ -225,13 +229,14 @@ class auth_controllers {
     };
 
     static async handleLogin (req, res) {
-        const {error, value} = validateLogin(req.body);
+        // const {error, value} = validateLogin(req.body);
+        
 
-        if (error) {
-            req.flash('error_msg', 'This email does not match the standard email format')
-            res.redirect('/')
-            return console.error('login error', error)
-        } // i dont think i need this tbh
+        // if (error) {
+        //     req.flash('error_msg', `${error}`)
+        //     res.redirect('/')
+        //     return console.error('login error', error)
+        // } 
         
         const query = {
             username: req.body.username,
@@ -239,6 +244,7 @@ class auth_controllers {
         }
         try{
             const {result, resbody} = await loginRequest(query)
+            console.log("response", resbody)
             if (result.statusCode == 200){
                 if (resbody.role == 'Super Admin') {
                     req.flash('error', 'Login to the admin profile');
@@ -279,17 +285,28 @@ class auth_controllers {
             console.log("totals", totals)
             if (result.statusCode == '200') {
                 if (userDetails.role == 'Staff') {
-                    res.render('dashboard_staff', {userDetails, totals}) 
+                    res.redirect('/staff_dashboard') 
                 } else if (userDetails.role == 'Driver') {
-                    res.render('dashboard_driver', {userDetails, totals})
+                    res.redirect('/driver_dashboard')
+                    // res.render('dashboard_driver_admin', {userDetails, totals})
+                } else if (userDetails.role == 'Supervisor') {
+                    res.redirect('/supervisor_dashboard')
+                } else if (userDetails.role == 'Auditor') {
+                    res.redirect('/auditor_dashboard')
+                } else if (userDetails.role == 'Finance') {
+                    res.redirect('/finance_dashboard')
+                } else if (userDetails.role == 'Facility Officer') {
+                    res.redirect('/facility_dashboard')
                 } else if (userDetails.role == 'Driver Admin') {
-                    res.render('dashboard_driver_admin', {userDetails, totals})
+                    res.redirect('/driver_admin_dashboard')
+                    // res.render('dashboard_driver_admin', {userDetails, totals})
                 } else if (userDetails.role == 'Director') {
-                    res.render('dashboard_director', {userDetails, totals})
+                    res.redirect('/director_dashboard')
+                    // res.render('dashboard_director', {userDetails, totals})
                 } else if (userDetails.role == 'Group Managing Director') {
-                    res.render('dashboard_gmd', {userDetails, totals})
+                    res.redirect('/director_dashboard')
                 } else{
-                    res.render('dashboard', {userDetails, totals})
+                    res.redirect('/staff_dashboard')
                 }
             } else {
                 resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
@@ -305,7 +322,7 @@ class auth_controllers {
         const token = userDetails.token
 
         try{
-            const {result, resbody} = await getTotals(token);
+            const {result, resbody} = await getStaffCount(token);
             const totals = resbody;
             req.session.totals = resbody;
             console.log("totals", totals)
@@ -332,7 +349,7 @@ class auth_controllers {
             console.log("totals", totals)
             if (result.statusCode == '200') {
                 
-                    res.render('dashboard_staff', {userDetails, totals})
+                    res.render('dashboard_driver', {userDetails, totals})
                 } 
                 else {
                     resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
@@ -347,13 +364,97 @@ class auth_controllers {
         const token = userDetails.token
     
             try{
-                const {result, resbody} = await getTotals(token);
+                const {result, resbody} = await getSupervisorCount(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
                 if (result.statusCode == '200') {
                     
-                        res.render('dashboard_staff', {userDetails, totals})
+                        res.render('dashboard_sup', {userDetails, totals})
+                    } 
+                    else {
+                        resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+            } catch(err){
+                    if (err) console.log('error', err)
+                }
+        };
+
+    static async procurementDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+    
+            try{
+                const {result, resbody} = await getSupervisorCount(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                    
+                        res.render('dashboard_procurement', {userDetails, totals})
+                    } 
+                    else {
+                        resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+            } catch(err){
+                    if (err) console.log('error', err)
+                }
+        };
+
+    static async facilityDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+    
+            try{
+                const {result, resbody} = await getSupervisorCount(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                    
+                        res.render('dashboard_facility', {userDetails, totals})
+                    } 
+                    else {
+                        resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+            } catch(err){
+                    if (err) console.log('error', err)
+                }
+        };
+
+    static async auditorDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+        
+            try{
+                const {result, resbody} = await getSupervisorCount(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                        
+                        res.render('dashboard_auditor', {userDetails, totals})
+                    } 
+                    else {
+                        resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
+                    }
+                } catch(err){
+                        if (err) console.log('error', err)
+                    }
+            };
+
+    static async financeDashboard (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token
+    
+            try{
+                const {result, resbody} = await getSupervisorCount(token);
+                const totals = resbody;
+                req.session.totals = resbody;
+                console.log("totals", totals)
+                if (result.statusCode == '200') {
+                    
+                        res.render('dashboard_finance', {userDetails, totals})
                     } 
                     else {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
@@ -368,13 +469,13 @@ class auth_controllers {
         const token = userDetails.token
     
             try{
-                const {result, resbody} = await getTotals(token);
+                const {result, resbody} = await getDirectorCount(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
                 if (result.statusCode == '200') {
                     
-                        res.render('dashboard_staff', {userDetails, totals})
+                        res.render('dashboard_director_old', {userDetails, totals})
                     } 
                     else {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
@@ -389,13 +490,13 @@ class auth_controllers {
         const token = userDetails.token
         
             try{
-                const {result, resbody} = await getTotals(token);
+                const {result, resbody} = await getDriverAdminCount(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
                 if (result.statusCode == '200') {
                         
-                    res.render('dashboard_staff', {userDetails, totals})
+                    res.render('driver_admin_dashboard', {userDetails, totals})
                 } 
                 else {
                     resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')

@@ -16,13 +16,13 @@ class auth_controllers {
     };
 
     static async handleLogin (req, res) {
-        const {error, value} = validateLogin(req.body);
+        // const {error, value} = validateLogin(req.body);
 
-        if (error) {
-            req.flash('error_msg', 'This email does not match the standard email format')
-            res.redirect('/admin')
-            return console.error('login error', error)
-        } // i dont think i need this tbh
+        // if (error) {
+        //     req.flash('error_msg', 'This email does not match the standard email format')
+        //     res.redirect('/admin')
+        //     return console.error('login error', error)
+        // } 
         
         const query = {
             username: req.body.username,

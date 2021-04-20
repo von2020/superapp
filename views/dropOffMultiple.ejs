@@ -37,6 +37,14 @@
         <%- include('./bars/sidebar_staff') %>
         <% } else if (userDetails.role == 'Supervisor') { %>
         <%- include('./bars/sidebar_sup') %>
+        <% } else if (userDetails.role == 'Auditor') { %>
+        <%- include('./bars/sidebar_auditor') %> 
+        <% } else if (userDetails.role == 'Finance') { %>
+        <%- include('./bars/sidebar_finance') %>
+        <% } else if (userDetails.role == 'Procurement') { %>
+        <%- include('./bars/sidebar_procurement') %>
+        <% } else if (userDetails.role == 'Facility Officer') { %>
+        <%- include('./bars/sidebar_facility') %>
         <%  } else if (userDetails.role == 'Driver Admin') { %>
         <%- include('./bars/sidebar_driver') %>
         <%  } else if (userDetails.role == 'Director') { %>

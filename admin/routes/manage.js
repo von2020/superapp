@@ -43,6 +43,12 @@ const {
     handleEditSubsidiary,
     addDepartment,
     addSubsidiary,
+    billOfMaterialList,
+    quotationList,
+    viewQuotation,
+    updateQuotation,
+    viewBillOfMaterialList,
+    updateBillOfMaterials,
     handleAddSubsidiary,
     handleAddDepartment,
     getAllSubsidiaries,
@@ -52,6 +58,15 @@ const {
 
 router.get('/all-departments', [adminCheckSession, superAdminAuthorize], getAllDepartments);
 router.get('/all-subsidiaries', [adminCheckSession, superAdminAuthorize], getAllSubsidiaries);
+
+router.get('/billOfMaterialList', [adminCheckSession, superAdminAuthorize], billOfMaterialList);
+
+router.get('/quotationList', [adminCheckSession, superAdminAuthorize], quotationList);
+router.get('/viewQuotation', [adminCheckSession, superAdminAuthorize], viewQuotation);
+router.post('/viewQuotation', [adminCheckSession, superAdminAuthorize], updateQuotation);
+
+router.get('/viewBillOfMaterialList', [adminCheckSession, superAdminAuthorize], viewBillOfMaterialList);
+router.post('/viewBillOfMaterialList', [adminCheckSession, superAdminAuthorize], updateBillOfMaterials);
 
 router.get('/view-department', [adminCheckSession, superAdminAuthorize], viewDepartment);
 router.get('/view-subsidiary', [adminCheckSession, superAdminAuthorize], viewSubsidiary);
@@ -102,7 +117,7 @@ router.get('/viewActiveUsers', [adminCheckSession], viewActiveUsers);
 router.post('/viewActiveUsers', [adminCheckSession], handleViewActiveUsers);
 
 router.get('/activeUsersInactive', [adminCheckSession], activeUsersInactive);
-router.post('/handleActiveUsersInactive', [adminCheckSession], handleActiveUsersInactive);
+router.post('/activeUsersInactive', [adminCheckSession], handleActiveUsersInactive);
 
 // this are the routes for the inactive users 
 router.get('/getInActiveUsers', [adminCheckSession], getInActiveUsers);

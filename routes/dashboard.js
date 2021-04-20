@@ -10,7 +10,9 @@ const {dashboard_controllers} = require('../controllers/index')
 const {
     displayProfile,
     editProfile,
-    handleEditProfile
+    handleEditProfile,
+    directorReports,
+    driverAdminReports
     
 } = dashboard_controllers;
 
@@ -22,6 +24,8 @@ router.get('/profile', [checkSession], displayProfile);
 router.get('/edit_profile', [checkSession], editProfile);
 router.post('/edit_profile', [checkSession], handleEditProfile);
 
+router.get('/directorReports', [checkSession], directorReports);
+router.get('/driverAdminReports', [checkSession], driverAdminReports);
 
 
 

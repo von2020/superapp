@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Telnet SuperApp</title>
+  <!-- core:css -->
+  <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- end plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+  <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body onload="changeFun()">
+  <div class="main-wrapper">
+
+    <!-- Insert the sidebar partial here-->
+    <% if (userDetails.role == 'Staff') { %>
+      <%- include('./bars/sidebar_staff') %>
+      <% } else if (userDetails.role == 'Supervisor') { %>
+      <%- include('./bars/sidebar_sup') %>
+      <% } else if (userDetails.role == 'Auditor') { %>
+      <%- include('./bars/sidebar_auditor') %> 
+      <% } else if (userDetails.role == 'Finance') { %>
+      <%- include('./bars/sidebar_finance') %>
+      <%  } else if (userDetails.role == 'Driver Admin') { %>
+      <%- include('./bars/sidebar_driver') %>
+      <%  } else if (userDetails.role == 'Director') { %>
+      <%- include('./bars/sidebar_director') %>
+      <%  } else if (userDetails.role == 'Group Managing Director') { %>
+      <%- include('./bars/sidebar_gmd') %>  
+      <%  } else if (userDetails.role == 'Driver') { %>
+      <%- include('./bars/sidebar_carDriver') %>
+      <%  } else { %>
+      <%- include('./bars/sidebar') %>
+      <%  } %>
+
+    <div class="page-wrapper">
+
+      <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+      <%- include('./bars/topbar') %>
+      <!-- partial -->
+
+      <div class="page-content">
+        <%- include('./partials/messages')%>
+        <nav class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <!-- <li class="breadcrumb-item"><a href="#">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Upload</li> -->
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Quotation</h6>
+
+
+                <form class="" action="/facilities/addBillOfMaterial" method="post">
+
+                  <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Require Advance</label>
+                          <select class='form-control' id='require_advance' name='require_advance'>
+                            <option>----</option>
+                            <option>yes</option>
+                            <option>no</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Advance Percentage</label>
+                          <input name="advance_percentage" class="form-control" id="advance_percentage" required>
+                        </div>
+                      </div>
+                    
+                    
+                    
+                    
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Amount Budgeted</label>
+                          <input name="amount_budgeted" class="form-control" id="amount_budgeted" required>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Created By</label>
+                          <input name="created_by" class="form-control" id="created_by" value="<%= userDetails.first_name + ' ' + userDetails.last_name %>"  readonly>
+                        </div>
+                      </div>
+                    
+                </div>
+
+                  <div class="row">
+                    <div class="col">
+                        <div class="form-group" id = "request">
+                          <label for="exampleFormControlSelect1" >Quotation</label>
+                          <select class="form-control-lg" id="bill-type" name="bill_type"
+                            onchange="changeFun2()" required>
+                            <option value="single" selected>One quotation</option>
+                            <option value="multiple">More than one quotation</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                </div>
+                <hr>
+                 <div class= "row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Body</label>
+                            <textarea name="body" class="form-control" id="body" required></textarea>
+                        </div>
+                        </div>
+                 </div>   
+                <div class="row">
+                    <div class="col">
+                      <div class="form-group" id="divtechnician">
+                          <label for="exampleFormControlSelect1">Technician</label>
+                          <select class='form-control' id='technician' name='technician'>
+
+                          </select>
+                    </div>
+                    </div>
+                    
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Document</label>
+                        <input type="file" name="data" class="docfile" id="document" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
+                      </div>
+                    </div>
+                </div>
+                    
+                  
+                  
+
+                  <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Invoice</label>
+                          <input type="file" name="data" class="docfile" id="invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Amount Charged</label>
+                          <input name="amount_charged" class="form-control" id="amount_charged" required>
+                        </div>
+                      </div>
+
+                  </div>
+
+                  
+                    <div class="row">
+                      
+                        <script>
+                          // this did not work because the google API was at the bottom
+                          $(document).ready(function () {
+                            
+                            
+                          });
+                        </script>
+  
+                        <script>
+  
+                          function changeFun() {
+                            console.log("starting")
+
+                            var getJSON = function (url) {
+    return $.ajax({
+        url: url,
+        type: 'GET',
+        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+        contentType: 'application/json'
+    });
+  };
+
+                            getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/technicians").done(function(data, status){
+                              console.log("here",data),
+                              
+                              console.log("here")
+                              console.log("here",data)
+                              console.log(status)
+                              if (status == "success") {
+                                console.log('data', data)
+                                var html = "<option selected> --- </option>"
+                                for (var i = 0; i < data.length; i++) {
+                                  html += "<option value = '" + data[i].id + "'> " + data[i].company_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                                }
+                                
+  
+                                //display the thing
+                                $("#technician").html(html);
+                                $("#divtechnician").show();
+  
+                              } else {
+                                alert("try again or contact the admin.")
+                              }
+                            
+                    
+                            }).fail(function(){
+
+                            })
+                            
+                  }
+  
+                 </script>
+                  
+                         
+                  </div>
+                  
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="exampleFormControlSelect1">Quantity</label> -->
+                        <input type="hidden" name="fault" class="form-control" id="fault" value="<%= faults.id %>"  required>
+                      </div>
+                    </div> 
+                    
+                      
+                  </div>
+
+                  <div>
+										<p id="addMore" class="btn btn-light" style="float: right;"
+											onclick="onclickfunction()">add to list</p>
+						</div>
+
+									<div class="table-responsive" id="extrafeild"></div>
+                  
+                  <!-- <button class="btn-lg btn-primary" type="submit">Submit</button> -->
+                  <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
+                    <span id="reqLoader" style="display: none;"> 
+                         <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
+                     </span> 
+                    </button>
+                  <input name="random" id="random">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <script>
+				$(document).ready(function removeButton() {
+					$("#addMore").hide()
+					$("#random").hide()
+					$("#extrafeild").hide()
+					// $("#request").hide()
+				});
+			</script>
+      <script>
+				var values = [];
+				function changeFun2() {
+					var selectBox = document.getElementById("bill-type");
+					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+					if (selectedValue == 'multiple') {
+						$("#addMore").show();
+						$("#extrafeild").show();
+					} else if (selectedValue == 'single') {
+
+						$("#addMore").hide();
+						$("#extrafeild").hide();
+					}
+				};
+
+        function onclickfunction() {
+
+var description = $('#description').val();
+var unit_price = $('#unit_price').val();
+var quantity = $('#quantity').val();
+
+if (description == '' || unit_price == '' || quantity =='') {
+
+  swal("kindly fill all fields!", {
+    buttons: false,
+    timer: 2000,  // disappears after 2 seconds
+  });
+} else {
+
+  var details = {
+    description: description,
+    unit_price: unit_price,
+    quantity: quantity
+  };
+  values.push(details);
+  appendFunction();
+
+  // you can use the array. for each to set a value for the id
+  // or maybe you can use the post using jquery to send this to a route.
+
+  var html = "<br>"
+  html += "<table class='table table-striped'>";
+  html += "<thead>";
+  html += "<tr>";
+  html += "<th>" + "description" + "</th>";
+  html += "<th>" + "unit_price" + "</th>";
+  html += "<th>" + "quantity" + "</th>";
+  html += "<th>" + "Action" + "</th>";
+  html += "</tr>";
+  html += "</thead>";
+  html += "<tbody>";
+  for (var i = 0; i < values.length; i++) {
+    html += "<tr>";
+    html += "<td>" + values[i].description + "</td>";
+    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + values[i].quantity + "</td>";
+    html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+    html += "</tr>";
+  }
+  html += "</tbody>"
+  html += "</table>";
+  html += "<br>"
+
+  // display record
+  $("#extrafeild").html(html);
+
+
+
+}
+}
+
+function deleteFunction(param) {
+values.splice(param, 1)
+appendFunction()
+
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "description" + "</th>";
+html += "<th>" + "unit_price" + "</th>";
+html += "<th>" + "quantity" + "</th>";
+html += "<th>" + "Action" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < values.length; i++) {
+  html += "<tr>";
+  html += "<td>" + values[i].description + "</td>";
+  html += "<td>" + values[i].unit_price + "</td>";
+  html += "<td>" + values[i].quantity + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+  html += "</tr>";
+}
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
+
+// display record
+$("#extrafeild").html(html);
+
+// show
+if (employmentHistoryList.length > 0) {
+  $("#extrafeild").show();
+};
+
+
+}
+
+function appendFunction() {
+var x = JSON.stringify(values)
+$('#random').val(x)
+}
+
+function Submit(){
+
+var loading = document.getElementById("reqBtn");
+loading.disabled = true;
+var loader = document.getElementById("reqLoader");
+loader.style.display = "inline-block";
+
+var fileInput = document.getElementById('document').value
+console.log(fileInput);
+var fileInput2 = document.getElementById('invoice').value
+console.log(fileInput2);
+
+if (fileInput == "" || fileInput2 == "" ) {
+            alert('Please Select a document to Continue');
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+    else if(fileInput == "" && fileInput2 == ""){
+        alert('Please Select a document to Continue');
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+  else {     
+
+var file = document.getElementByClassName('docfile').files[0];
+// var file2 = document.getElementById('invoice').files[0];
+
+file.forEach(filename);
+
+function filename(){
+    var doc = document.getElementById('document').value;
+    var inv = document.getElementById('invoice').value;
+}
+
+    var reader = new FileReader();
+    // var reader2 = new FileReader();
+     reader.readAsDataURL(file);
+     
+        
+        
+        if (file.size > 2000000) {
+            alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        
+
+        }
+        else 
+        {
+        reader.onload  = function () {
+            console.log("starting")
+            console.log(reader.result);
+             
+
+              var fault = $('#fault').val();
+              console.log(fault)
+              var require_advance = $('#require_advance').val();
+              console.log(require_advance)
+              var advance_percentage = $('#advance_percentage').val();
+              console.log(advance_percentage)
+              var amount_budgeted = $('#amount_budgeted').val();
+              console.log(amount_budgeted)
+              var created_by = $('#created_by').val();
+              console.log(created_by)
+              var body = $('#body').val();
+              console.log(body)
+              var technician = $('#technician').val();
+              console.log(technician)
+              var amount_charged = $('#amount_charged').val();
+              console.log(amount_charged)
+              
+                var putJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'POST',
+data:JSON.stringify({"document"  : reader.result, "invoice" : reader.result, "fault" : fault, "require_advance" : require_advance, "advance_percentage": advance_percentage, "created_by": created_by, "body": body, "technician": technician, "amount_charged": amount_charged, "amount_budgeted": amount_budgeted}),
+headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+contentType: 'application/json'
+});
+};
+
+putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/recommend_quotation`).done(function(data, status){
+                  console.log("here",data),
+                  
+                  console.log("here")
+                  console.log("here",data)
+                  console.log(status)
+                  
+                  if (status == "success") {
+                    loading.disabled = false;
+                    loader.style.display = "none";
+                    alert('invoice upload successful')
+                } else {
+                    loading.disabled = false; 
+                    loader.style.display = "none";
+                    alert('invoice upload Not successful')
+                  }
+        
+                }).fail(function(){
+
+             })
+           // return data
+    };
+}
+    reader.onerror = function (error) {
+    console.log('Error: ', error);
+    };
+                
+  }   
+      
+}
+
+      </script>
+
+      <!-- partial:partials/_footer.html -->
+      <%- include('./bars/footer') %>
+      <!-- partial -->
+
+    </div>
+  </div>
+
+  <!-- core:js -->
+  <script src="../../../assets/vendors/core/core.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- end plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+  <script src="../../../assets/js/template.js"></script>
+  <!-- endinject -->
+  <!-- custom js for this page -->
+  <script src="../../../assets/js/file-upload.js"></script>
+  <!-- end custom js for this page -->
+</body>
+
+</html>

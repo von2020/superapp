@@ -16,8 +16,13 @@ const {
     displayDashboard,
     staffDashboard,
     supervisorDashboard,
+    procurementDashboard,
+    facilityDashboard,
+    auditorDashboard,
+    financeDashboard,
     directorDashboard,
     driverAdminDashboard,
+    driverDashboard,
     logout,
     authorization,
     resetPassword,
@@ -47,7 +52,12 @@ router.post('/', handleLogin);
 router.get('/dashboard', checkSession, displayDashboard);
 
 router.get('/staff_dashboard', checkSession, staffDashboard);
+router.get('/driver_dashboard', checkSession, driverDashboard);
 router.get('/supervisor_dashboard', checkSession, supervisorDashboard);
+router.get('/procurement_dashboard', checkSession, procurementDashboard);
+router.get('/facility_dashboard', checkSession, facilityDashboard);
+router.get('/auditor_dashboard', checkSession, auditorDashboard);
+router.get('/finance_dashboard', checkSession, financeDashboard);
 router.get('/director_dashboard', checkSession, directorDashboard);
 router.get('/driver_admin_dashboard', checkSession, driverAdminDashboard);
 

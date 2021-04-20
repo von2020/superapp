@@ -1,4 +1,4 @@
-const url = process.env.BaseUrl || 'https://telnetsupperapp.com.ng:8443' // this is for production and live
+const url = process.env.BaseUrl || 'http://173.212.213.205:8090' // this is for production and live
 
 
 

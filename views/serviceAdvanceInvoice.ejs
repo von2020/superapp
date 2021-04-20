@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Telnet SuperApp</title>
+    <!-- core:css -->
+    <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- end plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+    <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body>
+    <div class="main-wrapper">
+
+        <!-- Insert the sidebar partial here-->
+        <% if (userDetails.role == 'Staff') { %>
+        <%- include('./bars/sidebar_staff') %>
+        <% } else if (userDetails.role == 'Supervisor') { %>
+        <%- include('./bars/sidebar_sup') %>
+        <% } else if (userDetails.role == 'Auditor') { %>
+        <%- include('./bars/sidebar_auditor') %> 
+        <% } else if (userDetails.role == 'Finance') { %>
+        <%- include('./bars/sidebar_finance') %>
+        <%  } else if (userDetails.role == 'Driver Admin') { %>
+        <%- include('./bars/sidebar_driver') %>
+        <%  } else if (userDetails.role == 'Driver') { %>
+        <%- include('./bars/sidebar_carDriver') %>
+        <%  } else { %>
+        <%- include('./bars/sidebar') %>
+        <%  } %>
+        <!-- partial -->
+
+        <div class="page-wrapper">
+
+            <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+            <%- include('./bars/topbar') %>
+            <!-- partial -->
+
+            <div class="page-content">
+                <%- include('./partials/messages')%>
+
+                <nav class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Vehicle</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Bill Of Material</li>
+                    </ol>
+                </nav>
+
+
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card card-special">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    <div>
+                                        <h6 class="card-title d-block">Advance Invoice</h6>
+                                    </div>
+
+                                    <div class="d-flex align-items-center flex-wrap text-nowrap ">
+                                        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex"
+                                            id="dashboardDate">
+                                            <span class="input-group-addon bg-transparent"><i data-feather="calendar"
+                                                    class=" text-primary"></i></span>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table  class="table">
+
+                                        <thead>
+                                            <tr>
+                                                <th> Value </th>
+                                                <th> Description </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th> Vehicle Name </th>
+                                                <td> <%= queues.vehicle%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Upload Invoice </th>
+                                                <td> <input type="file" name="data" class="form-control" id="advance_payment_invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required> </td>
+                                            </tr>
+
+                                            
+                                            
+                                            <tr>
+                                                <th> Bill Of Material Name </th>
+                                                <td> <%= queues.bill_of_material_name%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Location </th>
+                                                <td> <%= queues.location%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Created By </th>
+                                                <td> <%= queues.created_by%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Payment Type </th>
+                                                <td> <%= queues.payment_type%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Advance Invoice </th>
+                                                <td> <%= queues.advance_payment_invoice%> </td>
+                                            </tr>
+
+                                            
+                                        </tbody>
+                                        
+
+                                        <!-- you may need to come back to change the outlook of the table to make it a two column table-->
+                                    </table>
+                                    <br>
+                                    <br>
+                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
+                                    
+                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+
+                                    <input type="hidden" name="advance_payment" class="form-control" id="advance_payment" value="<%queues.advance_payment%>" required>
+
+                                    
+                                    
+                                </div>
+                                <!-- <input class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> -->
+                                <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
+                                    <span id="reqLoader" style="display: none;"> 
+                                         <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
+                                     </span> 
+                                    </button>
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+           
+            <!-- partial:partials/_footer.html -->
+            <%- include('./bars/footer') %>
+            <!-- partial -->
+
+        </div>
+    </div>
+
+    <!-- core:js -->
+    <script src="../../../assets/vendors/core/core.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="../../../assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="../../../assets/vendors/jquery.flot/jquery.flot.js"></script>
+    <script src="../../../assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../../../assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="../../../assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="../../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <!-- end plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="../../../assets/js/template.js"></script>
+    <!-- endinject -->
+    <!-- custom js for this page -->
+    <script src="../../../assets/js/dashboard.js"></script>
+    <script src="../../../assets/js/data-table.js"></script>
+    <!-- end custom js for this page -->
+
+    <script>
+        let data;
+        function convert(){
+            // alert('abeg');
+            var file = document.getElementById('advance_payment_invoice').files[0];
+                getBase64(file);
+                console.log("begining")
+                console.log(data)
+            // var data = reader.result;
+        }
+
+        function getBase64(file) {            
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+              this.data = reader.result
+               // return data
+        };
+        reader.onerror = function (error) {
+        console.log('Error: ', error);
+        };
+    }
+function Submit(){
+    var loading = document.getElementById("reqBtn");
+    loading.disabled = true;
+    var loader = document.getElementById("reqLoader");
+    loader.style.display = "inline-block";
+
+var fileInput = document.getElementById('advance_payment_invoice').value
+console.log(fileInput);
+
+if (fileInput == "") {
+                alert('Please Select a document to Continue');
+                loading.disabled = false; 
+                loader.style.display = "none";
+            }
+      else {      
+
+var file = document.getElementById('advance_payment_invoice').files[0];
+        var reader = new FileReader();
+            reader.readAsDataURL(file);
+            if (file.size > 2000000) {
+                alert('file must be 2mb or less')
+                loading.disabled = false; 
+                loader.style.display = "none";
+            }
+            else 
+            {
+            reader.onload = function () {
+                console.log("starting")
+                    var ID = $('#id').val();
+                  console.log(ID)
+                    var putJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'PUT',
+data:JSON.stringify({"advance_payment_invoice"  : reader.result}),
+headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+contentType: 'application/json'
+});
+};
+
+putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/servicing_queue/${ID}/upload`).done(function(data, status){
+                      console.log("here",data),
+                      
+                      console.log("here")
+                      console.log("here",data)
+                      console.log(status)
+                      
+                      if (status == "success") {
+                        loading.disabled = false;
+                        loader.style.display = "none";
+                        alert('invoice upload successful')
+                    } else {
+                        loading.disabled = false; 
+                        loader.style.display = "none";
+                        alert('invoice upload Not successful')
+                      }
+            
+                    }).fail(function(){
+
+                    })
+               // return data
+        };
+    }
+        reader.onerror = function (error) {
+        console.log('Error: ', error);
+        };
+                    
+    }                 
+          
+}
+
+    </script>
+
+
+</body>
+
+</html>
