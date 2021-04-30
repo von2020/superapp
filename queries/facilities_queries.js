@@ -24,6 +24,17 @@ class vehicle_queries {
         }
     };
 
+    static async carFaultList_driver(token) {
+        const url = 'vehicle/report_fault';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async carFaultList(token) {
         const url = 'vehicle/faults';
         try {
@@ -161,6 +172,28 @@ class vehicle_queries {
         try {
             const {result, resbody} = await postResponse_request(query, url, token)
             return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genMaintenanceList(token) {
+        const url = 'generator/maintenance';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genDailyMaintenanceList(token) {
+        const url = '/generator/all_daily_maintenance';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
             
         }catch(err){
             if (err) console.log('login error', err)
@@ -435,16 +468,7 @@ class vehicle_queries {
     };
 
 
-    static async genDailyMaintenanceList(token) {
-        const url = 'generator/daily_maintenance';
-        try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
-            if (err) console.log('login error', err)
-        }
-    };
+    
 
     static async updateFault(token, id) {
         const url = `vehicle/fault/${id}`;
@@ -553,6 +577,83 @@ class vehicle_queries {
         try {
             const {result, resbody} = await getResponse_request(url, token)
             return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async dieselUsageList(token) {
+        const url = 'diesel/usage';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async handleDieselVendor(query, token) {
+        const url = 'diesel/vendors';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async dieselVendorList(token) {
+        const url = 'diesel/vendors';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async dieselRequestQuotationList(token) {
+        const url = 'diesel/request_quotations';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewDieselRequestQuotation(token, id) {
+        const url = `diesel/request_quotation/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateDieselRequestQuotation(query, token, id) {
+        const url = `diesel/request_quotation/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async handlePurchaseOrder(query, token) {
+        const url = 'diesel/purchase_order';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
             
         }catch(err){
             if (err) console.log('login error', err)

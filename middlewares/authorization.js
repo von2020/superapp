@@ -63,6 +63,15 @@ class Authorize {
 
     };
 
+    static procurementAuthorize (req, res, next) {
+        if (req.session.userDetails.role == 'Procurement') {
+            return next()
+        } else {
+            return res.render('authorization')
+        };
+
+    };
+
     static supervisorAuthorize (req, res, next) {
         if (req.session.userDetails.role == 'Supervisor') {
             return next()

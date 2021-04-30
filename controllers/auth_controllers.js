@@ -270,7 +270,9 @@ class auth_controllers {
             
         }
         catch(err) {
-            if (err) return console.log(err)
+            if (err)  return res.redirect ('/')
+            console.log('err', err)
+            
         }
     }
 
@@ -297,6 +299,8 @@ class auth_controllers {
                     res.redirect('/finance_dashboard')
                 } else if (userDetails.role == 'Facility Officer') {
                     res.redirect('/facility_dashboard')
+                } else if (userDetails.role == 'Procurement') {
+                    res.redirect('/procurement_dashboard')
                 } else if (userDetails.role == 'Driver Admin') {
                     res.redirect('/driver_admin_dashboard')
                     // res.render('dashboard_driver_admin', {userDetails, totals})

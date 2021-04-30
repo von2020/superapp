@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
    <!-- end plugin css for this page --> 
    <link rel="stylesheet" type="text/css" href="../assets/vendors/datatables/css/jquery.dataTables.min.css">
-
-   
 	 <!-- inject:css -->
 	<link rel="stylesheet" href="../assets/fonts/feather-font/css/iconfont.css">
 	<link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -33,35 +31,35 @@
 	<div class="main-wrapper">
 
     <!-- Insert the sidebar partial here-->
-<% if (userDetails.role == 'Staff') { %>
-  <%- include('./bars/sidebar_staff') %>
-  <% } else if (userDetails.role == 'Supervisor') { %>
-  <%- include('./bars/sidebar_sup') %>
-  <% } else if (userDetails.role == 'Auditor') { %>
-  <%- include('./bars/sidebar_auditor') %>
-  <% } else if (userDetails.role == 'Finance') { %>
-  <%- include('./bars/sidebar_finance') %>  
-  <%  } else if (userDetails.role == 'Driver Admin') { %>
-  <%- include('./bars/sidebar_driver') %>
-  <%  } else if (userDetails.role == 'Director') { %>
-  <%- include('./bars/sidebar_director') %>
-  <%  } else if (userDetails.role == 'Group Managing Director') { %>
-  <%- include('./bars/sidebar_gmd') %>  
-  <%  } else if (userDetails.role == 'Driver') { %>
-  <%- include('./bars/sidebar_carDriver') %>  
-  <%  } else { %>
-  <%- include('./bars/sidebar') %>    
-  <%  } %>
-		<!-- partial -->
-	
-		<div class="page-wrapper">
-				
-			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
-      <%- include('./bars/topbar') %>
-			<!-- partial -->
+    <% if (userDetails.role == 'Staff') { %>
+      <%- include('./bars/sidebar_staff') %>
+      <% } else if (userDetails.role == 'Supervisor') { %>
+      <%- include('./bars/sidebar_sup') %>
+      <% } else if (userDetails.role == 'Auditor') { %>
+      <%- include('./bars/sidebar_auditor') %> 
+      <% } else if (userDetails.role == 'Finance') { %>
+      <%- include('./bars/sidebar_finance') %>
+      <%  } else if (userDetails.role == 'Driver Admin') { %>
+      <%- include('./bars/sidebar_driver') %>
+      <%  } else if (userDetails.role == 'Director') { %>
+      <%- include('./bars/sidebar_director') %>
+      <%  } else if (userDetails.role == 'Group Managing Director') { %>
+      <%- include('./bars/sidebar_gmd') %>  
+      <%  } else if (userDetails.role == 'Driver') { %>
+      <%- include('./bars/sidebar_carDriver') %>
+      <%  } else { %>
+      <%- include('./bars/sidebar') %>
+      <%  } %>
 
-			<div class="page-content">
+    <div class="page-wrapper">
+
+      <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+      <%- include('./bars/topbar') %>
+      <!-- partial -->
+
+      <div class="page-content">
         <%- include('./partials/messages')%>
+
         <div class="row">
           <div class="col-md-2 grid-margin">
             <div class="card">
@@ -142,11 +140,11 @@
             <table id="TripRange" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Vehicle Make</th>
-                  <th>Vehicle Model</th>
-                  <th>Service Count Down</th>
-                  <th>Driver Name</th>
-                  <th>Next Service Date</th>
+                  <th>Generator Name</th>
+                  <th>Servicing Cost</th>
+                  <th>Servicing Company</th>
+                  <th>Requester</th>
+                  <th>Servicing Reason</th>
                 </tr>
                 </thead>
                 <tbody  id="result">
@@ -272,9 +270,9 @@
 
 			</div>
 
-			 <!-- partial:../../partials/_footer.html --> 
+			 <!-- partial:partials/_footer.html -->
        <%- include('./bars/footer') %>
-			 <!-- partial --> 
+       <!-- partial --> 
 	
 		</div>
   </div>
@@ -329,7 +327,7 @@ $(document).ready(function(){
 
 $.ajax({
     // url: "http://cors-anywhere.herokuapp.com/173.212.213.205:8090/api/v1/vehicle/vehicle",
-    url:'https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/vehicle',
+    url:'https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/generator/servicing_request',
     //url:'https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/vehicle',
     type: "GET",
     contentType: "application/json; charset=utf-8",
@@ -343,19 +341,19 @@ $.ajax({
             "aaData" : result,
             columns: [
                 {
-                    data: "vmake"
+                    data: "generator_name"
                 },
                 {
-                    data: "vmodel"
+                    data: "servicing_cost"
                 },
                 {
-                    data: "servicing_countdown"
+                    data: "servicing_company_name"
                 },
                 {
-                    data: "driver_name"
+                    data: "requester"
                 },
                 {
-                    data: "next_servicing_date"
+                    data: "servicing_reason"
                 },
             ]
         });
@@ -368,7 +366,6 @@ $.ajax({
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="./myChart.js"></script>
-<script src="../assets/vendors/chart/core.js"></script>
 
 	 <!-- core:js -->
 	<script src="../assets/vendors/core/core.js"></script>

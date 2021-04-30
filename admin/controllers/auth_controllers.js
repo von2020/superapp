@@ -56,7 +56,9 @@ class auth_controllers {
             
         }
         catch(err) {
-            if (err) return console.log(err)
+            if (err) 
+            return console.log(err)
+            res.redirect ('')
         }
     }
 

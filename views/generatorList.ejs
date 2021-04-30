@@ -97,7 +97,7 @@
                         <th>Rating (Amp)</th>
                         <th>Installed On</th>
                         <th>Next Servicing</th>
-                        <th>Daily Maintenance</th>
+                        
                         <th>Maintenance</th>
                         
                       </tr>
@@ -115,7 +115,7 @@
                           <td><%= generator.kilovoltamp_electrical_rating%></td>
                           <td><%= generator.installation_date%></td>
                           <td><%= generator.next_servicing%></td>
-                          <td><a href="/facilities/genDailyMaintenance?id=<%=generator.id%>" id='<%=generator.id%>' class="btn btn-sm btn-success rounded-pill" >Daily Maintenance</a>   </td>
+                        
                           <td><a href="/facilities/genMaintenance?id=<%=generator.id%>" id='<%=generator.id%>' class="btn btn-sm btn-success rounded-pill" >Maintenance</a>   </td>
                           
                           

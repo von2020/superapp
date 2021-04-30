@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { checkSession} = require('../middlewares/checksession');
-const {driverAuthorize, supervisorAuthorize, carDriverAuthorize, auditorAuthorize, financeAuthorize, facilityAuthorize} = require('../middlewares/authorization')
+const {driverAuthorize, supervisorAuthorize, carDriverAuthorize, auditorAuthorize, financeAuthorize, facilityAuthorize, procurementAuthorize} = require('../middlewares/authorization')
 
 // require the list of request controllers
 const {failities_controllers} = require('../controllers/index')
@@ -15,6 +15,7 @@ const {
     faultRepair,
     addTechician,
     carFaultList,
+    carFaultList_driver,
     quotationList,
     viewQuotation,
     handleQuotation,
@@ -23,12 +24,14 @@ const {
     servicingList,
     genServiceRequests,
     handleGenServiceRequests,
-    AllGenMaintenanceList,
+    allGenMaintenanceList,
+    allGenDailyMaintenanceList,
     addGenerator,
     signOff,
     handleAddGenerator,
     generatorList,
     generatorList_fault,
+    generator_report,
     genRequestFiles,
     handleGenRequestFiles,
     requestFilesList,
@@ -88,6 +91,8 @@ const {
     updateBalanceServicingQueueFinance,
     updateServicingQueue_driveradmin,
     handleUpdateservicingQueue_driverAdmin,
+    updateRepairQueue_driveradmin,
+    handleUpdateRepairQueue_driverAdmin,
     serviceStatus,
     tripDistanceList,
     vehicleDistanceList,
@@ -99,6 +104,8 @@ const {
     repairStatus,
     handleRepairStatus,
     carRepairStatusList_driver,
+    carRepairStatusList_driverAdmin,
+    viewRepairStatus_driverAdmin,
     viewRepairStatus_driver,
     updateViewRepairStatus_driver,
     addBillOfMaterial,
@@ -123,9 +130,20 @@ const {
     gen_repairs,
     handleGen_repairs,
     gen_repairList,
+    dieselUsageList,
+    dieselVendor,
+    handleDieselVendor,
+    dieselVendorList,
     dieselRequest,
     dieselSensorReading,
     dieselTanker,
+    dieselRequestQuotation,
+    dieselRequestQuotationList,
+    dieselRequestQuotationList_procurement,
+    viewDieselRequestQuotation,
+    handleDieselRequestQuotation,
+    handlePurchaseOrder,
+    viewPurchaseOrder,
     genRepair,
     genServicing,
     handleGenServicing,
@@ -170,7 +188,10 @@ router.get('/vehicleDistanceList', [checkSession, driverAuthorize], vehicleDista
 router.get('/servicingQueueDriverAdmin', [checkSession, driverAuthorize], servicingQueueList),
 
 router.get('/updateServicingQueue_driveradmin', [checkSession, driverAuthorize], updateServicingQueue_driveradmin),
-router.post('/updateServicingQueue_driveradmin', [checkSession, driverAuthorize], handleUpdateservicingQueue_driverAdmin)
+router.post('/updateServicingQueue_driveradmin', [checkSession, driverAuthorize], handleUpdateservicingQueue_driverAdmin),
+
+router.get('/updateRepairQueue_driveradmin', [checkSession, driverAuthorize], updateRepairQueue_driveradmin),
+router.post('/updateRepairQueue_driveradmin', [checkSession, driverAuthorize], handleUpdateRepairQueue_driverAdmin)
 
 router.get('/car_servicing_report', [checkSession, driverAuthorize], car_servicing_report),
 
@@ -238,6 +259,7 @@ router.get('/viewbalanceservicingQueueFinance', [checkSession, financeAuthorize]
 router.post('/viewbalanceservicingQueueFinance', [checkSession, financeAuthorize], updateBalanceServicingQueueFinance),
 
 router.get('/carFaultList', [checkSession, driverAuthorize], carFaultList),
+router.get('/carFaultList_driver', [checkSession, carDriverAuthorize], carFaultList_driver),
 
 router.get('/quotationList', [checkSession, driverAuthorize], quotationList),
 
@@ -271,6 +293,9 @@ router.get('/repairStatus', [checkSession, driverAuthorize], repairStatus),
 router.post('/repairStatus', [checkSession, driverAuthorize], handleRepairStatus),
 
 router.get('/carRepairStatusList_driver', [checkSession, carDriverAuthorize], carRepairStatusList_driver),
+router.get('/carRepairStatusList_driverAdmin', [checkSession, driverAuthorize], carRepairStatusList_driverAdmin),
+
+router.get('/viewRepairStatus_driverAdmin', [checkSession, driverAuthorize], viewRepairStatus_driverAdmin),
 
 router.get('/viewRepairStatus_driver', [checkSession, carDriverAuthorize], viewRepairStatus_driver),
 router.post('/viewRepairStatus_driver', [checkSession, carDriverAuthorize], updateViewRepairStatus_driver),
@@ -340,12 +365,15 @@ router.get('/genFaultList', [checkSession, driverAuthorize], genFaultList),
 router.get('/signOff', [checkSession, driverAuthorize], signOff),
 
 
-router.get('/genMaintenanceList', [checkSession, driverAuthorize], AllGenMaintenanceList),
+router.get('/genMaintenanceList', [checkSession, driverAuthorize], allGenMaintenanceList),
+router.get('/genDailyMaintenanceList', [checkSession, driverAuthorize], allGenDailyMaintenanceList),
 
 router.get('/addGenerator', [checkSession, driverAuthorize], addGenerator),
 router.post('/addGenerator', [checkSession, driverAuthorize], handleAddGenerator),
 
 router.get('/generatorList', [checkSession, driverAuthorize], generatorList),
+
+router.get('/generator_report', [checkSession, driverAuthorize], generator_report),
 
 router.get('/generatorList_fault', [checkSession, driverAuthorize], generatorList_fault),
 
@@ -367,6 +395,23 @@ router.post('/genMaintenance', [checkSession, driverAuthorize], handleGenMainten
 router.get('/dieselRequest', [checkSession, driverAuthorize], dieselRequest),
 router.get('/dieselSensorReading', [checkSession, driverAuthorize], dieselSensorReading),
 router.get('/dieselTanker', [checkSession, driverAuthorize], dieselTanker),
+router.get('/dieselUsageList', [checkSession, driverAuthorize], dieselUsageList),
+
+router.get('/dieselVendor', [checkSession, driverAuthorize], dieselVendor),
+router.post('/dieselVendor', [checkSession, driverAuthorize], handleDieselVendor),
+
+router.get('/dieselVendorList', [checkSession, driverAuthorize], dieselVendorList),
+
+router.get('/dieselRequestQuotation', [checkSession, procurementAuthorize], dieselRequestQuotation),
+router.get('/dieselRequestQuotationList_procurement', [checkSession, procurementAuthorize], dieselRequestQuotationList_procurement),
+
+router.get('/dieselRequestQuotationList', [checkSession, driverAuthorize], dieselRequestQuotationList),
+
+router.get('/viewDieselRequestQuotation', [checkSession, driverAuthorize], viewDieselRequestQuotation),
+router.post('/viewDieselRequestQuotation', [checkSession, driverAuthorize], handleDieselRequestQuotation),
+
+router.get('/viewPurchaseOrder', [checkSession, driverAuthorize], viewPurchaseOrder),
+router.post('/viewPurchaseOrder', [checkSession, driverAuthorize], handlePurchaseOrder),
 
 router.get('/genRepair', [checkSession, driverAuthorize], genRepair),
 

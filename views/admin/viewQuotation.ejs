@@ -96,7 +96,7 @@
                         <p><span><a href="" class="text-primary"></a></span></p>
                     </div>
                           <input type="hidden" name="name" class="form-control" id="name" value="<%=materials.name%>" required>
-                          <input type="hidden" name="require_advance" class="form-control" id="require_advance" value="<%=materials.require_advance%>" required>
+                          <input type="hidden" name="payment_type" class="form-control" id="payment_type" value="<%=materials.payment_type%>" required>
                           <input type="hidden" name="fault" class="form-control" id="fault" value="<%=materials.fault%>" required>
     
                           <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.id%>" required>
@@ -113,7 +113,7 @@
                   <div class="thread-foot p-4 d-flex justify-content-between">
                     <h5>Take Action</h5>
                    <div>
-                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Accept</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button" value = false>Reject</button>
+                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Accept</button><button class="btn btn-danger rounded-pill" type = "submit" onclick="onSubmit()" name = "button" value = false>Reject</button>
                     </div>
                   </div>
                 </div>
@@ -196,6 +196,20 @@
 	
 		</div>
 	</div>
+
+
+  <script>
+      
+    function onSubmit(){
+      // alert('hey')
+      var comment = document.getElementById('simpleMdeExample').value;
+      console.log(comment)
+      if(comment == ''){
+        alert('comment cannot be empty')
+        event.preventDefault();
+      };
+    }
+  </script>
 
 	<!-- core:js -->
 	<script src="../../../assets/vendors/core/core.js"></script>

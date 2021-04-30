@@ -70,14 +70,14 @@
                 <h6 class="card-title">Quotation</h6>
 
 
-                <form class="" action="/facilities/addBillOfMaterial" method="post">
+                <form class=""  method="post">
 
                   <div class="row">
                     <div class="col">
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Require Advance</label>
                           <select class='form-control' id='require_advance' name='require_advance'>
-                            <option>----</option>
+                            <option disabled>----</option>
                             <option>yes</option>
                             <option>no</option>
                           </select>
@@ -97,12 +97,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Amount Budgeted</label>
-                          <input name="amount_budgeted" class="form-control" id="amount_budgeted" required>
-                        </div>
-                      </div>
+                    
 
                       <div class="col">
                         <div class="form-group">
@@ -131,7 +126,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Body</label>
-                            <textarea name="body" class="form-control" id="body" required></textarea>
+                            <textarea name="body" class="form-control" id="body" rows="5" required></textarea>
                         </div>
                         </div>
                  </div>   
@@ -148,7 +143,7 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Document</label>
-                        <input type="file" name="data" class="docfile" id="document" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
+                        <input type="file" name="document" class="form-control " id="document" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
                       </div>
                     </div>
                 </div>
@@ -160,7 +155,7 @@
                     <div class="col">
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Invoice</label>
-                          <input type="file" name="data" class="docfile" id="invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
+                          <input type="file" name="invoice" class="form-control " id="invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
                         </div>
                       </div>
                       <div class="col">
@@ -178,7 +173,9 @@
                         <script>
                           // this did not work because the google API was at the bottom
                           $(document).ready(function () {
-                            
+                            console.log("values");
+
+        
                             
                           });
                         </script>
@@ -244,18 +241,22 @@
                   </div>
 
                   <div>
-										<p id="addMore" class="btn btn-light" style="float: right;"
-											onclick="onclickfunction()">add to list</p>
+										
+                      
 						</div>
 
 									<div class="table-responsive" id="extrafeild"></div>
                   
                   <!-- <button class="btn-lg btn-primary" type="submit">Submit</button> -->
+                  
                   <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
                     <span id="reqLoader" style="display: none;"> 
                          <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
                      </span> 
                     </button>
+
+                    <p id="addMore" class="btn btn-light" style="float: right;"
+											onclick="arrange()">add list</p>
                   <input name="random" id="random">
                 </form>
               </div>
@@ -266,15 +267,20 @@
       </div>
 
       <script>
-				$(document).ready(function removeButton() {
-					$("#addMore").hide()
+
+				$(document).ready(
+          
+        function removeButton() {
+					// $("#addMore").hide()
 					$("#random").hide()
 					$("#extrafeild").hide()
+          $("#reqBtn").hide()
 					// $("#request").hide()
 				});
 			</script>
       <script>
-				var values = [];
+
+				
 				function changeFun2() {
 					var selectBox = document.getElementById("bill-type");
 					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
@@ -288,16 +294,75 @@
 						$("#extrafeild").hide();
 					}
 				};
+     </script>
+     
 
-        function onclickfunction() {
+<script>
 
-var body = $('#body').val();
-var technician = $('#technician').val();
-var document = $('#document').val();
-var invoice = $('#invoice').val();
-var amount_charged = $('#amount_charged').val();
+  
+var values = [];                          
+function arrange() {
+  $("#reqBtn").show();
+    
+    console.log("values",values);
+    var file = document.getElementById('document').files[0];
 
-if (body == '' || technician == '' || document =='' || invoice =='' || amount_charged =='') {
+    var file2 = document.getElementById('invoice').files[0];
+
+    console.log('file', file)
+    console.log('file2', file2)
+
+
+    var reader = new FileReader();
+    var reader2 = new FileReader();
+    
+    reader.readAsDataURL(file);
+        reader.onload  = function () {
+            
+          
+            
+            dataURL = reader.result;
+          
+            var output = document.getElementById('document');
+            output.src = dataURL;
+            console.log("output", output.src);
+            
+            sessionStorage.setItem("result",reader.result);
+          };
+    
+    
+      reader2.readAsDataURL(file2);
+        reader2.onload  = function () {
+          dataURL2 = reader2.result;
+            
+            var output2 = document.getElementById('invoice');
+            output2.src = dataURL2;
+            console.log("output2", output2.src);
+            sessionStorage.setItem("result2",reader2.result);
+            
+            
+          };
+    
+    
+
+    var result = sessionStorage.getItem("result")
+    console.log("result", result);
+
+
+    var result2 = sessionStorage.getItem("result2")
+    console.log("result2", result2);
+
+var body = document.getElementById('body').value;
+console.log(body)
+var technician = document.getElementById('technician').value;
+console.log(technician)
+var doc = result;
+console.log(doc)
+var invoice = result2;
+console.log(invoice)
+var amount_charged = document.getElementById('amount_charged').value;
+
+if (body == '' || technician == '' || doc =='' || invoice =='' || amount_charged =='') {
 
   swal("kindly fill all fields!", {
     buttons: false,
@@ -307,10 +372,10 @@ if (body == '' || technician == '' || document =='' || invoice =='' || amount_ch
 
   var details = {
     body: body,
-    technician: technician,
-    document: document,
+    technician: Number(technician),
+    document: doc,
     invoice: invoice,
-    amount_charged: amount_charged
+    amount_charged: Number(amount_charged)
   };
   values.push(details);
   appendFunction();
@@ -335,8 +400,8 @@ if (body == '' || technician == '' || document =='' || invoice =='' || amount_ch
     html += "<tr>";
     html += "<td>" + values[i].body + "</td>";
     html += "<td>" + values[i].technician + "</td>";
-    html += "<td>" + values[i].document + "</td>";
-    html += "<td>" + values[i].invoice + "</td>";
+    html += "<td>" + "document" + "</td>";
+    html += "<td>" + "invoice" + "</td>";
     html += "<td>" + values[i].amount_charged + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
@@ -349,8 +414,9 @@ if (body == '' || technician == '' || document =='' || invoice =='' || amount_ch
   // display record
   $("#extrafeild").html(html);
 
-
-
+  if (values.length > 0) {
+  $("#extrafeild").show();
+  }
 }
 }
 
@@ -375,8 +441,8 @@ for (var i = 0; i < values.length; i++) {
   html += "<tr>";
     html += "<td>" + values[i].body + "</td>";
     html += "<td>" + values[i].technician + "</td>";
-    html += "<td>" + values[i].document + "</td>";
-    html += "<td>" + values[i].invoice + "</td>";
+    html += "<td>" + "document" + "</td>";
+    html += "<td>" + "invoice" + "</td>";
     html += "<td>" + values[i].amount_charged + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
@@ -390,19 +456,21 @@ html += "<br>"
 $("#extrafeild").html(html);
 
 // show
-if (employmentHistoryList.length > 0) {
+if (values.length > 0) {
   $("#extrafeild").show();
 };
 
 
 }
 
+
 function appendFunction() {
 var x = JSON.stringify(values)
 $('#random').val(x)
 }
 
-function Submit(){
+function  Submit(){
+  // alert('hey you?'); 
 
 var loading = document.getElementById("reqBtn");
 loading.disabled = true;
@@ -411,45 +479,40 @@ loader.style.display = "inline-block";
 
 var fileInput = document.getElementById('document').value
 console.log(fileInput);
-var fileInput2 = document.getElementById('invoice').value
-console.log(fileInput2);
+// var fileInput2 = document.getElementById('invoice').value
+// console.log(fileInput2);
 
-if (fileInput == "" || fileInput2 == "" ) {
+if (fileInput == "" ) {
             alert('Please Select a document to Continue');
             loading.disabled = false; 
             loader.style.display = "none";
         }
-    else if(fileInput == "" && fileInput2 == ""){
+    else if(fileInput == "" ){
         alert('Please Select a document to Continue');
             loading.disabled = false; 
             loader.style.display = "none";
         }
   else {     
 
-var file = document.getElementById('document').files[0];
-var file2 = document.getElementById('invoice').files[0];
+var file = document.getElementById('document').files[0]
+var file2 = document.getElementById('invoice').files[0]
 
-// file.forEach(filename);
+console.log("file", file);
 
-// function filename(){
-//     var doc = document.getElementById('document').value;
-//     var inv = document.getElementById('invoice').value;
-// }
 
     var reader = new FileReader();
     var reader2 = new FileReader();
-     reader.readAsDataURL(file);
-     reader2.readAsDataURL(file2);
+    
         
         
-        if (file.size > 2000000 || file2.size > 2000000) {
+        if (file.size > 2000000) {
             alert('file must be 2mb or less')
             loading.disabled = false; 
             loader.style.display = "none";
         
 
         }
-        else if(file.size > 2000000 && file2.size > 2000000){
+        else if(file.size > 2000000){
           alert('file must be 2mb or less')
             loading.disabled = false; 
             loader.style.display = "none";
@@ -457,51 +520,98 @@ var file2 = document.getElementById('invoice').files[0];
               
         else
         {
+
+    // function reader(){
+      
+    // }
         reader.onload  = function () {
-            console.log("starting")
-            console.log(reader.result);
+            
+            
+            dataURL = reader.result;
+          //  console.log("result_one", result_one)
+            // return result_one
+            var output = document.getElementById('document');
+            output.src = dataURL;
+            // console.log("output", output.src);
+            
+            sessionStorage.setItem("result",reader.result);
           };
-          
+    
+    
+    // const result2 = async ()=>{
         reader2.onload  = function () {
-            console.log("starting")
-            console.log(reader2.result);
+          dataURL2 = reader2.result;
+            
+            var output2 = document.getElementById('invoice');
+            output2.src = dataURL2;
+    //         console.log("output2", output2.src);
+    sessionStorage.setItem("result2",reader2.result);
+            
+            
           };
-              
-          const files_upload =[
-          new Promise(resolve => reader.result),
-          new Promise(resolve => reader2.result)
+    // }
+    // console.log("dataURL", reader.readAsDataURL(file))
+    reader.readAsDataURL(file);
+    var result = sessionStorage.getItem("result")
+    console.log("result", result);
 
-          ]
-
+    reader2.readAsDataURL(file2);
+    var result2 = sessionStorage.getItem("result2")
+    console.log("result2", result2);
     
 
-    Promise.all(files_upload)
-  .then(data => {
     
     var fault = $('#fault').val();
-              console.log(fault)
+    //           console.log(fault)
               var require_advance = $('#require_advance').val();
-              console.log(require_advance)
+    //           console.log(require_advance)
               var advance_percentage = $('#advance_percentage').val();
-              console.log(advance_percentage)
+    //           console.log(advance_percentage)
               var amount_budgeted = $('#amount_budgeted').val();
-              console.log(amount_budgeted)
+    //           console.log(amount_budgeted)
               var created_by = $('#created_by').val();
-              console.log(created_by)
+    //           console.log(created_by)
               var body = $('#body').val();
-              console.log(body)
+    //           console.log(body)
               var technician = $('#technician').val();
-              console.log(technician)
+    //           console.log(technician)
               var amount_charged = $('#amount_charged').val();
-              console.log(amount_charged)
+    //           console.log(amount_charged)
+              appendFunction();
+              var random = $('#random').val();
+    //           console.log("random", random)
               
+              const data ={
+                "fault" : fault, 
+                "require_advance" : require_advance, 
+                "advance_percentage": Number(advance_percentage),
+                "created_by": created_by, 
+                "quotation_set": JSON.parse(random)
+              }
+              
+              console.log("data", JSON.stringify(data))
                 var putJSON = function (url) {
 return $.ajax({
 url: url,
 type: 'POST',
-data:JSON.stringify({"document"  : reader.result, "invoice" : reader.result, "fault" : fault, "require_advance" : require_advance, "advance_percentage": advance_percentage, "created_by": created_by, "body": body, "technician": technician, "amount_charged": amount_charged, "amount_budgeted": amount_budgeted}),
+data:JSON.stringify(data),
 headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
-contentType: 'application/json'
+contentType: 'application/json',
+error: function(xhr, status, error) {
+  var err = eval("(" + xhr.responseText + ")");
+  console.log(xhr)
+  if (err.fault) {
+  alert("fault :" + err.fault)
+  loading.disabled = false; 
+  loader.style.display = "none";
+  
+}
+else {
+  alert("fields cannot be submitted")
+  loading.disabled = false; 
+  loader.style.display = "none";
+}
+}
 });
 };
 
@@ -513,32 +623,49 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                   console.log(status)
                   
                   if (status == "success") {
+
                     loading.disabled = false;
                     loader.style.display = "none";
-                    alert('invoice upload successful')
+                    alert('submitted successfully,quotation upload successful, awaiting auditor and finance approval ')
+                    window.location.href="/facilities/quotationList";
                 } else {
                     loading.disabled = false; 
                     loader.style.display = "none";
                     alert('invoice upload Not successful')
                   }
         
-                }).fail(function(){
-
-             })
-           // return data
+                }).fail(function (){
+            })
+           
           reader.onerror = function (error) {
           console.log('Error: ', error);
     };
 
-  });
+  
+           
+          // const files_upload = [
+          // new Promise(resolve => reader.result),
+          // new Promise(resolve => reader2.result)
 
-    }
-                
-  }   
-      
+          // ]
+          // const promise1 = reader.result;
+          // const promise2 = reader2.result;
+
+    
+// Promise.all([result(), result2()]).then(function (response){
+//    console.log(response);
+// })
+ 
+  // .then(data => {
+    
+  //   
+ return;
+ }
+}        
 }
 
       </script>
+
 
       <!-- partial:partials/_footer.html -->
       <%- include('./bars/footer') %>

@@ -61,36 +61,116 @@
 							<div class="card-body">
 								<h6 class="card-title">Update Fault</h6>
 
-								
-                                <form class="" action="/facilities/updateFault" method="post">
-                                    
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Fault Date</label>
-                                                <input name= "fault_date" type="date" class="form-control" id="fault_date" value="<%= faults.fault_date %>" readonly> 
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1"> Rectifiable </label>
-                                                <select name= "rectifiable" class="form-control" id="rectifiable"  required>
-                                                <option>----</option>
-                                                <option>True</option>
-                                                <option>False</option>
-                                            </select>
-                                            </div>
-                                        </div>
+                               <form class="" action="/facilities/updateFault" method="post">
+                                  
+								<div class="table-responsive">
+                                    <table class="table">
+
+                                        <thead>
+                                            <tr>
+                                                <th> Value </th>
+                                                <th> Description </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th> Driver Name </th>
+                                                <td> <%= faults.driver_name%> </td>
+                                            </tr>
+											<tr>
+                                                <th> Driver Phone </th>
+                                                <td> <%= faults.driver_phone%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Vehicle Info </th>
+                                                <td> <%= faults.vehicle_info%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Vehicle Plate </th>
+                                                <td> <%=faults.vehicle_plate%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Fault Name</th>
+                                                <td> <%=faults.fault_name%> </td>
+                                            </tr>
+
+											<tr>
+                                                <th>Ticket</th>
+                                                <td> <%=faults.ticket%> </td>
+                                            </tr>
+
+                                            
+                                            
+                                            <tr>
+                                                <th> Vehicle Location </th>
+                                                <td> <%= faults.vehicle_location%> </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th> Fault Date </th>
+                                                <td> <%= faults.fault_date%> </td>
+                                            </tr>
+                                            
+                                            
+                                            
+                                            <tr>
+                                                <th> Created On </th>
+                                                <td> <%=faults.created_on%> </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th> Updated On </th>
+                                                <td> <%= faults.updated_on%> </td>
+                                            </tr>
+                                            
+                                            
+                                            
+                                            <tr>
+                                                <th> Fault Date </th>
+                                                <td> <input name= "fault_date" type="date" class="form-control" id="fault_date" value="<%= faults.fault_date %>" readonly> </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th> Rectifiable? </th>
+                                                <td> <select name= "rectifiable" class="form-control" id="rectifiable"  required>
+													<option disabled>----</option>
+													<option value="True">Yes</option>
+													<option value="False">No</option>
+												</select></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th> Rectifiable Comment </th>
+                                                <td> <textarea name= "rectifiable_comment" class="form-control" id="rectifiable_comment" rows="10"  required></textarea> </td>
+                                            </tr>
+                                            
+                                        </tbody>
                                         
-									  </div>
+
+                                        <!-- you may need to come back to change the outlook of the table to make it a two column table-->
+                                    </table>
+                                    <br>
+                                    <br>
+                                    
+                                    
+                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+
+                                    
+                                    
+                                </div>
+
+
+
+
+
+
+
+                                    
 									  
 									  <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Comment</label>
-                                                <textarea name= "rectifiable_comment" class="form-control" id="rectifiable_comment"  required></textarea>
-                                            </div>
-                                        </div>
+                                        
 										<div class="col">
                                             <div class="form-group">
                                                 

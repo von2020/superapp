@@ -84,8 +84,10 @@
                         <th>Gen TimeON</th>
                         <th>Gen TimeOFF</th>
                         <th>Gen Service Hour</th>
-                        <th> PHCN TimeON </th>
-                        <th> PHCN TimeOFF </th>
+                        <th>Power Source</th>
+                        <th>Status</th>
+                        <th>Reverse Status</th>
+                        <th>Created On</th>
                         
                       </tr>
                     </thead>
@@ -96,11 +98,13 @@
                     <% gens.forEach((item) => {%>
                         <tr>
                           <td><%= item.generator_name%></td>
-                          <td><%= item.gen_time_on%></td>
-                          <td><%= item.gen_time_off%></td>
-                          <td><%= item.gen_service_hour%></td>
-                          <td><%= item.phcn_time_on%></td>
-                          <td><%= item.gen_time_off%></td>
+                          <td><%= item.on_time%></td>
+                          <td><%= item.off_time%></td>
+                          <td><%= item.usage%></td>
+                          <td><%= item.power_source%></td>
+                          <td><%= item.status%></td>
+                          <td><%= item.reverse_status%></td>
+                          <td><%= item.created_on%></td>
                           
                         </tr>
                         <% })%>

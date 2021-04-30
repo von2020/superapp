@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Telnet SuperApp</title>
+  <!-- core:css -->
+  <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- end plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+  <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body onload="changeFun()">
+  <div class="main-wrapper">
+
+    <!-- Insert the sidebar partial here-->
+    <% if (userDetails.role == 'Staff') { %>
+      <%- include('./bars/sidebar_staff') %>
+      <% } else if (userDetails.role == 'Supervisor') { %>
+      <%- include('./bars/sidebar_sup') %>
+      <% } else if (userDetails.role == 'Auditor') { %>
+      <%- include('./bars/sidebar_auditor') %> 
+      <% } else if (userDetails.role == 'Finance') { %>
+      <%- include('./bars/sidebar_finance') %>
+      <%  } else if (userDetails.role == 'Driver Admin') { %>
+      <%- include('./bars/sidebar_driver') %>
+      <% } else if (userDetails.role == 'Procurement') { %>
+      <%- include('./bars/sidebar_procurement') %>
+      <%  } else if (userDetails.role == 'Director') { %>
+      <%- include('./bars/sidebar_director') %>
+      <%  } else if (userDetails.role == 'Group Managing Director') { %>
+      <%- include('./bars/sidebar_gmd') %>  
+      <%  } else if (userDetails.role == 'Driver') { %>
+      <%- include('./bars/sidebar_carDriver') %>
+      <%  } else { %>
+      <%- include('./bars/sidebar') %>
+      <%  } %>
+
+    <div class="page-wrapper">
+
+      <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+      <%- include('./bars/topbar') %>
+      <!-- partial -->
+
+      <div class="page-content">
+        <%- include('./partials/messages')%>
+        <nav class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <!-- <li class="breadcrumb-item"><a href="#">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Upload</li> -->
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Diesel Request Quotation</h6>
+
+
+                <form class=""  method="post">
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Purpose</label>
+                        <input name="purpose" class="form-control" id="purpose" required>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Created By</label>
+                          <input name="created_by" class="form-control" id="created_by" value="<%= userDetails.first_name + ' ' + userDetails.last_name %>"  readonly>
+                        </div>
+                      </div>
+                    
+                    
+                    
+                    
+                  </div>
+
+                  <br><hr>
+                  
+
+                  
+                    
+
+                  
+
+                  
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Liter</label>
+                              <input name="liter" class="form-control" id="liter" required>
+                            </div>
+                          </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Vendor</label>
+                              <select class="form-control" id="vendor" name="vendor" >
+                                <option selected> --- </option>
+                                <% 
+                                                          diesel.forEach((ven, i) => { 
+                                                        %>
+                                <option value=<%= ven.id %>> <%= ven.name %>  </option>
+                                <% 
+                                                          }) 
+                                                        %>
+                              </select>
+                            </div>
+                            </div>
+                          
+                          
+                        </div>
+                        <!-- <script>
+                          // this did not work because the google API was at the bottom
+                          $(document).ready(function () {
+                            
+                            
+                          });
+                        </script>
+  
+                        <script>
+  
+                          function changeFun() {
+                            console.log("starting")
+
+                            var getJSON = function (url) {
+    return $.ajax({
+        url: url,
+        type: 'GET',
+        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+        contentType: 'application/json'
+    });
+  };
+
+                            getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/technicians").done(function(data, status){
+                              console.log("here",data),
+                              
+                              console.log("here")
+                              console.log("here",data)
+                              console.log(status)
+                              if (status == "success") {
+                                console.log('data', data)
+                                var html = "<option selected> --- </option>"
+                                for (var i = 0; i < data.length; i++) {
+                                  html += "<option value = '" + data[i].id + "'> " + data[i].company_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                                }
+                                
+  
+                                //display the thing
+                                $("#technician").html(html);
+                                $("#divtechnician").show();
+  
+                              } else {
+                                alert("try again or contact the admin.")
+                              }
+                            
+                    
+                            }).fail(function(){
+
+                            })
+                            
+                  }
+  
+                 </script> -->
+                  
+                         
+                  
+                  
+
+                  <div class="row">
+
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Unit Price</label>
+                          <input name="unit_price" class="form-control" id="unit_price" required>
+                        </div>
+                      </div>
+                
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Vat</label>
+                        <input name="vat" class="form-control" id="vat" placeholder="None" required>
+                      </div>
+                    </div>
+                     
+                    
+                      
+                  </div>
+                  <div class="row">
+
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Delivery</label>
+                          <select class='form-control' id='delivery' name='delivery' onchange="requestChangeFun()">
+                            <option value="charged" Selected>Charged</option>
+                            <option value="free">Free</option>
+                            
+                            
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group" id="divdelivery_amount">
+                          <label for="exampleFormControlSelect1">Delivery Amount</label>
+                          <input name="delivery_amount" class="form-control" id="delivery_amount" required>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Document</label>
+                          <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required> </td>
+                        </div>
+                      </div>
+
+                  </div>
+
+                  <div>
+										<p id="addMore" class="btn btn-light" style="float: right;"
+											onclick="onclickfunction()">add to list</p>
+									</div>
+
+									<div class="table-responsive" id="extrafeild"></div>
+                  
+                                    <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
+                                        <span id="reqLoader" style="display: none;"> 
+                                             <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
+                                         </span> 
+                                        </button>
+                  <input name="random" id="random">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <script>
+				$(document).ready(function removeButton() {
+					$("#addMore").show()
+					$("#random").hide()
+					$("#extrafeild").hide()
+					$("#reqBtn").hide()
+				});
+			</script>
+      <script>
+				var values = [];
+				// function changeFun2() {
+				// 	var selectBox = document.getElementById("bill-type");
+				// 	var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+				// 	if (selectedValue == 'multiple') {
+				// 		$("#addMore").show();
+				// 		$("#extrafeild").show();
+				// 	} else if (selectedValue == 'single') {
+
+				// 		$("#addMore").hide();
+				// 		$("#extrafeild").hide();
+				// 	}
+				// };
+
+        function onclickfunction() {
+          console.log("values", values)
+          
+          $("#reqBtn").show();
+          var file = document.getElementById('document').files[0];
+
+          console.log('file', file)
+
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+        reader.onload  = function () {
+            
+            dataURL = reader.result;
+          
+            var output = document.getElementById('document');
+            output.src = dataURL;
+            console.log("output", output.src);
+            
+            sessionStorage.setItem("result",reader.result);
+          };
+
+          var result = sessionStorage.getItem("result")
+    console.log("result", result);
+var liter = $('#liter').val();
+var vendor = $('#vendor').val();
+var unit_price = $('#unit_price').val();
+var vat = $('#vat').val();
+var delivery = $('#delivery').val();
+var delivery_amount = $('#delivery_amount').val();
+var doc = result;
+console.log(doc)
+
+if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' || doc =='' || delivery_amount =='') {
+
+  swal("kindly fill all fields!", {
+    buttons: false,
+    timer: 2000,  // disappears after 2 seconds
+  });
+} else {
+
+  var details = {
+    liter: liter,
+    vendor: vendor,
+    unit_price: unit_price,
+    vat: vat,
+    delivery: delivery,
+    delivery_amount: delivery_amount,
+    document: doc
+  };
+  values.push(details);
+  appendFunction();
+
+  // you can use the array. for each to set a value for the id
+  // or maybe you can use the post using jquery to send this to a route.
+
+  var html = "<br>"
+  html += "<table class='table table-striped'>";
+  html += "<thead>";
+  html += "<tr>";
+  html += "<th>" + "liter" + "</th>";
+  html += "<th>" + "vendor" + "</th>";
+  html += "<th>" + "unit_price" + "</th>";
+  html += "<th>" + "vat" + "</th>";
+  html += "<th>" + "delivery" + "</th>";
+  html += "<th>" + "delivery_amount" + "</th>";
+  html += "<th>" + "document" + "</th>";
+  html += "</tr>";
+  html += "</thead>";
+  html += "<tbody>";
+  for (var i = 0; i < values.length; i++) {
+    html += "<tr>";
+    html += "<td>" + values[i].liter + "</td>";
+    html += "<td>" + values[i].vendor + "</td>";
+    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + values[i].vat + "</td>";
+    html += "<td>" + values[i].delivery + "</td>";
+    html += "<td>" + values[i].delivery_amount + "</td>";
+    html += "<td>" + "document" + "</td>";
+    html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+    html += "</tr>";
+  }
+  html += "</tbody>"
+  html += "</table>";
+  html += "<br>"
+
+  // display record
+  $("#extrafeild").html(html);
+
+  if (values.length > 0) {
+  $("#extrafeild").show();
+  }
+
+}
+}
+
+function deleteFunction(param) {
+values.splice(param, 1)
+appendFunction()
+
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "liter" + "</th>";
+html += "<th>" + "vendor" + "</th>";
+html += "<th>" + "unit_price" + "</th>";
+html += "<th>" + "vat" + "</th>";
+html += "<th>" + "delivery" + "</th>";
+html += "<th>" + "delivery_amount" + "</th>";
+html += "<th>" + "document" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < values.length; i++) {
+  html += "<tr>";
+    html += "<td>" + values[i].liter + "</td>";
+    html += "<td>" + values[i].vendor + "</td>";
+    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + values[i].vat + "</td>";
+    html += "<td>" + values[i].delivery + "</td>";
+    html += "<td>" + values[i].delivery_amount + "</td>";
+    html += "<td>" + "document" + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+  html += "</tr>";
+}
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
+
+// display record
+$("#extrafeild").html(html);
+
+// show
+if (values.length > 0) {
+  $("#extrafeild").show();
+  
+};
+
+
+}
+
+function appendFunction() {
+var x = JSON.stringify(values)
+$('#random').val(x)
+}
+      </script>
+
+<script>
+
+function requestChangeFun() {
+	var selectBox = document.getElementById("delivery");
+	var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+	if (selectedValue == 'charge') {
+	    $("#divdelivery_amount").show();
+		} else if (selectedValue == 'free') {
+
+		$("#divdelivery_amount").hide();
+			}
+		};
+
+    let data;
+    function convert(){
+        // alert('abeg');
+        var file = document.getElementById('document').files[0];
+            getBase64(file);
+            console.log("begining")
+            console.log(data)
+        // var data = reader.result;
+    }
+
+    function getBase64(file) {            
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          this.data = reader.result
+           // return data
+    };
+    reader.onerror = function (error) {
+    console.log('Error: ', error);
+    };
+}
+function Submit(){
+var loading = document.getElementById("reqBtn");
+loading.disabled = true;
+var loader = document.getElementById("reqLoader");
+loader.style.display = "inline-block";
+
+var fileInput = document.getElementById('document').value
+console.log(fileInput);
+
+if (fileInput == "") {
+            alert('Please Select a document to Continue');
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+  else {      
+
+var file = document.getElementById('document').files[0];
+    var reader = new FileReader();
+        reader.readAsDataURL(file);
+        if (file.size > 2000000) {
+            alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+        else 
+        {
+        reader.onload = function () {
+            console.log('readerr',reader.result);
+            console.log("starting")
+                var ID = $('#id').val();
+              console.log(ID)
+              var purpose = $('#purpose').val();
+              console.log(purpose)
+              var created_by = $('#created_by').val();
+              console.log(created_by)
+              var liter = $('#liter').val();
+              console.log(liter)
+              var vendor = $('#vendor').val();
+              console.log(vendor)
+              var unit_price = $('#unit_price').val();
+              console.log(unit_price)
+              var vat = $('#vat').val();
+              console.log(vat)
+              var delivery = $('#delivery').val();
+              console.log(delivery)
+              var ID = $('#id').val();
+              console.log(ID)
+              var delivery_amount = $('#delivery_amount').val();
+              console.log(delivery_amount)
+              var random = $('#random').val();
+              console.log('random', random)
+              const data= {
+                "purpose": purpose,
+                "created_by": created_by,
+                "quotation_set": JSON.parse(random)
+              }
+              console.log("data", JSON.stringify(data))
+                var putJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'POST',
+data:JSON.stringify(data),
+headers: { "Authorization": "Token 65e62220bf1af76f6bbcbc8d859e2d0fe80959d6" },
+contentType: 'application/json',
+error: function(xhr, status, error) {
+  var err = eval("(" + xhr.responseText + ")");
+  console.log(xhr)
+  if (err.fault) {
+  alert("fault :" + err.fault)
+  loading.disabled = false; 
+  loader.style.display = "none";
+}
+else {
+  alert("fields cannot be submitted")
+  loading.disabled = false; 
+  loader.style.display = "none";
+}
+}
+});
+};
+
+putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/request_quotations`).done(function(data, status){
+                  console.log("here",data),
+                  
+                  console.log("here")
+                  console.log("here",data)
+                  console.log(status)
+                  
+                  if (status == "success") {
+                    loading.disabled = false;
+                    loader.style.display = "none";
+                    alert('document upload successful, await admin approval')
+                } else {
+                    loading.disabled = false; 
+                    loader.style.display = "none";
+                    alert('document upload Not successful')
+                  }
+        
+                }).fail(function(){
+
+                })
+           // return data
+    };
+}
+    reader.onerror = function (error) {
+    console.log('Error: ', error);
+    };
+                
+}                 
+      
+}
+
+</script>
+
+      <!-- partial:partials/_footer.html -->
+      <%- include('./bars/footer') %>
+      <!-- partial -->
+
+    </div>
+  </div>
+
+  <!-- core:js -->
+  <script src="../../../assets/vendors/core/core.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- end plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+  <script src="../../../assets/js/template.js"></script>
+  <!-- endinject -->
+  <!-- custom js for this page -->
+  <script src="../../../assets/js/file-upload.js"></script>
+  <!-- end custom js for this page -->
+</body>
+
+</html>

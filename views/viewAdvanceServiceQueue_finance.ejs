@@ -130,7 +130,7 @@
                             <div class="thread-foot p-4 d-flex justify-content-between">
                               <h5>Take Action</h5>
                              <div>
-                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button" value = false>Reject</button>
+                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = false>Reject</button>
                               </div>
                             </div>
                           </div>
@@ -214,6 +214,19 @@
 
         </div>
     </div>
+
+    <script>
+      
+      function onSubmit(){
+        // alert('hey')
+        var comment = document.getElementById('finance_comment').value;
+        console.log(comment)
+        if(comment == ''){
+          alert('comment cannot be empty')
+          event.preventDefault();;
+        };
+      }
+    </script>
 
     <!-- core:js -->
     <script src="../../../assets/vendors/core/core.js"></script>

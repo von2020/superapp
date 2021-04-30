@@ -92,12 +92,11 @@
                         <th>Vehicle Info</th>
                         <th>Vehicle Plate</th>
                         <th>Ticket</th>
-                        <th>Response</th>
                         <th>Driver's Phone Number</th>
                         <th>Vehicle's Location</th>
                         <th>Fault Date</th>
-                        <th>Update</th>
-                        <th>Quotation</th>
+                        <th>View</th>
+                        
                         
                         
                       </tr>
@@ -110,13 +109,14 @@
                           <td><%= fault.vehicle_info%></td>
                           <td><%= fault.vehicle_plate%></td>
                           <td><%= fault.ticket%></td>
-                          <td><%= fault.response%></td>
                           <td><%= fault.driver_phone%></td>
                           <td><%= fault.vehicle_location%></td>
                           <td><%= fault.fault_date%></td>
-                          
+                          <%if (fault.rectifiable_comment == null) { %>
                           <td><a href="/facilities/updateFault?id=<%=fault.id%>" id='<%=fault.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
+                          <% } else{ %>
                           <td><a href="/facilities/quotation_driverAdmin?id=<%=fault.id%>" id='<%=fault.id%>' class="btn btn-sm btn-success rounded-pill" > Quotation</a>   </td>
+                          <% } %>
                         </tr>
                         <% })%>
                     </tbody>

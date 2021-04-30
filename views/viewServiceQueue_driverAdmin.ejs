@@ -156,17 +156,20 @@
                                                 <th> Finance Comment </th>
                                                 <td> <%= queues.finance_comment%> </td>
                                             </tr>
-                                            <%if (queues.payment_type == 'advance' && queues.advance_payment_invoice.length == 0 ) { %>
-                                            <tr>
-                                                <th> Advance Invoice </th>
-                                                <td> <a href="/facilities/viewAdvanceServicingInvoice?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Advance Invoice</a> </td>
-                                            </tr>
+                                            <%if ((queues.payment_type == 'advance' && queues.advance_payment_invoice.length != 0 && queues.auditor_advance_approval == 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice.length != 0 && queues.auditor_balance_approval != 'APPROVED' )) { %>
+                                                <tr>
+                                                    <th> Balance Invoice </th>
+                                                    <td> <a href="/facilities/viewServicingInvoice?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Balance Invoice</a>  </td>
+                                                </tr>
+                                            
                                             <% } else{ %>
-                                            <tr>
-                                                <th> Balance Invoice </th>
-                                                <td> <a href="/facilities/viewServicingInvoice?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Balance Invoice</a>  </td>
+                                                <tr>
+                                                    <th> Advance Invoice </th>
+                                                    <td> <a href="/facilities/viewAdvanceServicingInvoice?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Advance Invoice</a> </td>
+                                                </tr>
+                                            
                                             <% } %>
-                                            </tr>
+                                            
                                             <tr>
                                                 <th> Create Servicing Status </th>
                                                 <td> <a href="/facilities/serviceStatus?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Create Servicing Status</a> </td>

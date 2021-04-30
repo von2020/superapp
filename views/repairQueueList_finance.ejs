@@ -111,10 +111,10 @@
                           <% } else{ %>
                           <td><%= vehicle.balance_amount%></td>
                           <% } %>
-                          <td><%= vehicle.auditor_advance_approval%></td>
-                          <td><%= vehicle.auditor_balance_approval%></td>
+                          <td><%= vehicle.finance_advance_approval%></td>
+                          <td><%= vehicle.finance_balance_approval%></td>
                           
-                          <%if (vehicle.payment_type == 'advance' && vehicle.auditor_advance_approval != 'APPROVED' ) { %>
+                          <%if (vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED' ) { %>
                           <td> <a href="/facilities/viewRepairQueue_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           <% } else{ %>
                           <td> <a href="/facilities/viewRepairQueueBalance_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>

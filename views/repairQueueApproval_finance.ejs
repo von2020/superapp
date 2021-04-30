@@ -59,10 +59,10 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div>
-                            <h4 class="mb-3 mb-md-0">Approve/Reject Advance Invoice <a class="text-primary">01/09/2020</a></h4>
-                            <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span> 24 <i class="i mr-3" data-feather="mail"></i> </span> Overdue by 21 days </p></div>
+                            <h4 class="mb-3 mb-md-0">Approve/Reject Advance Invoice <a class="text-primary"><%= queues.created_on.slice(0,10)%></a></h4>
+                            <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span><i class="i mr-3" data-feather="mail"></i> </span></p></div>
                           </div>
-                          <div class="d-flex align-items-center flex-wrap text-nowrap mt-3">
+                          <!-- <div class="d-flex align-items-center flex-wrap text-nowrap mt-3">
                             <button type="button" class="btn btn-outline-light2 thread-btn btn-icon-text mr-3 mb-md-0">
                               <i class="btn-icon-prepend mr-0" data-feather="star"></i>
                             </button>
@@ -89,7 +89,7 @@
                             <button type="button" class="btn btn-outline-light2 thread-btn btn-icon-text ml-3 mb-md-0">
                               <i class="btn-icon-prepend mr-0" data-feather="more-vertical"></i>
                             </button>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                       <div class="row mt-5">
@@ -101,11 +101,16 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Vehicle Details</h5>
-                                  <p><span>vehicle: <a class="text-primary"><%= queues.vehicle%></a></span></p>
-                                  <p><span>servicing date: <a class="text-primary"><%= queues.servicing_date%></a></span></p>
+                                  <p><span>vehicle: <a class="text-primary"><%= queues.vehicle_name%></a></span></p>
+                                  <p><span>repair date: <a class="text-primary"><%= queues.repair_date%></a></span></p>
                                   <p><span>location: <a class="text-primary"><%= queues.location%></a></span></p>
-                                  <p><span>craeted by: <a class="text-primary"><%= queues.created_by%></a></span></p>
+                                  <p><span>created by: <a class="text-primary"><%= queues.created_by%></a></span></p>
                                   <p><span>advance amount: <a class="text-primary"><%= queues.advance_amount%></a></span></p>
+                                  <%if (queues.advance_invoice == null) { %>
+                                    <p><span>advance invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
+                                    <% } else{ %>
+                                    <p><span>advance invoice: <a class="text-primary" href="<%= queues.advance_invoice%>">view</a></span></p>
+                                    <% } %>
 
                               </div>
                               </div>
@@ -130,7 +135,7 @@
                             <div class="thread-foot p-4 d-flex justify-content-between">
                               <h5>Take Action</h5>
                              <div>
-                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button" value = false>Reject</button>
+                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = false>Reject</button>
                               </div>
                             </div>
                           </div>
@@ -157,7 +162,7 @@
                           <h5>Properties</h5>
                           <br>
                           <div class="form-group">
-                            <label for="exampleFormControlSelect1">Type: Servicing Queue</label>
+                            <label for="exampleFormControlSelect1">Type: Repair Queue</label>
           
                           </div>
                           <div class="form-group">
@@ -214,6 +219,18 @@
 
         </div>
     </div>
+    <script>
+      
+      function onSubmit(){
+        // alert('hey')
+        var comment = document.getElementById('finance_comment').value;
+        console.log(comment)
+        if(comment == ''){
+          alert('rejection must have a reason')
+          event.preventDefault();;
+        };
+      }
+    </script>
 
     <!-- core:js -->
     <script src="../../../assets/vendors/core/core.js"></script>

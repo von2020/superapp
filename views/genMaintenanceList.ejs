@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Telnet SuperApp</title>
+	<title>Telnet Super App </title>
 	<!-- core:css -->
 	<link rel="stylesheet" href="../../../assets/vendors/core/core.css">
 	<!-- endinject -->
@@ -55,42 +55,14 @@
 			<!-- partial -->
 
 			<div class="page-content">
-        <%- include('./partials/messages')%>
 
-				<!-- <nav class="page-breadcrumb">
+				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Tables</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Data Table</li>
+						<li class="breadcrumb-item"><a href="#">Generator</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Daily Maintenance</li>
 					</ol>
-        </nav> -->
-        
-        <!-- <div class="row">
-          <div class="col-lg-12 col-xl-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Quick Statistics</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <p class="text-muted mb-4">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
-                <div class="monthly-sales-chart-wrapper">
-                  <canvas id="monthly-sales-chart"></canvas>
-                </div>
-              </div> 
-            </div>
-          </div>
-        </div>   -->
+        </nav>
+
 
 				<div class="row">
 					<div class="col-md-12 grid-margin stretch-card">
@@ -98,51 +70,54 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">All Requests</h6>
-                  <p class="card-description d-block"></p>
+                  <h6 class="card-title d-block">Generator Daily Maintenance List</h6>
+                  <!-- <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p> -->
                   </div>
 
-                  <div class="d-flex align-items-center flex-wrap text-nowrap ">
-                    <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
-                      <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
-                      <input type="text" class="form-control">
-                    </div>
-                    <!-- <button type="button" class="btn btn-primary btn-icon-text mr-2 d-none d-md-block">
-                      Car Request
-                    </button>
-                    <button type="button" class="btn btn-outline-primary btn-icon-text mr-2 mb-2 mb-md-0">
-                      Gen Request
-                    </button>
-                    <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
-                      Facilities Request
-                    </button> -->
-                  </div>
                 </div>
                 <div class="table-responsive">
                   <table id="dataTableExample" class="table" data-order=''>
                     <thead>
 
                       <tr>
-                        <th>Staff Name</th>
-                        <th>Role</th>
-                        <th>Reqeust Type</th>
-                        <th>Status</th>
-                        <th>View Details</th>
+                        <th>Generator Name</th>
+                        <th>Alarm</th>
+                        <th>Switch Position</th>
+                        <th>Fuel</th>
+                        <th>Oil</th>
+                        <th>Coolant</th>
+                        <th>Air Filter</th>
+                        <th>Battery Voltage</th>
+                        <th>Fan Belt</th>
+                        <th>Battery Resistance</th>
+                        <th>Cleaning Unit</th>
+                        <th>Fuel Cleaning</th>
+                        <th>Oil Change</th>
+                        <th>Created On</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
-                      <% data.forEach((item) => {%>
+                      
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+
+                    <% gens.forEach((item) => {%>
                         <tr>
-                          <td><%= item.requester_name%></td>
-                          <td><%= item.requester_role%></td>
-                          <td><%= item.request_type%></td>
-                          <% if (item.driver_admin_approval == 'PENDING') { %>
-                            <td><button class="btn btn-primary rounded-pill">Pending</button></td>
-                          <% }  else { %>
-                            <td><button class="btn btn-danger rounded-pill">Reassign Priority</button></td>
-                          <% }%>
-                          <td> <a href="/requests/individual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Veiw request</a></td>
+                          <td><%= item.generator_name%></td>
+                          <td><%= item.check_alarm%></td>
+                          <td><%= item.check_switch_breaker_position%></td>
+                          <td><%= item.fuel_level%></td>
+                          <td><%= item.oil_level%></td>
+                          <td><%= item.coolant_level%></td>
+                          <td><%= item.air_filter%></td>
+                          <td><%= item.battery_voltage_physical_condition%></td>
+                          <td><%= item.fan_belt%></td>
+                          <td><%= item.battery_resistance%></td>
+                          <td><%= item.cleaning_unit_exterior%></td>
+                          <td><%= item.fuel_cleaning%></td>
+                          <td><%= item.oil_change%></td>
+                          <td><%= item.created_on%></td>
+                          
                         </tr>
                         <% })%>
                     </tbody>

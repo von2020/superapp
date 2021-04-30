@@ -93,7 +93,7 @@
                                         <tbody>
                                             <tr>
                                                 <th> Update </th>
-                                                <td> <a href="/facilities/updateServicingQueue_driveradmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Update Vehicle Details</a> </td>
+                                                <td> <a href="/facilities/updateRepairQueue_driveradmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Update Vehicle Details</a> </td>
                                             </tr>
                                             <tr>
                                                 <th> Vehicle </th>
@@ -110,6 +110,11 @@
                                             <tr>
                                                 <th> Created By </th>
                                                 <td> <%= queues.created_by%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Payment Type </th>
+                                                <td> <%= queues.payment_type%> </td>
                                             </tr>
                                             
                                             <tr>
@@ -153,15 +158,16 @@
                                                 <th> Finance Comment </th>
                                                 <td> <%= queues.finance_comment%> </td>
                                             </tr>
-                                            <%if (queues.payment_type == 'advance' && queues.advance_invoice.length == 0 ) { %>
-                                            <tr>
-                                                <th> Advance Invoice </th>
-                                                <td> <a href="/facilities/viewAdvanceInvoice_driverAdmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Advance Invoice</a> </td>
-                                            </tr>
-                                            <% } else{ %>
+                                            <%if ((queues.payment_type == 'advance' && queues.advance_invoice != null && queues.auditor_advance_approval == 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice != null && queues.auditor_balance_approval != 'APPROVED' )) { %>
                                             <tr>
                                                 <th> Balance Invoice </th>
                                                 <td> <a href="/facilities/viewBalanceInvoice_driverAdmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Balance Invoice</a>  </td>
+                                                
+                                            </tr>
+                                            <% } else{ %>
+                                            <tr>
+                                                <th> Advance Invoice </th>
+                                                <td> <a href="/facilities/viewAdvanceInvoice_driverAdmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Advance Invoice</a> </td>
                                             <% } %>
                                             </tr>
 

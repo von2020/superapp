@@ -1265,7 +1265,7 @@ class admin_manage_controllers {
 
         const query = {
             fault: req.body.fault,
-            require_advance: req.body.require_advance,
+            payment_type: req.body.payment_type,
             bu_head_approval: boolValue,
             bu_head_comment: req.body.bu_head_comment,
             bu_head_name: req.body.bu_head_name,
