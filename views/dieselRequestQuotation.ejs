@@ -313,13 +313,13 @@ var delivery_amount = $('#delivery_amount').val();
 var doc = result;
 console.log(doc)
 
-if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' || doc =='' || delivery_amount =='') {
+if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' || doc =='') {
 
   swal("kindly fill all fields!", {
     buttons: false,
     timer: 2000,  // disappears after 2 seconds
   });
-} else {
+} else if(liter != '' && vendor != '' && unit_price !='' && vat !='' && delivery =='charged' && doc !='' && delivery_amount !=''){
 
   var details = {
     liter: liter,
@@ -332,6 +332,7 @@ if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' 
   };
   values.push(details);
   appendFunction();
+
 
   // you can use the array. for each to set a value for the id
   // or maybe you can use the post using jquery to send this to a route.
@@ -374,7 +375,62 @@ if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' 
   $("#extrafeild").show();
   }
 
+
+} else {
+
+var details = {
+  liter: liter,
+  vendor: vendor,
+  unit_price: unit_price,
+  vat: vat,
+  delivery: delivery,
+  document: doc
+};
+values.push(details);
+appendFunction();
+
+
+// you can use the array. for each to set a value for the id
+// or maybe you can use the post using jquery to send this to a route.
+
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "liter" + "</th>";
+html += "<th>" + "vendor" + "</th>";
+html += "<th>" + "unit_price" + "</th>";
+html += "<th>" + "vat" + "</th>";
+html += "<th>" + "delivery" + "</th>";
+html += "<th>" + "document" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < values.length; i++) {
+  html += "<tr>";
+  html += "<td>" + values[i].liter + "</td>";
+  html += "<td>" + values[i].vendor + "</td>";
+  html += "<td>" + values[i].unit_price + "</td>";
+  html += "<td>" + values[i].vat + "</td>";
+  html += "<td>" + values[i].delivery + "</td>";
+  html += "<td>" + "document" + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+  html += "</tr>";
 }
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
+
+// display record
+$("#extrafeild").html(html);
+
+if (values.length > 0) {
+$("#extrafeild").show();
+}
+
+}
+
 }
 
 function deleteFunction(param) {
