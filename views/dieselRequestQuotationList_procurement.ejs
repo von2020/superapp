@@ -34,6 +34,8 @@
   <%- include('./bars/sidebar_auditor') %>
   <% } else if (userDetails.role == 'Finance') { %>
   <%- include('./bars/sidebar_finance') %>  
+  <% } else if (userDetails.role == 'Procurement') { %>
+  <%- include('./bars/sidebar_procurement') %>
   <%  } else if (userDetails.role == 'Driver Admin') { %>
   <%- include('./bars/sidebar_driver') %>
   <%  } else if (userDetails.role == 'Director') { %>

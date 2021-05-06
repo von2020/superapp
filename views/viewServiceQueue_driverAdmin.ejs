@@ -114,6 +114,11 @@
                                                 <th> Created By </th>
                                                 <td> <%= queues.created_by%> </td>
                                             </tr>
+
+                                            <tr>
+                                                <th> Payment Type </th>
+                                                <td> <%= queues.payment_type%> </td>
+                                            </tr>
                                             
                                             <tr>
                                                 <th> Advance Amount </th>
@@ -156,7 +161,7 @@
                                                 <th> Finance Comment </th>
                                                 <td> <%= queues.finance_comment%> </td>
                                             </tr>
-                                            <%if ((queues.payment_type == 'advance' && queues.advance_payment_invoice.length != 0 && queues.auditor_advance_approval == 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice.length != 0 && queues.auditor_balance_approval != 'APPROVED' )) { %>
+                                            <%if ((queues.payment_type == 'advance' && queues.advance_payment_invoice.length != 0 && queues.auditor_advance_approval == 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice.length != 0 && queues.auditor_balance_approval != 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice.length == 0 )) { %>
                                                 <tr>
                                                     <th> Balance Invoice </th>
                                                     <td> <a href="/facilities/viewServicingInvoice?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Balance Invoice</a>  </td>

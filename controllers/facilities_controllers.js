@@ -34,6 +34,7 @@ const {
     genServiceList,
     viewGenService,
     updateGenService,
+    updatePhcnBill,
     sendPhcnBill,
     phcnBillList,
     sendPhcnBillPayment,
@@ -142,7 +143,7 @@ class Facilities {
             
             const {result, resbody} = await servicingQueue(query, token);
             const response = resbody
-            console.log("response", response)
+            // console.log("response", response)
             if (result.statusCode == '201') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to servicing queue, you need to upload invoice`,'/facilities/servicingQueueDriverAdmin')
             } else {
@@ -161,7 +162,7 @@ class Facilities {
         try {
             const {result, resbody} = await servicingQueueList(token);
             const vehicles = resbody
-            console.log('vehicles', vehicles)
+            
             if (result.statusCode == 200) {
                 res.render('queueList_driverAdmin', {userDetails, vehicles});
             } else if (result.statusCode == 401){
@@ -183,7 +184,7 @@ class Facilities {
         try {
             const {result, resbody} = await servicingQueueList(token);
             const vehicle = resbody
-            console.log('vehicles', vehicle)
+            // console.log('vehicles', vehicle)
 
             var vehicles = vehicle.filter(function (data) {
                 return data.auditor_advance_approval != 'DENIED' && data.auditor_balance_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
@@ -520,7 +521,7 @@ class Facilities {
         try {
             const {result, resbody} = await servicingQueueList(token);
             const vehicles = resbody
-            console.log('vehicles', vehicles)
+            // console.log('vehicles', vehicles)
             if (result.statusCode == 200) {
                 res.render('queueList_finance', {userDetails, vehicles});
             } else if (result.statusCode == 401){
@@ -3797,12 +3798,16 @@ static async viewGenServicing_diverAdmin (req, res) {
         const token = userDetails.token;
 
         try {
-            const gens = await phcnBillList(token);
-
-            
+            const {result, resbody} = await phcnBillList(token);
+            const gen = resbody
+            console.log('phcn', gen)
             console.log('token',token)
 
-            res.render('phcnBillList', {userDetails, gens: gens.resbody}); 
+            var gens = gen.filter(function (data) {
+                return data.admin_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
+            });
+
+            res.render('phcnBillList', {userDetails, gens}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };
@@ -3851,6 +3856,76 @@ static async viewGenServicing_diverAdmin (req, res) {
 
     };
 
+    static async updatePhcnBill (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBill(token, id);
+            const phcn = resbody
+            console.log("phcn", phcn)
+            if (result.statusCode == 200) {
+                res.render('updateBill_driverAdmin', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async handlePhcnBill_driverAdmin (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+        
+        
+        const query = {
+            unit_consumed: req.body.unit_consumed,
+            amount_due: req.body.amount_due,
+            admin_approval: boolValue,
+            admin_comment: req.body.admin_comment,
+            admin_name: req.body.admin_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await updatePhcnBill(query, token, id);
+            const response = resbody
+            console.log('status', result.statusCode)
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                if(resbody.admin_approval == 'APPROVED') {
+                    req.flash('success_msg', `You have successfully approved phcn bill`)
+                    res.redirect('/facilities/phcnBillList');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected bill payment')
+                    res.redirect('/facilities/phcnBillList');
+                }
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.bill}`,'/facilities/phcnBillList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/dashboard')
+        }
+    };
+
+
     static async phcnBill_driverAdmin (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
@@ -3861,7 +3936,7 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             const {result, resbody} = await viewPhcnBill(token, id);
             const phcn = resbody
-            
+            console.log('phcn', phcn)
             if (result.statusCode == 200) {
                 res.render('phcnPayments_driverAdmin.ejs', {userDetails, phcn});
             } else if (result.statusCode == 401){
@@ -3896,9 +3971,9 @@ static async viewGenServicing_diverAdmin (req, res) {
             
             const {result, resbody} = await sendPhcnBillPayment(query, token);
             const response = resbody
-            console.log("response", response)
+            
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have successfully created payment slip`,'/facilities/phcnBillList')
+                resMessageRedirect(res, req, 'success_msg', `You have successfully created payment slip`,'/facilities/AllPhcnBillPayment')
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response.bill}`,'/facilities/phcnBillList')
             }
@@ -3934,10 +4009,10 @@ static async viewGenServicing_diverAdmin (req, res) {
         try {
 
             const {result, resbody} = await viewPhcnBillPayment(token, id);
-            const materials = resbody
-            
+            const phcn = resbody
+            console.log('phcn', phcn)
             if (result.statusCode == 200) {
-                res.render('billPaymentApproval_driverAdmin', {userDetails, materials});
+                res.render('billPaymentApproval_driverAdmin', {userDetails, phcn});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -4002,7 +4077,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             console.log('token',token)
 
             var gens = gen.filter(function (data) {
-                return data.auditor_approval != 'DENIED' && data.auditor_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
+                return data.auditor_approval != 'DENIED' && data.finance_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
             });
 
             res.render('phcnBillPaymentList_auditor', {userDetails, gens}); 
@@ -4080,12 +4155,18 @@ static async viewGenServicing_diverAdmin (req, res) {
         const token = userDetails.token;
 
         try {
-            const gens = await phcnBillPaymentList(token);
+            const {result, resbody} = await phcnBillPaymentList(token);
+            const gen = resbody
+            console.log('phcn', gen)
 
             
             console.log('token',token)
 
-            res.render('phcnBillPaymentList_finance', {userDetails, gens: gens.resbody}); 
+            var gens = gen.filter(function (data) {
+                return data.finance_approval != 'DENIED' && data.auditor_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
+            });
+
+            res.render('phcnBillPaymentList_finance', {userDetails, gens}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };

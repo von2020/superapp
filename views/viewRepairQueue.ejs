@@ -158,7 +158,7 @@
                                                 <th> Finance Comment </th>
                                                 <td> <%= queues.finance_comment%> </td>
                                             </tr>
-                                            <%if ((queues.payment_type == 'advance' && queues.advance_invoice != null && queues.auditor_advance_approval == 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice != null && queues.auditor_balance_approval != 'APPROVED' )) { %>
+                                            <%if ((queues.payment_type == 'advance' && queues.advance_invoice != null && queues.auditor_advance_approval == 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice != null && queues.auditor_balance_approval != 'APPROVED' ) || (queues.payment_type == 'balance' && queues.balance_invoice == null  )) { %>
                                             <tr>
                                                 <th> Balance Invoice </th>
                                                 <td> <a href="/facilities/viewBalanceInvoice_driverAdmin?id=<%=queues.id%>" id='<%=queues.id%>' class="btn btn-sm btn-success rounded-pill" > Upload Balance Invoice</a>  </td>

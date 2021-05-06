@@ -322,6 +322,17 @@ class vehicle_queries {
         }
     };
 
+    static async updatePhcnBill(query, token, id) {
+        const url = `power/billing/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async viewPhcnBillPayment(token, id) {
         const url = `power/payment/${id}`;
         try {

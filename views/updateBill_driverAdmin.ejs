@@ -59,7 +59,7 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div>
-                            <h4 class="mb-3 mb-md-0">Approve/Reject Bill Payment <a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
+                            <h4 class="mb-3 mb-md-0">Approve/Reject Bill Payment <a class="text-primary"><%= phcn.created_on.slice(0,10)%></a></h4>
                             <!-- <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span> 24 <i class="i mr-3" data-feather="mail"></i> </span> Overdue by 21 days </p></div> -->
                           </div>
                           
@@ -67,18 +67,20 @@
                       </div>
                       <div class="row mt-5">
                         <div class="col-sm-12">
-                          <form class="" action="/facilities/billPayment_finance" method="post">
+                          <form class="" action="/facilities/updatePhcnBilling" method="post">
                           <div class="thread-box">
                             <div class="thread-head d-flex justify-content-between p-4">
                               <div class="thread-desc d-flex">
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
-                                  <h5 class="font-weight-bold">Payment Details</h5>
-                                  <p><span>bill name: <a class="text-primary"><%= materials.bill_name%></a></span></p>
-                                  <p><span>created by: <a class="text-primary"><%= materials.created_by%></a></span></p>
-                                  <p><span>auditor approval: <a class="text-primary"><%= materials.auditor_approval%></a></span></p>
-                                  <p><span>finance approval: <a class="text-primary"><%= materials.finance_approval%></a></span></p>
-                                  <p><span>bill:<img src="<%=materials.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></span></p>
+                                  <h5 class="font-weight-bold">Bill Details</h5>
+                                  <p><span>Watt Consumed: <a class="text-primary"><%= phcn.watt_consumed%></a></span></p>
+                                  <p><span>Unit Consumed: <a class="text-primary"><%= phcn.unit_consumed%></a></span></p>
+                                  <p><span>Amount Due: <a class="text-primary"><%= phcn.amount_due%></a></span></p>
+                                  <p><span>Created By: <a class="text-primary"><%= phcn.created_by%></a></span></p>
+                                  <p><span>Comment: <a class="text-primary"><%= phcn.comment%></a></span></p>
+                                  <p><span>Created On: <a class="text-primary"><%= phcn.created_on%></a></span></p>
+                                  <p><span>bill:<img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></span></p>
 
                               </div>
                               </div>
@@ -88,22 +90,22 @@
                             </div>
                             <div class="thread-body p-5">
                               
-                                <input type="hidden" name="bill" class="form-control" id="bill" value="<%= materials.bill%>" required>
-                                <input type="hidden" name="location" class="form-control" id="location" value="<%=materials.location%>" required>
-                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
+                                <input type="hidden" name="watt_consumed" class="form-control" id="watt_consumed" value="<%= phcn.watt_consumed%>" required>
+                                <input type="hidden" name="unit_consumed" class="form-control" id="unit_consumed" value="<%=phcn.unit_consumed%>" required>
+                                <input type="hidden" name="amount_due" class="form-control" id="amount_due" value="<%=phcn.amount_due%>" required>
           
-                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
+                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=phcn.created_by%>" required>
                                 
                                 
                                 <input type="hidden" name="admin_name" class="form-control" id="admin_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
-                                <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.id%>" required>
+                                <input type="hidden" name="id" class="form-control" id="id" value="<%=phcn.id%>" required>
           
                             </div>
                             <div class="thread-foot p-4 d-flex justify-content-between">
                               <h5>Take Action</h5>
                              <div>
-                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = false>Reject</button>
+                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button" onclick="onSubmit()" value = false>Reject</button>
                               </div>
                             </div>
                           </div>
@@ -115,7 +117,7 @@
                             <div class="col-md-12 grid-margin stretch-card">
                               <div class="card">
                                 <div class="card-body">
-                                  <textarea class="form-control" name="finance_comment" id="finance_comment" rows="10" ></textarea>
+                                  <textarea class="form-control" name="admin_comment" id="admin_comment" rows="10" ></textarea>
                                 </div>
                               </div>
                             </div>
@@ -130,7 +132,7 @@
                           <h5>Properties</h5>
                           <br>
                           <div class="form-group">
-                            <label for="exampleFormControlSelect1">Type: PHCN Bill Payment</label>
+                            <label for="exampleFormControlSelect1">Type: PHCN Bill</label>
           
                           </div>
                           <div class="form-group">
@@ -171,7 +173,7 @@
                             <span></span>
                           </div>
                           <div class="form-group">
-                            <label for="exampleFormControlSelect1">Finance: </label>
+                            <label for="exampleFormControlSelect1">Auditor: </label>
                             <span> <%= userDetails.first_name + ' ' + userDetails.last_name %></span>
                           </div>
           
@@ -190,16 +192,17 @@
 
     <script>
       
-      function onSubmit(){
-        // alert('hey')
-        var comment = document.getElementById('finance_comment').value;
-        console.log(comment)
-        if(comment == ''){
-          alert('rejection must have a reason')
-          event.preventDefault();;
-        };
-      }
-    </script>
+        function onSubmit(){
+          // alert('hey')
+          var comment = document.getElementById('admin_comment').value;
+          console.log(comment)
+          if(comment == ''){
+            alert('rejection must have a reason')
+            event.preventDefault();;
+          };
+        }
+      </script>
+
     <!-- core:js -->
     <script src="../../../assets/vendors/core/core.js"></script>
     <!-- endinject -->

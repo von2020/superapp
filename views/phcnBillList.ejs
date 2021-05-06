@@ -87,10 +87,11 @@
                         <th>Watt Consumed</th>
                         <th>Unit Consumed</th>
                         <th>Amount Due</th>
+                        <th>Admin Approval</th>
                         <th> Created By </th>
                         <th> Updated On </th>
                         
-                        <th> Payment Request</th>
+                        <th> View</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -102,11 +103,15 @@
                           <td><%= item.watt_consumed%></td>
                           <td><%= item.unit_consumed%></td>
                           <td><%= item.amount_due%></td>
+                          <td><%= item.admin_approval%></td>
                           <td><%= item.created_on%></td>
                           <td><%= item.updated_on%></td>
                           
-                          
+                          <%if (item.admin_approval == 'APPROVED') { %>
                           <td><a href="/facilities/phcnBillPayment_driverAdmin?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Create</a>   </td>
+                          <% } else{ %>
+                          <td><a href="/facilities/updatePhcnBilling?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" >approve/reject</a>   </td>
+                          <% } %>
                         </tr>
                         <% })%>
                     </tbody>

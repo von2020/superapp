@@ -436,7 +436,7 @@ function requestChangeFun() {
 	var selectBox = document.getElementById("delivery");
 	var selectedValue = selectBox.options[selectBox.selectedIndex].value;
 
-	if (selectedValue == 'charge') {
+	if (selectedValue == 'charged') {
 	    $("#divdelivery_amount").show();
 		} else if (selectedValue == 'free') {
 
@@ -556,7 +556,8 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                   if (status == "success") {
                     loading.disabled = false;
                     loader.style.display = "none";
-                    alert('document upload successful, await admin approval')
+                    alert('request quotation submitted successful, await admin manager approval')
+                    window.location.href="/facilities/dieselRequestQuotationList_procurement";
                 } else {
                     loading.disabled = false; 
                     loader.style.display = "none";

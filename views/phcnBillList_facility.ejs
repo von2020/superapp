@@ -87,9 +87,10 @@
                         <th>Watt Consumed</th>
                         <th>Unit Consumed</th>
                         <th>Amount Due</th>
+                        <th>Admin Approval</th>
                         <th> Created By </th>
                         <th> Updated On </th>
-                        <th> View </th>
+                        
                         
                       </tr>
                     </thead>
@@ -102,9 +103,10 @@
                           <td><%= item.watt_consumed%></td>
                           <td><%= item.unit_consumed%></td>
                           <td><%= item.amount_due%></td>
+                          <td><%= item.admin_approval%></td>
                           <td><%= item.created_on%></td>
                           <td><%= item.updated_on%></td>
-                          <td><a href="/facilities/viewPhcnBill?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Update</a>   </td>
+                          
                           
                         </tr>
                         <% })%>

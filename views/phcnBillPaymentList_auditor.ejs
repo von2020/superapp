@@ -81,7 +81,6 @@
 
                       <tr>
                         <th>Bill Name</th>
-                        <th>Admin Approval</th>
                         <th>Auditor Approval</th>
                         <th>Finance Approval</th>
                         <th> Created By </th>
@@ -97,13 +96,12 @@
                     <% gens.forEach((item) => {%>
                         <tr>
                           <td><%= item.bill_name%></td>
-                          <td><%= item.admin_approval%></td>
                           <td><%= item.auditor_approval%></td>
                           <td><%= item.finance_approval%></td>
-                          <td><%= item.created_on%></td>
-                          <td><%= item.updated_on%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
                           
-                          <td><a href="/facilities/billPayment_auditor?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Approve</a>   </td>
+                          <td><a href="/facilities/billPayment_auditor?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Approve/reject</a>   </td>
                              
                         </tr>
                         <% })%>
@@ -123,6 +121,7 @@
 	
 		</div>
 	</div>
+  
 
 	<!-- core:js -->
 	<script src="../../../assets/vendors/core/core.js"></script>

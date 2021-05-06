@@ -155,6 +155,8 @@ const {
     viewGenServicingSignOff,
     phcnBilling,
     handlePhcnBilling,
+    updatePhcnBill,
+    handlePhcnBill_driverAdmin,
     AllPhcnBill,
     AllPhcnBill_facility,
     viewPhcnBill,
@@ -417,6 +419,9 @@ router.get('/genRepair', [checkSession, driverAuthorize], genRepair),
 
 router.get('/phcnBilling', [checkSession, facilityAuthorize], phcnBilling),
 router.post('/phcnBilling', [checkSession, facilityAuthorize], handlePhcnBilling),
+
+router.get('/updatePhcnBilling', [checkSession, driverAuthorize], updatePhcnBill),
+router.post('/updatePhcnBilling', [checkSession, driverAuthorize], handlePhcnBill_driverAdmin),
 
 router.get('/phcnBillList_facility', [checkSession, facilityAuthorize], AllPhcnBill_facility),
 router.get('/viewPhcnBill', [checkSession, facilityAuthorize], viewPhcnBill),
