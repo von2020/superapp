@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+    <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body>
@@ -247,6 +248,7 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                         loading.disabled = false; 
                         loader.style.display = "none";
                         alert('bill upload successful')
+                        window.location.href="/facilities/phcnBillList_facility";
                         
                     } else {
                         loading.disabled = false; 

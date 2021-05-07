@@ -105,8 +105,8 @@
                       <% faults.forEach((quotation) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <td><%= quotation.created_on%></td>
-                          <td><%= quotation.updated_on%></td>
+                          <td><%= quotation.created_on.slice(0,10)%></td>
+                          <td><%= quotation.updated_on.slice(0,10)%></td>
                           <td><%= quotation.payment_type%></td>
                           <td><%= quotation.advance_percentage%></td>
                           <td><%= quotation.created_by%></td>

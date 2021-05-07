@@ -94,11 +94,11 @@
                                         <textarea name="comment" class="form-control" id="comment" required></textarea>
 									</div>
 
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label for="exampleFormControlSelect1">Upload Bill</label>
                                         
 										<input type="file" name="data" class="form-control" id="uploaded_bill" accept=".jpg, .jpeg, .png" required> 
-									</div>
+									</div> -->
 
 									<input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
@@ -198,6 +198,7 @@ var file = document.getElementById('uploaded_bill').files[0];
 				  var created_by = $('#created_by').val();
                   console.log(created_by)
 				  
+				  console.log('result', reader.result);
 				  
 				  var amount_due = $('#amount_due').val();
                   console.log(amount_due)
@@ -207,7 +208,7 @@ var file = document.getElementById('uploaded_bill').files[0];
 return $.ajax({
 url: url,
 type: 'POST',
-data:JSON.stringify({"uploaded_bill"  : reader.result, "watt_consumed"  : watt_consumed, "unit_consumed"  : unit_consumed, "comment"  : comment,"amount_due"  : amount_due,"created_by"  : created_by}),
+data:JSON.stringify({"uploaded_bill" : reader.result, "watt_consumed"  : watt_consumed, "unit_consumed"  : unit_consumed, "comment"  : comment,"amount_due"  : amount_due,"created_by"  : created_by}),
 headers: { "Authorization": "Token 142b47cfbe2e8c308568aa17dbfa8812e41e40e0" },
 contentType: 'application/json'
 });

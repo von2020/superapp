@@ -104,11 +104,11 @@
                       <% diesel.forEach((diesel) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <td><%= diesel.created_on%></td>
+                          <td><%= diesel.created_on.slice(0,10)%></td>
                           <td><%= diesel.purpose%></td>
                           <td><%= diesel.created_by%></td>
                           <td><%= diesel.author_email%></td>
-                          <td><%= diesel.updated_on%></td>
+                          <td><%= diesel.updated_on.slice(0,10)%></td>
                           
                           
                           

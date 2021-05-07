@@ -520,8 +520,19 @@ class Facilities {
         
         try {
             const {result, resbody} = await servicingQueueList(token);
-            const vehicles = resbody
+            const vehicle  = resbody
             // console.log('vehicles', vehicles)
+
+            if (payment_type == 'advance'){
+                var vehicles = vehicle.filter(function (data) {
+                    return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED'  && data.auditor_advance_approval == 'APPROVED'  
+                });
+            }else{
+                var vehicles = vehicle.filter(function (data) {
+                    return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED' && data.auditor_balance_approval == 'APPROVED'   
+                });
+            }
+
             if (result.statusCode == 200) {
                 res.render('queueList_finance', {userDetails, vehicles});
             } else if (result.statusCode == 401){
@@ -1324,16 +1335,21 @@ class Facilities {
     static async repairQueueList_finance (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
-        
+        payment_type = req.body.payment_type;
+
         try {
             const {result, resbody} = await repairQueueList(token);
             const vehicle = resbody
             console.log('vehicles', vehicle)
-
+            if (payment_type == 'advance'){
             var vehicles = vehicle.filter(function (data) {
-                return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED'  
+                return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED'  && data.auditor_advance_approval == 'APPROVED'  
             });
-
+        }else{
+            var vehicles = vehicle.filter(function (data) {
+                return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED' && data.auditor_balance_approval == 'APPROVED'   
+            });
+        }
             
             
             
@@ -1915,8 +1931,8 @@ class Facilities {
         console.log("id", id)
         
         const query = {
-            request_quotation: req.body.request_quotation,
-            liters: req.body.liters,
+            request_quotation: parseInt(req.body.request_quotation),
+            liters: parseInt(req.body.liters),
             created_by: req.body.created_by,
             delivery_date: req.body.delivery_date,
             delivery_destination: req.body.delivery_destination,
@@ -1928,13 +1944,13 @@ class Facilities {
         console.log('token', token)
         try{
             
-            const {result, resbody} = await handlePurchaseOrder(query, token, id);
+            const {result, resbody} = await handlePurchaseOrder(query, token);
             const response = resbody
             console.log("response", response)
-            if (result.statusCode == '200') {
+            if (result.statusCode == '201') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully created a purchase order`,'/facilities/dieselRequestQuotationList')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.vehicle}`,'/facilities/dieselRequestQuotationList')
+                resMessageRedirect(res, req, 'error_msg', ` ${response.request_quotation} `,'/facilities/dieselRequestQuotationList')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -2828,8 +2844,11 @@ static async viewGenServicing_diverAdmin (req, res) {
         try {
 
             const {result, resbody} = await paid_repairList(token);
-            const materials = resbody
+            const material = resbody
             console.log('materials', materials)
+            var materials = material.filter(function (data) {
+                return data.finance_approval != 'DENIED' && data.auditor_approval == 'APPROVED'
+            });
             if (result.statusCode == 200) {
                 res.render('paidRepair_listFinance', {userDetails, materials});
             } else if (result.statusCode == 401){
@@ -4163,7 +4182,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             console.log('token',token)
 
             var gens = gen.filter(function (data) {
-                return data.finance_approval != 'DENIED' && data.auditor_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
+                return data.finance_approval != 'DENIED' && data.auditor_approval == 'APPROVED' // need to come back to this to populate the feilds with the data about the users
             });
 
             res.render('phcnBillPaymentList_finance', {userDetails, gens}); 
@@ -4221,7 +4240,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             const {result, resbody} = await updatePhcnBillPayment(query, token, id);
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
-                if(resbody.admin_approval == 'APPROVED') {
+                if(resbody.finance_approval == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully approved bill payment')
                     res.redirect('/facilities/AllPhcnBillPayment_finance');
                 } else {

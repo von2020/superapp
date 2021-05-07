@@ -69,7 +69,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Paid Invoce</h6>
+                                        <h6 class="card-title d-block">Paid Invoice</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -213,7 +213,7 @@ var file = document.getElementById('invoice').files[0];
             {
             reader.onload = function () {
                 console.log("starting")
-                    
+                 console.log("result", reader.result)   
                   var repair = $('#repair').val();
                   console.log(repair)
                   var created_by= $('#created_by').val();

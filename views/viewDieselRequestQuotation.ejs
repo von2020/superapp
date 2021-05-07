@@ -98,17 +98,17 @@
 
                                             <tr>
                                                 <th> Created By </th>
-                                                <td> <td> <%= diesel.created_by%> </td> </td>
+                                                <td> <%= diesel.created_by%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <td> <%= diesel.created_on%> </td> </td>
+                                                <td> <%= diesel.created_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <td> <%= diesel.updated_on%> </td> </td>
+                                                <td> <%= diesel.updated_on.slice(0,10)%> </td>
                                             </tr>
                                             <tr>
                                                 <th> Purpose </th>
@@ -229,7 +229,7 @@
 
         function changeFun() {
           console.log("starting")
-          var ID = $('#quotation').val();
+          var ID = $('#dieselQuotation').val();
                   console.log(ID)
 
           var getJSON = function (url) {
@@ -241,7 +241,7 @@ contentType: 'application/json'
 });
 };
 
-          getJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/vendors`).done(function(data, status){
+          getJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/vendor_selected_list/${ID}`).done(function(data, status){
             console.log("here",data),
             
             console.log("here")
@@ -251,7 +251,7 @@ contentType: 'application/json'
               console.log('data', data)
               var html = "<option selected> --- </option>"
               for (var i = 0; i < data.length; i++) {
-                html += "<option value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                html += "<option value = '" + data[i].vendor + "'> " + data[i].vendor_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
               }
               
 

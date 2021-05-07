@@ -109,7 +109,7 @@
                           <td><%= diesel.author_email%></td>
                           <td><%= diesel.updated_on%></td>
                           <%if (diesel.admin_status != 'APPROVED' && diesel.purchase_status != 'Purchase has been created') { %>
-                          <td> <a href="/facilities/viewDieselRequestQuotation?id=<%=diesel.id%>" id='<%= diesel.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Approve </td>
+                          <td> <a href="/facilities/viewDieselRequestQuotation?id=<%=diesel.id%>" id='<%= diesel.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Update </td>
                             <% } else if(diesel.admin_status != 'APPROVED' && diesel.purchase_status != 'Purchase has been created'){ %>
                               <td> <a href="/facilities/viewPurchaseOrder?id=<%=diesel.id%>" id='<%= diesel.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Purchase Order </td>
                             <% } else{ %>

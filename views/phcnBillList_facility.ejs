@@ -90,6 +90,7 @@
                         <th>Admin Approval</th>
                         <th> Created By </th>
                         <th> Updated On </th>
+                        <th> View </th>
                         
                         
                       </tr>
@@ -104,9 +105,9 @@
                           <td><%= item.unit_consumed%></td>
                           <td><%= item.amount_due%></td>
                           <td><%= item.admin_approval%></td>
-                          <td><%= item.created_on%></td>
-                          <td><%= item.updated_on%></td>
-                          
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
+                          <td> <a href="/facilities/viewPhcnBill?id=<%= item.id%>" id='<%= item.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           
                         </tr>
                         <% })%>
