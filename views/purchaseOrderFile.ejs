@@ -98,14 +98,75 @@
                                             
 
                                             <tr>
-                                                <th> Upload Bill </th>
-                                                <td> <input type="file" name="data" class="form-control" id="uploaded_bill" accept=".jpg, .jpeg, .png"
+                                                <th> Upload Document </th>
+                                                <td> <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf,"
                                                     required> </td>
                                             </tr>
 
+                                            <tr>
+                                                <th> Liters </th>
+                                                <td> <%= purchase.liters%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Total </th>
+                                                <td> <%= purchase.total%> </td>
+                                            </tr>
                                             
-                                            
-                                            
+                                            <tr>
+                                                <th> Created By </th>
+                                                <td> <%= purchase.created_by%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Delivery Date </th>
+                                                <td> <%= purchase.delivery_date%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Delivery Destination </th>
+                                                <td> <%= purchase.delivery_destination%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Auditor Approval </th>
+                                                <td> <%= purchase.auditor_approval%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Auditor Comment </th>
+                                                <td> <%= purchase.auditor_comment%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Auditor Name </th>
+                                                <td> <%= purchase.auditor_name%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Finance Approval </th>
+                                                <td> <%= purchase.finance_approval%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Finance Comment </th>
+                                                <td> <%= purchase.finance_comment%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Finance Name </th>
+                                                <td> <%= purchase.finance_name%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Created On </th>
+                                                <td> <%= purchase.created_on.slice(0,10)%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Updated On </th>
+                                                <td> <%= purchase.updated_on.slice(0,10)%> </td>
+                                            </tr>
 
                                             
                                         </tbody>
@@ -115,7 +176,7 @@
                                     </table>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=phcn.id%>" required>
+                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=purchase.id%>" required>
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
@@ -172,7 +233,7 @@
         let data;
         function convert(){
             // alert('abeg');
-            var file = document.getElementById('uploaded_bill').files[0];
+            var file = document.getElementById('document').files[0];
                 getBase64(file);
                 console.log("begining")
                 console.log(data)
@@ -197,7 +258,7 @@ function Submit(){
     var loader = document.getElementById("reqLoader");
     loader.style.display = "inline-block";
 
-    var fileInput = document.getElementById('uploaded_bill').value
+    var fileInput = document.getElementById('document').value
 console.log(fileInput);
 
 if (fileInput == "") {
@@ -207,7 +268,7 @@ if (fileInput == "") {
             }
       else { 
 
-var file = document.getElementById('uploaded_bill').files[0];
+var file = document.getElementById('document').files[0];
         var reader = new FileReader();
             reader.readAsDataURL(file);
             if (file.size > 2000000) {
@@ -228,15 +289,15 @@ var file = document.getElementById('uploaded_bill').files[0];
 return $.ajax({
 url: url,
 type: 'PUT',
-data:JSON.stringify({"uploaded_bill"  : reader.result}),
-headers: { "Authorization": "Token 142b47cfbe2e8c308568aa17dbfa8812e41e40e0",
+data:JSON.stringify({"document"  : reader.result}),
+headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4",
             // "Access-Control-Allow-Origin": "localhost:3000" 
         },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/power/billing/${ID}/upload`).done(function(data, status){
+putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/purchase_order/${ID}/upload`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")
@@ -247,8 +308,8 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                           
                         loading.disabled = false; 
                         loader.style.display = "none";
-                        alert('bill upload successful')
-                        window.location.href="/facilities/phcnBillList_facility";
+                        alert('Document upload successful...Awaiting Auditor and Finance Approval')
+                        window.location.href="/facilities/purchaseOrderList";
                         
                     } else {
                         loading.disabled = false; 

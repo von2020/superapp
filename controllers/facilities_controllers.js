@@ -64,6 +64,9 @@ const {
     viewDieselRequestQuotation,
     updateDieselRequestQuotation,
     handlePurchaseOrder,
+    purchaseOrderList,
+    viewPurchaseOrder,
+    updatePurchaseOrder,
     sendBillOfMaterial,
     getBillOfMaterials,
     viewBillOfMaterials,
@@ -1948,7 +1951,7 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a purchase order`,'/facilities/dieselRequestQuotationList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a purchase order, upload document next`,'/facilities/purchaseOrderList')
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response.request_quotation} `,'/facilities/dieselRequestQuotationList')
             }
@@ -1958,6 +1961,235 @@ class Facilities {
         }
             
     };
+
+    static async purchaseOrderList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await purchaseOrderList(token);
+            const purchase = resbody
+            console.log('purchase', purchase)
+            if (result.statusCode == 200) {
+                res.render('purchaseOrderList', {userDetails, purchase});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async viewPurchaseOrderFile(req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPurchaseOrder(token, id);
+            const purchase = resbody
+            console.log('purchase', purchase)
+            if (result.statusCode == 200) {
+                res.render('purchaseOrderFile', {userDetails, purchase});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async purchaseOrderlist_auditor (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await purchaseOrderList(token);
+            const material = resbody
+
+            console.log('materials', material)
+            var materials = material.filter(function (data) {
+                return data.auditor_approval != 'DENIED'
+            });
+
+            if (result.statusCode == 200) {
+                res.render('purchaseOrderList_auditor', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async viewPurchaseOrderAuditor (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        
+        
+        try {
+
+            const {result, resbody} = await viewPurchaseOrder(token, id);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('viewPurchaseOrder_auditor', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.repair);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async updatePurchaseOrderAuditor (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            repair: req.body.id,
+            auditor_approval: boolValue,
+            auditor_comment: req.body.auditor_comment,
+            auditor_name: req.body.auditor_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updatePurchaseOrder(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.auditor_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved paid repair, awaiting finance approval')
+                    res.redirect('/facilities/purchaseOrderlist_auditor');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected paid repair')
+                    res.redirect('/facilities/purchaseOrderlist_auditor');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.repair} `,'/facilities/paidRepair_listAuditor')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
+
+    static async purchaseOrderlist_finance (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await purchaseOrderList(token);
+            const material = resbody
+
+            console.log('materials', material)
+            var materials = material.filter(function (data) {
+                return data.auditor_approval != 'DENIED'
+            });
+
+            if (result.statusCode == 200) {
+                res.render('purchaseOrderList_finance', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async viewPurchaseOrderFinance (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        
+        
+        try {
+
+            const {result, resbody} = await viewPurchaseOrder(token, id);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('viewPurchaseOrder_finance', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.repair);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async updatePurchaseOrderFinance (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            repair: req.body.id,
+            finance_approval: boolValue,
+            finance_comment: req.body.finance_comment,
+            finance_name: req.body.finance_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updatePurchaseOrder(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.finance_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved paid repair, awaiting finance approval')
+                    res.redirect('/facilities/purchaseOrderlist_finance');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected paid repair')
+                    res.redirect('/facilities/purchaseOrderlist_finance');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.repair} `,'/facilities/paidRepair_listAuditor')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
 
     static async updateFault (req, res) {
         const userDetails = req.session.userDetails;

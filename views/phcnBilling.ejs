@@ -165,27 +165,10 @@ function Submit(){
     var loader = document.getElementById("reqLoader");
     loader.style.display = "inline-block";
 
-var fileInput = document.getElementById('uploaded_bill').value
-console.log(fileInput);
 
-if (fileInput == "") {
-                alert('Please Select a document to Continue');
-                loading.disabled = false; 
-                loader.style.display = "none";
-            }
-      else {      
 
-var file = document.getElementById('uploaded_bill').files[0];
-        var reader = new FileReader();
-            reader.readAsDataURL(file);
-            if (file.size > 2000000) {
-                alert('file must be 2mb or less')
-				loading.disabled = false; 
-                loader.style.display = "none";
-            }
-            else 
-            {
-            reader.onload = function () {
+
+            
                 console.log("starting")
                     var ID = $('#id').val();
                   console.log(ID)
@@ -198,7 +181,7 @@ var file = document.getElementById('uploaded_bill').files[0];
 				  var created_by = $('#created_by').val();
                   console.log(created_by)
 				  
-				  console.log('result', reader.result);
+				  
 				  
 				  var amount_due = $('#amount_due').val();
                   console.log(amount_due)
@@ -208,7 +191,7 @@ var file = document.getElementById('uploaded_bill').files[0];
 return $.ajax({
 url: url,
 type: 'POST',
-data:JSON.stringify({"uploaded_bill" : reader.result, "watt_consumed"  : watt_consumed, "unit_consumed"  : unit_consumed, "comment"  : comment,"amount_due"  : amount_due,"created_by"  : created_by}),
+data:JSON.stringify({"watt_consumed"  : watt_consumed, "unit_consumed"  : unit_consumed, "comment"  : comment,"amount_due"  : amount_due,"created_by"  : created_by}),
 headers: { "Authorization": "Token 142b47cfbe2e8c308568aa17dbfa8812e41e40e0" },
 contentType: 'application/json'
 });
@@ -224,12 +207,12 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                       if (status == "success") {
                         loading.disabled = false;
                         loader.style.display = "none";
-                        alert('PHCN Bill submitted successful...awaiting auditor and finance approval')
+                        alert('Submitted successful...upload document next')
 						window.location.href="/facilities/phcnBillList_facility";
                     } else {
                         loading.disabled = false; 
                         loader.style.display = "none";
-                        alert('PHCN Bill Request File Not successfully submitted')
+                        alert(' Not successfully submitted')
                       }
             
                     }).fail(function(){
@@ -237,14 +220,12 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                     })
                // return data
         };
-    }
-        reader.onerror = function (error) {
-        console.log('Error: ', error);
-        };
+    
+        
                     
-    }                 
+                  
           
-}
+
 
     </script>
 </body>

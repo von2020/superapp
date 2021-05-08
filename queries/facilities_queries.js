@@ -671,6 +671,39 @@ class vehicle_queries {
         }
     };
 
+    static async purchaseOrderList(token) {
+        const url = 'diesel/purchase_order';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewPurchaseOrder(token, id) {
+        const url = `diesel/purchase_order/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updatePurchaseOrder(query, token, id) {
+        const url = `diesel/purchase_order/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async viewRepairStatus(token, id) {
         const url = `vehicle/repair_status/${id}`;
         try {

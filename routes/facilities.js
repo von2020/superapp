@@ -144,6 +144,14 @@ const {
     handleDieselRequestQuotation,
     handlePurchaseOrder,
     viewPurchaseOrder,
+    purchaseOrderList,
+    viewPurchaseOrderFile,
+    purchaseOrderlist_auditor,
+    viewPurchaseOrderAuditor,
+    updatePurchaseOrderAuditor,
+    purchaseOrderlist_finance,
+    viewPurchaseOrderFinance,
+    updatePurchaseOrderFinance,
     genRepair,
     genServicing,
     handleGenServicing,
@@ -414,6 +422,18 @@ router.post('/viewDieselRequestQuotation', [checkSession, driverAuthorize], hand
 
 router.get('/viewPurchaseOrder', [checkSession, driverAuthorize], viewPurchaseOrder),
 router.post('/viewPurchaseOrder', [checkSession, driverAuthorize], handlePurchaseOrder),
+
+router.get('/purchaseOrderList', [checkSession, driverAuthorize], purchaseOrderList),
+
+router.get('/purchaseOrderFile', [checkSession, driverAuthorize], viewPurchaseOrderFile),
+
+router.get('/purchaseOrderlist_auditor', [checkSession, auditorAuthorize], purchaseOrderlist_auditor),
+router.get('/viewPurchaseOrderAuditor', [checkSession, auditorAuthorize], viewPurchaseOrderAuditor),
+router.post('/viewPurchaseOrderAuditor', [checkSession, auditorAuthorize], updatePurchaseOrderAuditor),
+
+router.get('/purchaseOrderlist_finance', [checkSession, financeAuthorize], purchaseOrderlist_finance),
+router.get('/viewPurchaseOrderFinance', [checkSession, financeAuthorize], viewPurchaseOrderFinance),
+router.post('/viewPurchaseOrderFinance', [checkSession, financeAuthorize], updatePurchaseOrderFinance),
 
 router.get('/genRepair', [checkSession, driverAuthorize], genRepair),
 
