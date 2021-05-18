@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,42 +27,23 @@
 	<div class="main-wrapper">
 
 <!-- Insert the sidebar partial here-->
-<% if (userDetails.role == 'Staff') { %>
-  <%- include('./bars/sidebar_staff') %>
-  <% } else if (userDetails.role == 'Supervisor') { %>
-  <%- include('./bars/sidebar_sup') %>  
-  <% } else if (userDetails.role == 'Auditor') { %>
-  <%- include('./bars/sidebar_auditor') %> 
-  <% } else if (userDetails.role == 'Finance') { %>
-  <%- include('./bars/sidebar_finance') %>
-  <%  } else if (userDetails.role == 'Driver Admin') { %>
-  <%- include('./bars/sidebar_driver') %>
-  <%  } else if (userDetails.role == 'Director') { %>
-  <%- include('./bars/sidebar_director') %>
-  <%  } else if (userDetails.role == 'Group Managing Director') { %>
-  <%- include('./bars/sidebar_gmd') %>  
-  <%  } else if (userDetails.role == 'Driver') { %>
-  <%- include('./bars/sidebar_carDriver') %>  
-  <%  } else { %>
-  <%- include('./bars/sidebar') %>    
-  <%  } %>
+<%- include('./bars/admin_sidebar') %>
 		<!-- partial -->
 	
 		<div class="page-wrapper">
 				
 			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
-      <%- include('./bars/topbar') %>
+            <%- include('./bars/admin_topbar') %>
 			<!-- partial -->
 
 			<div class="page-content">
-        <%- include('./partials/messages')%>
-
+                <%- include('.././partials/messages')%>
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Car Faults</a></li>
-						<li class="breadcrumb-item active" aria-current="page">List</li>
+						<li class="breadcrumb-item"><a href="#">Diesel</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Vendor List</li>
 					</ol>
-                </nav>
+        </nav>
 
 
 				<div class="row">
@@ -70,60 +52,60 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">List of Car Faults</h6>
+                  <!-- <h6 class="card-title d-block">Generator Daily Maintenance</h6> -->
+                  <!-- <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p> -->
                   </div>
 
-                  <div class="d-flex align-items-center flex-wrap text-nowrap ">
-                    <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
-                      <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
                 </div>
-                <!-- this will need to be updated for the drop off part of the request-->
-                
                 <div class="table-responsive">
-                  <form action="/requests/assign_vehicle" method="post">
                   <table id="dataTableExample" class="table" data-order=''>
                     <thead>
-        
+
                       <tr>
-                        <th>Purchase Order Created On</th>
+                        
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>RegNumber</th>
+                        <th>Contact Person</th>
+                        <th>Contact Person Number</th>
+                        <th>Created On</th>
                         <th>Updated On</th>
-                        <th>Created By</th>
-                        <th>Delivery Date</th>
-                        <th>Upload File</th>
-                                                
+                        
+                        
                       </tr>
                     </thead>
                     <tbody>
-                      <% purchase.forEach((purchase_order) => {%>
+                      
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+
+                    <% diesel.forEach((item) => {%>
                         <tr>
-                          <td><%= purchase_order.created_on.slice(0,10)%></td>
-                          <td><%= purchase_order.updated_on.slice(0,10)%></td>
-                          <td><%= purchase_order.created_by%></td>
-                          <td><%= purchase_order.delivery_date%></td>
-                          
-                          
-                          <td><a href="/facilities/purchaseOrderFile?id=<%=purchase_order.id%>" id='<%=purchase_order.id%>' class="btn btn-sm btn-success rounded-pill" >view</a></td>
-                          
+                          <td><%= item.name%></td>
+                          <td><%= item.address%></td>
+                          <td><%= item.email%></td>
+                          <td><%= item.phone%></td>
+                          <td><%= item.reg_number%></td>
+                          <td><%= item.contact_person%></td>
+                          <td><%= item.contact_person_phone%></td>
+                          <td><%= item.created_on%></td>
+                          <td><%= item.updated_on%></td>
                           
                         </tr>
                         <% })%>
                     </tbody>
                   </table>
-                </form>
                 </div>
               </div>
             </div>
 					</div>
 				</div>
 
-      </div>
-      
+			</div>
+
 			<!-- partial:partials/_footer.html -->
-      <%- include('./bars/footer') %>
+            <%- include('./bars/admin_footer') %>
 			<!-- partial -->
 	
 		</div>

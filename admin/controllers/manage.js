@@ -27,6 +27,15 @@ const {
     quotationList,
     viewQuotation,
     updateQuotation,
+    dieselVendorList,
+    dieselRequestQuotationList,
+    viewDieselRequestQuotation,
+    updateDieselRequestQuotation,
+    handlePurchaseOrder,
+    purchaseOrderList,
+    viewPurchaseOrder,
+    updatePurchaseOrder,
+    dieselUsageList,
     getInactiveUsers
 } = admin_manage_queries;
 
@@ -1293,6 +1302,560 @@ class admin_manage_controllers {
             if (err) console.log('error', err)
         }
     }
+
+    static async dieselVendorList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await dieselVendorList(token);
+            const diesel = resbody
+            console.log('diesel', diesel)
+            if (result.statusCode == 200) {
+                res.render('admin/dieselVendorList', {userDetails, diesel});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async dieselRequestQuotationList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await dieselRequestQuotationList(token);
+            const diesel = resbody
+            console.log('diesel', diesel)
+            if (result.statusCode == 200) {
+                res.render('admin/dieselRequestQuotationList', {userDetails, diesel});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async viewDieselRequestQuotation(req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewDieselRequestQuotation(token, id);
+            const diesel = resbody
+            console.log('diesel', diesel)
+            if (result.statusCode == 200) {
+                res.render('admin/viewDieselRequestQuotation', {userDetails, diesel});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async handleDieselRequestQuotation (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.dieselQuotation;
+
+        console.log("id", id)
+        
+        const query = {
+            purpose: req.body.purpose,
+            approved_vendor: req.body.approved_vendor,
+            admin_status: req.body.admin_status,
+            approved_vendor_reason: req.body.approved_vendor_reason,
+            admin_name: req.body.admin_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await updateDieselRequestQuotation(query, token, id);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated diesel request quotation`,'/admin/manage/dieselRequestQuotationList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.vehicle}`,'/admin/manage/dieselRequestQuotationList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+            
+    };
+
+    static async generatorList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await allGenerator(token);
+            const generators = resbody
+            console.log('generators', generators)
+            if (result.statusCode == 200) {
+                res.render('generatorList', {userDetails, generators});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async generatorList_fault (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await allGenerator(token);
+            const generators = resbody
+            console.log('generators', generators)
+            if (result.statusCode == 200) {
+                res.render('generatorList_fault', {userDetails, generators});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async generator_report (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            
+                res.render('generator', {userDetails});
+            
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async servicingList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await vehiclesServicing(token);
+            const vehicles = resbody
+            console.log('vehicles', vehicles)
+            if (result.statusCode == 200) {
+                res.render('vehiclesServicing', {userDetails, vehicles});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async genServiceRequests (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await allGenerator(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genServiceRequest', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+         
+        };
+
+    static async handleGenServiceRequests (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        const query = {
+            servicing_reason: req.body.servicing_reason,
+            servicing_cost: req.body.servicing_cost,
+            generator: req.body.generator,
+            servicing_company: req.body.servicing_company,
+            requester: req.body.requester,
+       }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await sendGenServiceRequest(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added a new gen service request`,'/facilities/genServiceRequestList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genServiceRequests')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+            
+    };
+
+    static async genServiceRequestList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await genServiceRequestList(token);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('genServiceRequestList', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+
+    static async genRequestFiles (req, res) {
+        var userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            // const gens = await allGenerator(token);
+
+            // console.log('response',gens.resbody)
+            // console.log('token',token)
+
+            res.render('request_files', {userDetails, id}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+         
+        };
+
+    static async handleGenRequestFiles (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        
+        const query = {
+            request_id: req.body.request_id,
+            file_name: req.body.file_name,
+            description: req.body.description,
+            type: req.body.type,
+            content: req.body.content,
+       }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await sendRequestFiles(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added a new gen service request file`,'/facilities/genRequestFiles')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genRequestFiles')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+            
+    };
+
+    static async genDueServicingList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await genDueServiceList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genDueServiceList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+         
+        };
+
+    
+
+    static async genServicing (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await allGenerator(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genServicing_facility', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+         
+        };
+
+    static async handleGenServicing (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        
+        const query = {
+            generator: req.body.generator,
+            purpose: req.body.purpose,
+            created_by: req.body.created_by,
+            servicing_company: req.body.servicing_company,
+            servicing_date: req.body.servicing_date,
+       }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await genServicing(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully registered a generator for servicing`,'/facilities/genServicing_facility')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genServicing_facility')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+            
+    };
+
+    static async genServicingList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await genServiceList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genServiceList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+         
+        };
+
+    static async viewPurchaseOrder(req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewDieselRequestQuotation(token, id);
+            const diesel = resbody
+            console.log('diesel', diesel)
+            if (result.statusCode == 200) {
+                res.render('admin/purchaseOrder', {userDetails, diesel});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async handlePurchaseOrder (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.request_quotation;
+
+        console.log("id", id)
+        
+        const query = {
+            request_quotation: parseInt(req.body.request_quotation),
+            liters: parseInt(req.body.liters),
+            created_by: req.body.created_by,
+            delivery_date: req.body.delivery_date,
+            delivery_destination: req.body.delivery_destination,
+           
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await handlePurchaseOrder(query, token);
+            const response = resbody
+            console.log("response", response)
+            var response_id = response.id
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a purchase order, upload document next`,`/admin/manage/purchaseOrderFile?id=${response_id}`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.request_quotation} `,'/admin/manage/dieselRequestQuotationList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+            
+    };
+
+    static async purchaseOrderList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await purchaseOrderList(token);
+            const purchase = resbody
+            console.log('purchase', purchase)
+            if (result.statusCode == 200) {
+                res.render('admin/purchaseOrderList', {userDetails, purchase});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async viewPurchaseOrderFile(req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPurchaseOrder(token, id);
+            const purchase = resbody
+            console.log('purchase', purchase)
+            if (result.statusCode == 200) {
+                res.render('admin/purchaseOrderFile', {userDetails, purchase});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+    static async dieselUsageList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await dieselUsageList(token);
+            const diesel = resbody
+            console.log('diesel', diesel)
+            if (result.statusCode == 200) {
+                res.render('admin/dieselUsageList', {userDetails, diesel});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
 
 }
 

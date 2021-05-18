@@ -49,6 +49,15 @@ const {
     updateQuotation,
     viewBillOfMaterialList,
     updateBillOfMaterials,
+    dieselVendorList,
+    dieselRequestQuotationList,
+    viewDieselRequestQuotation,
+    handleDieselRequestQuotation,
+    viewPurchaseOrder,
+    handlePurchaseOrder,
+    purchaseOrderList,
+    viewPurchaseOrderFile,
+    dieselUsageList,
     handleAddSubsidiary,
     handleAddDepartment,
     getAllSubsidiaries,
@@ -67,6 +76,21 @@ router.post('/viewQuotation', [adminCheckSession, superAdminAuthorize], updateQu
 
 router.get('/viewBillOfMaterialList', [adminCheckSession, superAdminAuthorize], viewBillOfMaterialList);
 router.post('/viewBillOfMaterialList', [adminCheckSession, superAdminAuthorize], updateBillOfMaterials);
+
+router.get('/dieselVendorList', [adminCheckSession, superAdminAuthorize], dieselVendorList);
+
+router.get('/dieselRequestQuotationList', [adminCheckSession, superAdminAuthorize], dieselRequestQuotationList),
+router.get('/viewDieselRequestQuotation', [adminCheckSession, superAdminAuthorize], viewDieselRequestQuotation),
+router.post('/viewDieselRequestQuotation', [adminCheckSession, superAdminAuthorize], handleDieselRequestQuotation),
+
+router.get('/viewPurchaseOrder', [adminCheckSession, superAdminAuthorize], viewPurchaseOrder),
+router.post('/viewPurchaseOrder', [adminCheckSession, superAdminAuthorize], handlePurchaseOrder),
+
+router.get('/purchaseOrderList', [adminCheckSession, superAdminAuthorize], purchaseOrderList),
+
+router.get('/purchaseOrderFile', [adminCheckSession, superAdminAuthorize], viewPurchaseOrderFile),
+
+router.get('/dieselUsageList', [adminCheckSession, superAdminAuthorize], dieselUsageList),
 
 router.get('/view-department', [adminCheckSession, superAdminAuthorize], viewDepartment);
 router.get('/view-subsidiary', [adminCheckSession, superAdminAuthorize], viewSubsidiary);

@@ -32,6 +32,8 @@
 			<%- include('./bars/sidebar_sup') %>
             <% } else if (userDetails.role == 'Procurement') { %>
             <%- include('./bars/sidebar_procurement') %>
+            <% } else if (userDetails.role == 'Facility Officer') { %>
+            <%- include('./bars/sidebar_facility') %>
             <% } else if (userDetails.role == 'Auditor') { %>
             <%- include('./bars/sidebar_auditor') %>
             <% } else if (userDetails.role == 'Finance') { %>
@@ -89,12 +91,7 @@
                                                 <input name= "email" class="form-control" id="email"  required> 
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Registration Number </label>
-                                                <input name= "reg_number" class="form-control" id="reg_number"  required> 
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1"> Phone </label>
@@ -102,7 +99,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Contact Person</label>
@@ -116,7 +113,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                        
+                                    <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">Registration Number </label>
+                                            <input name= "reg_number" class="form-control" id="reg_number"  required> 
+                                        </div>
+                                    </div>
+                                </div>
 									  
 
 									  

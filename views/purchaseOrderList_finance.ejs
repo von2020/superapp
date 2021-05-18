@@ -88,25 +88,30 @@
                     <thead>
         
                       <tr>
-                        <th>Purchase Order Created On</th>
+                        <th>Purchase Order Created On</th>                       
                         <th>Updated On</th>
+                        <th>Auditor Approval</th>
+                        <th>Finance Approval</th>
                         <th>Created By</th>
                         <th>Delivery Date</th>
-                        <th>Upload File</th>
+                        <th>Approve</th>
                                                 
                       </tr>
                     </thead>
                     <tbody>
-                      <% purchase.forEach((purchase_order) => {%>
+                      <% materials.forEach((purchase_order) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
+                          
                           <td><%= purchase_order.created_on.slice(0,10)%></td>
                           <td><%= purchase_order.updated_on.slice(0,10)%></td>
+                          <td><%= purchase_order.auditor_approval%></td>
+                          <td><%= purchase_order.finance_approval%></td>
                           <td><%= purchase_order.created_by%></td>
                           <td><%= purchase_order.delivery_date%></td>
                           
                           
-                          <td><a href="/facilities/purchaseOrderFile?id=<%=purchase_order.id%>" id='<%=purchase_order.id%>' class="btn btn-sm btn-success rounded-pill" >view</a></td>
+                          <td><a href="/facilities/viewPurchaseOrderFinance?id=<%=purchase_order.id%>" id='<%=purchase_order.id%>' class="btn btn-sm btn-success rounded-pill" >view</a></td>
                           
                           
                         </tr>

@@ -67,22 +67,24 @@
                       </div>
                       <div class="row mt-5">
                         <div class="col-sm-12">
-                          <form class="" action="/facilities/viewadvanceservicingQueueFinance" method="post">
+                          <form class="" action="/facilities/viewPurchaseOrderFinance" method="post">
                           <div class="thread-box">
                             <div class="thread-head d-flex justify-content-between p-4">
                               <div class="thread-desc d-flex">
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
-                                  <h5 class="font-weight-bold">Vehicle Details</h5>
-                                  <p><span>vehicle: <a class="text-primary"><%= materials.vehicle%></a></span></p>
-                                  <p><span>servicing date: <a class="text-primary"><%= materials.servicing_date%></a></span></p>
-                                  <p><span>location: <a class="text-primary"><%= materials.location%></a></span></p>
-                                  <p><span>craeted by: <a class="text-primary"><%= materials.created_by%></a></span></p>
-                                  <p><span>advance amount: <a class="text-primary"><%= materials.advance_amount%></a></span></p>
-                                  <%if (materials.advance_payment_invoice == '') { %>
-                                    <p><span>advance invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
+                                  <h5 class="font-weight-bold">Purchase Order List</h5>
+                                  <p><span>Liters: <a class="text-primary"><%= materials.liters%></a></span></p>
+                                  <p><span>Total Amount: <a class="text-primary"><%= materials.total%></a></span></p>
+                                  <p><span>Created By: <a class="text-primary"><%= materials.created_by%></a></span></p>
+                                  <p><span>Delivery Date: <a class="text-primary"><%= materials.delivery_date%></a></span></p>
+                                  <p><span>Delivery Destination: <a class="text-primary"><%= materials.delivery_destination%></a></span></p>
+                                  <p><span>Created On: <a class="text-primary"><%= materials.created_on.slice(0,10)%></a></span></p>
+                                  <p><span>Updated On: <a class="text-primary"><%= materials.updated_on.slice(0,10)%></a></span></p>
+                                  <%if (materials.document_uploaded == '') { %>
+                                    <p><span>Document: <a class="text-primary">Not Yet Uploaded</a></span></p>
                                     <% } else{ %>
-                                  <p><span>advance invoice: <a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></span></p>
+                                  <p><span>Document: <a class="text-primary" href="<%= materials.document_uploaded%>">view</a></span></p>
                                   <% } %>
 
                               </div>
@@ -93,16 +95,16 @@
                             </div>
                             <div class="thread-body p-5">
                               
-                                <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%= materials.bill_of_material%>" required>
-                                <input type="hidden" name="location" class="form-control" id="location" value="<%=materials.location%>" required>
-                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
-          
-                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
-                                
-                                
-                                <input type="hidden" name="finance_personnel" class="form-control" id="finance_personnel" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
+                              <input type="hidden" name="request_quotation" class="form-control" id="request_quotation" value="<%= materials.request_quotation%>" required>
+                              <input type="hidden" name="purpose" class="form-control" id="purpose" value="<%=materials.purpose%>" required>
+                              <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
+        
+                              <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
+                              
+                              
+                              <input type="hidden" name="auditor_name" class="form-control" id="auditor_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
-                                <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.id%>" required>
+                              <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.id%>" required>
           
                             </div>
                             <div class="thread-foot p-4 d-flex justify-content-between">

@@ -110,7 +110,7 @@
                                             <tr>
                                                 <th>Technician Revisit</th>
                                                 <td><select class="form-control" id="technician_revisit" name="technician_revisit" >
-                                                    <option>------</option>
+                                                    <option selected disabled>------</option>
                                                     <option>true</option>
                                                     <option>false</option>
                                                     </td>
@@ -133,6 +133,7 @@
                                     <br>
                                     
                                     <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
+                                    <input type="hidden" name="servicing_queue" class="form-control" id="servicing_queue" value="<%=queues.servicing_queue%>" required>
                                     
 
                                     

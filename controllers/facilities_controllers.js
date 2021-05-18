@@ -9,6 +9,7 @@ const {
     sendRequest,
     getDrivers,
     allVehicle,
+    updateVehicle,
     tripList,
     sendFaults,
     sendTechnician,
@@ -85,6 +86,7 @@ const {
     servicingQueueList,
     tripDistance,
     vehicleDistance,
+    viewVehicle,
     viewservicingQueue,
     updateServicingQueue,
     carFaultList,
@@ -148,7 +150,7 @@ class Facilities {
             const response = resbody
             // console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to servicing queue, you need to upload invoice`,'/facilities/servicingQueueDriverAdmin')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to servicing queue, you need to upload invoice`,`/facilities/viewservicingQueue?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response}  `,'/facilities/allBillOfMaterials')
             }
@@ -523,19 +525,10 @@ class Facilities {
         
         try {
             const {result, resbody} = await servicingQueueList(token);
-            const vehicle  = resbody
+            const vehicles  = resbody;
+            
             // console.log('vehicles', vehicles)
-
-            if (payment_type == 'advance'){
-                var vehicles = vehicle.filter(function (data) {
-                    return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED'  && data.auditor_advance_approval == 'APPROVED'  
-                });
-            }else{
-                var vehicles = vehicle.filter(function (data) {
-                    return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED' && data.auditor_balance_approval == 'APPROVED'   
-                });
-            }
-
+            
             if (result.statusCode == 200) {
                 res.render('queueList_finance', {userDetails, vehicles});
             } else if (result.statusCode == 401){
@@ -725,9 +718,9 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully created vehicle servicing status`,'/facilities/servicingQueueDriverAdmin')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created vehicle servicing status`,'/facilities/carServiceStatusList')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response.servicing_queue}  `,'/facilities/servicingQueueDriverAdmin')
+                resMessageRedirect(res, req, 'error_msg', ` ${response.servicing_queue}  `,'/facilities/carServiceStatusList')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -814,7 +807,7 @@ class Facilities {
         
 
         const query = {
-            servicing_queue: req.body.id,
+            servicing_queue: req.body.servicing_queue,
             vehicle_condition: req.body.vehicle_condition,
             condition_comment: req.body.condition_comment,
             technician_revisit: req.body.technician_revisit,
@@ -902,6 +895,64 @@ class Facilities {
         }
 
     };
+
+    static async viewVehicle (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+            const {result, resbody} = await viewVehicle(token, id);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('viewVehicle', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async handleUpdateVehicle (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id
+
+        console.log("id", id)
+        
+        const query = {
+            driver_name: req.body.driver_name,
+            vcolour: req.body.vcolour,
+            
+                    
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await updateVehicle(query, token, id);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated Vehicle`,'/facilities/quotationList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.detail} `,'/facilities/quotationList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+            
+    };
+
     static async carFaultList_driver (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
@@ -1338,22 +1389,12 @@ class Facilities {
     static async repairQueueList_finance (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
-        payment_type = req.body.payment_type;
+        
 
         try {
             const {result, resbody} = await repairQueueList(token);
-            const vehicle = resbody
-            console.log('vehicles', vehicle)
-            if (payment_type == 'advance'){
-            var vehicles = vehicle.filter(function (data) {
-                return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED'  && data.auditor_advance_approval == 'APPROVED'  
-            });
-        }else{
-            var vehicles = vehicle.filter(function (data) {
-                return data.finance_advance_approval != 'DENIED' && data.finance_balance_approval != 'DENIED' && data.auditor_balance_approval == 'APPROVED'   
-            });
-        }
-            
+            const vehicles = resbody
+            // console.log('vehicles', vehicles)
             
             
             if (result.statusCode == 200) {
@@ -1679,27 +1720,7 @@ class Facilities {
     };
 
 
-    static async dieselUsageList (req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        
-        try {
-            const {result, resbody} = await dieselUsageList(token);
-            const diesel = resbody
-            console.log('diesel', diesel)
-            if (result.statusCode == 200) {
-                res.render('dieselUsageList', {userDetails, diesel});
-            } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
-            }
-        }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
-        }
-
-    };
+    
 
     static async dieselVendor (req, res) {
         const userDetails = req.session.userDetails;
@@ -1741,7 +1762,7 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.name }`,'/facilities/dieselVendor')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.name }`,'/facilities/dieselVendorList')
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.name}`,'/facilities/dieselVendor')
             }
@@ -1774,27 +1795,7 @@ class Facilities {
 
     };
 
-    static async dieselRequestQuotationList (req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        
-        try {
-            const {result, resbody} = await dieselRequestQuotationList(token);
-            const diesel = resbody
-            console.log('diesel', diesel)
-            if (result.statusCode == 200) {
-                res.render('dieselRequestQuotationList', {userDetails, diesel});
-            } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
-            }
-        }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
-        }
-
-    };
+    
 
     static async dieselRequestQuotationList_procurement (req, res) {
         const userDetails = req.session.userDetails;
@@ -1840,7 +1841,9 @@ class Facilities {
 
     };
 
-    static async viewDieselRequestQuotation(req, res) {
+    
+
+    static async viewDieselRequestQuotation_procurement(req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
         const id = req.query.id;
@@ -1852,7 +1855,7 @@ class Facilities {
             const diesel = resbody
             console.log('diesel', diesel)
             if (result.statusCode == 200) {
-                res.render('viewDieselRequestQuotation', {userDetails, diesel});
+                res.render('dieselProcurementStatus', {userDetails, diesel});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -1865,7 +1868,7 @@ class Facilities {
 
     };
 
-    static async handleDieselRequestQuotation (req, res) {
+    static async handleDieselRequestQuotation_procurement (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
         const id = req.body.dieselQuotation;
@@ -1873,12 +1876,9 @@ class Facilities {
         console.log("id", id)
         
         const query = {
+            delivery_status: req.body.delivery_status,
             purpose: req.body.purpose,
-            approved_vendor: req.body.approved_vendor,
-            admin_status: req.body.admin_status,
-            approved_vendor_reason: req.body.approved_vendor_reason,
-            admin_comment: req.body.admin_comment,
-            admin_name: req.body.admin_name,
+            confirm_delivery_name: req.body.confirm_delivery_name,
             
         }
 
@@ -1890,9 +1890,9 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '200') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated diesel request quotation`,'/facilities/dieselRequestQuotationList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated diesel request quotation with delivery status`,'/facilities/dieselRequestQuotationList_procurement')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.vehicle}`,'/facilities/dieselRequestQuotationList')
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.vehicle}`,'/facilities/dieselRequestQuotationList_procurement')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -1901,113 +1901,7 @@ class Facilities {
             
     };
 
-    static async viewPurchaseOrder(req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        const id = req.query.id;
-        console.log('id', id)
-        
-        try {
-
-            const {result, resbody} = await viewDieselRequestQuotation(token, id);
-            const diesel = resbody
-            console.log('diesel', diesel)
-            if (result.statusCode == 200) {
-                res.render('purchaseOrder', {userDetails, diesel});
-            } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
-            }
-        }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
-        }
-
-    };
-
-    static async handlePurchaseOrder (req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        const id = req.body.request_quotation;
-
-        console.log("id", id)
-        
-        const query = {
-            request_quotation: parseInt(req.body.request_quotation),
-            liters: parseInt(req.body.liters),
-            created_by: req.body.created_by,
-            delivery_date: req.body.delivery_date,
-            delivery_destination: req.body.delivery_destination,
-           
-            
-        }
-
-        console.log('query', query)
-        console.log('token', token)
-        try{
-            
-            const {result, resbody} = await handlePurchaseOrder(query, token);
-            const response = resbody
-            console.log("response", response)
-            if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a purchase order, upload document next`,'/facilities/purchaseOrderList')
-            } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response.request_quotation} `,'/facilities/dieselRequestQuotationList')
-            }
-        } catch(err){
-            if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
-        }
-            
-    };
-
-    static async purchaseOrderList (req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        
-        try {
-            const {result, resbody} = await purchaseOrderList(token);
-            const purchase = resbody
-            console.log('purchase', purchase)
-            if (result.statusCode == 200) {
-                res.render('purchaseOrderList', {userDetails, purchase});
-            } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
-            }
-        }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
-        }
-
-    };
-
-    static async viewPurchaseOrderFile(req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        const id = req.query.id;
-        console.log('id', id)
-        
-        try {
-
-            const {result, resbody} = await viewPurchaseOrder(token, id);
-            const purchase = resbody
-            console.log('purchase', purchase)
-            if (result.statusCode == 200) {
-                res.render('purchaseOrderFile', {userDetails, purchase});
-            } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
-            }
-        }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
-        }
-
-    };
+    
 
     static async purchaseOrderlist_auditor (req, res) {
         const userDetails = req.session.userDetails;
@@ -2071,11 +1965,11 @@ class Facilities {
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            repair: req.body.id,
+            purpose: req.body.purpose,
             auditor_approval: boolValue,
             auditor_comment: req.body.auditor_comment,
             auditor_name: req.body.auditor_name,
-            
+            request_quotation: req.body.request_quotation,
         }
 
         console.log('query', query)
@@ -2086,7 +1980,7 @@ class Facilities {
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.auditor_approval == 'APPROVED') {
-                    req.flash('success_msg', 'You have successfully approved paid repair, awaiting finance approval')
+                    req.flash('success_msg', 'You have successfully approved purchase approval, awaiting finance approval')
                     res.redirect('/facilities/purchaseOrderlist_auditor');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected paid repair')
@@ -2112,7 +2006,7 @@ class Facilities {
 
             console.log('materials', material)
             var materials = material.filter(function (data) {
-                return data.auditor_approval != 'DENIED'
+                return data.auditor_approval == 'APPROVED' && data.finance_approval != 'DENIED'
             });
 
             if (result.statusCode == 200) {
@@ -2166,7 +2060,7 @@ class Facilities {
             finance_approval: boolValue,
             finance_comment: req.body.finance_comment,
             finance_name: req.body.finance_name,
-            
+            request_quotation: req.body.request_quotation,
         }
 
         console.log('query', query)
@@ -2177,7 +2071,7 @@ class Facilities {
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.finance_approval == 'APPROVED') {
-                    req.flash('success_msg', 'You have successfully approved paid repair, awaiting finance approval')
+                    req.flash('success_msg', 'You have successfully approved purchase order')
                     res.redirect('/facilities/purchaseOrderlist_finance');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected paid repair')
@@ -3342,7 +3236,7 @@ static async viewGenServicing_diverAdmin (req, res) {
                 
     
                 if (result.statusCode == '201') {
-                    resMessageRedirect(res, req, 'success_msg', 'You have succesfully created a new bill of material, awaiting approval from BU Head', '/facilities/addBillOfMaterial')
+                    resMessageRedirect(res, req, 'success_msg', 'You have succesfully created a new bill of material, awaiting approval from BU Head', '/facilities/allBillOfMaterials')
                     // req.flash('success_msg', 'You have succesfully created a new vehicle request');
                     // res.redirect('/dashboard');
                 } else if (result.statusCode == '200') {
@@ -4019,6 +3913,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         const query = {
             watt_consumed: req.body.watt_consumed,
             unit_consumed: req.body.unit_consumed,
+            consumption_rate: req.body.consumption_rate,
             amount_due: req.body.amount_due,
             comment: req.body.comment,
             
@@ -4071,7 +3966,7 @@ static async viewGenServicing_diverAdmin (req, res) {
 
         try {
             const gens = await phcnBillList(token);
-
+            console.log('phcn', gens)
             
             console.log('token',token)
 
@@ -4092,7 +3987,7 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             const {result, resbody} = await viewPhcnBill(token, id);
             const phcn = resbody
-            
+            console.log('phcn', phcn)
             if (result.statusCode == 200) {
                 res.render('viewPhcnBill', {userDetails, phcn});
             } else if (result.statusCode == 401){
@@ -4143,6 +4038,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         const query = {
             unit_consumed: req.body.unit_consumed,
             amount_due: req.body.amount_due,
+            consumption_rate: req.body.consumption_rate,
             admin_approval: boolValue,
             admin_comment: req.body.admin_comment,
             admin_name: req.body.admin_name,
@@ -4495,6 +4391,40 @@ static async viewGenServicing_diverAdmin (req, res) {
         try {
             
                 res.render('phcnDailyReading', {userDetails});
+            
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async diesel (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+            
+                res.render('diesel', {userDetails});
+            
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async phcn (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+            
+                res.render('phcn', {userDetails});
             
         }catch(err) {
             if (err) return console.error('Error', err);

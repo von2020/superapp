@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Telnet Super App</title>
+	<title>TELNET Super Admin</title>
 	 <!-- core:css --> 
 	<link rel="stylesheet" href="../assets/vendors/core/core.css">
 	 <!-- endinject --> 
@@ -30,38 +30,69 @@
 <body>
 	<div class="main-wrapper">
 
+    <!-- Insert the sidebar partial here-->
     <% if (userDetails.role == 'Staff') { %>
       <%- include('./bars/sidebar_staff') %>
       <% } else if (userDetails.role == 'Supervisor') { %>
-      <%- include('./bars/sidebar_sup') %>  
+      <%- include('./bars/sidebar_sup') %>
       <% } else if (userDetails.role == 'Auditor') { %>
       <%- include('./bars/sidebar_auditor') %> 
       <% } else if (userDetails.role == 'Finance') { %>
       <%- include('./bars/sidebar_finance') %>
       <%  } else if (userDetails.role == 'Driver Admin') { %>
-      <%- include('./bars/sidebar_driver') %>  
-      <%  } else if (userDetails.role == 'Director') { %>
-      <%- include('./bars/sidebar_director') %>
-      <%  } else if (userDetails.role == 'Group Managing Director') { %>
-      <%- include('./bars/sidebar_gmd') %>  
+      <%- include('./bars/sidebar_driver') %>
       <%  } else if (userDetails.role == 'Driver') { %>
-      <%- include('./bars/sidebar_carDriver') %>  
+      <%- include('./bars/sidebar_carDriver') %>
       <%  } else { %>
-      <%- include('./bars/sidebar') %>    
+      <%- include('./bars/sidebar') %>
       <%  } %>
+      <!-- partial -->
 	
 		<div class="page-wrapper">
 				
+      <!-- partial:partials/_navbar.html, this represents the topbar bar -->
       <%- include('./bars/topbar') %>
+      <!-- partial -->
 
-      
       <div class="page-content">
-        <%- include('./partials/messages')%>
+          <%- include('./partials/messages')%>
         <div class="row">
           <div class="col-md-2 grid-margin">
             <div class="card">
               <div class="card-body">
                  <!-- <h6 id="totalStaff" class="card-title">Staff</h6> --> 
+                <h6 class="card-title">Staff</h6>
+                <h1 id="totalStaff">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Department</h6>
+                <h1 id="totalDepartment">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Subsidiary</h6>
+                <h1 id="totalSubsidiary">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6  class="card-title">Supervisors</h6>
+                <h1 id="totalSupervisors">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
                 <h6 class="card-title">Drivers</h6>
                 <h1 id="totalDrivers">0</h1>
               </div>
@@ -70,74 +101,69 @@
           <div class="col-md-2 grid-margin">
             <div class="card">
               <div class="card-body">
-                <h6 class="card-title">Trips</h6>
-                <h1 id="totalTrips">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="card-title">Totla Vehicles</h6>
-                <h1 id="totalVehicles">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h6  class="card-title">Available Vehicles</h6>
-                <h1 id="availableVehicles">0</h1>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2 grid-margin">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="card-title">Request</h6>
-                <h1 id="totalRequest">0</h1>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="col-md-2 grid-margin">
-            <div class="card">
-              <div class="card-body">
                 <h6  class="card-title">Vehicles</h6>
                 <h1 id="totalVehicles">0</h1>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
-        <div class="row">
-          <div class="col-xl-12 grid-margin stretch-card">
+        <!-- <div class="row">
+          <div class="col-xl-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h6 class="card-title">Trips and Request By Subsidiary</h6>
-                <canvas id="RequestInSubsidiaryID"></canvas>
+                <h6 class="card-title">Trips In Each Department</h6>
+                <canvas id="TripsInSubsidiaryID"></canvas>
               </div>
             </div>
-          </div>
-          <!-- <div class="col-xl-6 grid-margin stretch-card">
+          </div> 
+          <div class="col-xl-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <h6 class="card-title">Request in Each Subsdiary</h6>
                 <canvas id="RequestInSubsidiaryID"></canvas>
               </div>
             </div>
-          </div> -->
-        </div>
+          </div>
+        </div> -->
+        
 
-        <!-- <div class="row">
+        <div class="row">
           <div class="col-md-12">
+
+            <form id="requestInfo">
+              <div class="card-body"> 
+                  <div class="form-group">
+                      <div class="col-12">
+                          <div class="row">
+                              <label for="start_date"> Start Date </label>
+                              <input type="date" class="form-control" placeholder="Start Date" name="start_date" id="startdate">
+                          </div>
+                      </div>
+                      <br>
+                      <div class="col-12">
+                          <div class="row">
+                              <label for="end_date"> End Date</label>
+                              <input type="date" class="form-control" placeholder="End Date" name="end_date" id="enddate">
+                          </div>
+                      </div>
+                  </div>
+                  <!-- <input type="submit" class="btn btn-success" value="View"> -->
+                   <button type="submit" href="#" class="btn btn-info">View</button>
+              </div>
+            </form>
+
           <table id="TripRange" class="table table-bordered table-hover">
               <thead>
               <tr>
-                <th>Request</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Department</th>
-                <th>Subsidiary</th>
+                <th>Litres </th>
+                <th>Amount (₦) </th>
+                <th>Auditors Name</th>
+                <th>Finance Name</th>
+                <th>Auditors Approval</th>
+                <th>Vendor Name</th>
+                <th>Purpose</th>
+                <th>Date Created</th>
               </tr>
               </thead>
               <tbody  id="result">
@@ -145,7 +171,7 @@
               </tbody>
           </table>
           </div>
-        </div> -->
+        </div>
 
          <!-- <div class="row">
           <div class="col-xl-6 grid-margin stretch-card">
@@ -225,9 +251,9 @@
 
 			</div>
 
-			 <!-- partial:../../partials/_footer.html --> 
+			 <<!-- partial:partials/_footer.html -->
        <%- include('./bars/footer') %>
-			 <!-- partial --> 
+       <!-- partial -->
 	
 		</div>
   </div>
@@ -250,17 +276,17 @@
       // *Total No* //
       //var url = "dashboard.ejs";
       $.ajax({
-        url:'https://telnetsupperapp.com.ng:8443/api/v1/core/driver_admin_totals',
+        url:'https://telnetsupperapp.com.ng:8443/api/v1/accounts/totals',
         type:'GET',
         dataType: 'json',
         success:function(data){
             if(data){
-                $('#totalDrivers').html('<h1>'+ data.total_drivers +'</h1>');
-                $('#totalTrips').html('<h1>'+ data.total_trips +'</h1>');
-                $('#totalVehicles').html('<h1>'+ data.total_vehicles +'</h1>');
-                $('#availableVehicles').html('<h1>'+ data.available_vehicles +'</h1>');  
-                $('#totalRequest').html('<h1>'+ data.total_request +'</h1>');  
-                // $('#totalVehicles').html('<h1>'+ data.total_vehicle +'</h1>');  
+                $('#totalStaff').html('<h1>'+ data.total_staff +'</h1>');
+                $('#totalDepartment').html('<h1>'+ data.total_department +'</h1>');
+                $('#totalSubsidiary').html('<h1>'+ data.total_subsidiary +'</h1>');
+                $('#totalSupervisors').html('<h1>'+ data.total_supervisor +'</h1>');  
+                $('#totalDrivers').html('<h1>'+ data.total_driver +'</h1>');  
+                $('#totalVehicles').html('<h1>'+ data.total_vehicle +'</h1>');  
             }               
         }, 
         error:function(data){
@@ -269,17 +295,17 @@
       });
 
       // *RequestInSubsidiary Bar Chart right* //
-    var RequestInSubsidiary = function(iteco_r, iteco_t, softworks_r, softworks_t, telnet_r, telnet_t){
+    var RequestInSubsidiary = function(iteco,softworks,telnet){
         if($('#RequestInSubsidiaryID').length) {
           new Chart($("#RequestInSubsidiaryID"), {
             type: 'bar',
             data: {
-              labels: [ "iTECO Trips", "iTECO Request", "Softworks Trips", "Softworks Request", "TELNET Trips", "TELNET Request"],
+              labels: [ "iTECO", "Softworks", "TELNET"],
               datasets: [
                 {
                   label: "Subsidiary",
-                  backgroundColor: ["#66d1d1","#b1cfec","#fa8072, #66d1d1","#b1cfec","#fa8072"],
-                  data: [iteco_r, iteco_t, softworks_r, softworks_t, telnet_r, telnet_t]
+                  backgroundColor: ["#66d1d1","#b1cfec","#fa8072"],
+                  data: [iteco,softworks,telnet]
                 }
               ]
             },
@@ -291,18 +317,15 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_request_type',
+          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_vrequest_subsidiaries',
           type:'GET',
           dataType: 'json',
           success:function(data){
               if(data){
-                let iteco_r     = data.iteco_request_count;
-                let iteco_t = data.iteco_total_trips;
-                let telnet_r    = data.telnet_request_count;
-                let telnet_t     = data.telnet_total_trips;
-                let softworks_r = data.softworks_request_count;
-                let softworks_t   = data.softworks_total_trips;
-                RequestInSubsidiary(iteco_r, iteco_t, softworks_r, softworks_t, telnet_r, telnet_t);
+                let iteco     = data.iteco_vehicle_request_count;
+                let softworks = data.softworks_vehicle_request_count;
+                let telnet    = data.telnet_vehicle_request_count;
+                RequestInSubsidiary(iteco,softworks,telnet);
               }               
           }, 
           error:function(data){
@@ -334,7 +357,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_request_type',
+          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_trip',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -350,30 +373,197 @@
           }
         });
 
+
+//         $(document).ready(function() {
+//     $('#example').DataTable( {
+//         "ajax": "data/objects.txt",
+//         "columns": [
+//             { "data": "name" },
+//             { "data": "position" },
+//             { "data": "office" },
+//             { "data": "extn" },
+//             { "data": "start_date" },
+//             { "data": "salary" }
+//         ]
+//     } );
+// } );
+
+$('#requestInfo').submit(function(evt){
+
+evt.preventDefault();
+    var reqobj = new Object();
+        reqobj.start_date = $('#startdate').val();
+        reqobj.end_date = $('#enddate').val();
+        var dsent = JSON.stringify(reqobj);
+
+        //console.log(dsent);
+$.ajax({
+    // url: "https://telnetsupperapp.com.ng:8443/api/v1/power/bill_report",
+    url: "https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/diesel_bi_report",
+    type:'POST',
+    data:dsent,
+	contentType: "application/json; charset=utf-8",
+  error: function(xhr, status, error) {
+  var err = eval("(" + xhr.responseText + ")");
+  console.log('err',xhr)
+  
+},
+    beforeSend: function (xhr) {
+    xhr.setRequestHeader ("Authorization", "Token 0a80ea028c9f552632b2ad03a6fcc2043ac79b62")
+    },
+
+	success: function(result){
+        console.log('result',result);
         $("#TripRange").DataTable({
-      ajax: {
-          url: "https://telnetsupperapp.com.ng:8443/api/v1/core/trip_range",
-          dataSrc: ""
-      },
-      columns: [
-          {
-              data: "assigned_vehicle__vehicle_request"
-          },
-          {
-              data: "assigned_vehicle__vehicle_request__requester__first_name"
-          },
-          {
-              data: "assigned_vehicle__vehicle_request__requester__last_name"
-          },
-          {
-              data: "assigned_vehicle__vehicle_request__requester__department__name"
-          },
-          {
-              data: "assigned_vehicle__vehicle_request__requester__subsidiary__name"
-          },
+            "aaData" : result,
+            columns: [
+                {
+                    data: "liters"
+                },
+                {
+                    data: "total"
+                },
+                {
+                    data: "auditor_name"
+                },
+                {
+                    data: "finance_name"
+                },
+                {
+                    data: "auditor_approval"
+                },
+                {
+                    data: "request_quotation__approved_vendor__name"
+                },
+                {
+                    data: "request_quotation__purpose"
+                },
+                {
+                    data: "created_on"
+                },
+            ]
+        });
+	}
+})
+});
+
+
+// $("#TripRange").DataTable({
+//       ajax: {
+//           url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+//           dataSrc: ""
+//       },
+//       columns: [
+//           {
+//               data: "requester_name"
+//           },
+//           {
+//               data: "requester_email"
+//           },
+//           {
+//               data: "requester_role"
+//           },
+//           {
+//               data: "request_date"
+//           },
+//           {
+//               data: "requester_upline"
+//           },
           
-      ]
-            });
+//       ]
+//             });
+
+//Examples 1
+// jQuery(document).ready(function($) {
+ 
+//  var jobtable = $('#RequestInfo').DataTable({
+//    ajax: {
+//     url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+//           dataSrc: "",
+//           type:'GET',
+//           dataType: 'json',
+// 		  beforeSend: function (xhr) {
+//                 xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
+//             },
+//    },
+//    columns: [
+//           {
+//               data: "requester_name"
+//           },
+//           {
+//               data: "requester_email"
+//           },
+//           {
+//               data: "requester_role"
+//           },
+//           {
+//               data: "request_date"
+//           },
+//           {
+//               data: "requester_upline"
+//           },
+          
+//       ]
+   
+//  });
+// });
+
+
+
+
+
+//Examples 2
+      //   $("#RequestInfoooo").DataTable({
+      // ajax: {
+      //     url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+      //     dataSrc: "",
+      //     type:'GET',
+      //     dataType: 'json',
+		  // beforeSend: function (xhr) {
+      //           xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
+      //       },
+      //       success:function(data){
+      //         if(data){
+               
+                
+               // console.log(data)
+                // let requester_name = data.data.requester_name;
+                //console.log(data);
+
+                // $.each(data, function(key, value) {
+                //     //For example
+                //     let requester_name = value.requester_name;
+                //     // console.log(value.requester_name)
+                //     // console.log(value.requester_email)
+                //     // console.log(value.requester_role)
+                // });
+                
+      //         }               
+      //     }, 
+      //     error:function(data){
+      //       console.log("Error Occurred!!")
+      //     }
+          
+      // },
+      // columns: [
+      //     {
+      //         data: "requester_name"
+      //     },
+      //     {
+      //         data: "requester_email"
+      //     },
+      //     {
+      //         data: "requester_role"
+      //     },
+      //     {
+      //         data: "request_date"
+      //     },
+      //     {
+      //         data: "requester_upline"
+      //     },
+          
+      // ]
+      //       });
 
 
     });
@@ -381,7 +571,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="./myChart.js"></script>
+<!-- <script src="./myChart.js"></script> -->
 
 	 <!-- core:js -->
 	<script src="../assets/vendors/core/core.js"></script>
@@ -403,6 +593,6 @@
   <!-- end custom js for this page --> 
   <script src="../assets/js/chartjs.js"></script>
   <script src="../assets/vendors/chartjs/Chart.min.js"></script>
-  <script src="../views/pages/dashboard.ejs"></script>
+  <!-- <script src="../views/pages/dashboard.ejs"></script> -->
 </body>
 </html>

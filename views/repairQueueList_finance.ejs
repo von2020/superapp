@@ -103,6 +103,7 @@
                       <% vehicles.forEach((vehicle) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
+                          <%if ((vehicle.auditor_advance_approval == 'APPROVED') || (vehicle.auditor_balance_approval == 'APPROVED')) { %>
                           <td><%= vehicle.vehicle_name%></td>
                           <td><%= vehicle.repair_date%></td>
                           <td><%= vehicle.payment_type%></td>
@@ -115,16 +116,19 @@
                           <td><%= vehicle.finance_balance_approval%></td>
                           
                           <%if (vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED' ) { %>
-                          <td> <a href="/facilities/viewRepairQueue_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                          <td> <a href="/facilities/viewRepairQueue_finance?id=<%= vehicles.id%>" id='<%= vehicles.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           <% } else{ %>
-                          <td> <a href="/facilities/viewRepairQueueBalance_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                          <td> <a href="/facilities/viewRepairQueueBalance_finance?id=<%= vehicles.id%>" id='<%= vehicles.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                          <% } %>
+                          <% } else{ %>
+
                           <% } %>
                         </tr>
                         <% })%>
                     </tbody>
                   </table>
                 </form>
-                <input type="hidden" name="payment_type" class="form-control" id="payment_type" value="<%=vehicle.payment_type%>" required>
+                <input type="hidden" name="payment_type" class="form-control" id="payment_type" value="<%=vehicles.payment_type%>" required>
                 </div>
               </div>
             </div>

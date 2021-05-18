@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 
-<body>
+<body onload="changeFun()">
     <div class="main-wrapper">
 
         <!-- Insert the sidebar partial here-->
@@ -61,8 +61,8 @@
 
                 <nav class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">PHCN</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Bill</li>
+                        <li class="breadcrumb-item"><a href="#">Vehicle</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Update</li>
                     </ol>
                 </nav>
 
@@ -85,6 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form class="" action="/facilities/viewVehicle" method="post">
                                 <div class="table-responsive">
                                     <table  class="table">
 
@@ -98,75 +99,100 @@
                                             
 
                                             <tr>
-                                                <th> Upload Document </th>
-                                                <td> <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf,"
-                                                    required> </td>
+                                                <th> Driver </th>
+                                                <td> <div class="form-group">
+                                                    <select class='form-control' id='driver_name' name='driver_name'>
+
+                                                    </select>
+                                                </div> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Liters </th>
-                                                <td> <%= purchase.liters%> </td>
+                                                <th> VColour </th>
+                                                <td> <input name="vcolour" class="form-control" id="vcolour" required> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Total </th>
-                                                <td> <%= purchase.total%> </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <th> Created By </th>
-                                                <td> <%= purchase.created_by%> </td>
+                                                <th> Plate </th>
+                                                <td> <%= materials.plate%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Delivery Date </th>
-                                                <td> <%= purchase.delivery_date%> </td>
+                                                <th> Driver Name </th>
+                                                <td> <%= materials.driver_name%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Delivery Destination </th>
-                                                <td> <%= purchase.delivery_destination%> </td>
+                                                <th> Driver Phone Number </th>
+                                                <td> <%= materials.driver_phone%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th>Auditor Approval </th>
-                                                <td> <%= purchase.auditor_approval%> </td>
+                                                <th> Servicing CountDown </th>
+                                                <td> <%= materials.servicing_countdown%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Auditor Comment </th>
-                                                <td> <%= purchase.auditor_comment%> </td>
+                                                <th> Servicing Status </th>
+                                                <td> <%= materials.servicing_status%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Auditor Name </th>
-                                                <td> <%= purchase.auditor_name%> </td>
+                                                <th> Type </th>
+                                                <td> <%= materials.type%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Finance Approval </th>
-                                                <td> <%= purchase.finance_approval%> </td>
+                                                <th> Chasis </th>
+                                                <td> <%= materials.chasis%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Finance Comment </th>
-                                                <td> <%= purchase.finance_comment%> </td>
+                                                <th> Vin </th>
+                                                <td> <%= materials.vin%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Finance Name </th>
-                                                <td> <%= purchase.finance_name%> </td>
+                                                <th> Vmake </th>
+                                                <td> <%= materials.vmake%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Vmodel </th>
+                                                <td> <%= materials.vmodel%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Fuel Type </th>
+                                                <td> <%= materials.fuel_type%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Idle </th>
+                                                <td> <%= materials.idle%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Purchase Date </th>
+                                                <td> <%= materials.purchase_date%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Next Servicing Date </th>
+                                                <td> <%= materials.next_servicing_date%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <%= purchase.created_on.slice(0,10)%> </td>
+                                                <td> <%= materials.created_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= purchase.updated_on.slice(0,10)%> </td>
+                                                <td> <%= materials.updated_on.slice(0,10)%> </td>
                                             </tr>
+                                            
+                                            
 
                                             
                                         </tbody>
@@ -176,7 +202,7 @@
                                     </table>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=purchase.id%>" required>
+                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.id%>" required>
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
@@ -184,12 +210,14 @@
                                     
                                     
                                 </div>
+
                                 <!-- <input class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> -->
-                                <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
+                                <button id="reqBtn" class="btn-lg btn-primary" type="submit" value="Save"> Save 
                                     <span id="reqLoader" style="display: none;"> 
                                          <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
                                      </span> 
                                     </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -204,6 +232,51 @@
 
         </div>
     </div>
+
+    <script>
+  
+        function changeFun() {
+          console.log("starting")
+
+          var getJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'GET',
+headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+contentType: 'application/json'
+});
+};
+
+          getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/accounts/drivers").done(function(data, status){
+            console.log("here",data),
+            
+            console.log("here")
+            console.log("here",data)
+            console.log(status)
+            if (status == "success") {
+              console.log('data', data)
+              var html = "<option selected> --- </option>"
+              for (var i = 0; i < data.length; i++) {
+                html += "<option value = '" + data[i].first_name + " " + data[i].last_name + "'> " + data[i].first_name + " " + data[i].last_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+              }
+              
+
+              //display the thing
+              $("#driver_name").html(html);
+              $("#driver_name").show();
+
+            } else {
+              alert("try again or contact the admin.")
+            }
+          
+  
+          }).fail(function(){
+
+          })
+          
+}
+
+</script>
 
     <!-- core:js -->
     <script src="../../../assets/vendors/core/core.js"></script>
@@ -233,7 +306,7 @@
         let data;
         function convert(){
             // alert('abeg');
-            var file = document.getElementById('document').files[0];
+            var file = document.getElementById('uploaded_bill').files[0];
                 getBase64(file);
                 console.log("begining")
                 console.log(data)
@@ -258,7 +331,7 @@ function Submit(){
     var loader = document.getElementById("reqLoader");
     loader.style.display = "inline-block";
 
-    var fileInput = document.getElementById('document').value
+    var fileInput = document.getElementById('uploaded_bill').value
 console.log(fileInput);
 
 if (fileInput == "") {
@@ -268,7 +341,7 @@ if (fileInput == "") {
             }
       else { 
 
-var file = document.getElementById('document').files[0];
+var file = document.getElementById('uploaded_bill').files[0];
         var reader = new FileReader();
             reader.readAsDataURL(file);
             if (file.size > 2000000) {
@@ -289,15 +362,15 @@ var file = document.getElementById('document').files[0];
 return $.ajax({
 url: url,
 type: 'PUT',
-data:JSON.stringify({"document"  : reader.result}),
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4",
+data:JSON.stringify({"uploaded_bill"  : reader.result}),
+headers: { "Authorization": "Token 142b47cfbe2e8c308568aa17dbfa8812e41e40e0",
             // "Access-Control-Allow-Origin": "localhost:3000" 
         },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/purchase_order/${ID}/upload`).done(function(data, status){
+putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/power/billing/${ID}/upload`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")
@@ -308,8 +381,8 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                           
                         loading.disabled = false; 
                         loader.style.display = "none";
-                        alert('Document upload successful...Awaiting Auditor and Finance Approval')
-                        window.location.href="/facilities/purchaseOrderList";
+                        alert('bill upload successful')
+                        window.location.href="/facilities/phcnBillList_facility";
                         
                     } else {
                         loading.disabled = false; 

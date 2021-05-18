@@ -105,12 +105,6 @@
                   
                     <div class="row">
 
-                        <div class="col">
-                            <div class="form-group">
-                              <label for="exampleFormControlSelect1">Liter</label>
-                              <input name="liter" class="form-control" id="liter" required>
-                            </div>
-                          </div>
 
                         <div class="col">
                             <div class="form-group">
@@ -196,41 +190,18 @@
                         </div>
                       </div>
                 
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Vat</label>
-                        <input name="vat" class="form-control" id="vat" placeholder="None" required>
-                      </div>
-                    </div>
+                    
                      
                     
                       
                   </div>
                   <div class="row">
 
-                    <div class="col">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Delivery</label>
-                          <select class='form-control' id='delivery' name='delivery' onchange="requestChangeFun()">
-                            <option value="charged" Selected>Charged</option>
-                            <option value="free">Free</option>
-                            
-                            
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <div class="form-group" id="divdelivery_amount">
-                          <label for="exampleFormControlSelect1">Delivery Amount</label>
-                          <input name="delivery_amount" class="form-control" id="delivery_amount" required>
-                        </div>
-                      </div>
-
+                    
                       <div class="col">
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Document</label>
-                          <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required> </td>
+                          <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"  required> </td>
                         </div>
                       </div>
 
@@ -304,22 +275,15 @@
 
           var result = sessionStorage.getItem("result")
     console.log("result", result);
-var liter = $('#liter').val();
+
 var vendor = $('#vendor').val();
 var unit_price = $('#unit_price').val();
-var vat = $('#vat').val();
-var delivery = $('#delivery').val();
-var delivery_amount = $('#delivery_amount').val();
+var vendor_name = $( "#vendor option:selected" ).text();
+
 var doc = result;
 console.log(doc)
 
-if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' || doc =='') {
-
-  swal("kindly fill all fields!", {
-    buttons: false,
-    timer: 2000,  // disappears after 2 seconds
-  });
-} else if(liter != '' && vendor != '' && unit_price !='' && vat !='' && delivery =='charged' && doc !='' && delivery_amount !=''){
+if (vendor == '' || unit_price ==''  || doc =='') {
 
   var details = {
     liter: liter,
@@ -330,35 +294,42 @@ if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' 
     delivery_amount: delivery_amount,
     document: doc
   };
+  console.log(details);
+
+  swal("kindly fill all fields!", {
+    buttons: false,
+    timer: 2000,  // disappears after 2 seconds
+  });
+} else {
+
+  var details = {
+    vendor: vendor,
+    unit_price: unit_price,
+    document: doc
+  };
   values.push(details);
   appendFunction();
-
+  console.log(values)
 
   // you can use the array. for each to set a value for the id
   // or maybe you can use the post using jquery to send this to a route.
+
+  
 
   var html = "<br>"
   html += "<table class='table table-striped'>";
   html += "<thead>";
   html += "<tr>";
-  html += "<th>" + "liter" + "</th>";
   html += "<th>" + "vendor" + "</th>";
   html += "<th>" + "unit_price" + "</th>";
-  html += "<th>" + "vat" + "</th>";
-  html += "<th>" + "delivery" + "</th>";
-  html += "<th>" + "delivery_amount" + "</th>";
   html += "<th>" + "document" + "</th>";
   html += "</tr>";
   html += "</thead>";
   html += "<tbody>";
   for (var i = 0; i < values.length; i++) {
     html += "<tr>";
-    html += "<td>" + values[i].liter + "</td>";
-    html += "<td>" + values[i].vendor + "</td>";
+    html += "<td>" + vendor_name + "</td>";
     html += "<td>" + values[i].unit_price + "</td>";
-    html += "<td>" + values[i].vat + "</td>";
-    html += "<td>" + values[i].delivery + "</td>";
-    html += "<td>" + values[i].delivery_amount + "</td>";
     html += "<td>" + "document" + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
@@ -376,59 +347,6 @@ if (liter == '' || vendor == '' || unit_price =='' || vat =='' || delivery =='' 
   }
 
 
-} else {
-
-var details = {
-  liter: liter,
-  vendor: vendor,
-  unit_price: unit_price,
-  vat: vat,
-  delivery: delivery,
-  document: doc
-};
-values.push(details);
-appendFunction();
-
-
-// you can use the array. for each to set a value for the id
-// or maybe you can use the post using jquery to send this to a route.
-
-var html = "<br>"
-html += "<table class='table table-striped'>";
-html += "<thead>";
-html += "<tr>";
-html += "<th>" + "liter" + "</th>";
-html += "<th>" + "vendor" + "</th>";
-html += "<th>" + "unit_price" + "</th>";
-html += "<th>" + "vat" + "</th>";
-html += "<th>" + "delivery" + "</th>";
-html += "<th>" + "document" + "</th>";
-html += "</tr>";
-html += "</thead>";
-html += "<tbody>";
-for (var i = 0; i < values.length; i++) {
-  html += "<tr>";
-  html += "<td>" + values[i].liter + "</td>";
-  html += "<td>" + values[i].vendor + "</td>";
-  html += "<td>" + values[i].unit_price + "</td>";
-  html += "<td>" + values[i].vat + "</td>";
-  html += "<td>" + values[i].delivery + "</td>";
-  html += "<td>" + "document" + "</td>";
-  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
-
-  html += "</tr>";
-}
-html += "</tbody>"
-html += "</table>";
-html += "<br>"
-
-// display record
-$("#extrafeild").html(html);
-
-if (values.length > 0) {
-$("#extrafeild").show();
-}
-
 }
 
 }
@@ -441,24 +359,16 @@ var html = "<br>"
 html += "<table class='table table-striped'>";
 html += "<thead>";
 html += "<tr>";
-html += "<th>" + "liter" + "</th>";
 html += "<th>" + "vendor" + "</th>";
 html += "<th>" + "unit_price" + "</th>";
-html += "<th>" + "vat" + "</th>";
-html += "<th>" + "delivery" + "</th>";
-html += "<th>" + "delivery_amount" + "</th>";
 html += "<th>" + "document" + "</th>";
 html += "</tr>";
 html += "</thead>";
 html += "<tbody>";
 for (var i = 0; i < values.length; i++) {
   html += "<tr>";
-    html += "<td>" + values[i].liter + "</td>";
-    html += "<td>" + values[i].vendor + "</td>";
+    html += "<td>" + vendor_name + "</td>";
     html += "<td>" + values[i].unit_price + "</td>";
-    html += "<td>" + values[i].vat + "</td>";
-    html += "<td>" + values[i].delivery + "</td>";
-    html += "<td>" + values[i].delivery_amount + "</td>";
     html += "<td>" + "document" + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
@@ -488,17 +398,6 @@ $('#random').val(x)
 
 <script>
 
-function requestChangeFun() {
-	var selectBox = document.getElementById("delivery");
-	var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-
-	if (selectedValue == 'charged') {
-	    $("#divdelivery_amount").show();
-		} else if (selectedValue == 'free') {
-
-		$("#divdelivery_amount").hide();
-			}
-		};
 
     let data;
     function convert(){

@@ -24,40 +24,25 @@
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
 </head>
 
-<body>
+<body onload="changeFun()">
     <div class="main-wrapper">
 
         <!-- Insert the sidebar partial here-->
-        <% if (userDetails.role == 'Staff') { %>
-        <%- include('./bars/sidebar_staff') %>
-        <% } else if (userDetails.role == 'Supervisor') { %>
-        <%- include('./bars/sidebar_sup') %>
-        <% } else if (userDetails.role == 'Auditor') { %>
-        <%- include('./bars/sidebar_auditor') %> 
-        <% } else if (userDetails.role == 'Finance') { %>
-        <%- include('./bars/sidebar_finance') %>
-        <%  } else if (userDetails.role == 'Driver Admin') { %>
-        <%- include('./bars/sidebar_driver') %>
-        <%  } else if (userDetails.role == 'Driver') { %>
-        <%- include('./bars/sidebar_carDriver') %>
-        <%  } else { %>
-        <%- include('./bars/sidebar') %>
-        <%  } %>
+        <%- include('./bars/admin_sidebar') %>
+	
+		<div class="page-wrapper">
+				
+        <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+        <%- include('./bars/admin_topbar') %>
         <!-- partial -->
 
-        <div class="page-wrapper">
-
-            <!-- partial:partials/_navbar.html, this represents the topbar bar -->
-            <%- include('./bars/topbar') %>
-            <!-- partial -->
-
-            <div class="page-content">
-                <%- include('./partials/messages')%>
+			<div class="page-content">
+                <%- include('.././partials/messages')%>
 
                 <nav class="page-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Diesel</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Purchase Order</li>
+                        <li class="breadcrumb-item active" aria-current="page">Request</li>
                     </ol>
                 </nav>
 
@@ -68,7 +53,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Purchase Order</h6>
+                                        <h6 class="card-title d-block">Diesel Request Quotation</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -80,7 +65,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form class="" action="/facilities/viewPurchaseOrder" method="post">
+                                <form class="" action="/admin/manage/viewDieselRequestQuotation" method="post">
                                 <div class="table-responsive">
                                     <table  class="table">
 
@@ -92,10 +77,37 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <th> Quotation Set </th>
+                                                <td>
+                                            <% diesel.quotation_set.forEach((item) => { %>
+                                                
+                                                    <p> <%= item.liter%> </p>
+                                                
+                                                    <p> <%= item.vendor_name%> </p>
+                                                
+                                                
+                                                    <p> <%= item.vendor_email%> </p>
+                                                
+                                                
+                                                    <p> <%= item.unit_price%> </p>
+                                                
+                                                
+                                                    <p> <%= item.vat%> </p>
+                                                
+                                                    <p> <%= item.delivery%> </p>
+                                                <p> <%= item.delivery_amount%></p> 
+                                                <p><a class="text-primary" href="<%= item.document%>" onclick="dieselClick()">view</a> </p><hr>
+                                                
+                                            
+                                            <% }) %>
+                                        </td>
+                                                
+                                    </tr>
+                                            <hr>
+                                            <tr>
                                                 <th> Purpose </th>
                                                 <td> <%= diesel.purpose%> </td>
                                             </tr>
-
                                             <tr>
                                                 <th> Created By </th>
                                                 <td> <%= diesel.created_by%> </td>
@@ -103,27 +115,59 @@
 
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <%= diesel.created_on%> </td>
+                                                <td> <%= diesel.created_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= diesel.updated_on%> </td>
+                                                <td> <%= diesel.updated_on.slice(0,10)%> </td>
                                             </tr>
                                             <tr>
-                                                <th> Liters </th>
-                                                <td> <input  name="liters" class="form-control" id="liters"  required> </td>
-                                            </tr>
-                                            <tr>
-                                                <th> Delivery Date </th>
-                                                <td> <input type="date"  name="delivery_date" class="form-control" id="delivery_date" value="2021-01-01"  required> </td>
+                                                <th> Purpose </th>
+                                                <td> <input   name="purpose" class="form-control" value="<%= diesel.purpose%>" id="purpose"  readonly> </td>
                                             </tr>
 
                                             <tr>
-                                                <th>Delivery Destination</th>
-                                                <td> <textarea name="delivery_destination" type="date" value="2021-01-01" class="form-control" id="delivery_destination" required></textarea> </td>
+                                                <th>Approved Vendor</th>
+                                                <td> <select class='form-control' id='servicing_company' name='approved_vendor'>
+
+                                                </select> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Admin Status</th>
+                                                <td> 
+                                                    <select class='form-control' id='admin_status' name='admin_status'>
+                                                        <option value="APPROVED" Selected>Approved</option>
+                                                        <option value="REJECTED">Rejected</option>
+                                                        
+                                                      </select>
+                                                </td>
                                             </tr>
                                             
+                                            <tr>
+                                                <th>Approved Vendor Reason</th>
+                                                <td> <textarea name="approved_vendor_reason" type="date" value="2021-01-01" class="form-control" id="approved_vendor_reason" rows="10" required></textarea> </td>
+                                            </tr>
+
+                                            
+
+                                            
+                                            
+                                            <tr>
+                                                <th> Author Email </th>
+                                                <td> <%= diesel.author_email%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Delivery Status </th>
+                                                <td> <%= diesel.delivery_status%> </td>
+                                            </tr>
+
+                                            
+
+                                            
+
                                             
                                         </tbody>
                                         
@@ -132,11 +176,13 @@
                                     </table>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="request_quotation" class="form-control" id="request_quotation" value="<%=diesel.id%>" required>
+                                    <input type="hidden" name="dieselQuotation" class="form-control" id="dieselQuotation" value="<%=diesel.id%>" required>
                                     
-                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+                                    <input type="hidden" name="admin_name" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
-                                    <input type="hidden" name="advance_payment" class="form-control" id="advance_payment" value="<%diesel.advance_payment%>" required>
+                                    <input type="hidden" name="advance_payment" class="form-control" id="advance_payment" value="<%=diesel.advance_payment%>" required>
+
+                                    <input type="hidden" name="diesel" class="form-control" id="diesel" value="<%=diesel.document%>" required>
 
                                     
                                     
@@ -151,8 +197,8 @@
             </div>
 
             <!-- partial:partials/_footer.html -->
-            <%- include('./bars/footer') %>
-            <!-- partial -->
+            <%- include('./bars/admin_footer') %>
+			<!-- partial -->
 
         </div>
     </div>
@@ -181,6 +227,11 @@
 
     <script>
         // this did not work because the google API was at the bottom
+
+        function dieselClick() {
+        var diesel = document.getElementById('diesel')
+        console.log('diesel', diesel);
+    }
         $(document).ready(function () {
           
           
@@ -191,14 +242,14 @@
 
         function changeFun() {
           console.log("starting")
-          var ID = $('#request_quotation').val();
+          var ID = $('#dieselQuotation').val();
                   console.log(ID)
 
           var getJSON = function (url) {
 return $.ajax({
 url: url,
 type: 'GET',
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+headers: { "Authorization": "Token fdf4561f7ec51563c1556d24ee2a84547a755ff0" },
 contentType: 'application/json'
 });
 };
@@ -211,9 +262,9 @@ contentType: 'application/json'
             console.log(status)
             if (status == "success") {
               console.log('data', data)
-              var html = "<option selected> --- </option>"
+              var html = "<option selected disabled> --- </option>"
               for (var i = 0; i < data.length; i++) {
-                html += "<option value = '" + data[i].technician + "'> " + data[i].technician_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                html += "<option value = '" + data[i].vendor + "'> " + data[i].vendor_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
               }
               
 

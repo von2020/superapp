@@ -12,6 +12,8 @@ const {
     addVehicle,
     handleAddVehicle,
     vehicleList,
+    viewVehicle,
+    handleUpdateVehicle,
     faultRepair,
     addTechician,
     carFaultList,
@@ -130,7 +132,6 @@ const {
     gen_repairs,
     handleGen_repairs,
     gen_repairList,
-    dieselUsageList,
     dieselVendor,
     handleDieselVendor,
     dieselVendorList,
@@ -140,8 +141,12 @@ const {
     dieselRequestQuotation,
     dieselRequestQuotationList,
     dieselRequestQuotationList_procurement,
+    viewDieselRequestQuotation_procurement,
+    handleDieselRequestQuotation_procurement,
     viewDieselRequestQuotation,
     handleDieselRequestQuotation,
+    diesel,
+    phcn,
     handlePurchaseOrder,
     viewPurchaseOrder,
     purchaseOrderList,
@@ -192,6 +197,10 @@ router.get('/addVehicle', [checkSession, driverAuthorize], addVehicle),
 router.post('/addVehicle', [checkSession, driverAuthorize], handleAddVehicle)
 
 router.get('/vehicleList', [checkSession, driverAuthorize], vehicleList),
+router.get('/viewVehicle', [checkSession, driverAuthorize], viewVehicle),
+router.post('/viewVehicle', [checkSession, driverAuthorize], handleUpdateVehicle)
+
+
 router.get('/tripDistanceList', [checkSession, driverAuthorize], tripDistanceList),
 router.get('/vehicleDistanceList', [checkSession, driverAuthorize], vehicleDistanceList),
 
@@ -402,30 +411,25 @@ router.post('/genDailyMaintenance', [checkSession, driverAuthorize], handleGenDa
 router.get('/genMaintenance', [checkSession, driverAuthorize], genMaintenance),
 router.post('/genMaintenance', [checkSession, driverAuthorize], handleGenMaintenance),
 
+router.get('/diesel', [checkSession, driverAuthorize], diesel),
+
 router.get('/dieselRequest', [checkSession, driverAuthorize], dieselRequest),
 router.get('/dieselSensorReading', [checkSession, driverAuthorize], dieselSensorReading),
 router.get('/dieselTanker', [checkSession, driverAuthorize], dieselTanker),
-router.get('/dieselUsageList', [checkSession, driverAuthorize], dieselUsageList),
 
-router.get('/dieselVendor', [checkSession, driverAuthorize], dieselVendor),
-router.post('/dieselVendor', [checkSession, driverAuthorize], handleDieselVendor),
+router.get('/dieselVendor', [checkSession, procurementAuthorize], dieselVendor),
+router.post('/dieselVendor', [checkSession, procurementAuthorize], handleDieselVendor),
 
-router.get('/dieselVendorList', [checkSession, driverAuthorize], dieselVendorList),
+router.get('/dieselVendorList', [checkSession, procurementAuthorize], dieselVendorList),
 
 router.get('/dieselRequestQuotation', [checkSession, procurementAuthorize], dieselRequestQuotation),
 router.get('/dieselRequestQuotationList_procurement', [checkSession, procurementAuthorize], dieselRequestQuotationList_procurement),
+router.get('/viewDieselRequestQuotation_procurement', [checkSession, procurementAuthorize], viewDieselRequestQuotation_procurement),
+router.post('/viewDieselRequestQuotation_procurement', [checkSession, procurementAuthorize], handleDieselRequestQuotation_procurement),
 
-router.get('/dieselRequestQuotationList', [checkSession, driverAuthorize], dieselRequestQuotationList),
 
-router.get('/viewDieselRequestQuotation', [checkSession, driverAuthorize], viewDieselRequestQuotation),
-router.post('/viewDieselRequestQuotation', [checkSession, driverAuthorize], handleDieselRequestQuotation),
 
-router.get('/viewPurchaseOrder', [checkSession, driverAuthorize], viewPurchaseOrder),
-router.post('/viewPurchaseOrder', [checkSession, driverAuthorize], handlePurchaseOrder),
 
-router.get('/purchaseOrderList', [checkSession, driverAuthorize], purchaseOrderList),
-
-router.get('/purchaseOrderFile', [checkSession, driverAuthorize], viewPurchaseOrderFile),
 
 router.get('/purchaseOrderlist_auditor', [checkSession, auditorAuthorize], purchaseOrderlist_auditor),
 router.get('/viewPurchaseOrderAuditor', [checkSession, auditorAuthorize], viewPurchaseOrderAuditor),
@@ -437,6 +441,7 @@ router.post('/viewPurchaseOrderFinance', [checkSession, financeAuthorize], updat
 
 router.get('/genRepair', [checkSession, driverAuthorize], genRepair),
 
+router.get('/phcn', [checkSession, driverAuthorize], phcn),
 router.get('/phcnBilling', [checkSession, facilityAuthorize], phcnBilling),
 router.post('/phcnBilling', [checkSession, facilityAuthorize], handlePhcnBilling),
 

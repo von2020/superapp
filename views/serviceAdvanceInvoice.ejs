@@ -125,7 +125,13 @@
 
                                             <tr>
                                                 <th> Advance Invoice </th>
-                                                <td> <%= queues.advance_payment_invoice%> </td>
+                                                <td><%if (queues.advance_payment_invoice == '') { %>
+                                                    <p><span> <a class="text-primary">Not Yet Uploaded</a></span></p>
+                                                    <% } else{ %>
+                                                  <p><span> <a class="text-primary" href="<%= queues.advance_payment_invoice%>">view</a></span></p>
+                                                  <% } %>
+                                                </td>
+                                                
                                             </tr>
 
                                             
@@ -262,6 +268,7 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                         loading.disabled = false;
                         loader.style.display = "none";
                         alert('invoice upload successful')
+                        window.location.href=`/facilities/servicingQueueDriverAdmin`;
                     } else {
                         loading.disabled = false; 
                         loader.style.display = "none";

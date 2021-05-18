@@ -594,50 +594,6 @@ class vehicle_queries {
         }
     };
 
-    static async dieselUsageList(token) {
-        const url = 'diesel/usage';
-        try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
-            if (err) console.log('login error', err)
-        }
-    };
-
-    static async handleDieselVendor(query, token) {
-        const url = 'diesel/vendors';
-        try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
-            if (err) console.log('login error', err)
-        }
-    };
-
-    static async dieselVendorList(token) {
-        const url = 'diesel/vendors';
-        try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
-            if (err) console.log('login error', err)
-        }
-    };
-
-    static async dieselRequestQuotationList(token) {
-        const url = 'diesel/request_quotations';
-        try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
-            if (err) console.log('login error', err)
-        }
-    };
-
     static async viewDieselRequestQuotation(token, id) {
         const url = `diesel/request_quotation/${id}`;
         try {
@@ -703,6 +659,41 @@ class vehicle_queries {
             if (err) console.log('login error', err)
         }
     };
+
+    static async handleDieselVendor(query, token) {
+        const url = 'diesel/vendors';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async dieselVendorList(token) {
+        const url = 'diesel/vendors';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async dieselRequestQuotationList(token) {
+        const url = 'diesel/request_quotations';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    
 
     static async viewRepairStatus(token, id) {
         const url = `vehicle/repair_status/${id}`;
@@ -940,6 +931,28 @@ class vehicle_queries {
         const url = 'vehicle/vehicle';
         try {
             const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewVehicle(token, id) {
+        const url = `vehicle/vehicle/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateVehicle(query, token, id) {
+        const url = `vehicle/vehicle/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
             return {result, resbody};
             
         }catch(err){

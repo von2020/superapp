@@ -74,7 +74,7 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
-                        <label for="exampleFormControlSelect1">Name</label>
+                        <label for="exampleFormControlSelect1">Part Name</label>
                         <input name="name" class="form-control" id="name" required>
                       </div>
                     </div>
@@ -83,7 +83,7 @@
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Vehicle</label>
                         <select class="form-control" id="vehicle" name="vehicle" >
-                          <option selected> --- </option>
+                          <option selected disabled> --- </option>
                           <% 
                                                     vehs.forEach((veh, i) => { 
                                                   %>
@@ -147,8 +147,8 @@
                     <div class="row">
                       <div class="col">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">Description</label>
-                          <input name="description" class="form-control" id="description" required>
+                          <label for="exampleFormControlSelect1">Quantity</label>
+                          <input name="quantity" class="form-control" id="quantity" required>
                         </div>
                       </div>
                         <script>
@@ -214,13 +214,14 @@
                   
 
                   <div class="row">
+                     
+                    
                     <div class="col">
                       <div class="form-group">
-                        <label for="exampleFormControlSelect1">Quantity</label>
-                        <input name="quantity" class="form-control" id="quantity" required>
+                        <label for="exampleFormControlSelect1">Description</label>
+                        <textarea name="description" class="form-control" rows="10" id="description" required></textarea>
                       </div>
-                    </div> 
-                    
+                    </div>
                       
                   </div>
 
