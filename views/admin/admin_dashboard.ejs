@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../assets/vendors/simplemde/simplemde.min.css">
   <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
    <!-- end plugin css for this page --> 
-   <link rel="stylesheet" type="text/css" href="../assets/vendors/datatables/css/jquery.dataTables.min.css">
+   <link rel="stylesheet" type="text/css" href="../assets/vendors/datatables/jquery.dataTables.min.css">
 	 <!-- inject:css -->
 	<link rel="stylesheet" href="../assets/fonts/feather-font/css/iconfont.css">
 	<link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -26,6 +26,8 @@
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 </head>
 <body>
 	<div class="main-wrapper">
@@ -45,7 +47,14 @@
               <div class="card-body">
                  <!-- <h6 id="totalStaff" class="card-title">Staff</h6> --> 
                 <h6 class="card-title">Staff</h6>
-                <h1 id="totalStaff">0</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                <span class="dashboard_font" id="totalStaff">0</span>
+                <div>
+                <span class="dashboard" > 
+                  <i class="fas fa-user-friends circleOne"></i> 
+              </span>
+            </div>
+            </div>
               </div>
             </div>
           </div>
@@ -53,7 +62,12 @@
             <div class="card">
               <div class="card-body">
                 <h6 class="card-title">Department</h6>
-                <h1 id="totalDepartment">0</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                <h1 class="dashboard_font" id="totalDepartment">0</h1>
+                <span class="dashboard" > 
+                  <i class="fas fa-building circleFour" ></i> 
+              </span>
+            </div>
               </div>
             </div>
           </div>
@@ -61,15 +75,25 @@
             <div class="card">
               <div class="card-body">
                 <h6 class="card-title">Subsidiary</h6>
-                <h1 id="totalSubsidiary">0</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                <h1 class="dashboard_font" id="totalSubsidiary">0</h1>
+                <span class="dashboard" > 
+                  <i class="fas fa-building circleThree"></i> 
+              </span>
               </div>
+            </div>
             </div>
           </div>
           <div class="col-md-2 grid-margin">
             <div class="card">
               <div class="card-body">
                 <h6  class="card-title">Supervisors</h6>
-                <h1 id="totalSupervisors">0</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                <h1 class="dashboard_font" id="totalSupervisors">0</h1>
+                <span class="dashboard" > 
+                  <i class="fas fa-user-friends circleOne"></i> 
+              </span>
+            </div>
               </div>
             </div>
           </div>
@@ -77,7 +101,12 @@
             <div class="card">
               <div class="card-body">
                 <h6 class="card-title">Drivers</h6>
-                <h1 id="totalDrivers">0</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                <h1 class="dashboard_font" id="totalDrivers">0</h1>
+                <span class="dashboard" > 
+                  <i class="fas fa-user-friends circleTwo"></i> 
+              </span>
+            </div>
               </div>
             </div>
           </div>
@@ -85,8 +114,13 @@
             <div class="card">
               <div class="card-body">
                 <h6  class="card-title">Vehicles</h6>
-                <h1 id="totalVehicles">0</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                <h1 class="dashboard_font" id="totalVehicles">0</h1>
+                <span class="dashboard" > 
+                  <i class="fas fa-car circleThree"></i> 
+              </span>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -237,12 +271,12 @@
         dataType: 'json',
         success:function(data){
             if(data){
-                $('#totalStaff').html('<h1>'+ data.total_staff +'</h1>');
-                $('#totalDepartment').html('<h1>'+ data.total_department +'</h1>');
-                $('#totalSubsidiary').html('<h1>'+ data.total_subsidiary +'</h1>');
-                $('#totalSupervisors').html('<h1>'+ data.total_supervisor +'</h1>');  
-                $('#totalDrivers').html('<h1>'+ data.total_driver +'</h1>');  
-                $('#totalVehicles').html('<h1>'+ data.total_vehicle +'</h1>');  
+                $('#totalStaff').html(data.total_staff);
+                $('#totalDepartment').html(data.total_department);
+                $('#totalSubsidiary').html(data.total_subsidiary);
+                $('#totalSupervisors').html(data.total_supervisor);  
+                $('#totalDrivers').html(data.total_driver);  
+                $('#totalVehicles').html(data.total_vehicle);  
             }               
         }, 
         error:function(data){
@@ -455,7 +489,7 @@ jQuery(document).ready(function($) {
 	<script src="../assets/vendors/feather-icons/feather.min.js"></script>
 	<script src="../assets/js/template.js"></script>
    <!-- endinject --> 
-   <script src="../assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
+   <script src="../assets/vendors/datatables/jquery.dataTables.min.js"></script>
 
   <!-- custom js for this page -->
   <script src="../assets/js/simplemde.js"></script>

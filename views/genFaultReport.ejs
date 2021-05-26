@@ -35,7 +35,9 @@
             <% } else if (userDetails.role == 'Finance') { %>
             <%- include('./bars/sidebar_finance') %>
 			<%  } else if (userDetails.role == 'Driver Admin') { %>
-			<%- include('./bars/sidebar_driver') %>  
+			<%- include('./bars/sidebar_driver') %> 
+			<% } else if (userDetails.role == 'Facility Officer') { %>
+			<%- include('./bars/sidebar_facility') %> 
 			<%  } else if (userDetails.role == 'Driver') { %>
 			<%- include('./bars/sidebar_carDriver') %>
 			<%  } else if (userDetails.role == 'Director') { %>
@@ -59,41 +61,54 @@
 					<div class="col-md-12 grid-margin stretch-card">
 						<div class="card">
 							<div class="card-body">
-								<h6 class="card-title">Generator Daily Maintenance</h6>
+								<h6 class="card-title">Generator Fault Report</h6>
 
 								
                                 <form class="" action="/facilities/genFaultReport" method="post">
                                     
-                                    <div class="row">
-                                        <!-- <div class="col">
-                                            <div class="form-group"> -->
-                                                
-                                                <input name= "generator" type="hidden" class="form-control" id="generator"  required> 
-                                            <!-- </div>
-                                        </div> -->
+								<div class="row">
+                                    <div class="col">
+										<div class="form-group" id="divsla">
+										  <label for="exampleFormControlSelect1">Generator</label>
+										  <select class="form-control" id="generator" name="generator" >
+											<option selected disabled> --- </option>
+											<% 
+																	  gens.forEach((gen, i) => { 
+																	%>
+											<option value=<%= gen.id %>> <%= gen.gen_maker %><%= gen.gen_model %><%= gen.serial_number %> </option>
+											<% 
+																	  }) 
+																	%>
+										  </select>
+										</div>    
+									
+								  </div> 
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1"> Faulty Part</label>
                                                 <input name= "faulty_part" class="form-control" id="faulty_part"  required>
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <label for="exampleFormControlSelect1"> Reason </label>
-                                            <textarea name= "reason" class="form-control" id="reason"  required></textarea>
+                                        
+										<div class="col">
+                                            <label for="exampleFormControlSelect1"> Created By</label>
+                                            <input name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" readonly>
                                         </div>
-									  </div>
+									</div>
+									  
 									  
 									  <div class="row">
 										<div class="col">
                                             <label for="exampleFormControlSelect1"> Description </label>
-                                            <textarea name="description" class="form-control" id="description"  required></textarea>
+                                            <textarea name="description" class="form-control" rows="10" id="description"  required></textarea>
                                         </div>
                                         <div class="col">
-                                            <label for="exampleFormControlSelect1"> Created By</label>
-                                            <input name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" readonly>
+                                            <label for="exampleFormControlSelect1"> Reason </label>
+                                            <textarea name= "reason" class="form-control" id="reason" rows="10"  required></textarea>
                                         </div>
-                                        
                                     </div>
+
+                                
                                      
                                         
 									  

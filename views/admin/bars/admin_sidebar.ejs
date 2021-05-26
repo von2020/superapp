@@ -1,5 +1,5 @@
 		<!-- partial:partials/_sidebar.html -->
-		<nav class="sidebar">
+		<nav class="sidebar sidebarColor">
             <div class="sidebar-header">
               <a href="#" class="sidebar-brand">
                 TELNET
@@ -14,12 +14,16 @@
               <ul class="nav">
                 <li class="nav-item nav-category">Main</li>
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a href="/admin/dashboard" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Dashboard</span>
+                    <span class="link-title">Dashboard</s pan>
                   </a>
+                </div>
                 </li>
+                
                 <li class="nav-item nav-category">Requests</li>
+                
                 <!-- <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="link-icon" data-feather="inbox"></i>
@@ -27,16 +31,20 @@
                   </a>
                 </li> -->
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a href="/admin/manage/view_request" class="nav-link">
                     <i class="link-icon" data-feather="list"></i>
                     <span class="link-title">Down Line Requests</span>
                   </a>
+                </div>
                 </li>
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a href="/admin/manage/viewmanage_request" class="nav-link">
                     <i class="link-icon" data-feather="edit"></i>
                     <span class="link-title">All Requests</span>
                   </a>
+                </div>
                 </li>
                 <!-- <li class="nav-item">
                   <a href="#" class="nav-link">
@@ -46,12 +54,14 @@
                 </li> -->
                 <li class="nav-item nav-category">Manage</li>
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a class="nav-link" data-toggle="collapse" href="#forms" role="button" aria-expanded="false" aria-controls="forms">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Manage Staff</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
-                  <div class="collapse" id="forms">
+                </div>
+                  <div class="collapse rectangle" id="forms">
                     <ul class="nav sub-menu">
                       <li class="nav-item">
                         <a href="/admin/manage/getActiveUsers" class="nav-link">View Active Users</a>
@@ -69,12 +79,16 @@
                   </div>
                 </li>
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a class="nav-link"  data-toggle="collapse" href="#charts" role="button" aria-expanded="false" aria-controls="charts">
+                    
                     <i class="link-icon" data-feather="pie-chart"></i>
                     <span class="link-title">Vehicle</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
+                  
                   </a>
-                  <div class="collapse" id="charts">
+                </div>
+                  <div class="collapse rectangle" id="charts">
                     <ul class="nav sub-menu">
                       <li class="nav-item">
                         <a href="/admin/manage/vehicle_list" class="nav-link">Vehicle_list</a>
@@ -105,12 +119,16 @@
                 </li>
                 
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a class="nav-link" data-toggle="collapse" href="#forms2" role="button" aria-expanded="false" aria-controls="forms">
+                    
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Diesel</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
+                  
                   </a>
-                  <div class="collapse" id="forms2">
+                </div>
+                  <div class="collapse rectangle" id="forms2">
                     <ul class="nav sub-menu">
                       <li class="nav-item">
                         <a href="/admin/manage/dieselVendorList" class="nav-link">Diesel Vendor List</a>
@@ -128,12 +146,16 @@
                       </ul>
                       </div>
                 <li class="nav-item">
+                  <div class="rectangle">
                   <a class="nav-link" data-toggle="collapse" href="#tables" role="button" aria-expanded="false" aria-controls="tables">
+                    
                     <i class="link-icon" data-feather="layout"></i>
                     <span class="link-title">Manage Sections</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
+                  
                   </a>
-                  <div class="collapse" id="tables">
+                </div>
+                  <div class="collapse rectangle" id="tables">
                     <ul class="nav sub-menu">
                       <li class="nav-item">
                         <a href="/admin/manage/all-departments" class="nav-link">View All Departments</a>
@@ -147,6 +169,134 @@
                       <li class="nav-item">
                         <a href="/admin/manage/add-subsidiary" class="nav-link">Add New Subsidiary</a>
                       </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="rectangle">
+                  <a class="nav-link" data-toggle="collapse" href="#tables4" role="button" aria-expanded="false" aria-controls="tables">
+                    
+                    <i class="link-icon" data-feather="layout"></i>
+                    <span class="link-title">Generator Servicing</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  
+                  </a>
+                </div>
+                  <div class="collapse rectangle" id="tables4">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/admin/manage/addGenerator" class="nav-link">Add Generator</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/generatorList" class="nav-link">Generator List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/generator_report" class="nav-link">Generator Report</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/addGenTechnician" class="nav-link">Add Service Company</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genTechnicianList" class="nav-link">Service Company List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genDueServicingList" class="nav-link">Due Servicing</a>
+                      </li>
+                      <!-- <li class="nav-item"> 
+                        <a href="/facilities/genServicingList_driverAdmin" class="nav-link">Servicing List</a>
+                      </li>  -->
+                      <li class="nav-item">
+                        <a href="/admin/manage/genServiceRequests" class="nav-link">Create Service Request</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genServiceRequestList" class="nav-link">Service Request List</a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="/admin/manage/requestFilesList" class="nav-link">Request Files List</a>
+                      </li>
+                      
+                      <!-- <li class="nav-item">
+                        <a href="/admin/manage/genDailyTotalConsumption" class="nav-link">Daily Consumption</a>
+                      </li> -->
+                      
+                      <li class="nav-item">
+                        <a href="/admin/manage/genMaintenanceList" class="nav-link">Maintenance List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genDailyMaintenanceList" class="nav-link">Daily Maintenance List</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <div>
+                  <a class="nav-link" data-toggle="collapse" href="#forms1" role="button" aria-expanded="false" aria-controls="forms">
+                    
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Generator Repair</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  
+                  </a>
+                </div>
+                  <div class="collapse rectangle" id="forms1">
+                    <ul class="nav sub-menu">
+                      <li class="nav-item">
+                        <a href="/admin/manage/generatorList_fault" class="nav-link">Generator List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genFaultList" class="nav-link">Faults List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genServiceCompanyList_sla" class="nav-link">Repair Company List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genSLA_list" class="nav-link">SLA List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/gen_repairList" class="nav-link">Repair List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/paidRepair_list" class="nav-link">Paid Repair List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/genRepairStatusList" class="nav-link">Repair Status List</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <div class="rectangle">
+                  <a class="nav-link" data-toggle="collapse" href="#forms4" role="button" aria-expanded="false" aria-controls="forms">
+                    
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">PHCN</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                  
+                  </a>
+                </div>
+                  <div class="collapse rectangle" id="forms4">
+                    <ul class="nav sub-menu">
+                      <!-- <li class="nav-item">
+                        <a href="/facilities/phcnBilling" class="nav-link">PHCN Billing</a>
+                      </li> -->
+                      <li class="nav-item">
+                        <a href="/admin/manage/phcnBillList" class="nav-link">
+                          PHCN Bill List
+                        </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a href="/admin/manage/AllPhcnBillPayment" class="nav-link">PHCN Bill Payment List</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="/admin/manage/allPhcnDailyReading_driverAdmin" class="nav-link">PHCN Daily Reading List</a>
+                      </li>
+                      
                     </ul>
                   </div>
                 </li>
@@ -167,12 +317,32 @@
                     </ul>
                   </div>
                 </li> -->
+                
                 <li class="nav-item nav-category">Reports</li>
+                
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <div class="rectangle">
+                  <a href="/admin/dashboard" class="nav-link">
                     <i class="link-icon" data-feather="file-plus"></i>
                     <span class="link-title">Reports</span>
                   </a>
+                </div>
+                </li>
+                <li class="nav-item">
+                  <div class="rectangle">
+                  <a href="/admin/manage/phcn" class="nav-link">
+                    <i class="link-icon" data-feather="file-plus"></i>
+                    <span class="link-title">Phcn</span>
+                  </a>
+                </div>
+                </li>
+                <li class="nav-item">
+                  <div class="rectangle">
+                  <a href="/admin/manage/diesel" class="nav-link">
+                    <i class="link-icon" data-feather="file-plus"></i>
+                    <span class="link-title">Diesel</span>
+                  </a>
+                </div>
                 </li>
               </ul>
             </div>

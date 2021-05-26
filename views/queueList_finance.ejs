@@ -91,10 +91,7 @@
                       <tr>
                         <th>Vehicle</th>
                         <th>Servicing Date</th>
-                        <th>Payment Type</th>
-                        <th>Payment Amount</th>
-                        <th>Advance Approval</th>
-                        <th>Balance Approval</th>
+                        <th>Approval</th>
                         <th>Approve/Reject</th>
                         
                         
@@ -105,22 +102,14 @@
                       <% vehicles.forEach((vehicle) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <%if ((vehicle.auditor_advance_approval == 'APPROVED') || (vehicle.auditor_balance_approval == 'APPROVED')) { %>
+                          <%if (vehicle.auditor_advance_approval == 'APPROVED') { %>
                           <td><%= vehicle.vehicle%></td>
                           <td><%= vehicle.servicing_date%></td>
-                          <td><%= vehicle.payment_type%></td>
-                          <%if (vehicle.payment_type == 'advance') { %>
-                          <td><%= vehicle.advance_amount%></td>
-                          <% } else{ %>
-                          <td><%= vehicle.balance_amount%></td>
-                          <% } %>
                           <td><%= vehicle.finance_advance_approval%></td>
-                          <td><%= vehicle.finance_balance_approval%></td>
-                          <%if (vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED') { %>
+                          
+                    
                           <td> <a href="/facilities/viewadvanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
-                          <% } else{ %>
-                          <td> <a href="/facilities/viewbalanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
-                          <% } %>
+                          
                           <% } else{ %>
 
                             <% } %>

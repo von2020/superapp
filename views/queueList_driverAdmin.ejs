@@ -91,10 +91,8 @@
                         <th>Vehicle</th>
                         <th>Servicing Date</th>
                         <th>Technician's Location</th>
-                        <th>Auditor Advance Approval</th>
-                        <th>Auditor Balance Approval</th>
-                        <th>Finance Advance Approval</th>
-                        <th>Finance Balance Approval</th>
+                        <th>Auditor Approval</th>
+                        <th>Finance Approval</th>
                         <th>View</th>
                         
                       </tr>
@@ -107,9 +105,8 @@
                           <td><%= vehicle.servicing_date%></td>
                           <td><%= vehicle.location%></td>
                           <td><%= vehicle.auditor_advance_approval%></td>
-                          <td><%= vehicle.auditor_balance_approval%></td>
                           <td><%= vehicle.finance_advance_approval%></td>
-                          <td><%= vehicle.finance_balance_approval%></td>
+                          
                           
                           <td> <a href="/facilities/viewservicingQueue?id=<%=vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           

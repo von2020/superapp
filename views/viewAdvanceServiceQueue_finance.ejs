@@ -59,8 +59,8 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div>
-                            <h4 class="mb-3 mb-md-0">Approve/Reject Advance Invoice <a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
-                            <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span><i class="i mr-3" data-feather="mail"></i> </span></p></div>
+                            <h4 class="mb-3 mb-md-0">Approve/Reject Invoice <a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
+                            
                           </div>
                           
                         </div>
@@ -77,12 +77,11 @@
                                   <p><span>vehicle: <a class="text-primary"><%= materials.vehicle%></a></span></p>
                                   <p><span>servicing date: <a class="text-primary"><%= materials.servicing_date%></a></span></p>
                                   <p><span>location: <a class="text-primary"><%= materials.location%></a></span></p>
-                                  <p><span>craeted by: <a class="text-primary"><%= materials.created_by%></a></span></p>
-                                  <p><span>advance amount: <a class="text-primary"><%= materials.advance_amount%></a></span></p>
+                                  <p><span>created by: <a class="text-primary"><%= materials.created_by%></a></span></p>
                                   <%if (materials.advance_payment_invoice == '') { %>
-                                    <p><span>advance invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
+                                    <p><span>invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
                                     <% } else{ %>
-                                  <p><span>advance invoice: <a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></span></p>
+                                  <p><span>invoice: <a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></span></p>
                                   <% } %>
 
                               </div>

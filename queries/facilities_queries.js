@@ -388,6 +388,38 @@ class vehicle_queries {
         }
     };
 
+    static async genRepairStatusList(token) {
+        const url = `generator/repair_status`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateGenRepairStatus(query, token, id) {
+        const url = `generator/repair_status/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewGenRepairStatus(token, id) {
+        const url = `generator/repair_status/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
 
     static async viewPaid_repair(token, id) {
         const url = `generator/paid_repair/${id}`;

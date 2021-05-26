@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Telnet SuperApp</title>
+  <!-- core:css -->
+  <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- end plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+  <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body onload="changeFun()">
+  <div class="main-wrapper">
+
+    <%- include('./bars/admin_sidebar') %>
+		<!-- partial -->
+	
+		<div class="page-wrapper">
+				
+			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
+        <%- include('./bars/admin_topbar') %>
+			<!-- partial -->
+
+			<div class="page-content">
+        <%- include('.././partials/messages')%>
+        <nav class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <!-- <li class="breadcrumb-item"><a href="#">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Upload</li> -->
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Generator Repair</h6>
+
+
+                <form class="" action="/admin/manage/gen_repair" method="post">
+
+                  <div class="row">
+                    
+                    <div class="col">
+                      <div class="form-group" id = "request">
+                        <label for="exampleFormControlSelect1" >Within SLA</label>
+                        <select class="form-control-lg" id="within_sla" name="within_sla"
+                          onchange="changeFun2()" required>
+                          <option value="true" selected>True</option>
+                          <option value="false">False</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Severity</label>
+                        <select class="form-control-lg" id="severity" name="severity"
+                           required>
+                          <option value="low" selected>Low</option>
+                          <option value="normal">Normal</option>
+                          <option value="high">High</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                  
+
+                  <div class="row">
+                    
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Created By</label>
+                        <input name="created_by" class="form-control" id="created_by" value="<%= userDetails.first_name + ' ' + userDetails.last_name %>"  readonly>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group" id="divservicing_company">
+                          <label for="exampleFormControlSelect1">Servicing Company</label>
+                          <select class='form-control' id='servicing_company' name='servicing_company'>
+
+                          </select>
+                    </div>
+                    </div>
+
+                  </div>
+
+                  
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group" id="divsla">
+                          <label for="exampleFormControlSelect1">SLAs</label>
+                          <select class="form-control" id="sla" name="sla" >
+                            <option selected> --- </option>
+                            <% 
+                                                      slas.forEach((sla, i) => { 
+                                                    %>
+                            <option value=<%= sla.id %>> sla with <%= sla.company_name %><%= sla.expiration %>  </option>
+                            <% 
+                                                      }) 
+                                                    %>
+                          </select>
+                        </div>
+                        </div>
+                        <script>
+                          // this did not work because the google API was at the bottom
+                          $(document).ready(function () {
+                            
+                            
+                          });
+                        </script>
+  
+                        <script>
+  
+                          function changeFun() {
+                            console.log("starting")
+
+                            var getJSON = function (url) {
+    return $.ajax({
+        url: url,
+        type: 'GET',
+        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+        contentType: 'application/json'
+    });
+  };
+
+                            getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/generator/servicing_company").done(function(data, status){
+                              console.log("here",data),
+                              
+                              console.log("here")
+                              console.log("here",data)
+                              console.log(status)
+                              if (status == "success") {
+                                console.log('data', data)
+                                var html = "<option selected> --- </option>"
+                                for (var i = 0; i < data.length; i++) {
+                                  html += "<option value = '" + data[i].id + "'> " + data[i].company_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                                }
+                                
+  
+                                //display the thing
+                                $("#servicing_company").html(html);
+                                $("#divservicing_company").show();
+  
+                              } else {
+                                alert("try again or contact the admin.")
+                              }
+                            
+                    
+                            }).fail(function(){
+
+                            })
+                            
+                  }
+  
+                 </script>
+
+<div class="col">
+  <div class="form-group" >
+      
+    <input type="hidden" name="fault" class="form-control" id="fault" value="<%=id%>"  required>
+</div>
+</div>                         
+
+                  </div>
+
+                  
+
+                  <div>
+										<p id="addMore" class="btn btn-light" style="float: right;"
+											onclick="onclickfunction()">add to list</p>
+									</div>
+
+									<div class="table-responsive" id="extrafeild"></div>
+                  
+                  <button class="btn-lg btn-primary" type="submit">Submit</button>
+                  <input name="random" id="random">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <script>
+				$(document).ready(function removeButton() {
+					$("#addMore").hide()
+					$("#random").hide()
+					$("#extrafeild").hide()
+					// $("#request").hide()
+				});
+			</script>
+      <script>
+				var values = [];
+				function changeFun2() {
+					var selectBox = document.getElementById("within_sla");
+					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+					if (selectedValue == 'true') {
+						$("#divsla").show();
+						
+					} else if (selectedValue == 'false') {
+
+						$("#divsla").hide();
+						
+					}
+				};
+
+        function onclickfunction() {
+
+var description = $('#description').val();
+var unit_price = $('#unit_price').val();
+var quantity = $('#quantity').val();
+
+if (description == '' || unit_price == '' || quantity =='') {
+
+  swal("kindly fill all fields!", {
+    buttons: false,
+    timer: 2000,  // disappears after 2 seconds
+  });
+} else {
+
+  var details = {
+    description: description,
+    unit_price: unit_price,
+    quantity: quantity
+  };
+  values.push(details);
+  appendFunction();
+
+  // you can use the array. for each to set a value for the id
+  // or maybe you can use the post using jquery to send this to a route.
+
+  var html = "<br>"
+  html += "<table class='table table-striped'>";
+  html += "<thead>";
+  html += "<tr>";
+  html += "<th>" + "description" + "</th>";
+  html += "<th>" + "unit_price" + "</th>";
+  html += "<th>" + "quantity" + "</th>";
+  html += "<th>" + "Action" + "</th>";
+  html += "</tr>";
+  html += "</thead>";
+  html += "<tbody>";
+  for (var i = 0; i < values.length; i++) {
+    html += "<tr>";
+    html += "<td>" + values[i].description + "</td>";
+    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + values[i].quantity + "</td>";
+    html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+    html += "</tr>";
+  }
+  html += "</tbody>"
+  html += "</table>";
+  html += "<br>"
+
+  // display record
+  $("#extrafeild").html(html);
+
+
+
+}
+}
+
+function deleteFunction(param) {
+values.splice(param, 1)
+appendFunction()
+
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "description" + "</th>";
+html += "<th>" + "unit_price" + "</th>";
+html += "<th>" + "quantity" + "</th>";
+html += "<th>" + "Action" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < values.length; i++) {
+  html += "<tr>";
+  html += "<td>" + values[i].description + "</td>";
+  html += "<td>" + values[i].unit_price + "</td>";
+  html += "<td>" + values[i].quantity + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+  html += "</tr>";
+}
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
+
+// display record
+$("#extrafeild").html(html);
+
+// show
+if (employmentHistoryList.length > 0) {
+  $("#extrafeild").show();
+};
+
+
+}
+
+function appendFunction() {
+var x = JSON.stringify(values)
+$('#random').val(x)
+}
+      </script>
+
+      <!-- partial:partials/_footer.html -->
+      <%- include('./bars/admin_footer') %>
+			<!-- partial -->
+
+    </div>
+  </div>
+
+  <!-- core:js -->
+  <script src="../../../assets/vendors/core/core.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- end plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+  <script src="../../../assets/js/template.js"></script>
+  <!-- endinject -->
+  <!-- custom js for this page -->
+  <script src="../../../assets/js/file-upload.js"></script>
+  <!-- end custom js for this page -->
+</body>
+
+</html>

@@ -132,6 +132,7 @@ const {
     gen_repairs,
     handleGen_repairs,
     gen_repairList,
+    genRepairStatusList,
     dieselVendor,
     handleDieselVendor,
     dieselVendorList,
@@ -217,15 +218,17 @@ router.get('/car_servicing_report', [checkSession, driverAuthorize], car_servici
 router.get('/genRequestFiles', [checkSession, driverAuthorize], genRequestFiles),
 router.post('/genRequestFiles', [checkSession, driverAuthorize], handleGenRequestFiles),
 
-router.get('/gen_repair', [checkSession, driverAuthorize], gen_repairs),
-router.post('/gen_repair', [checkSession, driverAuthorize], handleGen_repairs),
+router.get('/gen_repair', [checkSession, facilityAuthorize], gen_repairs),
+router.post('/gen_repair', [checkSession, facilityAuthorize], handleGen_repairs),
 
-router.get('/gen_repairList', [checkSession, driverAuthorize], gen_repairList),
+router.get('/gen_repairList', [checkSession, procurementAuthorize], gen_repairList),
 
-router.get('/gen_paidRepair', [checkSession, driverAuthorize], genPaidRepair),
+router.get('/gen_paidRepair', [checkSession, procurementAuthorize], genPaidRepair),
 
-router.get('/gen_repairStatus', [checkSession, driverAuthorize], genRepairStatus),
-router.post('/gen_repairStatus', [checkSession, driverAuthorize], handleGenRepairStatus),
+router.get('/gen_repairStatus', [checkSession, procurementAuthorize], genRepairStatus),
+router.post('/gen_repairStatus', [checkSession, procurementAuthorize], handleGenRepairStatus),
+
+router.get('/genRepairStatusList', [checkSession, procurementAuthorize], genRepairStatusList),
 
 router.get('/requestFilesList', [checkSession, driverAuthorize], requestFilesList),
 
@@ -376,10 +379,10 @@ router.post('/genServiceRequests', [checkSession, driverAuthorize], handleGenSer
 router.get('/genServiceRequestList', [checkSession, driverAuthorize], genServiceRequestList),
 
 
-router.get('/genFaultReport', [checkSession, driverAuthorize], genFaultReport),
-router.post('/genFaultReport', [checkSession, driverAuthorize], handleGenFaultReport),
+router.get('/genFaultReport', [checkSession, facilityAuthorize], genFaultReport),
+router.post('/genFaultReport', [checkSession, facilityAuthorize], handleGenFaultReport),
 
-router.get('/genFaultList', [checkSession, driverAuthorize], genFaultList),
+router.get('/genFaultList', [checkSession, facilityAuthorize], genFaultList),
 
 router.get('/signOff', [checkSession, driverAuthorize], signOff),
 

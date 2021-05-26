@@ -91,10 +91,7 @@
                       <tr>
                         <th>Vehicle</th>
                         <th>Servicing Date</th>
-                        <th>Payment Type</th>
-                        <th>Payment Amount</th>
-                        <th>Advance Approval</th>
-                        <th>Balance Approval</th>
+                        <th>Approval</th>
                         <th>Approve/Reject</th>
                         
                       </tr>
@@ -105,20 +102,11 @@
                         <tr>
                           <td><%= vehicle.vehicle%></td>
                           <td><%= vehicle.servicing_date%></td>
-                          <td><%= vehicle.payment_type%></td>
-                          <%if (vehicle.payment_type == 'advance') { %>
-                          <td><%= vehicle.advance_amount%></td>
-                          <% } else{ %>
-                          <td><%= vehicle.balance_amount%></td>
-                          <% } %>
                           <td><%= vehicle.auditor_advance_approval%></td>
-                          <td><%= vehicle.auditor_balance_approval%></td>
                           
-                          <%if (vehicle.payment_type == 'advance' && vehicle.auditor_advance_approval != 'APPROVED' ) { %>
+                          
                           <td> <a href="/facilities/viewservicingQueueAuditor_advance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
-                          <% } else{ %>
-                          <td> <a href="/facilities/viewservicingQueueAuditor_balance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
-                          <% } %>
+                          
                         </tr>
                         <% })%>
                     </tbody>

@@ -297,6 +297,7 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                         loading.disabled = false;
                         loader.style.display = "none";
                         alert('invoice upload successful')
+                        window.location.href=`/facilities/genServicingList_facility`;
                     } else {
                         loading.disabled = false; 
                         loader.style.display = "none";

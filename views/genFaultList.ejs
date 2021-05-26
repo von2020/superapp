@@ -35,6 +35,8 @@
   <%- include('./bars/sidebar_auditor') %> 
   <% } else if (userDetails.role == 'Finance') { %>
   <%- include('./bars/sidebar_finance') %>
+  <% } else if (userDetails.role == 'Facility Officer') { %>
+  <%- include('./bars/sidebar_facility') %>
   <%  } else if (userDetails.role == 'Driver Admin') { %>
   <%- include('./bars/sidebar_driver') %>  
   <%  } else if (userDetails.role == 'Director') { %>
@@ -55,11 +57,11 @@
 			<!-- partial -->
 
 			<div class="page-content">
-
+        <%- include('./partials/messages')%>
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Generator</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Daily Maintenance</li>
+						<li class="breadcrumb-item active" aria-current="page">Fault List</li>
 					</ol>
         </nav>
 
@@ -70,7 +72,7 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">Generator Daily Maintenance</h6>
+                  <h6 class="card-title d-block">Generator Fault List</h6>
                   <!-- <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p> -->
                   </div>
 
@@ -86,7 +88,7 @@
                         <th>Fault Description</th>
                         <th> Created By </th>
                         <th> Created On </th>
-                        <th> Repair </th>
+                        <!-- <th> Repair </th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -101,7 +103,7 @@
                           <td><%= item.fault_description%></td>
                           <td><%= item.created_by%></td>
                           <td><%= item.created_on%></td>
-                          <td><a href="/facilities/gen_repair?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Update</a>   </td>
+                          <!-- <td><a href="/facilities/gen_repair?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Update</a>   </td> -->
                         </tr>
                         <% })%>
                     </tbody>

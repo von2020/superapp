@@ -58,6 +58,58 @@ const {
     purchaseOrderList,
     viewPurchaseOrderFile,
     dieselUsageList,
+    addGenerator,
+    handleAddGenerator,
+    generatorList,
+    generatorList_fault,
+    generator_report,
+    servicingList,
+    genServiceRequests,
+    handleGenServiceRequests,
+    genServiceRequestList,
+    genRequestFiles,
+    handleGenRequestFiles,
+    requestFilesList,
+    genDueServicingList,
+    genServicing,
+    genDailyMaintenance,
+    handleGenServicing,
+    genServicingList,
+    genMaintenance,
+    allGenMaintenanceList,
+    allGenDailyMaintenanceList,
+    handleGenDailyMaintenance,
+    handleGenMaintenance,
+    genServiceCompanyList,
+    genServiceCompanyList_sla,
+    addGenTechnician,
+    handleAddGenTechnician,
+    genFaultReport,
+    handleGenFaultReport,
+    genFaultList,
+    gen_repairs,
+    handleGen_repairs,
+    gen_repairList,
+    genPaidRepair,
+    paidRepair_list,
+    genSLA,
+    handleGenSLA,
+    genSLA_list,
+    genSLA_file,
+    genRepairStatus,
+    handleGenRepairStatus,
+    genRepairStatusList,
+    viewGenRepairStatus,
+    AllPhcnBill,
+    viewPhcnBill,
+    updatePhcnBill,
+    handlePhcnBill_driverAdmin,
+    phcnBill_driverAdmin,
+    handlePhcnBillPayment_driverAdmin,
+    AllPhcnBillPayment,
+    viewBillPayment_driverAdmin,
+    updateViewBillPayment_driverAdmin,
+    allPhcnDailyReading_driverAdmin,
     handleAddSubsidiary,
     handleAddDepartment,
     getAllSubsidiaries,
@@ -91,6 +143,86 @@ router.get('/purchaseOrderList', [adminCheckSession, superAdminAuthorize], purch
 router.get('/purchaseOrderFile', [adminCheckSession, superAdminAuthorize], viewPurchaseOrderFile),
 
 router.get('/dieselUsageList', [adminCheckSession, superAdminAuthorize], dieselUsageList),
+
+router.get('/addGenerator', [adminCheckSession, superAdminAuthorize], addGenerator),
+router.post('/addGenerator', [adminCheckSession, superAdminAuthorize], handleAddGenerator),
+
+router.get('/generatorList', [adminCheckSession, superAdminAuthorize], generatorList),
+
+router.get('/genDueServicingList', [adminCheckSession, superAdminAuthorize], genDueServicingList),
+
+router.get('/generator_report', [adminCheckSession, superAdminAuthorize], generator_report),
+
+router.get('/generatorList_fault', [adminCheckSession, superAdminAuthorize], generatorList_fault),
+
+router.get('/addGenTechnician', [adminCheckSession, superAdminAuthorize], addGenTechnician),
+router.post('/addGenTechnician', [adminCheckSession, superAdminAuthorize], handleAddGenTechnician),
+
+router.get('/genTechnicianList', [adminCheckSession, superAdminAuthorize], genServiceCompanyList),
+
+router.get('/genServiceCompanyList_sla', [adminCheckSession, superAdminAuthorize], genServiceCompanyList_sla),
+
+// router.get('/genDailyTotalConsumption', [adminCheckSession, superAdminAuthorize], genDailyTotalConsumption),
+
+router.get('/genDailyMaintenance', [adminCheckSession, superAdminAuthorize], genDailyMaintenance),
+router.post('/genDailyMaintenance', [adminCheckSession, superAdminAuthorize], handleGenDailyMaintenance),
+
+router.get('/genMaintenanceList', [adminCheckSession, superAdminAuthorize], allGenMaintenanceList),
+router.get('/genDailyMaintenanceList', [adminCheckSession, superAdminAuthorize], allGenDailyMaintenanceList),
+
+router.get('/genMaintenance', [adminCheckSession, superAdminAuthorize], genMaintenance),
+router.post('/genMaintenance', [adminCheckSession, superAdminAuthorize], handleGenMaintenance),
+
+router.get('/genServiceRequests', [adminCheckSession, superAdminAuthorize], genServiceRequests),
+router.post('/genServiceRequests', [adminCheckSession, superAdminAuthorize], handleGenServiceRequests),
+
+router.get('/genServiceRequestList', [adminCheckSession, superAdminAuthorize], genServiceRequestList),
+
+router.get('/requestFilesList', [adminCheckSession, superAdminAuthorize], requestFilesList),
+
+router.get('/genRequestFiles', [adminCheckSession, superAdminAuthorize], genRequestFiles),
+router.post('/genRequestFiles', [adminCheckSession, superAdminAuthorize], handleGenRequestFiles),
+
+router.get('/genFaultReport', [adminCheckSession, superAdminAuthorize], genFaultReport),
+router.post('/genFaultReport', [adminCheckSession, superAdminAuthorize], handleGenFaultReport),
+
+router.get('/genFaultList', [adminCheckSession, superAdminAuthorize], genFaultList),
+
+router.get('/gen_repair', [adminCheckSession, superAdminAuthorize], gen_repairs),
+router.post('/gen_repair', [adminCheckSession, superAdminAuthorize], handleGen_repairs),
+
+router.get('/gen_repairList', [adminCheckSession, superAdminAuthorize], gen_repairList),
+
+router.get('/gen_paidRepair', [adminCheckSession, superAdminAuthorize], genPaidRepair),
+
+router.get('/paidRepair_list', [adminCheckSession, superAdminAuthorize], paidRepair_list),
+
+router.get('/genSLA', [adminCheckSession, superAdminAuthorize], genSLA),
+router.post('/genSLA', [adminCheckSession, superAdminAuthorize], handleGenSLA),
+
+router.get('/genSLA_list', [adminCheckSession, superAdminAuthorize], genSLA_list),
+
+router.get('/genSLA_file', [adminCheckSession, superAdminAuthorize], genSLA_file),
+
+router.get('/gen_repairStatus', [adminCheckSession, superAdminAuthorize], genRepairStatus),
+router.post('/gen_repairStatus', [adminCheckSession, superAdminAuthorize], handleGenRepairStatus),
+
+router.get('/genRepairStatusList', [adminCheckSession, superAdminAuthorize], genRepairStatusList),
+
+router.get('/phcnBillList', [adminCheckSession, superAdminAuthorize], AllPhcnBill),
+router.get('/phcnBillPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], phcnBill_driverAdmin),
+router.post('/phcnBillPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], handlePhcnBillPayment_driverAdmin),
+
+router.get('/AllPhcnBillPayment', [adminCheckSession, superAdminAuthorize], AllPhcnBillPayment),
+router.get('/billPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], viewBillPayment_driverAdmin),
+router.post('/billPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], updateViewBillPayment_driverAdmin),
+
+router.get('/viewGenRepairStatus', [adminCheckSession, superAdminAuthorize], viewGenRepairStatus),
+
+router.get('/updatePhcnBilling', [adminCheckSession, superAdminAuthorize], updatePhcnBill),
+router.post('/updatePhcnBilling', [adminCheckSession, superAdminAuthorize], handlePhcnBill_driverAdmin),
+
+router.get('/allPhcnDailyReading_driverAdmin', [adminCheckSession, superAdminAuthorize], allPhcnDailyReading_driverAdmin),
 
 router.get('/view-department', [adminCheckSession, superAdminAuthorize], viewDepartment);
 router.get('/view-subsidiary', [adminCheckSession, superAdminAuthorize], viewSubsidiary);

@@ -57,7 +57,7 @@ const {
     repairQueueList,
     updateRepairQueue,
     updateRepairStatus_driver,
-    repairStatusList,
+    genRepairStatusList,
     dieselUsageList,
     handleDieselVendor,
     dieselVendorList,
@@ -79,6 +79,9 @@ const {
     viewPaid_repair,
     updatePaidRepair,
     sendGenRepairStatus,
+    repairStatusList,
+    updateGenRepairStatus,
+    viewGenRepairStatus,
     carServiceStatusList,
     viewServicingStatus,
     updateServicingStatus,
@@ -119,28 +122,15 @@ class Facilities {
         const userDetails = req.session.userDetails
         const token = userDetails.token;
         
-        var query;
-        if (req.body.payment_type == 'advance') {
-        query = {
+        
+       const query = {
             bill_of_material: req.body.bill_of_material,
             location: req.body.location,
             created_by: req.body.created_by,
             servicing_date: req.body.servicing_date,
-            payment_type: req.body.payment_type,
-            advance_amount: req.body.advance_amount,
             
         }
-    } else {
-        query = {
-            bill_of_material: req.body.bill_of_material,
-            location: req.body.location,
-            created_by: req.body.created_by,
-            servicing_date: req.body.servicing_date,
-            payment_type: req.body.payment_type,
-            balance_amount: req.body.balance_amount,
-            
-        }
-    }
+    
 
         console.log('query', query)
         console.log('token', token)
@@ -150,7 +140,7 @@ class Facilities {
             const response = resbody
             // console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to servicing queue, you need to upload invoice`,`/facilities/viewservicingQueue?id=${response.id}`)
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to servicing queue, you need to upload invoice`,`/facilities/viewAdvanceServicingInvoice?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response}  `,'/facilities/allBillOfMaterials')
             }
@@ -424,7 +414,6 @@ class Facilities {
         const query = {
             bill_of_material: req.body.bill_of_material,
             location: req.body.location,
-            servicing_date: req.body.servicing_date,
             created_by: req.body.created_by,
             auditor_advance_approval: boolValue,
             auditor_comment: req.body.auditor_comment,
@@ -440,10 +429,10 @@ class Facilities {
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.auditor_advance_approval == 'APPROVED') {
-                    req.flash('success_msg', 'You have successfully approved advance invoice awaiting balance')
+                    req.flash('success_msg', 'You have successfully approved invoice')
                     res.redirect('/facilities/servicingQueueAuditor');
                 } else {
-                    req.flash('success_msg', 'You have successfully rejected advance invoice')
+                    req.flash('success_msg', 'You have successfully rejected invoice')
                     res.redirect('/facilities/servicingQueueAuditor');
                 }
             } else {
@@ -603,7 +592,6 @@ class Facilities {
         const query = {
             bill_of_material: req.body.bill_of_material,
             location: req.body.location,
-            servicing_date: req.body.servicing_date,
             created_by: req.body.created_by,
             finance_advance_approval: boolValue,
             finance_comment: req.body.finance_comment,
@@ -619,10 +607,10 @@ class Facilities {
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.finance_advance_approval == 'APPROVED') {
-                    req.flash('success_msg', 'You have successfully approved advance invoice')
+                    req.flash('success_msg', 'You have successfully approved invoice')
                     res.redirect('/facilities/servicingQueueFinance');
                 } else {
-                    req.flash('success_msg', 'You have successfully rejected advance invoice')
+                    req.flash('success_msg', 'You have successfully rejected invoice')
                     res.redirect('/facilities/servicingQueueFinance');
                 }
             } else {
@@ -2631,7 +2619,7 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully registered a generator for servicing`,'/facilities/genServicing_facility')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully registered a generator for servicing, pls update before uploading signof document`,`/facilities/viewGenServicing_facility?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genServicing_facility')
             }
@@ -2705,10 +2693,12 @@ class Facilities {
         console.log('token', token)
         try{
             const {result, resbody} = await updateGenService(query, token, id);
-            console.log("resbody", resbody)
+            const response = resbody
+            console.log("response", response)
+            
             if (result.statusCode == '200') {
                 
-                resMessageRedirect(res, req, 'success_msg', 'You have successfully updated generator servicing','/facilities/genServicingList_facility')
+                resMessageRedirect(res, req, 'success_msg', 'You have successfully updated generator servicing,pls upload signoff document', `/facilities/viewGenServicingSignOff?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/genServicingList_facility')
             }
@@ -2971,7 +2961,7 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             const {result, resbody} = await paid_repairList(token);
             const material = resbody
-            console.log('materials', materials)
+            console.log('materials', material)
             var materials = material.filter(function (data) {
                 return data.finance_approval != 'DENIED' && data.auditor_approval == 'APPROVED'
             });
@@ -3212,6 +3202,7 @@ static async viewGenServicing_diverAdmin (req, res) {
                 created_by: req.body.created_by,
                 vehicle: req.body.vehicle,
                 technician: req.body.technician,
+                technician_workmanship: req.body.technician_workmanship,
                 advance_payment: req.body.advance_payment
                 
             }
@@ -3222,8 +3213,8 @@ static async viewGenServicing_diverAdmin (req, res) {
                 name: req.body.name,
                 created_by: req.body.created_by,
                 vehicle: req.body.vehicle,
-                technician: req.body.technician
-                
+                technician: req.body.technician,
+                technician_workmanship: req.body.technician_workmanship,
             }
         }
     
@@ -3524,14 +3515,23 @@ static async viewGenServicing_diverAdmin (req, res) {
 
     static async genFaultReport (req, res) {
         var userDetails = req.session.userDetails
-        
-
+        const token = userDetails.token;
         const generator = req.query.id;
             req.session.generator = generator;
             console.log('generator', req.session.generator)
 
-        res.render('genFaultReport', {userDetails}) 
+        try {
+            const gens = await allGenerator(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+                res.render('genFaultReport', {userDetails, gens: gens.resbody}) 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
         };
+     
+    };
 
     static async handleGenFaultReport (req, res) {
         var userDetails = req.session.userDetails
@@ -3540,7 +3540,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         
         
         const query = {
-            generator: generator,
+            generator: req.body.generator,
             faulty_part: req.body.faulty_part,
             reason: req.body.reason,
             description: req.body.description,
@@ -3558,7 +3558,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a generator fault`,'/facilities/genFaultReport')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a generator fault`,'/facilities/genFaultList')
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/facilities/genFaultReport')
             }
@@ -3691,6 +3691,23 @@ static async viewGenServicing_diverAdmin (req, res) {
           
         };
 
+    static async genRepairStatusList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await genRepairStatusList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genRepairStatusList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
+
     static async genPaidRepair (req, res) {
         var userDetails = req.session.userDetails
         
@@ -3704,13 +3721,28 @@ static async viewGenServicing_diverAdmin (req, res) {
 
     static async genRepairStatus (req, res) {
         var userDetails = req.session.userDetails
-        
+        var token = userDetails.token
+        var id = req.query.id
+         
+            try{
+                const {result, resbody} = await viewGenRepairStatus(token, id);
+                const repairs = resbody
+                const repair = req.query.id;            
+                console.log('repair', req.query.id)
+                console.log('repairs', repairs)
+                if (result.statusCode == 200) {
+                    res.render('genRepairStatus', {userDetails,repairs,repair});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
 
-        const repair = req.query.id;
-            
-            console.log('repair', req.query.id)
-
-        res.render('genRepairStatus', {userDetails, repair}) 
+        // res.render('genRepairStatus', {userDetails, repair}) 
         };
 
     static async handleGenRepairStatus (req, res) {
@@ -3733,7 +3765,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         try{
             
             
-            const {result, resbody} = await sendGenRepairStatus(query, token);
+            const {result, resbody} = await updateGenRepairStatus(query, token);
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
@@ -3911,12 +3943,11 @@ static async viewGenServicing_diverAdmin (req, res) {
         
         
         const query = {
-            watt_consumed: req.body.watt_consumed,
+            vat: req.body.vat,
             unit_consumed: req.body.unit_consumed,
             consumption_rate: req.body.consumption_rate,
-            amount_due: req.body.amount_due,
             comment: req.body.comment,
-            
+            created_by: req.body.created_by,
             
         }
 
@@ -4483,7 +4514,7 @@ static async viewGenServicing_diverAdmin (req, res) {
           
         };
 
-        static async allPhcnDailyReading_driverAdmin (req, res) {
+    static async allPhcnDailyReading_driverAdmin (req, res) {
         var userDetails = req.session.userDetails
         const token = userDetails.token;
 

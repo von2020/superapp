@@ -121,9 +121,17 @@
                     
                     
                   </div>
-                  <br><br>
+                  
 
                   <div class="row">
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Technician Workmanship</label>
+                        <input name="technician_workmanship" class="form-control" id="technician_workmanship" required>
+                      </div>
+                    </div>
+
                     <div class="col">
                       <div class="form-group" id = "request">
                         <label for="exampleFormControlSelect1" >Item</label>
@@ -134,13 +142,16 @@
                         </select>
                       </div>
                     </div>
+
+                  </div>
+                  <br><hr>
+                  <div class="row">
                     <div class="col">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Created By</label>
                         <input name="created_by" class="form-control" id="created_by" value="<%= userDetails.first_name + ' ' + userDetails.last_name %>"  readonly>
                       </div>
                     </div>
-
                   </div>
 
                   
@@ -214,14 +225,13 @@
                   
 
                   <div class="row">
-                     
-                    
                     <div class="col">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Description</label>
                         <textarea name="description" class="form-control" rows="10" id="description" required></textarea>
                       </div>
                     </div>
+                    
                       
                   </div>
 

@@ -36,6 +36,43 @@ const {
     viewPurchaseOrder,
     updatePurchaseOrder,
     dieselUsageList,
+    sendGenerator,
+    sendGenServiceRequest,
+    genServiceRequestList,
+    sendRequestFiles,
+    RequestFiles,
+    genDueServiceList,
+    genServicing,
+    genServiceList,
+    viewGenService,
+    updateGenService,
+    allGenerator,
+    sendMaintenance,
+    genMaintenanceList,
+    genDailyMaintenanceList,
+    sendGenDailyMaintenance,
+    sendGenServiceCompany,
+    genServiceCompanyList,
+    sendGenFaults,
+    genFaultList,
+    sendGenSla,
+    genSlaList,
+    updateSLA,
+    sendGenRepair,
+    viewGenRepair,
+    sendGenRepairStatus,
+    genRepairStatusList,
+    viewGenRepairStatus,
+    gen_repairList,
+    paid_repairList,
+    phcnBillList,
+    phcnBillPaymentList,
+    viewPhcnBill,
+    updatePhcnBill,
+    viewPhcnBillPayment,
+    updatePhcnBillPayment,
+    sendPhcnBillPayment,
+    phcnDailyReadingList,
     getInactiveUsers
 } = admin_manage_queries;
 
@@ -1407,6 +1444,89 @@ class admin_manage_controllers {
             
     };
 
+    static async addGenTechnician (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('admin/addGenTechnician', {userDetails}) 
+        };
+
+    static async handleAddGenTechnician (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        const query = {
+            company_name: req.body.company_name,
+            specialty: req.body.specialty,
+            address: req.body.address,
+            email: req.body.email,
+            registration_number: req.body.registration_number,
+            official_phone: req.body.official_phone,
+            years_of_experience: req.body.years_of_experience,
+            contact_person: req.body.contact_person,
+            contact_person_phone: req.body.contact_person_phone,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await sendGenServiceCompany(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.company_name }`,'/admin/manage/genTechnicianList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.company_name}`,'/admin/manage/addGenTechnician')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+            
+    };
+
+    static async addGenerator (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('admin/addGenerator', {userDetails}) 
+        };
+
+    static async handleAddGenerator (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        const query = {
+            serial_number: req.body.serial_number,
+            gen_maker: req.body.gen_maker,
+            gen_model: req.body.gen_model,
+            location: req.body.location,
+            kilowatt_electrical_rating: req.body.kilowatt_electrical_rating,
+            kilovoltamp_electrical_rating: req.body.kilovoltamp_electrical_rating,
+            installation_date: req.body.installation_date,
+            next_servicing: req.body.next_servicing,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await sendGenerator(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.gen_maker } ${query.gen_model }`,'/admin/manage/generatorList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.error}  ${query.gen_maker} ${query.gen_model }`,'/admin/manage/addGenerator')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/admin/dashboard')
+        }
+            
+    };
+
     static async generatorList (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
@@ -1418,15 +1538,15 @@ class admin_manage_controllers {
             const generators = resbody
             console.log('generators', generators)
             if (result.statusCode == 200) {
-                res.render('generatorList', {userDetails, generators});
+                res.render('admin/generatorList', {userDetails, generators});
             } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                req.flash('error_msg', resbody.error);
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
             if (err) return console.error('Error', err);
             req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            res.redirect('/admin/dashboard')
         }
 
     };
@@ -1442,15 +1562,15 @@ class admin_manage_controllers {
             const generators = resbody
             console.log('generators', generators)
             if (result.statusCode == 200) {
-                res.render('generatorList_fault', {userDetails, generators});
+                res.render('admin/generatorList_fault', {userDetails, generators});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
             if (err) return console.error('Error', err);
             req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            res.redirect('/admin/dashboard')
         }
 
     };
@@ -1463,12 +1583,12 @@ class admin_manage_controllers {
         try {
 
             
-                res.render('generator', {userDetails});
+                res.render('admin/generator', {userDetails});
             
         }catch(err) {
             if (err) return console.error('Error', err);
             req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            res.redirect('/admin/dashboard')
         }
 
     };
@@ -1484,15 +1604,15 @@ class admin_manage_controllers {
             const vehicles = resbody
             console.log('vehicles', vehicles)
             if (result.statusCode == 200) {
-                res.render('vehiclesServicing', {userDetails, vehicles});
+                res.render('admin/vehiclesServicing', {userDetails, vehicles});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
             if (err) return console.error('Error', err);
             req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            res.redirect('/admin/dashboard')
         }
 
     };
@@ -1511,7 +1631,7 @@ class admin_manage_controllers {
             console.log('response',gens.resbody)
             console.log('token',token)
 
-            res.render('genServiceRequest', {userDetails, gens: gens.resbody}); 
+            res.render('admin/genServiceRequest', {userDetails, gens: gens.resbody}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };
@@ -1539,13 +1659,13 @@ class admin_manage_controllers {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '200') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added a new gen service request`,'/facilities/genServiceRequestList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added a new gen service request, now upload request file`,`/admin/manage/genRequestFiles?id=${response.id}`)
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genServiceRequests')
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/admin/manage/genServiceRequests')
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
         }
             
     };
@@ -1561,15 +1681,15 @@ class admin_manage_controllers {
             const materials = resbody
             console.log('materials', materials)
             if (result.statusCode == 200) {
-                res.render('genServiceRequestList', {userDetails, materials});
+                res.render('admin/genServiceRequestList', {userDetails, materials});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
             if (err) return console.error('Error', err);
             req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            res.redirect('/admin/dashboard')
         }
 
     };
@@ -1589,7 +1709,7 @@ class admin_manage_controllers {
             // console.log('response',gens.resbody)
             // console.log('token',token)
 
-            res.render('request_files', {userDetails, id}); 
+            res.render('admin/request_files', {userDetails, id}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };
@@ -1618,15 +1738,39 @@ class admin_manage_controllers {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added a new gen service request file`,'/facilities/genRequestFiles')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added a new gen service request file`,'/admin/manage/genRequestFiles')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genRequestFiles')
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/admin/manage/genRequestFiles')
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
         }
             
+    };
+
+    static async requestFilesList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await RequestFiles(token);
+            const materials = resbody
+            console.log('materials', materials)
+            if (result.statusCode == 200) {
+                res.render('admin/requestFilesList', {userDetails, materials});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
     };
 
     static async genDueServicingList (req, res) {
@@ -1643,7 +1787,7 @@ class admin_manage_controllers {
             console.log('response',gens.resbody)
             console.log('token',token)
 
-            res.render('genDueServiceList', {userDetails, gens: gens.resbody}); 
+            res.render('admin/genDueServiceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };
@@ -1666,7 +1810,7 @@ class admin_manage_controllers {
             console.log('response',gens.resbody)
             console.log('token',token)
 
-            res.render('genServicing_facility', {userDetails, gens: gens.resbody}); 
+            res.render('admin/genServicing_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };
@@ -1695,13 +1839,13 @@ class admin_manage_controllers {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully registered a generator for servicing`,'/facilities/genServicing_facility')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully registered a generator for servicing`,'/admin/manage/genServicing_facility')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genServicing_facility')
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/admin/manage/genServicing_facility')
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
         }
             
     };
@@ -1725,6 +1869,622 @@ class admin_manage_controllers {
             if (err) return console.error('display page details error', err)
         };
          
+        };
+
+        static async genServiceCompanyList (req, res) {
+            const userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            
+            
+            try {
+    
+                const {result, resbody} = await genServiceCompanyList(token);
+                const gen_tech = resbody
+                console.log('gen_tech', gen_tech)
+                if (result.statusCode == 200) {
+                    res.render('admin/genServiceCompany', {userDetails, gen_tech});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+    
+        };
+    
+        static async genServiceCompanyList_sla (req, res) {
+            const userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            
+            
+            try {
+    
+                const {result, resbody} = await genServiceCompanyList(token);
+                const gen_tech = resbody
+                console.log('gen_tech', gen_tech)
+                if (result.statusCode == 200) {
+                    res.render('admin/genServiceCompany_sla', {userDetails, gen_tech});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+    
+        };
+    
+        static async genDailyTotalConsumption (req, res) {
+            var userDetails = req.session.userDetails
+            res.render('admin/genDailyConsumption', {userDetails}) 
+            };
+    
+        static async genDailyMaintenance (req, res) {
+            var userDetails = req.session.userDetails
+            
+    
+            const generator = req.query.id;
+                req.session.generator = generator;
+                console.log('generator', req.session.generator)
+    
+            res.render('admin/genDailyMaintenance', {userDetails}) 
+            };
+    
+        static async handleGenDailyMaintenance (req, res) {
+            var userDetails = req.session.userDetails
+            const token = userDetails.token;
+            const generator = req.session.generator;
+            
+            
+            const query = {
+                generator: generator,
+                gen_time_on: req.body.gen_time_on,
+                gen_time_off: req.body.gen_time_off,
+                phcn_time_on: req.body.phcn_time_on,
+                phcn_time_off: req.body.phcn_time_off,
+                
+            }
+    
+            console.log('query', query)
+            console.log('token', token)
+            try{
+                
+                
+                const {result, resbody} = await sendGenDailyMaintenance(query, token);
+                const response = resbody
+                console.log("response", response)
+                if (result.statusCode == '201') {
+                    resMessageRedirect(res, req, 'success_msg', `You have succesfully added to the generator daily maintenance`,'/admin/manage/genDailyMaintenance')
+                } else {
+                    resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/genDailyMaintenance')
+                }
+            } catch(err){
+                if (err) console.log('error', err)
+                resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            }
+        };
+
+    static async genFaultReport (req, res) {
+        var userDetails = req.session.userDetails
+        
+
+        const generator = req.query.id;
+            req.session.generator = generator;
+            console.log('generator', req.session.generator)
+
+        res.render('admin/genFaultReport', {userDetails}) 
+        };
+
+    static async handleGenFaultReport (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const generator = req.session.generator;
+        
+        
+        const query = {
+            generator: generator,
+            faulty_part: req.body.faulty_part,
+            reason: req.body.reason,
+            description: req.body.description,
+            created_by: req.body.created_by,
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendGenFaults(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a generator fault`,'/admin/manage/genFaultList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/genFaultReport')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+    };
+
+    static async genFaultList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await genFaultList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/genFaultList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
+
+    static async gen_repairs (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        try {
+            const slas = await genSlaList(token);
+
+            console.log('response',slas.resbody)
+            console.log('token',token)
+
+            res.render('admin/gen_repairs', {userDetails, slas: slas.resbody, id}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+         
+        };
+
+        static async genSLA (req, res) {
+            var userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            const id = req.query.id;
+    
+            console.log('id',id)
+            console.log('token', token)
+    
+            try {
+                // const gens = await allGenerator(token);
+    
+                // console.log('response',gens.resbody)
+                // console.log('token',token)
+    
+                res.render('admin/sLA', {userDetails, id}); 
+            } catch (err) {
+                if (err) return console.error('display page details error', err)
+            };
+             
+            };
+    
+        static async handleGenSLA (req, res) {
+            const userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            
+            
+            const query = {
+                company: req.body.company,
+                description: req.body.description,
+                hq_sla_in_hrs: req.body.hq_sla_in_hrs,
+                opening_time: req.body.opening_time,
+                closing_time: req.body.closing_time,
+                weekend_opening_time: req.body.weekend_opening_time,
+                weekend_closing_time: req.body.weekend_closing_time,
+                others_sla_in_hrs: req.body.others_sla_in_hrs,
+                status: req.body.status,
+                weekend_support_active: req.body.weekend_support_active,
+                is_public_holiday: req.body.is_public_holiday,
+                amount: req.body.amount,
+                duration: req.body.duration,
+                expiration: req.body.expiration,
+                created_by: req.body.created_by,
+                
+                
+            }
+    
+            console.log('query', query)
+            console.log('token', token)
+            try{
+                
+                const {result, resbody} = await sendGenSla(query, token);
+                const response = resbody
+                console.log("response", response)
+                if (result.statusCode == '201') {
+                    resMessageRedirect(res, req, 'success_msg', `You have succesfully added sla, pls upload sla document`,`/admin/manage/genSLA_file?id=${response.id}`)
+                } else {
+                    resMessageRedirect(res, req, 'error_msg', ` ${response.company}`,'/admin/manage/genSLA')
+                }
+            } catch(err){
+                if (err) console.log('error', err)
+                resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            }
+                
+        };
+    
+        static async genSLA_list (req, res) {
+            const userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            
+            
+            try {
+    
+                const {result, resbody} = await genSlaList(token);
+                const materials = resbody
+                console.log('materials', materials)
+                if (result.statusCode == 200) {
+                    res.render('admin/sLA_list', {userDetails, materials});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+    
+        };
+
+        static async genSLA_file (req, res) {
+            const userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            const id = req.query.id;
+            
+            
+            try {
+    
+                const {result, resbody} = await updateSLA(token, id);
+                const slas = resbody
+                console.log('slas', slas)
+                if (result.statusCode == 200) {
+                    res.render('admin/sLA_file', {userDetails, slas});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+    
+        };
+
+    static async handleGen_repairs (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        
+        var query 
+        if (req.body.within_sla == 'true') { 
+            query = {
+                fault: req.body.fault,
+                severity: req.body.severity,
+                servicing_company: req.body.servicing_company,
+                within_sla: req.body.within_sla,
+                sla: req.body.sla,
+                created_by: req.body.created_by,
+            
+            
+        }
+
+        
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendGenRepair(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated fault, now create gen repair status`,`/admin/manage/gen_repairStatus?id=${response.id}`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/gen_repairList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+
+    } else{
+        query = {
+            fault: req.body.fault,
+            severity: req.body.severity,
+            servicing_company: req.body.servicing_company,
+            within_sla: req.body.within_sla,
+            created_by: req.body.created_by,
+        
+        
+    }
+    
+    console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendGenRepair(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated repair, pls upload paid repair document`,`/admin/manage/gen_paidRepair?id=${response.id}`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/gen_repair')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+
+    }
+    };
+
+
+
+    static async gen_repairList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await gen_repairList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/gen_repairList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
+
+    static async genPaidRepair (req, res) {
+        var userDetails = req.session.userDetails
+        var token = userDetails.token
+        var id = req.query.id
+        
+        try{
+            const {result, resbody} = await viewGenRepair(token, id);
+            const repairs = resbody
+            const repair = req.query.id;            
+            console.log('repair', req.query.id)
+            console.log('repairs', repairs)
+            if (result.statusCode == 200) {
+                res.render('admin/paid_repair', {userDetails, repairs,repair});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        } 
+        };
+
+        static async paidRepair_list (req, res) {
+            const userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            
+            
+            try {
+    
+                const {result, resbody} = await paid_repairList(token);
+                const materials = resbody
+                console.log('materials', materials)
+                if (result.statusCode == 200) {
+                    res.render('admin/paid_repairList', {userDetails, materials});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+    
+        };
+
+    static async genRepairStatus (req, res) {
+        var userDetails = req.session.userDetails
+        var token = userDetails.token
+        var id = req.query.id
+         
+            try{
+                const {result, resbody} = await viewGenRepair(token, id);
+                const repairs = resbody
+                const repair = req.query.id;            
+                console.log('repair', req.query.id)
+                console.log('repairs', repairs)
+                if (result.statusCode == 200) {
+                    res.render('admin/genRepairStatus', {userDetails,repairs,repair});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+ 
+        };
+
+    static async handleGenRepairStatus (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        
+        
+        
+        const query = {
+            repair: req.body.repair,
+            generator_condition: req.body.generator_condition,
+            status_comment: req.body.status_comment,
+            created_by: req.body.created_by,
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendGenRepairStatus(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a generator repair status`,'/admin/manage/gen_repairList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/gen_repairList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+    };
+
+    static async genRepairStatusList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await genRepairStatusList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/genRepairStatusList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+    };
+
+    static async viewGenRepairStatus (req, res) {
+        var userDetails = req.session.userDetails
+        var token = userDetails.token
+        var id = req.query.id
+         
+            try{
+                const {result, resbody} = await viewGenRepairStatus(token, id);
+                const repairs = resbody
+                const repair = req.query.id;            
+                console.log('repair', req.query.id)
+                console.log('repairs', repairs)
+                if (result.statusCode == 200) {
+                    res.render('admin/viewGenRepairStatus', {userDetails,repairs,repair});
+                } else if (result.statusCode == 401){
+                    req.flash('error_msg', resbody.detail);
+                    res.redirect('/admin/dashboard')
+                }
+            }catch(err) {
+                if (err) return console.error('Error', err);
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+ 
+        };
+
+    static async genMaintenance (req, res) {
+        var userDetails = req.session.userDetails
+        
+
+        const generator = req.query.id;
+            req.session.generator = generator;
+            console.log('generator', req.session.generator)
+
+        res.render('admin/genMaintenance', {userDetails}) 
+        };
+
+    static async handleGenMaintenance (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const generator = req.session.generator;
+        
+        
+        const query = {
+            generator: parseInt(generator),
+            check_switch_breaker_position: req.body.check_switch_breaker_position,
+            fuel_level: req.body.fuel_level,
+            oil_level: req.body.oil_level,
+            coolant_level: req.body.coolant_level,
+            air_filter: req.body.air_filter,
+            battery_voltage_physical_condition: req.body.battery_voltage_physical_condition,
+            fan_belt: req.body.fan_belt,
+            battery_resistance: req.body.battery_resistance,
+            cleaning_unit_exterior: req.body.cleaning_unit_exterior,
+            fuel_cleaning: req.body.fuel_cleaning,
+            oil_change: req.body.oil_change,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendMaintenance(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added to the generator daily maintenance`,'/admin/manage/genMaintenanceList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/genMaintenance')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+        }
+    };
+
+    static async allGenMaintenanceList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await genMaintenanceList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/genMaintenanceList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
+
+    static async allGenDailyMaintenanceList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await genDailyMaintenanceList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/genDailyMaintenanceList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
         };
 
     static async viewPurchaseOrder(req, res) {
@@ -1857,6 +2617,277 @@ class admin_manage_controllers {
 
     };
 
+    static async AllPhcnBill (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const {result, resbody} = await phcnBillList(token);
+            const gen = resbody
+            console.log('phcn', gen)
+            console.log('token',token)
+
+            var gens = gen.filter(function (data) {
+                return data.admin_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
+            });
+
+            res.render('admin/phcnBillList', {userDetails, gens}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
+
+    static async viewPhcnBill (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBill(token, id);
+            const phcn = resbody
+            console.log('phcn', phcn)
+            if (result.statusCode == 200) {
+                res.render('admin/viewPhcnBill', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async updatePhcnBill (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBill(token, id);
+            const phcn = resbody
+            console.log("phcn", phcn)
+            if (result.statusCode == 200) {
+                res.render('admin/updateBill_driverAdmin', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async handlePhcnBill_driverAdmin (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+        
+        
+        const query = {
+            vat: req.body.vat,
+            unit_consumed: req.body.unit_consumed,
+            amount_due: req.body.amount_due,
+            consumption_rate: req.body.consumption_rate,
+            admin_approval: boolValue,
+            admin_comment: req.body.admin_comment,
+            admin_name: req.body.admin_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await updatePhcnBill(query, token, id);
+            const response = resbody
+            console.log('status', result.statusCode)
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                if(resbody.admin_approval == 'APPROVED') {
+                    req.flash('success_msg', `You have successfully approved phcn bill`)
+                    res.redirect('/admin/manage/phcnBillList');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected bill payment')
+                    res.redirect('/admin/manage/phcnBillList');
+                }
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.bill}`,'/admin/manage/phcnBillList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/admin/dashboard')
+        }
+    };
+
+
+    static async phcnBill_driverAdmin (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBill(token, id);
+            const phcn = resbody
+            console.log('phcn', phcn)
+            if (result.statusCode == 200) {
+                res.render('admin/phcnPayments_driverAdmin.ejs', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async handlePhcnBillPayment_driverAdmin (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        
+        
+        
+        const query = {
+            bill: req.body.bill,
+            created_by: req.body.created_by,
+             
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendPhcnBillPayment(query, token);
+            const response = resbody
+            
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have successfully created payment slip`,'/admin/manage/AllPhcnBillPayment')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.bill}`,'/admin/manage/phcnBillList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/admin/dashboard')
+        }
+    };
+
+    static async AllPhcnBillPayment (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await phcnBillPaymentList(token);
+
+            
+            console.log('token',token)
+
+            res.render('admin/phcnBillPaymentList_driverAdmin', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
+
+    static async viewBillPayment_driverAdmin (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBillPayment(token, id);
+            const phcn = resbody
+            console.log('phcn', phcn)
+            if (result.statusCode == 200) {
+                res.render('admin/billPaymentApproval_driverAdmin', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/admin/dashboard')
+        }
+
+    };
+
+    static async updateViewBillPayment_driverAdmin (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            bill: req.body.bill,
+            admin_approval: boolValue,
+            admin_comment: req.body.admin_comment,
+            admin_name: req.body.admin_name,
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updatePhcnBillPayment(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.admin_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved bill payment...awaiting auditor and finance approval')
+                    res.redirect('/admin/manage/AllPhcnBillPayment');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected bill payment')
+                    res.redirect('/admin/manage/AllPhcnBillPayment');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/admin/manage/AllPhcnBillPayment')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
+
+    static async allPhcnDailyReading_driverAdmin (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const gens = await phcnDailyReadingList(token);
+
+            
+            console.log('token',token)
+
+            res.render('admin/phcnDailyReadingList_driverAdmin', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+        };
+          
+        };
 }
 
 module.exports = admin_manage_controllers

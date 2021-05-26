@@ -74,10 +74,7 @@
 
 								
 								<form class="" action="/facilities/phcnBilling" method="post">
-                                    <div class="form-group">
-										<label for="exampleFormControlSelect1">Watts Consumed</label>
-                                        <input  name= "watt_consumed" class="form-control" id="watt_consumed" required>
-									</div>
+                                    
 
                                     <div class="form-group">
 										<label for="exampleFormControlSelect1">Units Consumed</label>
@@ -90,9 +87,11 @@
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Amount Due</label>
-                                        <input name= "amount_due" class="form-control" id="amount_due" required>
+										<label for="exampleFormControlSelect1">Vat</label>
+                                        <input  name= "vat" class="form-control" id="vat" required>
 									</div>
+
+									
 
 									<div class="form-group">
 										<label for="exampleFormControlSelect1">Comment</label>
@@ -185,6 +184,9 @@ function Submit(){
                   console.log(comment)
 				  var created_by = $('#created_by').val();
                   console.log(created_by)
+				  
+				  var vat = $('#vat').val();
+                  console.log(vat)
 
 				  var consumption_rate = $('#consumption_rate').val();
                   console.log(consumption_rate)
@@ -199,7 +201,7 @@ function Submit(){
 return $.ajax({
 url: url,
 type: 'POST',
-data:JSON.stringify({"watt_consumed"  : watt_consumed, "unit_consumed"  : unit_consumed, "consumption_rate"  : consumption_rate, "comment"  : comment,"amount_due"  : amount_due,"created_by"  : created_by}),
+data:JSON.stringify({"vat"  : Number(vat), "unit_consumed"  : Number(unit_consumed), "consumption_rate"  : Number(consumption_rate), "comment"  : comment,"created_by"  : created_by}),
 headers: { "Authorization": "Token 142b47cfbe2e8c308568aa17dbfa8812e41e40e0" },
 contentType: 'application/json'
 });

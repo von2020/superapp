@@ -84,7 +84,7 @@
                     <thead>
 
                       <tr>
-                        <th>Watt Consumed</th>
+                        <th>Consumption Rate</th>
                         <th>Unit Consumed</th>
                         <th>Amount Due</th>
                         <th>Admin Approval</th>
@@ -101,7 +101,7 @@
 
                     <% gens.forEach((item) => {%>
                         <tr>
-                          <td><%= item.watt_consumed%></td>
+                          <td><%= item.consumption_rate%></td>
                           <td><%= item.unit_consumed%></td>
                           <td><%= item.amount_due%></td>
                           <td><%= item.admin_approval%></td>

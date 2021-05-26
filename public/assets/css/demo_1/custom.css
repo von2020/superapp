@@ -27,3 +27,53 @@
     color: #fff;
   }
 
+.dashboard{
+    font-size:26px;
+    font-weight:bold;
+    
+    padding:2px;
+    
+}
+
+.dashboard_font{ 
+    font-size:28px;
+}
+
+.circleOne {
+    border:10px solid #e1edf0;
+    border-radius:100%;
+    background-color: #e1edf0;
+    color: #3f65e2;
+}
+
+.circleTwo {
+    border:10px solid #d7c4e3;
+    border-radius:100%;
+    background-color: #d7c4e3;
+    color: #8e77dc;
+}
+
+.circleThree {
+    border:10px solid #bfe2de;
+    border-radius:100%;
+    background-color: #bfe2de;
+    color: #79c5bd;
+}
+
+.circleFour {
+    border:10px solid #f1e2b7;
+    border-radius:100%;
+    background-color: #f1e2b7;
+    color: #e8c662;
+}
+
+li a span .fas{
+    padding:0%;
+}
+
+/* li a:hover{
+    border:2px solid #8488c5;
+    border-radius:5%;
+    background-color: #bdbed2;
+    color:#ffff;
+} */

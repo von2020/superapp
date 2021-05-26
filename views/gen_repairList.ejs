@@ -34,6 +34,8 @@
   <%- include('./bars/sidebar_auditor') %> 
   <% } else if (userDetails.role == 'Finance') { %>
   <%- include('./bars/sidebar_finance') %>
+  <% } else if (userDetails.role == 'Procurement') { %>
+  <%- include('./bars/sidebar_procurement') %>
   <%  } else if (userDetails.role == 'Driver Admin') { %>
   <%- include('./bars/sidebar_driver') %>
   <%  } else if (userDetails.role == 'Director') { %>
@@ -111,11 +113,9 @@
                           <td><%= repair.created_on%></td>
                           <td><%= repair.servicing_company%></td>
                           
-                          <%if (repair.within_sla == false)  { %>
-                          <td><a href="/facilities/gen_paidRepair?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Paid Repair</a>   </td>
-                          <% } else{ %> 
+                           
                           <td><a href="/facilities/gen_repairStatus?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Repair Status</a>   </td>
-                          <% } %>
+                          
                         </tr>
                         <% }) %>
                     </tbody>

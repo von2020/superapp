@@ -544,6 +544,17 @@ class admin_manage_queries {
         }
     };
 
+    static async viewGenRepairStatus(token, id) {
+        const url = `generator/repair_status/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
 
     static async phcnDailyReadingList(token) {
         const url = 'power/daily_reading';
@@ -689,6 +700,17 @@ class admin_manage_queries {
         }
     };
 
+    static async viewGenRepair(token, id) {
+        const url = `generator/repair/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async sendGenRepair(query, token) {
         const url = 'generator/repair';
         try {
@@ -705,6 +727,17 @@ class admin_manage_queries {
         try {
             const {result, resbody} = await postResponse_request(query, url, token)
             return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genRepairStatusList(token) {
+        const url = `generator/repair_status`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
             
         }catch(err){
             if (err) console.log('login error', err)
