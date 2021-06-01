@@ -145,17 +145,14 @@
                                                 <td> <%= materials.updated_on%> </td>
                                             </tr>
 
-                                            <%if (materials.payment_type == 'advance') { %>
-                                                <tr>
-                                                    <th>Advance Amount</th>
-                                                    <td> <input name="advance_amount"   class="form-control" id="advance_amount" required> </td>
-                                                </tr>
-                                                <% } else{ %>
-                                                    <tr>
-                                                        <th>Balance Amount</th>
-                                                        <td> <input name="balance_amount"   class="form-control" id="balance_amount" required> </td>
-                                                    </tr>
-                                                <% } %>
+                                            <tr>
+                                                <th>Payment Type</th>
+                                                <td><select class="form-control" id="payment_type" name="payment_type" >
+                                                    <option selected disabled>------</option>
+                                                    <option value="advance">Advance</option>
+                                                    <option value="balance">Balance</option>
+                                                    </td>
+                                            </tr>
 
 
                                                 <tr>

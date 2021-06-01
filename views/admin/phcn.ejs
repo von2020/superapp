@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>TELNET Super Admin</title>
+	 <!-- core:css --> 
+	<link rel="stylesheet" href="../../assets/vendors/core/core.css">
+	 <!-- endinject --> 
+  <!-- plugin css for this page --> 
+  <link rel="stylesheet" href="../../assets/vendors/simplemde/simplemde.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+   <!-- end plugin css for this page --> 
+   <link rel="stylesheet" type="text/css" href="../../assets/vendors/datatables/jquery.dataTables.min.css">
+	 <!-- inject:css -->
+	<link rel="stylesheet" href="../../assets/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+	 <!-- endinject --> 
+  <!-- Layout styles -->   
+  <link rel="stylesheet" href="../../assets/css/demo_1/style.css">
+  <link rel="stylesheet" href="../../assets/css/demo_1/custom.css">
+ <!-- End layout styles --> 
+  <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
+</head>
+<body>
+	<div class="main-wrapper">
+
+     <!-- Insert the sidebar partial here-->
+<%- include('./bars/admin_sidebar') %>
+<!-- partial -->
+
+<div class="page-wrapper">
+    
+  <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+        <%- include('./bars/admin_topbar') %>
+  <!-- partial -->
+
+  <div class="page-content">
+            <%- include('.././partials/messages')%>
+
+        <div class="row">
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                 <!-- <h6 id="totalStaff" class="card-title">Staff</h6> --> 
+                <h6 class="card-title">Staff</h6>
+                <h1 id="totalStaff">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Department</h6>
+                <h1 id="totalDepartment">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Subsidiary</h6>
+                <h1 id="totalSubsidiary">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6  class="card-title">Supervisors</h6>
+                <h1 id="totalSupervisors">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Drivers</h6>
+                <h1 id="totalDrivers">0</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h6  class="card-title">Vehicles</h6>
+                <h1 id="totalVehicles">0</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Trips In Each Department</h6>
+                <canvas id="TripsInSubsidiaryID"></canvas>
+              </div>
+            </div>
+          </div> 
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Request in Each Subsdiary</h6>
+                <canvas id="RequestInSubsidiaryID"></canvas>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <form id="requestInfo">
+              <div class="card-body"> 
+                  <div class="form-group">
+                      <div class="col-12">
+                          <div class="row">
+                              <label for="start_date"> Start Date </label>
+                              <input type="date" class="form-control" placeholder="Start Date" name="start_date" id="startdate">
+                          </div>
+                      </div>
+                      <br>
+                      <div class="col-12">
+                          <div class="row">
+                              <label for="end_date"> End Date</label>
+                              <input type="date" class="form-control" placeholder="End Date" name="end_date" id="enddate">
+                          </div>
+                      </div>
+                  </div>
+                  <!-- <input type="submit" class="btn btn-success" value="View"> -->
+                   <button type="submit" href="#" class="btn btn-info">View</button>
+              </div>
+            </form>
+
+          <table id="TripRange" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>Created Name</th>
+                <th>Date</th>
+                <th>Watt Consumed </th>
+                <th>Unit Consumed</th>
+                <th>Amount Due</th>
+                <th>Admin Aproval Status</th>
+              </tr>
+              </thead>
+              <tbody  id="result">
+               
+              </tbody>
+          </table>
+          </div>
+        </div>
+
+         <!-- <div class="row">
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Doughnut chart</h6>
+                <canvas id="chartjsDoughnut"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Area chart</h6>
+                <canvas id="chartjsArea"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Pie chart</h6>
+                <canvas id="chartjsPie"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Bubble chart</h6>
+                <canvas id="chartjsBubble"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Radar chart</h6>
+                <canvas id="chartjsRadar"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Polar area chart</h6>
+                <canvas id="chartjsPolarArea"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 grid-margin grid-margin-xl-0 stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Grouped bar chart</h6>
+                <canvas id="chartjsGroupedBar"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Mixed bar chart</h6>
+                <canvas id="chartjsMixedBar"></canvas>
+              </div>
+            </div>
+          </div>
+        </div> --> 
+
+			</div>
+
+			 <!-- partial:partials/_footer.html -->
+       <%- include('./bars/admin_footer') %>
+       <!-- partial --> 
+	
+		</div>
+  </div>
+
+  <!-- <script>
+    const dashboard = document.getElementById('authors');
+    const url = 'http://173.212.213.205:8090/api/v1/accounts/totals';
+
+    
+
+
+
+
+
+  </script> -->
+  
+  <script>
+    $(document).ready(function(){
+
+      // *Total No* //
+      //var url = "dashboard.ejs";
+      $.ajax({
+        url:'https://telnetsupperapp.com.ng:8443/api/v1/accounts/totals',
+        type:'GET',
+        dataType: 'json',
+        success:function(data){
+            if(data){
+                $('#totalStaff').html('<h1>'+ data.total_staff +'</h1>');
+                $('#totalDepartment').html('<h1>'+ data.total_department +'</h1>');
+                $('#totalSubsidiary').html('<h1>'+ data.total_subsidiary +'</h1>');
+                $('#totalSupervisors').html('<h1>'+ data.total_supervisor +'</h1>');  
+                $('#totalDrivers').html('<h1>'+ data.total_driver +'</h1>');  
+                $('#totalVehicles').html('<h1>'+ data.total_vehicle +'</h1>');  
+            }               
+        }, 
+        error:function(data){
+      //    alert('Error Retrieving data');
+        }
+      });
+
+      // *RequestInSubsidiary Bar Chart right* //
+    var RequestInSubsidiary = function(iteco,softworks,telnet){
+        if($('#RequestInSubsidiaryID').length) {
+          new Chart($("#RequestInSubsidiaryID"), {
+            type: 'bar',
+            data: {
+              labels: [ "iTECO", "Softworks", "TELNET"],
+              datasets: [
+                {
+                  label: "Subsidiary",
+                  backgroundColor: ["#66d1d1","#b1cfec","#fa8072"],
+                  data: [iteco,softworks,telnet]
+                }
+              ]
+            },
+            options: {
+              legend: { display: true },
+            }
+          });
+        }
+    }
+        //var url = "dashboard.ejs";
+        $.ajax({
+          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_vrequest_subsidiaries',
+          type:'GET',
+          dataType: 'json',
+          success:function(data){
+              if(data){
+                let iteco     = data.iteco_vehicle_request_count;
+                let softworks = data.softworks_vehicle_request_count;
+                let telnet    = data.telnet_vehicle_request_count;
+                RequestInSubsidiary(iteco,softworks,telnet);
+              }               
+          }, 
+          error:function(data){
+           // alert('Error Retrieving data');
+          }
+        });
+
+
+         // *RequestInSubsidiary Bar Chart left* //
+    var TripsInSubsidiaryID = function(iteco,softworks,telnet){
+        if($('#TripsInSubsidiaryID').length) {
+          new Chart($("#TripsInSubsidiaryID"), {
+            type: 'bar',
+            data: {
+              labels: [ "iTECO", "Softworks", "TELNET"],
+              datasets: [
+                {
+                  label: "Subsidiary",
+                  backgroundColor: ["#66d1d1","#7ee5e5","#5e77f9"],
+                  data: [iteco,softworks,telnet]
+                }
+              ]
+            },
+            options: {
+              legend: { display: true },
+            }
+          });
+        }
+    }
+        //var url = "dashboard.ejs";
+        $.ajax({
+          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_trip',
+          type:'GET',
+          dataType: 'json',
+          success:function(data){
+              if(data){
+                let iteco     = data.iteco_total_trips;
+                let softworks = data.softworks_total_trips;
+                let telnet    = data.telnet_total_trips;
+                TripsInSubsidiaryID(iteco,softworks,telnet);
+              }               
+          }, 
+          error:function(data){
+           // alert('Error Retrieving data');
+          }
+        });
+
+
+//         $(document).ready(function() {
+//     $('#example').DataTable( {
+//         "ajax": "data/objects.txt",
+//         "columns": [
+//             { "data": "name" },
+//             { "data": "position" },
+//             { "data": "office" },
+//             { "data": "extn" },
+//             { "data": "start_date" },
+//             { "data": "salary" }
+//         ]
+//     } );
+// } );
+
+$('#requestInfo').submit(function(evt){
+
+evt.preventDefault();
+    var reqobj = new Object();
+        reqobj.start_date = $('#startdate').val();
+        reqobj.end_date = $('#enddate').val();
+        var dsent = JSON.stringify(reqobj);
+
+        //console.log(dsent);
+$.ajax({
+    // url: "https://telnetsupperapp.com.ng:8443/api/v1/power/bill_report",
+    url: "https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/power/bill_report",
+    type:'POST',
+    data:dsent,
+	contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+    xhr.setRequestHeader ("Authorization", "Token 0a80ea028c9f552632b2ad03a6fcc2043ac79b62")
+    },
+	success: function(result){
+        console.log(result);
+        $("#TripRange").DataTable({
+            "aaData" : result,
+            columns: [
+                {
+                    data: "created_by"
+                },
+                {
+                    data: "created_on"
+                },
+                {
+                    data: "bill__watt_consumed"
+                },
+                {
+                    data: "bill__unit_consumed"
+                },
+                {
+                    data: "bill__amount_due"
+                },
+                {
+                    data: "bill__admin_approval"
+                },
+            ]
+        });
+	}
+})
+});
+
+
+// $("#TripRange").DataTable({
+//       ajax: {
+//           url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+//           dataSrc: ""
+//       },
+//       columns: [
+//           {
+//               data: "requester_name"
+//           },
+//           {
+//               data: "requester_email"
+//           },
+//           {
+//               data: "requester_role"
+//           },
+//           {
+//               data: "request_date"
+//           },
+//           {
+//               data: "requester_upline"
+//           },
+          
+//       ]
+//             });
+
+//Examples 1
+// jQuery(document).ready(function($) {
+ 
+//  var jobtable = $('#RequestInfo').DataTable({
+//    ajax: {
+//     url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+//           dataSrc: "",
+//           type:'GET',
+//           dataType: 'json',
+// 		  beforeSend: function (xhr) {
+//                 xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
+//             },
+//    },
+//    columns: [
+//           {
+//               data: "requester_name"
+//           },
+//           {
+//               data: "requester_email"
+//           },
+//           {
+//               data: "requester_role"
+//           },
+//           {
+//               data: "request_date"
+//           },
+//           {
+//               data: "requester_upline"
+//           },
+          
+//       ]
+   
+//  });
+// });
+
+
+
+
+
+//Examples 2
+      //   $("#RequestInfoooo").DataTable({
+      // ajax: {
+      //     url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+      //     dataSrc: "",
+      //     type:'GET',
+      //     dataType: 'json',
+		  // beforeSend: function (xhr) {
+      //           xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
+      //       },
+      //       success:function(data){
+      //         if(data){
+               
+                
+               // console.log(data)
+                // let requester_name = data.data.requester_name;
+                //console.log(data);
+
+                // $.each(data, function(key, value) {
+                //     //For example
+                //     let requester_name = value.requester_name;
+                //     // console.log(value.requester_name)
+                //     // console.log(value.requester_email)
+                //     // console.log(value.requester_role)
+                // });
+                
+      //         }               
+      //     }, 
+      //     error:function(data){
+      //       console.log("Error Occurred!!")
+      //     }
+          
+      // },
+      // columns: [
+      //     {
+      //         data: "requester_name"
+      //     },
+      //     {
+      //         data: "requester_email"
+      //     },
+      //     {
+      //         data: "requester_role"
+      //     },
+      //     {
+      //         data: "request_date"
+      //     },
+      //     {
+      //         data: "requester_upline"
+      //     },
+          
+      // ]
+      //       });
+
+
+    });
+  </script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="./myChart.js"></script>
+
+	 <!-- core:js -->
+	<script src="../assets/vendors/core/core.js"></script>
+	 <!-- endinject -->
+   <!-- plugin js for this page --> 
+  <script src="../assets/vendors/simplemde/simplemde.min.js"></script>
+  <script src="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	 <!-- end plugin js for this page --> 
+	 <!-- inject:js --> 
+	<script src="../assets/vendors/feather-icons/feather.min.js"></script>
+	<script src="../assets/js/template.js"></script>
+   <!-- endinject --> 
+   <script src="../assets/vendors/datatables/jquery.dataTables.min.js"></script>
+
+  <!-- custom js for this page -->
+  <script src="../assets/js/simplemde.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+  <script src="../assets/js/datepicker.js"></script>
+  <!-- end custom js for this page --> 
+  <script src="../assets/js/chartjs.js"></script>
+  <script src="../assets/vendors/chartjs/Chart.min.js"></script>
+  <script src="../views/pages/dashboard.ejs"></script>
+</body>
+</html>

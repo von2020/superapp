@@ -152,6 +152,9 @@ const {
     viewPurchaseOrder,
     purchaseOrderList,
     viewPurchaseOrderFile,
+    gen_repairListProcurement,
+    viewServicingStatus_driverAdmin,
+    updateViewServicingStatus_driverAdmin,
     purchaseOrderlist_auditor,
     viewPurchaseOrderAuditor,
     updatePurchaseOrderAuditor,
@@ -223,6 +226,8 @@ router.post('/gen_repair', [checkSession, facilityAuthorize], handleGen_repairs)
 
 router.get('/gen_repairList', [checkSession, procurementAuthorize], gen_repairList),
 
+router.get('/gen_repairListProcurement', [checkSession, procurementAuthorize], gen_repairListProcurement),
+
 router.get('/gen_paidRepair', [checkSession, procurementAuthorize], genPaidRepair),
 
 router.get('/gen_repairStatus', [checkSession, procurementAuthorize], genRepairStatus),
@@ -240,6 +245,9 @@ router.post('/servicingQueue', [checkSession, driverAuthorize], servicingQueue),
 
 router.get('/serviceStatus', [checkSession, driverAuthorize], serviceStatus),
 router.post('/serviceStatus', [checkSession, driverAuthorize], handleServiceStatus),
+
+router.get('/viewServicingStatus_driverAdmin', [checkSession, driverAuthorize], viewServicingStatus_driverAdmin),
+router.post('/viewServicingStatus_driverAdmin', [checkSession, driverAuthorize], updateViewServicingStatus_driverAdmin),
 
 router.get('/genSLA', [checkSession, driverAuthorize], genSLA),
 router.post('/genSLA', [checkSession, driverAuthorize], handleGenSLA),

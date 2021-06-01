@@ -74,11 +74,42 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold"> Details</h5>
+
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                        <th>Repair Name</th>
+                                        <th>Auditor Approval</th>
+                                        <th>Auditor Comment</th>
+                                        <th>Created By</th>
+                                        <th>Created On</th>
+                                        
+                                        <th>Document</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td><%= materials.repair_name%></th>
+                                        <td><%= materials.auditor_approval%></th>
+                                        <td><%= materials.auditor_comment%></th>
+                                        <td><%= materials.created_by%></th>
+                                        
+                                        <td><%= materials.created_on.slice(0,10)%></th>
+                                        
+                                          <%if (materials.invoice == '') { %>
+                                        <td>Not Yet Uploaded</th>
+                                          <% } else{ %> 
+                                        <td><a class="text-primary" href="<%= materials.invoice%>">view</a></th>
+                                          <% } %>
+                                      </tr>
+                                    </tbody>  
+                                  </table>
                                   
-                                  <p><span>Auditor Approval: <a class="text-primary"><%= materials.auditor_approval%></a></span></p>
+                                  <!-- <p><span>Auditor Approval: <a class="text-primary"><%= materials.auditor_approval%></a></span></p>
                                   <p><span>Created On: <a class="text-primary"><%= materials.created_on%></a></span></p>
                                   <p><span>Created By: <a class="text-primary"><%= materials.created_by%></a></span></p>
-                                  <p><span>Auditor Comment: <a class="text-primary"><%= materials.auditor_comment%></a></span></p>
+                                  <p><span>Auditor Comment: <a class="text-primary"><%= materials.auditor_comment%></a></span></p> -->
 
                               </div>
                               </div>

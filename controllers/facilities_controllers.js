@@ -822,6 +822,66 @@ class Facilities {
             if (err) console.log('error', err)
         }
     }
+
+    static async viewServicingStatus_driverAdmin(req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewServicingStatus(token, id);
+            const queues = resbody
+            console.log('queues', queues)
+            if (result.statusCode == 200) {
+                res.render('serviceStatusConfirm', {userDetails, queues});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) return console.error('Error', err);
+            req.flash('error_msg', resbody.detail);
+            res.redirect('/dashboard')
+        }
+
+    };
+
+    static async updateViewServicingStatus_driverAdmin (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        
+
+        const query = {
+            servicing_queue: req.body.servicing_queue,
+            admin_check: req.body.admin_check,
+            admin_comment: req.body.admin_comment,
+            technician_revisit: req.body.technician_revisit,
+            
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateServicingStatus(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                
+                    req.flash('success_msg', 'You have successfully updated Vehicle Servicing Status')
+                    res.redirect('/facilities/carServiceStatusList');
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/carServiceStatusList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+        }
+    }
     // this is to post the data from the table to the database
     static async handleAddVehicle (req, res) {
         const userDetails = req.session.userDetails
@@ -1040,11 +1100,9 @@ class Facilities {
         
         const query = {
             fault: req.body.fault,
-            payment_type: req.body.payment_type,
             approved_technician: req.body.approved_technician,
             approved_technician_reason: req.body.approved_technician_reason,
-                    
-            
+                       
         }
 
         console.log('query', query)
@@ -1099,7 +1157,6 @@ class Facilities {
         query = {
             recommended: req.body.quotation,
             repair_date: req.body.repair_date,
-            advance_amount: req.body.advance_amount,
             created_by: req.body.created_by,
             
         }
@@ -1107,7 +1164,7 @@ class Facilities {
         query = {
             recommended: req.body.quotation,
             repair_date: req.body.repair_date,
-            balance_amount: req.body.balance_amount,
+            payment_type: req.body.payment_type,
             created_by: req.body.created_by,
             
         }
@@ -3690,6 +3747,23 @@ static async viewGenServicing_diverAdmin (req, res) {
         };
           
         };
+
+        static async gen_repairListProcurement (req, res) {
+            var userDetails = req.session.userDetails
+            const token = userDetails.token;
+    
+            try {
+                const gens = await gen_repairList(token);
+    
+                console.log('response',gens.resbody)
+                console.log('token',token)
+    
+                res.render('genRepairList_procurement', {userDetails, gens: gens.resbody}); 
+            } catch (err) {
+                if (err) return console.error('display page details error', err)
+            };
+              
+            };
 
     static async genRepairStatusList (req, res) {
         var userDetails = req.session.userDetails

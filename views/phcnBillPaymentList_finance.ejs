@@ -85,7 +85,7 @@
                         <th>Finance Approval</th>
                         <th> Created By </th>
                         <th> Updated On </th>
-                        <th> View </th>
+                        <th>Status</th>
                         
                       </tr>
                     </thead>
@@ -100,8 +100,12 @@
                           <td><%= item.finance_approval%></td>
                           <td><%= item.created_on.slice(0,10)%></td>
                           <td><%= item.updated_on.slice(0,10)%></td>
-                          
-                          <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Approve/reject</a>   </td>
+                          <% if (item.finance_approval == 'PENDING') { %>
+                            <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" ><%= item.finance_approval%></a></td>
+                          <% }  else { %>
+                            <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > <%= item.finance_approval%></a></td>
+                          <% }%>
+                          <!-- <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Approve/reject</a>   </td> -->
                              
                         </tr>
                         <% })%>

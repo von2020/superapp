@@ -59,14 +59,49 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Bill Details</h5>
-                                  <p><span>Consumption Rate: <a class="text-primary"><%= phcn.consumption_rate%></a></span></p>
+
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                        <th>Consumption Rate</th>
+                                        <th>Unit Consumed</th>
+                                        <th>Vat</th>
+                                        <th>Amount Due</th>
+                                        <th>Created By</th>
+                                        <th>Comment</th>
+                                        <th>Created On</th>
+                                        
+                                        <th>Bill</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td><%= phcn.consumption_rate%></th>
+                                        <td><%= phcn.unit_consumed%></th>
+                                        <td><%= phcn.vat%></th>
+                                        <td><%= phcn.amount_due%></th>
+                                        <td><%= phcn.created_by%></th>
+                                        <td><%= phcn.comment%></th>
+                                        <td><%= phcn.created_on.slice(0,10)%></th>
+                                        
+                                          <%if (phcn.uploaded_bill == '') { %>
+                                        <td>Not Yet Uploaded</th>
+                                          <% } else{ %> 
+                                        <td><img src="<%=phcn.uploaded_bill%>" style="height: 250px; width: 250px; " alt="bill not uploaded yet" /></th>
+                                          <% } %>
+                                      </tr>
+                                    </tbody>  
+                                  </table>
+
+                                  <!-- <p><span>Consumption Rate: <a class="text-primary"><%= phcn.consumption_rate%></a></span></p>
                                   <p><span>Unit Consumed: <a class="text-primary"><%= phcn.unit_consumed%></a></span></p>
                                   <p><span>Vat: <a class="text-primary"><%= phcn.vat%></a></span></p>
                                   <p><span>Amount Due: <a class="text-primary"><%= phcn.amount_due%></a></span></p>
                                   <p><span>Created By: <a class="text-primary"><%= phcn.created_by%></a></span></p>
                                   <p><span>Comment: <a class="text-primary"><%= phcn.comment%></a></span></p>
                                   <p><span>Created On: <a class="text-primary"><%= phcn.created_on%></a></span></p>
-                                  <p><span>bill:<img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></span></p>
+                                  <p><span>bill:<img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></span></p> -->
 
                               </div>
                               </div>

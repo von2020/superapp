@@ -98,21 +98,29 @@
                               <th>Finance Approval</th>
                               <th>Finance Name</th>
                               
-                              <th>View</th>
+                              <th>Status</th>
                             </tr>
                           </thead>
                           <tbody>
                             <% materials.forEach((paid) => {%>
                           <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                               <tr>
+                                <%if (paid.auditor_approval == 'APPROVED') { %>
                                 <td><%=paid.repair_name%></td>
                                 <td><%=paid.created_by%></td>
                                 <td><%= paid.auditor_approval%></td>
                                 <td><%= paid.auditor_name%></td>
                                 <td><%= paid.finance_approval%></td>
                                 <td><%= paid.finance_name%></td>
+                                <% if (paid.finance_approval == 'PENDING') { %>
+                                  <td> <a href="/facilities/viewPaidRepairFinance?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" ><%= paid.finance_approval%></a></td>
+                                <% }  else { %>
+                                  <td> <a href="/facilities/viewPaidRepairFinance?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" ><%= paid.finance_approval%></a></td>
+                                <% }%>
                                 
-                                <td> <a href="/facilities/viewPaidRepairFinance?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                                  <% } else{ %>
+
+                                    <% } %>
                                 
                               </tr>
                               <% })%>

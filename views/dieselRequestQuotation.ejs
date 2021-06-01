@@ -107,17 +107,11 @@
 
 
                         <div class="col">
-                            <div class="form-group">
+                            <div class="form-group" id="divvendor">
                               <label for="exampleFormControlSelect1">Vendor</label>
-                              <select class="form-control" id="vendor" name="vendor" >
-                                <option selected> --- </option>
-                                <% 
-                                                          diesel.forEach((ven, i) => { 
-                                                        %>
-                                <option value=<%= ven.id %>> <%= ven.name %>  </option>
-                                <% 
-                                                          }) 
-                                                        %>
+                              <select class="form-control" id="vendor" name="vendor" onchange="vendorName(this)" >
+                                <option selected disabled> ---- </option>
+                                
                               </select>
                             </div>
                             </div>
@@ -220,6 +214,7 @@
                                          </span> 
                                         </button>
                   <input name="random" id="random">
+                  
                 </form>
               </div>
             </div>
@@ -237,7 +232,60 @@
 				});
 			</script>
       <script>
+        function changeFun() {
+                            console.log("starting")
+
+                            var getJSON = function (url) {
+    return $.ajax({
+        url: url,
+        type: 'GET',
+        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+        contentType: 'application/json'
+    });
+  };
+
+                            getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/vendors").done(function(data, status){
+                              console.log("here",data),
+                              
+                              console.log("here")
+                              console.log("here",data)
+                              console.log(status)
+                              if (status == "success") {
+                                console.log('data', data)
+                                var html = "<option selected disabled> --- </option>"
+                                for (var i = 0; i < data.length; i++) {
+                                  html += "<option value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                                }
+                                
+                                console.log('data', data)
+                                
+                                // return data.find((vendor => data.id === id).name)
+                                //display the thing
+                                $("#vendor").html(html);
+                                $("#divvendor").show();
+
+                                sessionStorage.setItem("vendorName", data);
+                                // console.log("vendorname", vendorName[0])
+                              } else {
+                                alert("try again or contact the admin.")
+                              }
+                            
+                    
+                            }).fail(function(){
+
+                            })
+                            
+                  }
+                  
+        
+                  
+        function vendorName(sel){
+          var vendor_names = (sel.options[sel.selectedIndex].text);
+          console.log(vendor_names);                    
+          sessionStorage.setItem("vendor_names", vendor_names);
+        }
 				var values = [];
+        var table_values = [];
 				// function changeFun2() {
 				// 	var selectBox = document.getElementById("bill-type");
 				// 	var selectedValue = selectBox.options[selectBox.selectedIndex].value;
@@ -254,7 +302,10 @@
 
         function onclickfunction() {
           console.log("values", values)
-          
+         
+        // var vendorName = sessionStorage.getItem("vendorName")
+        // console.log("vendorName", vendorName);
+
           $("#reqBtn").show();
           var file = document.getElementById('document').files[0];
 
@@ -285,22 +336,24 @@ console.log(doc)
 
 if (vendor == '' || unit_price ==''  || doc =='') {
 
-  var details = {
-    liter: liter,
-    vendor: vendor,
-    unit_price: unit_price,
-    vat: vat,
-    delivery: delivery,
-    delivery_amount: delivery_amount,
-    document: doc
-  };
-  console.log(details);
+  // var details = {
+  //   liter: liter,
+  //   vendor: vendor,
+  //   unit_price: unit_price,
+  //   vat: vat,
+  //   delivery: delivery,
+  //   delivery_amount: delivery_amount,
+  //   document: doc
+  // };
+  // console.log(details);
 
   swal("kindly fill all fields!", {
     buttons: false,
     timer: 2000,  // disappears after 2 seconds
   });
 } else {
+
+  var vendor_names = sessionStorage.getItem("vendor_names")
 
   var details = {
     vendor: vendor,
@@ -313,8 +366,14 @@ if (vendor == '' || unit_price ==''  || doc =='') {
 
   // you can use the array. for each to set a value for the id
   // or maybe you can use the post using jquery to send this to a route.
-
-  
+  var details_two = {
+    vendor_names: vendor_names,
+    unit_price: unit_price,
+    document: doc
+  };
+  table_values.push(details_two);
+  appendFunction();
+  console.log(table_values)
 
   var html = "<br>"
   html += "<table class='table table-striped'>";
@@ -326,10 +385,10 @@ if (vendor == '' || unit_price ==''  || doc =='') {
   html += "</tr>";
   html += "</thead>";
   html += "<tbody>";
-  for (var i = 0; i < values.length; i++) {
+  for (var i = 0; i < table_values.length; i++) {
     html += "<tr>";
-    html += "<td>" + vendor_name + "</td>";
-    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + table_values[i].vendor_names + "</td>";
+    html += "<td>" + table_values[i].unit_price + "</td>";
     html += "<td>" + "document" + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
@@ -342,7 +401,7 @@ if (vendor == '' || unit_price ==''  || doc =='') {
   // display record
   $("#extrafeild").html(html);
 
-  if (values.length > 0) {
+  if (table_values.length > 0) {
   $("#extrafeild").show();
   }
 
@@ -352,7 +411,7 @@ if (vendor == '' || unit_price ==''  || doc =='') {
 }
 
 function deleteFunction(param) {
-values.splice(param, 1)
+table_values.splice(param, 1)
 appendFunction()
 
 var html = "<br>"
@@ -365,10 +424,10 @@ html += "<th>" + "document" + "</th>";
 html += "</tr>";
 html += "</thead>";
 html += "<tbody>";
-for (var i = 0; i < values.length; i++) {
+for (var i = 0; i < table_values.length; i++) {
   html += "<tr>";
-    html += "<td>" + vendor_name + "</td>";
-    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + table_values[i].vendor_names + "</td>";
+    html += "<td>" + table_values[i].unit_price + "</td>";
     html += "<td>" + "document" + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 

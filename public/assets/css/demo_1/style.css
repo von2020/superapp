@@ -8494,6 +8494,9 @@ pre {
   width: 100%;
   margin-bottom: 1rem;
   color: #212529; }
+  .table th{
+    color:rgb(87, 87, 236) !important;
+  }
   .table th,
   .table td {
     padding: 0.875rem 0.9375rem;
@@ -20682,7 +20685,7 @@ address p {
       -webkit-transition: opacity .5s ease;
       transition: opacity .5s ease;
       font-weight: 900;
-      font-size: 25px;
+      font-size: 40px;
       letter-spacing: 0px;
       color: var(--primary); }
       .sidebar .sidebar-header .sidebar-brand span {
@@ -20916,8 +20919,8 @@ address p {
             position: absolute;
             color: inherit; }
           .sidebar .sidebar-body .nav .nav-item .nav-link .link-title {
-            margin-left: 30px;
-            font-size: 14px;
+            margin-left: 25px;
+            font-size: 18px;
             -webkit-transition: all .2s ease-in-out;
             transition: all .2s ease-in-out; }
           .sidebar .sidebar-body .nav .nav-item .nav-link .link-arrow {
@@ -20940,11 +20943,11 @@ address p {
               transform: rotate(180deg); }
         .sidebar .sidebar-body .nav .nav-item.nav-category {
           color: #ffff;
-          font-size: 11px;
+          font-size: 18px;
           text-transform: uppercase;
           font-weight: 700;
           letter-spacing: .5px;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
           height: 15px; }
           .sidebar .sidebar-body .nav .nav-item.nav-category:not(:first-child) {
             margin-top: 20px; }
@@ -20968,13 +20971,15 @@ address p {
             fill: rgba(239, 243, 255, 0.5);
             color: var(--primary); }
       .sidebar .sidebar-body .nav.sub-menu {
-        padding: 0 0 15px 33px; }
+        padding: 0 0 15px 1px;
+        background-color:rgb(71, 87, 131);
+        width:30rem; }
         .sidebar .sidebar-body .nav.sub-menu .nav-item {
           position: relative; }
           .sidebar .sidebar-body .nav.sub-menu .nav-item .nav-link {
             height: 25px;
             color: #000;
-            font-size: 13px;
+            font-size: 18px;
             -webkit-transition: all .3s ease-in-out;
             transition: all .3s ease-in-out; }
             .sidebar .sidebar-body .nav.sub-menu .nav-item .nav-link::before {

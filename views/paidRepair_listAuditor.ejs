@@ -96,7 +96,7 @@
                         <th>Finance Approval</th>
                         <th>Finance Name</th>
                         
-                        <th>View</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -109,8 +109,12 @@
                           <td><%= paid.auditor_name%></td>
                           <td><%= paid.finance_approval%></td>
                           <td><%= paid.finance_name%></td>
-                          
-                          <td> <a href="/facilities/viewPaidRepairAuditor?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                          <% if (paid.auditor_approval == 'PENDING') { %>
+                            <td> <a href="/facilities/viewPaidRepairAuditor?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" ><%= paid.auditor_approval%></td>
+                          <% }  else { %>
+                            <td> <a href="/facilities/viewPaidRepairAuditor?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" ><%= paid.auditor_approval%></td>
+                          <% }%>
+                          <!-- <td> <a href="/facilities/viewPaidRepairAuditor?id=<%= paid.id%>" id='<%= paid.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" ><%= paid.auditor_approval%></td> -->
                           
                         </tr>
                         <% })%>

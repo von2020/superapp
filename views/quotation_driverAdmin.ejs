@@ -72,29 +72,7 @@
 
                 <form class=""  method="post">
 
-                  <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Require Advance</label>
-                          <select class='form-control' id='require_advance' name='require_advance'>
-                            <option disabled>----</option>
-                            <option>yes</option>
-                            <option>no</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Advance Percentage</label>
-                          <input name="advance_percentage" class="form-control" id="advance_percentage" required>
-                        </div>
-                      </div>
-                    
-                    
-                    
-                    
-                  </div>
+                  
 
                   <div class="row">
                     
@@ -108,7 +86,7 @@
                     
                 </div>
 
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col">
                         <div class="form-group" id = "request">
                           <label for="exampleFormControlSelect1" >Quotation</label>
@@ -120,16 +98,28 @@
                         </div>
                       </div>
                       
-                </div>
+                </div> -->
                 <hr>
-                 <div class= "row">
+                <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Advance Payment</label>
+                        <select class='form-control' id='advance_payment' name='advance_payment' onchange="changeFun2()">
+                          <option selected disabled>----</option>
+                          <option>yes</option>
+                          <option>no</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div class="col">
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Body</label>
-                            <textarea name="body" class="form-control" id="body" rows="5" required></textarea>
-                        </div>
-                        </div>
-                 </div>   
+                      <div class="form-group" id="advance_per">
+                        <label for="exampleFormControlSelect1">Advance Percentage</label>
+                        <input name="advance_percentage" class="form-control" id="advance_percentage" required>
+                      </div>
+                    </div>
+                  
+                </div>   
                 <div class="row">
                     <div class="col">
                       <div class="form-group" id="divtechnician">
@@ -282,16 +272,16 @@
 
 				
 				function changeFun2() {
-					var selectBox = document.getElementById("bill-type");
+					var selectBox = document.getElementById("advance_payment");
 					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
 
-					if (selectedValue == 'multiple') {
-						$("#addMore").show();
-						$("#extrafeild").show();
-					} else if (selectedValue == 'single') {
+					if (selectedValue == 'yes') {
+						$("#advance_per").show();
+						
+					} else if (selectedValue == 'no') {
 
-						$("#addMore").hide();
-						$("#extrafeild").hide();
+						$("#advance_per").hide();
+						
 					}
 				};
      </script>
@@ -300,7 +290,8 @@
 <script>
 
   
-var values = [];                          
+var values = [];   
+var table_values = [];                       
 function arrange() {
   $("#reqBtn").show();
     
@@ -352,83 +343,237 @@ function arrange() {
     var result2 = sessionStorage.getItem("result2")
     console.log("result2", result2);
 
-var body = document.getElementById('body').value;
-console.log(body)
+
+var advance_percentage = document.getElementById('advance_percentage').value;
+console.log(advance_percentage)
+var advance_payment = document.getElementById('advance_payment').value;
+console.log(advance_payment)
 var technician = document.getElementById('technician').value;
 console.log(technician)
+var technician_name = $( "#technician option:selected" ).text();;
+console.log(technician_name)
 var doc = result;
 console.log(doc)
 var invoice = result2;
 console.log(invoice)
 var amount_charged = document.getElementById('amount_charged').value;
 
-if (body == '' || technician == '' || doc =='' || invoice =='' || amount_charged =='') {
+if (advance_payment == '' || technician == '' || doc =='' || invoice =='' || amount_charged =='') {
+alert('kindly fill all fields!');
+return;
+  // swal("kindly fill all fields!", {
+  //   buttons: false,
+  //   timer: 2000,  // disappears after 2 seconds
+  //});
+} 
+if(advance_percentage != '' || advance_payment == 'yes' || technician != '' || doc !='' || invoice !='' || amount_charged !='')  {
+var details = {
+  technician: Number(technician),
+  advance_payment: advance_payment,
+  advance_percentage: Number(advance_percentage),
+  amount_charged: Number(amount_charged),
+  document: doc,
+  invoice: invoice
+  
+};
+values.push(details);
+appendFunction();
 
-  swal("kindly fill all fields!", {
-    buttons: false,
-    timer: 2000,  // disappears after 2 seconds
-  });
-} else {
+var table_details = {
+  technician_name: technician_name,
+  advance_payment: advance_payment,
+  advance_percentage: Number(advance_percentage),
+  amount_charged: Number(amount_charged),
+  document: doc,
+  invoice: invoice
+  
+};
+table_values.push(table_details);
+appendFunction();
 
-  var details = {
-    body: body,
-    technician: Number(technician),
-    document: doc,
-    invoice: invoice,
-    amount_charged: Number(amount_charged)
-  };
-  values.push(details);
-  appendFunction();
+// you can use the array. for each to set a value for the id
+// or maybe you can use the post using jquery to send this to a route.
 
-  // you can use the array. for each to set a value for the id
-  // or maybe you can use the post using jquery to send this to a route.
-
-  var html = "<br>"
-  html += "<table class='table table-striped'>";
-  html += "<thead>";
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "advance_payment" + "</th>";
+html += "<th>" + "advance_percentage" + "</th>";
+html += "<th>" + "technician" + "</th>";
+html += "<th>" + "document" + "</th>";
+html += "<th>" + "invoice" + "</th>";
+html += "<th>" + "amount_charged" + "</th>";
+html += "<th>" + "Action" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < table_values.length; i++) {
   html += "<tr>";
-  html += "<th>" + "body" + "</th>";
-  html += "<th>" + "technician" + "</th>";
-  html += "<th>" + "document" + "</th>";
-  html += "<th>" + "invoice" + "</th>";
-  html += "<th>" + "amount_charged" + "</th>";
-  html += "<th>" + "Action" + "</th>";
+  html += "<td>" + table_values[i].advance_payment + "</td>";
+  html += "<td>" + table_values[i].advance_percentage + "</td>";
+  html += "<td>" + table_values[i].technician_name + "</td>";
+  html += "<td>" + "document" + "</td>";
+  html += "<td>" + "invoice" + "</td>";
+  html += "<td>" + table_values[i].amount_charged + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
   html += "</tr>";
-  html += "</thead>";
-  html += "<tbody>";
-  for (var i = 0; i < values.length; i++) {
-    html += "<tr>";
-    html += "<td>" + values[i].body + "</td>";
-    html += "<td>" + values[i].technician + "</td>";
-    html += "<td>" + "document" + "</td>";
-    html += "<td>" + "invoice" + "</td>";
-    html += "<td>" + values[i].amount_charged + "</td>";
-    html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+}
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
 
-    html += "</tr>";
-  }
-  html += "</tbody>"
-  html += "</table>";
-  html += "<br>"
+// display record
+$("#extrafeild").html(html);
 
-  // display record
-  $("#extrafeild").html(html);
+if (table_values.length > 0) {
+$("#extrafeild").show();
+}
 
-  if (values.length > 0) {
-  $("#extrafeild").show();
-  }
+}
+else if(advance_payment == 'no' || technician != '' || doc !='' || invoice !='' || amount_charged !='')  {
+
+var details = {
+  technician: Number(technician),
+  advance_payment: advance_payment,
+  amount_charged: Number(amount_charged),
+  document: doc,
+  invoice: invoice
+  
+};
+values.push(details);
+appendFunction();
+
+var table_details = {
+  technician_name: technician_name,
+  advance_payment: advance_payment,
+  advance_percentage: Number(advance_percentage),
+  amount_charged: Number(amount_charged),
+  document: doc,
+  invoice: invoice
+  
+};
+table_values.push(table_details);
+appendFunction();
+
+// you can use the array. for each to set a value for the id
+// or maybe you can use the post using jquery to send this to a route.
+
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "advance_payment" + "</th>";
+html += "<th>" + "technician" + "</th>";
+html += "<th>" + "document" + "</th>";
+html += "<th>" + "invoice" + "</th>";
+html += "<th>" + "amount_charged" + "</th>";
+html += "<th>" + "Action" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < table_values.length; i++) {
+  html += "<tr>";
+  html += "<td>" + table_values[i].advance_payment + "</td>";
+  html += "<td>" + table_values[i].technician_name + "</td>";
+  html += "<td>" + "document" + "</td>";
+  html += "<td>" + "invoice" + "</td>";
+  html += "<td>" + table_values[i].amount_charged + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+  html += "</tr>";
+}
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
+
+// display record
+$("#extrafeild").html(html);
+
+if (table_values.length > 0) {
+$("#extrafeild").show();
 }
 }
+ else  {
+
+var details = {
+technician: Number(technician),
+advance_payment: advance_payment,
+advance_percentage: Number(advance_percentage),
+amount_charged: Number(amount_charged),
+document: doc,
+invoice: invoice
+  
+};
+values.push(details);
+appendFunction();
+
+var table_details = {
+  technician_name: technician_name,
+  advance_payment: advance_payment,
+  advance_percentage: Number(advance_percentage),
+  amount_charged: Number(amount_charged),
+  document: doc,
+  invoice: invoice
+  
+};
+table_values.push(table_details);
+appendFunction();
+// you can use the array. for each to set a value for the id
+// or maybe you can use the post using jquery to send this to a route.
+
+var html = "<br>"
+html += "<table class='table table-striped'>";
+html += "<thead>";
+html += "<tr>";
+html += "<th>" + "advance_payment" + "</th>";
+html += "<th>" + "advance_percentage" + "</th>";
+html += "<th>" + "technician" + "</th>";
+html += "<th>" + "document" + "</th>";
+html += "<th>" + "invoice" + "</th>";
+html += "<th>" + "amount_charged" + "</th>";
+html += "<th>" + "Action" + "</th>";
+html += "</tr>";
+html += "</thead>";
+html += "<tbody>";
+for (var i = 0; i < table_values.length; i++) {
+  html += "<tr>";
+  html += "<td>" + table_values[i].advance_payment + "</td>";
+  html += "<td>" + table_values[i].advance_percentage + "</td>";
+  html += "<td>" + table_values[i].technician_name + "</td>";
+  html += "<td>" + "document" + "</td>";
+  html += "<td>" + "invoice" + "</td>";
+  html += "<td>" + table_values[i].amount_charged + "</td>";
+  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+
+  html += "</tr>";
+}
+html += "</tbody>"
+html += "</table>";
+html += "<br>"
+
+// display record
+$("#extrafeild").html(html);
+
+if (table_values.length > 0) {
+$("#extrafeild").show();
+}
+}
+}
+
+
 
 function deleteFunction(param) {
-values.splice(param, 1)
+table_values.splice(param, 1)
 appendFunction()
 
 var html = "<br>"
 html += "<table class='table table-striped'>";
 html += "<thead>";
 html += "<tr>";
-  html += "<th>" + "body" + "</th>";
+  html += "<th>" + "advance_payment" + "</th>";
+  html += "<th>" + "advance_percentage" + "</th>";
   html += "<th>" + "technician" + "</th>";
   html += "<th>" + "document" + "</th>";
   html += "<th>" + "invoice" + "</th>";
@@ -437,13 +582,14 @@ html += "<th>" + "Action" + "</th>";
 html += "</tr>";
 html += "</thead>";
 html += "<tbody>";
-for (var i = 0; i < values.length; i++) {
+for (var i = 0; i < table_values.length; i++) {
   html += "<tr>";
-    html += "<td>" + values[i].body + "</td>";
-    html += "<td>" + values[i].technician + "</td>";
+    html += "<td>" + table_values[i].advance_payment + "</td>";
+    html += "<td>" + table_values[i].advance_percentage + "</td>";
+    html += "<td>" + table_values[i].technician_name + "</td>";
     html += "<td>" + "document" + "</td>";
     html += "<td>" + "invoice" + "</td>";
-    html += "<td>" + values[i].amount_charged + "</td>";
+    html += "<td>" + table_values[i].amount_charged + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
   html += "</tr>";
@@ -456,7 +602,7 @@ html += "<br>"
 $("#extrafeild").html(html);
 
 // show
-if (values.length > 0) {
+if (table_values.length > 0) {
   $("#extrafeild").show();
 };
 
@@ -563,7 +709,7 @@ console.log("file", file);
     
     var fault = $('#fault').val();
     //           console.log(fault)
-              var require_advance = $('#require_advance').val();
+              var require_advance = $('#advance_payment').val();
     //           console.log(require_advance)
               var advance_percentage = $('#advance_percentage').val();
     //           console.log(advance_percentage)
@@ -571,8 +717,7 @@ console.log("file", file);
     //           console.log(amount_budgeted)
               var created_by = $('#created_by').val();
     //           console.log(created_by)
-              var body = $('#body').val();
-    //           console.log(body)
+              
               var technician = $('#technician').val();
     //           console.log(technician)
               var amount_charged = $('#amount_charged').val();
@@ -583,8 +728,6 @@ console.log("file", file);
               
               const data ={
                 "fault" : fault, 
-                "require_advance" : require_advance, 
-                "advance_percentage": Number(advance_percentage),
                 "created_by": created_by, 
                 "quotation_set": JSON.parse(random)
               }

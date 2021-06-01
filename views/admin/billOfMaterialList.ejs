@@ -110,10 +110,7 @@
                           <th>Technician Name</th>
                           <th>Created By</th>
                           <th>Created On</th>
-                          <th>BU Head Approval</th>
-                          
-                          
-                          <th>View</th>
+                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -125,10 +122,15 @@
                             <td><%= material.technician_name%></td>
                             <td><%= material.created_by%></td>
                             <td><%= material.created_on%></td>
-                            <td><%= material.bu_head_approval%></td>
                             
                             
-                            <td><a href="/admin/manage/viewBillOfMaterialList?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
+                            <% if (material.bu_head_approval == 'PENDING') { %>
+                              <td><a href="/admin/manage/viewBillOfMaterialList?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-warning rounded-pill" ><%= material.bu_head_approval%></a></td>
+                            <% }  else { %>
+                              <td><a href="/admin/manage/viewBillOfMaterialList?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-success rounded-pill" ><%= material.bu_head_approval%></a></td>
+                            <% }%>
+                            
+                            <!-- <td><a href="/admin/manage/viewBillOfMaterialList?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td> -->
                           </tr>
                           <% })%>
                       </tbody>

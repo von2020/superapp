@@ -74,7 +74,40 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Purchase Order List</h5>
-                                  <p><span>Liters: <a class="text-primary"><%= materials.liters%></a></span></p>
+
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                        <th>Liters</th>
+                                        <th>Total Amount</th>
+                                        <th>Created By</th>
+                                        <th>Delivery Date</th>
+                                        <th>Delivery Destination</th>
+                                        <th>Created On</th>
+                                        <th>Updated On</th>
+                                        <th>Document</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td><%= materials.liters%></th>
+                                        <td><%= materials.total%></th>
+                                        <td><%= materials.created_by%></th>
+                                        <td><%= materials.delivery_date%></th>
+                                        <td><%= materials.delivery_destination%></th>
+                                        <td><%= materials.created_on.slice(0,10)%></th>
+                                        <td><%= materials.updated_on.slice(0,10)%></th>
+                                          <%if (materials.document_uploaded == '') { %>
+                                        <td>Not Yet Uploaded</th>
+                                          <% } else{ %> 
+                                        <td><a class="text-primary" href="<%= materials.document_uploaded%>">view</a></th>
+                                          <% } %>
+                                      </tr>
+                                    </tbody>  
+                                  </table>
+
+                                  <!-- <p><span>Liters: <a class="text-primary"><%= materials.liters%></a></span></p>
                                   <p><span>Total Amount: <a class="text-primary"><%= materials.total%></a></span></p>
                                   <p><span>Created By: <a class="text-primary"><%= materials.created_by%></a></span></p>
                                   <p><span>Delivery Date: <a class="text-primary"><%= materials.delivery_date%></a></span></p>
@@ -85,7 +118,7 @@
                                     <p><span>Document: <a class="text-primary">Not Yet Uploaded</a></span></p>
                                     <% } else{ %>
                                   <p><span>Document: <a class="text-primary" href="<%= materials.document_uploaded%>">view</a></span></p>
-                                  <% } %>
+                                  <% } %> -->
 
                               </div>
                               </div>

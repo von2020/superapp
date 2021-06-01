@@ -67,13 +67,34 @@
                     </div>
                   </div>
                   <div class="thread-body p-5">
-                    <% materials.bill_set.forEach((item) => { %>
-                    <h5 class="font-weight-bold">Description: <%= item.description%></h5>
-                    
 
-                      <h5 class="font-weight-bold">Unit Price: NGN <%= item.unit_price%></h5>
-                      <h5 class="font-weight-bold">Quantity: <%= item.quantity%></h5>
-                      <% }) %>
+                    <table id="dataTableExample" class="table" data-order=''>
+                      <thead>
+          
+                        <tr>
+                          <th>Description</th>
+                          <th>Unit</th>
+                          <th>Quantity</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% materials.bill_set.forEach((item) => { %>
+                        <tr>
+                          
+                          <td><%= item.description%></th>
+                          <td>NGN <%= item.unit_price%></th>
+                          <td><%= item.quantity%></th>
+                           
+                          
+                        </tr>
+                        <% }) %>
+                      </tbody>  
+                    </table>
+
+
+
+                    
                       <input type="hidden" name="name" class="form-control" id="name" value="<%=materials.name%>" required>
                       <input type="hidden" name="vehicle" class="form-control" id="vehicle" value="<%=materials.vehicle%>" required>
                       <input type="hidden" name="technician" class="form-control" id="technician" value="<%=materials.technician%>" required>

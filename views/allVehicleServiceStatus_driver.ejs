@@ -95,6 +95,13 @@
                     <tbody>
                       
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+                    <% if (vehicles.response == 'You are a driver, but you are only permitted to update the vehicle assigned to you!') { %>
+                      <tr>
+                        <td>
+                        <p><%= vehicles.response%></p>
+                      </td>
+                      </tr>
+                      <% }  else { %>
 
                     <% vehicles.forEach((item) => {%>
                         <tr>
@@ -107,7 +114,9 @@
                           
                           <td> <a href="/facilities/viewServicingStatus?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Update</a> </td>
                         </tr>
+                        
                         <% })%>
+                        <% }%>
                     </tbody>
                   </table>
                 </div>

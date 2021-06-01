@@ -88,6 +88,7 @@
                         <th>driver_name</th>
                         <th>technician_revisit</th>
                         <th>Report By</th>
+                        <th>Confirm</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -101,7 +102,11 @@
                           <td><%= item.driver_name%></td>
                           <td><%= item.technician_revisit%></td>
                           <td><%= item.report_by%></td>
-                          
+                          <% if (item.admin_comment == '') { %>
+                          <td> <a href="/facilities/viewServicingStatus_driverAdmin?id=<%= item.id%>" id='<%= item.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >Confirm</a></td>
+                          <% }  else { %>
+                            <td> <a href="/facilities/viewServicingStatus_driverAdmin?id=<%= item.id%>" id='<%= item.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >Completed</a></td>
+                            <% }%>
                           
                         </tr>
                         <% })%>

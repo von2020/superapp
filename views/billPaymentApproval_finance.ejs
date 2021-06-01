@@ -74,11 +74,43 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Payment Details</h5>
-                                  <p><span>bill name: <a class="text-primary"><%= materials.bill_name%></a></span></p>
+
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                        <th>Bill Name</th>
+                                        <th>Finance Approval</th>
+                                        <th>Finance Comment</th>
+                                        <th>Created By</th>
+                                        <th>Created On</th>
+                                        
+                                        <th>Bill</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td><%= materials.bill_name%></th>
+                                        <td><%= materials.finance_approval%></th>
+                                        <td><%= materials.finance_comment%></th>
+                                        <td><%= materials.created_by%></th>
+                                        
+                                        <td><%= materials.created_on.slice(0,10)%></th>
+                                        
+                                          <%if (materials.file_uploaded == '') { %>
+                                        <td>Not Yet Uploaded</th>
+                                          <% } else{ %> 
+                                        <td><img src="<%=materials.file_uploaded%>" style="height: 250px; width: 250px; " alt="bill not uploaded yet" /></th>
+                                          <% } %>
+                                      </tr>
+                                    </tbody>  
+                                  </table>
+
+                                  <!-- <p><span>bill name: <a class="text-primary"><%= materials.bill_name%></a></span></p>
                                   <p><span>created by: <a class="text-primary"><%= materials.created_by%></a></span></p>
                                   <p><span>auditor approval: <a class="text-primary"><%= materials.auditor_approval%></a></span></p>
                                   <p><span>finance approval: <a class="text-primary"><%= materials.finance_approval%></a></span></p>
-                                  <p><span>bill:<img src="<%=materials.file_uploaded%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></span></p>
+                                  <p><span>bill:<img src="<%=materials.file_uploaded%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></span></p> -->
 
                               </div>
                               </div>

@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Telnet Super App </title>
+	<title>Telnet SuperApp</title>
 	<!-- core:css -->
 	<link rel="stylesheet" href="../../../assets/vendors/core/core.css">
 	<!-- endinject -->
@@ -37,10 +36,8 @@
   <%- include('./bars/sidebar_finance') %>
   <% } else if (userDetails.role == 'Procurement') { %>
   <%- include('./bars/sidebar_procurement') %>
-  <% } else if (userDetails.role == 'Facility Officer') { %>
-  <%- include('./bars/sidebar_facility') %>
   <%  } else if (userDetails.role == 'Driver Admin') { %>
-  <%- include('./bars/sidebar_driver') %>  
+  <%- include('./bars/sidebar_driver') %>
   <%  } else if (userDetails.role == 'Director') { %>
   <%- include('./bars/sidebar_director') %>
   <%  } else if (userDetails.role == 'Group Managing Director') { %>
@@ -59,13 +56,14 @@
 			<!-- partial -->
 
 			<div class="page-content">
-                <%- include('./partials/messages')%>
+        <%- include('./partials/messages')%>
+
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Generator</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Repair</li>
+						<li class="breadcrumb-item"><a href="#">Facilities</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Repair List</li>
 					</ol>
-        </nav>
+                </nav>
 
 
 				<div class="row">
@@ -74,54 +72,63 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">Generator Repair Status List</h6>
-                  <!-- <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p> -->
+                  <h6 class="card-title d-block">List of Generator Repairs</h6>
                   </div>
 
+                  <div class="d-flex align-items-center flex-wrap text-nowrap ">
+                    <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
+                      <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
                 </div>
+                <!-- this will need to be updated for the drop off part of the request-->
+                
                 <div class="table-responsive">
+                  <form action="/requests/assign_vehicle" method="post">
                   <table id="dataTableExample" class="table" data-order=''>
+                    
                     <thead>
-
+        
                       <tr>
-                        
                         <th>Repair Name</th>
-                        <th>Generator Condition</th>
-                        <th>Status Comment</th>
+                        <th>Severity</th>
+                        <th>Within SLA?</th>
                         <th>Created By</th>
                         <th>Created On</th>
-                        <th>Update</th>
+                        <th>Servicing Company</th>
+                        <th>Status</th>
                         
-                        
+                          
                       </tr>
                     </thead>
                     <tbody>
-                      
+                      <% gens.forEach((repair) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
-
-                    <% gens.forEach((item) => {%>
                         <tr>
+                          <td><%= repair.repair_name%></td>
+                          <td><%= repair.severity%></td>
+                          <td><%= repair.within_sla%></td>
+                          <td><%= repair.created_by%></td>
+                          <td><%= repair.created_on%></td>
+                          <td><%= repair.servicing_company%></td>
                           
-                          <td><%= item.repair_name%></td>
-                          <td><%= item.generator_condition%></td>
-                          <td><%= item.status_comment%></td>
-                          <td><%= item.created_by%></td>
-                          <td><%= item.created_on%></td>
-                          <td><a href="/facilities/gen_repairStatus?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a></td>
-                            
+                           
+                          <td><a href="/facilities/gen_repairStatus?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Repair Status</a>   </td>
                           
                         </tr>
-                    <% })%>
+                        <% }) %>
                     </tbody>
                   </table>
+                </form>
                 </div>
               </div>
             </div>
 					</div>
 				</div>
 
-			</div>
-
+      </div>
+      
 			<!-- partial:partials/_footer.html -->
       <%- include('./bars/footer') %>
 			<!-- partial -->

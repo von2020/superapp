@@ -84,7 +84,7 @@
                           <td><%= item.servicing_reason%></td>
                           <td><%= item.servicing_cost%></td>
                           <td><%= item.sign_off_uploaded%></td>
-                          <td><%= item.created_on%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
                           <td><%= item.requester%></td>
                           <td><a href="/admin/manage/genRequestFiles?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Create</a>   </td>
                           

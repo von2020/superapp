@@ -74,7 +74,37 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Vehicle Details</h5>
-                                  <p><span>vehicle: <a class="text-primary"><%= materials.vehicle%></a></span></p>
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                        <th>Vehicle Name</th>
+                                        <th>Servicing Date</th>
+                                        <th>Location</th>
+                                        <th>Created By</th>
+                                        <th>Created On</th>
+                                        
+                                        <th>Document</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td><%= materials.vehicle%></th>
+                                        <td><%= materials.servicing_date%></th>
+                                        <td><%= materials.location%></th>
+                                        <td><%= materials.created_by%></th>
+                                        
+                                        <td><%= materials.created_on.slice(0,10)%></th>
+                                        
+                                          <%if (materials.balance_invoice == 'http://173.212.213.205:8090/media/vehicle_servicing_balance_invoice_document/') { %>
+                                        <td>Not Yet Uploaded</th>
+                                          <% } else{ %> 
+                                        <td><a class="text-primary" href="<%= materials.balance_invoice%>">view</a></th>
+                                          <% } %>
+                                      </tr>
+                                    </tbody>  
+                                  </table>
+                                  <!-- <p><span>vehicle: <a class="text-primary"><%= materials.vehicle%></a></span></p>
                                   <p><span>servicing date: <a class="text-primary"><%= materials.servicing_date%></a></span></p>
                                   <p><span>location: <a class="text-primary"><%= materials.location%></a></span></p>
                                   <p><span>craeted by: <a class="text-primary"><%= materials.created_by%></a></span></p>
@@ -83,7 +113,7 @@
                                     <p><span>balance invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
                                     <% } else{ %>
                                   <p><span>balance invoice: <a class="text-primary" href="<%= materials.balance_invoice%>">View</a></span></p>
-                                  <% } %>
+                                  <% } %> -->
 
                               </div>
                               </div>

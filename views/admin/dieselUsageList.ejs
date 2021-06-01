@@ -62,7 +62,8 @@
                     <thead>
 
                       <tr>
-                        
+                        <th>Generator Name</th>
+                        <th>Fuel Type</th>
                         <th>Date</th>
                         <th>Liter</th>
                         <th>Status</th>
@@ -78,6 +79,8 @@
 
                     <% diesel.forEach((item) => {%>
                         <tr>
+                          <td><%= item.generator_name%></td>
+                          <td><%= item.generator_fuel_type%></td>
                           <td><%= item.date%></td>
                           <td><%= item.liter%></td>
                           <td><%= item.status%></td>

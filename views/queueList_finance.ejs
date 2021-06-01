@@ -91,8 +91,10 @@
                       <tr>
                         <th>Vehicle</th>
                         <th>Servicing Date</th>
-                        <th>Approval</th>
-                        <th>Approve/Reject</th>
+                        <th>Payment Amount</th>
+                        <th>Advance Approval</th>
+                        <th>Balance Approval</th>
+                        <th>Status</th>
                         
                         
                       </tr>
@@ -105,10 +107,28 @@
                           <%if (vehicle.auditor_advance_approval == 'APPROVED') { %>
                           <td><%= vehicle.vehicle%></td>
                           <td><%= vehicle.servicing_date%></td>
-                          <td><%= vehicle.finance_advance_approval%></td>
-                          
+                          <%if (vehicle.payment_type == 'advance') { %>
+                            <td><%= vehicle.advance_amount%></td>
+                            <% } else{ %>
+                            <td><%= vehicle.balance_amount%></td>
+                          <% } %>
+                          <%if (vehicle.finance_advance_approval == 'PENDING') { %>
+                          <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.finance_advance_approval%></a></td>
+                          <% } else{ %>
+                            <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.finance_advance_approval%></a></td>
+                          <% } %>
+                          <%if ( vehicle.finance_balance_approval == 'PENDING') { %>
+                            <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.finance_balance_approval%></a></td>
+                            <% } else{ %>
+                              <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.finance_balance_approval%></a></td>
+                            <% } %>
+                          <% if (vehicle.payment_type == 'yes' && vehicle.finance_advance_approval != 'APPROVED' ) { %>
+                            <td> <a href="/facilities/viewadvanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >view</a></td>
+                          <% }  else { %>
+                            <td> <a href="/facilities/viewbalanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >view</a></td>
+                          <% }%>
                     
-                          <td> <a href="/facilities/viewadvanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                          <!-- <td> <a href="/facilities/viewadvanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td> -->
                           
                           <% } else{ %>
 

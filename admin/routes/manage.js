@@ -110,6 +110,11 @@ const {
     viewBillPayment_driverAdmin,
     updateViewBillPayment_driverAdmin,
     allPhcnDailyReading_driverAdmin,
+    phcn,
+    diesel,
+    gen_repair_report,
+    gen_daily_maintenance,
+    
     handleAddSubsidiary,
     handleAddDepartment,
     getAllSubsidiaries,
@@ -119,6 +124,13 @@ const {
 
 router.get('/all-departments', [adminCheckSession, superAdminAuthorize], getAllDepartments);
 router.get('/all-subsidiaries', [adminCheckSession, superAdminAuthorize], getAllSubsidiaries);
+
+router.get('/phcn', [adminCheckSession, superAdminAuthorize], phcn);
+router.get('/diesel', [adminCheckSession, superAdminAuthorize], diesel);
+router.get('/gen_repair_report', [adminCheckSession, superAdminAuthorize], gen_repair_report);
+router.get('/gen_daily_maintenance', [adminCheckSession, superAdminAuthorize], gen_daily_maintenance);
+
+router.get('/genServicingList', [adminCheckSession, superAdminAuthorize], genServicingList);
 
 router.get('/billOfMaterialList', [adminCheckSession, superAdminAuthorize], billOfMaterialList);
 

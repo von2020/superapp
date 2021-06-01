@@ -124,8 +124,8 @@
                                             </tr>
 
                                             <tr>
-                                                <th> Advance Invoice </th>
-                                                <td><%if (queues.advance_payment_invoice == '') { %>
+                                                <th> Invoice </th>
+                                                <td><%if (queues.advance_payment_invoice == null) { %>
                                                     <p><span> <a class="text-primary">Not Yet Uploaded</a></span></p>
                                                     <% } else{ %>
                                                   <p><span> <a class="text-primary" href="<%= queues.advance_payment_invoice%>">view</a></span></p>

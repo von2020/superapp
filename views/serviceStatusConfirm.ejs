@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
-    <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body>
@@ -58,7 +57,7 @@
                 <nav class="page-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Vehicle</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Servicing Invoice</li>
+                        <li class="breadcrumb-item active" aria-current="page">Servicing Status</li>
                     </ol>
                 </nav>
 
@@ -69,7 +68,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Balance</h6>
+                                        <h6 class="card-title d-block">Confirm Servicing Status</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -81,9 +80,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form action="/facilities/viewServicingStatus_driverAdmin" method="post">
                                 <div class="table-responsive">
+                                    
                                     <table  class="table">
-
+                                        
                                         <thead>
                                             <tr>
                                                 <th> Value </th>
@@ -91,49 +92,71 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th> Vehicle Name </th>
-                                                <td> <%= queues.vehicle%> </td>
-                                            </tr>
+                                            
 
-                                            <tr>
-                                                <th> Upload Invoice </th>
-                                                <td> <input type="file" name="data" class="form-control" id="balance_invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required> </td>
-                                            </tr>
+                                            
 
                                             
                                             
                                             <tr>
-                                                <th> Bill Of Material Name </th>
-                                                <td> <%= queues.bill_of_material_name%> </td>
+                                                <th> Servicing Queue Name </th>
+                                                <td> <%= queues.servicing_queue_name%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Location </th>
-                                                <td> <%= queues.location%> </td>
+                                                <th> Technician Revisit </th>
+                                                <td> <%= queues.technician_revisit%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Created By </th>
-                                                <td> <%= queues.created_by%> </td>
+                                                <th> Vehicle Condition </th>
+                                                <td> <%= queues.vehicle_condition%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Payment Type </th>
-                                                <td> <%= queues.payment_type%> </td>
+                                                <th> Admin Check </th>
+                                                <td> <%= queues.admin_check%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Balance Invoice </th>
-                                                <td><%if (queues.balance_invoice == 'http://173.212.213.205:8090/media/vehicle_servicing_balance_invoice_document/') { %>
-                                                    <p><span>Balance Invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
-                                                    <% } else{ %>
-                                                  <p><span>Balance Invoice: <a class="text-primary" href="<%= queues.balance_invoice%>">view</a></span></p>
-                                                  <% } %>
-                                                      </td>
+                                                <th> Admin Comment </th>
+                                                <td> <%= queues.admin_comment%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Driver Name </th>
+                                                <td> <%= queues.driver_name%> </td>
                                             </tr>
 
                                             
+
+                                            <tr>
+                                                <th> Admin Check </th>
+                                                <td>
+                                                    <select class="form-control" id="admin_check" name="admin_check" >
+                                                        <option selected disabled>------</option>
+                                                        <option>perfect</option>
+                                                        <option>adjust</option>
+                                                        <option>bad</option>
+                                                    </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Technician Revisit</th>
+                                                <td><select class="form-control" id="technician_revisit" name="technician_revisit" >
+                                                    <option selected disabled>------</option>
+                                                    <option value="true">Yes</option>
+                                                    <option value="false">No</option>
+                                                    </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Comment </th>
+                                                <td><textarea name="admin_comment" class="form-control" id="admin_comment" rows="10" required></textarea></td>
+                                            </tr>
+
+                                            
+
                                             
                                         </tbody>
                                         
@@ -143,21 +166,18 @@
                                     <br>
                                     <br>
                                     <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
+
+                                    <input type="hidden" name="servicing_queue" class="form-control" id="servicing_queue" value="<%=queues.servicing_queue%>" required>
                                     
-                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+                                    <input type="hidden" name="report_by" class="form-control" id="report_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
                                     <input type="hidden" name="advance_payment" class="form-control" id="advance_payment" value="<%queues.advance_payment%>" required>
 
                                     
                                     
                                 </div>
-                                <!-- <input class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> -->
-                                <button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
-                                    <span id="reqLoader" style="display: none;"> 
-                                         <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
-                                     </span> 
-                                    </button>
-                        
+                                <button class="btn-lg btn-primary"  type="submit" > Confirm Status</button>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -218,32 +238,9 @@
         };
     }
 function Submit(){
-
-    var loading = document.getElementById("reqBtn");
-    loading.disabled = true;
-    var loader = document.getElementById("reqLoader");
-    loader.style.display = "inline-block";
-
-    var fileInput = document.getElementById('balance_invoice').value
-console.log(fileInput);
-
-if (fileInput == "") {
-                alert('Please Select a document to Continue');
-                loading.disabled = false; 
-                loader.style.display = "none";
-            }
-      else {     
-
 var file = document.getElementById('balance_invoice').files[0];
         var reader = new FileReader();
             reader.readAsDataURL(file);
-            if (file.size > 2000000) {
-                alert('file must be 2mb or less')
-                loading.disabled = false; 
-                loader.style.display = "none";
-            }
-            else 
-            {
             reader.onload = function () {
                 console.log("starting")
                     var ID = $('#id').val();
@@ -265,28 +262,18 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                       console.log("here",data)
                       console.log(status)
                       
-                      if (status == "success") {
-                        loading.disabled = false;
-                        loader.style.display = "none";
-                        alert('invoice upload successful')
-                        window.location.href=`/facilities/servicingQueueDriverAdmin`;
-                    } else {
-                        loading.disabled = false; 
-                        loader.style.display = "none";
-                        alert('invoice upload Not successful')
-                      }
+                    
             
                     }).fail(function(){
 
-                 })
+                    })
                // return data
         };
-    }
         reader.onerror = function (error) {
         console.log('Error: ', error);
         };
                     
-      }   
+                    
           
 }
 

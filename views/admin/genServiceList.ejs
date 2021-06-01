@@ -26,44 +26,21 @@
 <body>
 	<div class="main-wrapper">
 
-<!-- Insert the sidebar partial here-->
-<% if (userDetails.role == 'Staff') { %>
-  <%- include('./bars/sidebar_staff') %>
-  <% } else if (userDetails.role == 'Supervisor') { %>
-  <%- include('./bars/sidebar_sup') %>  
-  <% } else if (userDetails.role == 'Auditor') { %>
-  <%- include('./bars/sidebar_auditor') %> 
-  <% } else if (userDetails.role == 'Finance') { %>
-  <%- include('./bars/sidebar_finance') %>
-  <% } else if (userDetails.role == 'Procurement') { %>
-  <%- include('./bars/sidebar_procurement') %>
-  <% } else if (userDetails.role == 'Facility Officer') { %>
-  <%- include('./bars/sidebar_facility') %>
-  <%  } else if (userDetails.role == 'Driver Admin') { %>
-  <%- include('./bars/sidebar_driver') %>  
-  <%  } else if (userDetails.role == 'Director') { %>
-  <%- include('./bars/sidebar_director') %>
-  <%  } else if (userDetails.role == 'Group Managing Director') { %>
-  <%- include('./bars/sidebar_gmd') %>  
-  <%  } else if (userDetails.role == 'Driver') { %>
-  <%- include('./bars/sidebar_carDriver') %>  
-  <%  } else { %>
-  <%- include('./bars/sidebar') %>    
-  <%  } %>
+    <%- include('./bars/admin_sidebar') %>
 		<!-- partial -->
 	
 		<div class="page-wrapper">
 				
 			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
-      <%- include('./bars/topbar') %>
+        <%- include('./bars/admin_topbar') %>
 			<!-- partial -->
 
 			<div class="page-content">
-                <%- include('./partials/messages')%>
+        <%- include('.././partials/messages')%>
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Generator</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Repair</li>
+						<li class="breadcrumb-item active" aria-current="page">Service</li>
 					</ol>
         </nav>
 
@@ -74,7 +51,7 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">Generator Repair Status List</h6>
+                  <h6 class="card-title d-block">Generator Service List</h6>
                   <!-- <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p> -->
                   </div>
 
@@ -84,14 +61,14 @@
                     <thead>
 
                       <tr>
-                        
-                        <th>Repair Name</th>
-                        <th>Generator Condition</th>
-                        <th>Status Comment</th>
-                        <th>Created By</th>
+                        <th>Generator Name</th>
+                        <th>Company Name</th>
+                        <th>Servicing Status</th>
+                        <th>Servicing Date</th>
                         <th>Created On</th>
-                        <th>Update</th>
-                        
+                        <th>Updated On</th>
+                        <!-- <th>View</th>
+                        <th>Upload SignOff</th> -->
                         
                       </tr>
                     </thead>
@@ -101,17 +78,21 @@
 
                     <% gens.forEach((item) => {%>
                         <tr>
-                          
-                          <td><%= item.repair_name%></td>
-                          <td><%= item.generator_condition%></td>
-                          <td><%= item.status_comment%></td>
-                          <td><%= item.created_by%></td>
-                          <td><%= item.created_on%></td>
-                          <td><a href="/facilities/gen_repairStatus?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a></td>
-                            
+                          <td><%= item.generator_name%></td>
+                          <td><%= item.servicing_company_name%></td>
+                          <% if (item.servicing_status == 'pending') { %>
+                          <td><a class="btn btn-sm btn-warning rounded-pill"><%= item.servicing_status%></a></td>
+                          <% }  else { %>
+                            <td><a class="btn btn-sm btn-success rounded-pill"><%= item.servicing_status%></a></td>
+                            <% }%>
+                          <td><%= item.servicing_date%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
+                          <!-- <td><a href="/facilities/viewGenServicing_facility?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
+                          <td><a href="/facilities/viewGenServicingSignOff?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Upload</a>   </td> -->
                           
                         </tr>
-                    <% })%>
+                        <% })%>
                     </tbody>
                   </table>
                 </div>
@@ -123,7 +104,7 @@
 			</div>
 
 			<!-- partial:partials/_footer.html -->
-      <%- include('./bars/footer') %>
+      <%- include('./bars/admin_footer') %>
 			<!-- partial -->
 	
 		</div>

@@ -1864,7 +1864,7 @@ class admin_manage_controllers {
             console.log('response',gens.resbody)
             console.log('token',token)
 
-            res.render('genServiceList', {userDetails, gens: gens.resbody}); 
+            res.render('admin/genServiceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
         };
@@ -2065,6 +2065,90 @@ class admin_manage_controllers {
                 // console.log('token',token)
     
                 res.render('admin/sLA', {userDetails, id}); 
+            } catch (err) {
+                if (err) return console.error('display page details error', err)
+            };
+             
+            };
+
+        static async phcn (req, res) {
+            var userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            const id = req.query.id;
+    
+            console.log('id',id)
+            console.log('token', token)
+    
+            try {
+                // const gens = await allGenerator(token);
+    
+                // console.log('response',gens.resbody)
+                // console.log('token',token)
+    
+                res.render('admin/phcn', {userDetails, id}); 
+            } catch (err) {
+                if (err) return console.error('display page details error', err)
+            };
+             
+            };
+
+        static async diesel (req, res) {
+            var userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            const id = req.query.id;
+    
+            console.log('id',id)
+            console.log('token', token)
+    
+            try {
+                // const gens = await allGenerator(token);
+    
+                // console.log('response',gens.resbody)
+                // console.log('token',token)
+    
+                res.render('admin/diesel', {userDetails, id}); 
+            } catch (err) {
+                if (err) return console.error('display page details error', err)
+            };
+             
+            };
+
+        static async gen_repair_report (req, res) {
+            var userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            const id = req.query.id;
+    
+            console.log('id',id)
+            console.log('token', token)
+    
+            try {
+                // const gens = await allGenerator(token);
+    
+                // console.log('response',gens.resbody)
+                // console.log('token',token)
+    
+                res.render('admin/generators_repair_report', {userDetails, id}); 
+            } catch (err) {
+                if (err) return console.error('display page details error', err)
+            };
+             
+            };
+
+        static async gen_daily_maintenance (req, res) {
+            var userDetails = req.session.userDetails;
+            const token = userDetails.token;
+            const id = req.query.id;
+    
+            console.log('id',id)
+            console.log('token', token)
+    
+            try {
+                // const gens = await allGenerator(token);
+    
+                // console.log('response',gens.resbody)
+                // console.log('token',token)
+    
+                res.render('admin/generator_daily_maintenance', {userDetails, id}); 
             } catch (err) {
                 if (err) return console.error('display page details error', err)
             };
