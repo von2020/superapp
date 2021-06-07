@@ -184,7 +184,7 @@
     });
   };
 
-                            getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/technicians").done(function(data, status){
+                            getJSON("https://telnetsupperapp.com.ng:8443/api/v1/vehicle/technicians").done(function(data, status){
                               console.log("here",data),
                               
                               console.log("here")
@@ -758,19 +758,19 @@ else {
 });
 };
 
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/recommend_quotation`).done(function(data, status){
+putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation`).done(function(data, status){
                   console.log("here",data),
                   
                   console.log("here")
                   console.log("here",data)
                   console.log(status)
-                  
+                  ID = data.id
                   if (status == "success") {
 
                     loading.disabled = false;
                     loader.style.display = "none";
-                    alert('submitted successfully,quotation upload successful, awaiting auditor and finance approval ')
-                    window.location.href="/facilities/quotationList";
+                    alert('submitted successfully,quotations upload successful, select one')
+                    window.location.href=`/facilities/viewQuotation?id=${ID}`;
                 } else {
                     loading.disabled = false; 
                     loader.style.display = "none";

@@ -101,16 +101,38 @@
                                 <div class="thread-profile mr-2"><img src="" alt=""></div>
                                 <div>
                                   <h5 class="font-weight-bold">Vehicle Details</h5>
-                                  <p><span>vehicle: <a class="text-primary"><%= queues.vehicle_name%></a></span></p>
-                                  <p><span>repair date: <a class="text-primary"><%= queues.repair_date%></a></span></p>
-                                  <p><span>location: <a class="text-primary"><%= queues.location%></a></span></p>
-                                  <p><span>created by: <a class="text-primary"><%= queues.created_by%></a></span></p>
-                                  <p><span>advance amount: <a class="text-primary"><%= queues.advance_amount%></a></span></p>
-                                  <%if (queues.advance_invoice == null) { %>
-                                    <p><span>advance invoice: <a class="text-primary">Not Yet Uploaded</a></span></p>
-                                    <% } else{ %>
-                                    <p><span>advance invoice: <a class="text-primary" href="<%= queues.advance_invoice%>">view</a></span></p>
-                                    <% } %>
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                        <th>Vehicle Name</th>
+                                        <th>Repair Date</th>
+                                        <th>Charged Amount</th>
+                                        
+                                        <th>Created On</th>
+                                        
+                                        <th>Document</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td><%= queues.vehicle_name%></th>
+                                        <td><%= queues.repair_date%></th>
+                                        <td><%= queues.technician_charged_amount%></th>
+                                        
+                                        
+                                        <td><%= queues.created_on.slice(0,10)%></th>
+                                        
+                                          <%if (queues.advance_invoice == null) { %>
+                                        <td>Not Yet Uploaded</th>
+                                          <% } else{ %> 
+                                        <td><a class="text-primary" href="<%= queues.advance_invoice%>">view</a></th>
+                                          <% } %>
+                                      </tr>
+                                    </tbody>  
+                                  </table>
+
+                                  
 
                               </div>
                               </div>
@@ -130,6 +152,8 @@
                                 <input type="hidden" name="finance_name" class="form-control" id="finance_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
                                 <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
+
+                                
           
                             </div>
                             <div class="thread-foot p-4 d-flex justify-content-between">

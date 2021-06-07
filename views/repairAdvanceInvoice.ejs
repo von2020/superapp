@@ -95,16 +95,12 @@
                                                 <th> Vehicle Name </th>
                                                 <td> <%= queues.vehicle_name%> </td>
                                             </tr>
+                                            
 
                                             <tr>
                                                 <th> Upload Invoice </th>
                                                 <td> <input type="file" name="data" class="form-control" id="advance_invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required> </td>
                                             </tr>
-
-                                            
-                                            
-                                            
-
                                             
 
                                             <tr>
@@ -112,15 +108,23 @@
                                                 <td> <%= queues.created_by%> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th> Payment Type </th>
-                                                <td> <%= queues.payment_type%> </td>
-                                            </tr>
-
+                                            
                                             <tr>
                                                 <th> Advance Invoice </th>
-                                                <td> <%= queues.advance_payment_invoice%> </td>
+                                                <td><%if (queues.advance_payment_invoice == null) { %>
+                                                    <p><span> <a class="text-primary">Not Yet Uploaded</a></span></p>
+                                                    <% } else{ %>
+                                                  <p><span> <a class="text-primary" href="<%= queues.advance_payment_invoice%>">view</a></span></p>
+                                                  <% } %>
+                                                </td>
+                                                
                                             </tr>
+
+                                            <!-- <tr>
+                                                <th> Advance Invoice </th>
+                                                <td><a class="text-primary" href="<%= queues.advance_payment_invoice%>" alt="Not Yet Uploaded">view</a></td>
+                                                
+                                            </tr> -->
 
                                             
                                         </tbody>
@@ -235,6 +239,7 @@ var file = document.getElementById('advance_invoice').files[0];
                 console.log("starting")
                     var ID = $('#id').val();
                   console.log(ID)
+                  
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
@@ -245,7 +250,7 @@ contentType: 'application/json'
 });
 };
 
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/queue_repair/${ID}/upload`).done(function(data, status){
+putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/queue_repair/${ID}/upload`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")
@@ -256,6 +261,7 @@ putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/
                         loading.disabled = false;
                         loader.style.display = "none";
                         alert('invoice upload successful, await auditor and finance approval')
+                        window.location.href=`/facilities/repairQueueList`;
                     } else {
                         loading.disabled = false; 
                         loader.style.display = "none";

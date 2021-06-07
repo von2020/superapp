@@ -91,9 +91,8 @@
                         <th>Quotation Created On</th>
                         <th>Updated On</th>
                         <th>Payment Type</th>
-                        <th>Advance Percentage</th>
                         <th>Created By</th>
-                        <th>Amount Budgeted</th>
+                        
                         <th>View</th>
                         
                         
@@ -108,9 +107,8 @@
                           <td><%= quotation.created_on.slice(0,10)%></td>
                           <td><%= quotation.updated_on.slice(0,10)%></td>
                           <td><%= quotation.payment_type%></td>
-                          <td><%= quotation.advance_percentage%></td>
                           <td><%= quotation.created_by%></td>
-                          <td><%= quotation.amount_budgeted%></td>
+                          
                           <%if (quotation.approved_technician_reason == '') { %>
                           <td><a href="/facilities/viewQuotation?id=<%=quotation.id%>" id='<%=quotation.id%>' class="btn btn-sm btn-success rounded-pill" > Quotation</a></td>
                           <% } else{ %>

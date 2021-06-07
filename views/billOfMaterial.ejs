@@ -176,6 +176,7 @@
                             console.log("starting")
 
                             var getJSON = function (url) {
+                              console.log("get lost")
     return $.ajax({
         url: url,
         type: 'GET',
@@ -184,7 +185,7 @@
     });
   };
 
-                            getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/technicians").done(function(data, status){
+                            getJSON("https://telnetsupperapp.com.ng:8443/api/v1/vehicle/technicians").done(function(data, status){
                               console.log("here",data),
                               
                               console.log("here")

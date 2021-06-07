@@ -98,7 +98,9 @@
                                                 <% materials.quotation_set.forEach((item) => { %> 
                                                   <p>Technician Name:  <%= item.technician_name%></p>
                                                     <br>
-                                                   <p>Body: NGN <%= item.body%></p>
+                                                   <p>Advance Payment: NGN <%= item.advance_payment%></p>
+                                                    <br>
+                                                    <p>Advance Percentage:  <%= item.advance_percentage%></p>
                                                     <br>
                                                     <!-- <p>Document: <%= item.document%></p> -->
                                                     <br>
@@ -267,7 +269,7 @@ contentType: 'application/json'
 });
 };
 
-          getJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/recommend_quotation_approved_tech/${ID}`).done(function(data, status){
+          getJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation_approved_tech/${ID}`).done(function(data, status){
             console.log("here",data),
             
             console.log("here")

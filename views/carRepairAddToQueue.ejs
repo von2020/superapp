@@ -24,7 +24,7 @@
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
 </head>
 
-<body onload="changeFun()">
+<body onload="changeFun2()">
     <div class="main-wrapper">
 
         <!-- Insert the sidebar partial here-->
@@ -105,10 +105,7 @@
                                                <td> <%= materials.advance_percentage%> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th> Amount Budgeted </th>
-                                                <td> <%= materials.amount_budgeted%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> BU Head Approval </th>
@@ -137,27 +134,25 @@
 
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <%= materials.created_on%> </td>
+                                                <td> <%= materials.created_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= materials.updated_on%> </td>
+                                                <td> <%= materials.updated_on.slice(0,10)%> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th>Payment Type</th>
-                                                <td><select class="form-control" id="payment_type" name="payment_type" >
-                                                    <option selected disabled>------</option>
-                                                    <option value="advance">Advance</option>
-                                                    <option value="balance">Balance</option>
-                                                    </td>
-                                            </tr>
-
+                                            
+                                           
 
                                                 <tr>
                                                     <th>Repair Date</th>
                                                     <td> <input name="repair_date" type="date" value="2021-01-01" class="form-control" id="repair_date" required> </td>
+                                                </tr>
+
+                                                <tr id="divbalance_amount">
+                                                    <th>Balance Amount</th>
+                                                    <td> <input name="balance_amount" class="form-control" id="balance_amount" > </td>
                                                 </tr>
 
                                             
@@ -184,9 +179,13 @@
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
-                                    <input type="hidden" name="fault" class="form-control" id="fault" value="<%=materials.fault%>" required>
+                                    <input type="hidden" name="advance_percentage" class="form-control" id="advance_percentage" value="<%=materials.advance_percentage%>" required>
 
                                     <input type="hidden" name="payment_type" class="form-control" id="payment_type" value="<%=materials.payment_type%>" required>
+
+                                    <input type="hidden" name="fault" class="form-control" id="fault" value="<%=materials.fault%>" required>
+
+                                    
 
                                     
 
@@ -208,6 +207,24 @@
 
         </div>
     </div>
+
+    <script>
+        function changeFun2() {
+			var selectBox = document.getElementById("payment_type").value;
+            console.log('selectBox', selectBox);
+			// var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            var advance_percentage = document.getElementById('advance_percentage').value;
+            console.log('advance_percentage', advance_percentage)
+				if (selectBox == 'balance' && advance_percentage == null) {
+					$("#balance_amount").show();
+						
+				} else  {
+
+				$("#divbalance_amount").hide();
+						
+				}
+			};
+    </script>
 
     <!-- core:js -->
     <script src="../../../assets/vendors/core/core.js"></script>
@@ -253,7 +270,7 @@ contentType: 'application/json'
 });
 };
 
-          getJSON("https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/vehicle/technicians").done(function(data, status){
+          getJSON("https://telnetsupperapp.com.ng:8443/api/v1/vehicle/technicians").done(function(data, status){
             console.log("here",data),
             
             console.log("here")

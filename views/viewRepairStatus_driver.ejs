@@ -128,7 +128,7 @@
                                                 
                                                 <td>
                                                     <select class="form-control" id="vehicle_condition" name="vehicle_condition" >
-                                                        <option>------</option>
+                                                        <option selected disabled>------</option>
                                                         <option>perfect</option>
                                                         <option>adjust</option>
                                                         <option>bad</option>
@@ -143,9 +143,9 @@
                                             <tr>
                                                 <th>Technician Revisit</th>
                                                 <td><select class="form-control" id="technician_revisit" name="technician_revisit" >
-                                                    <option>------</option>
-                                                    <option>true</option>
-                                                    <option>false</option>
+                                                    <option selected disabled>------</option>
+                                                    <option value="true">Yes</option>
+                                                    <option value="false">No</option>
                                                     </td>
                                             </tr>
 
@@ -165,7 +165,7 @@
                                     <br>
                                     <br>
                                     
-                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
+                                    <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.queue_repair%>" required>
                                     
 
                                     

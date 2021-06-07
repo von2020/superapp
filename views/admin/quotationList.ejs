@@ -72,10 +72,7 @@
                       <tr>
                         <th>Quotation Created On</th>
                         <th>Updated On</th>
-                        <th>Require Advance</th>
-                        <th>Advance Percentage</th>
                         <th>Created By</th>
-                        <th>Amount Budgeted</th>
                         <th>Status</th> 
                       </tr>
                     </thead>
@@ -84,11 +81,8 @@
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
                           <td><%= quotation.created_on%></td>
-                          <td><%= quotation.updated_on%></td>
-                          <td><%= quotation.require_advance%></td>
-                          <td><%= quotation.advance_percentage%></td>  
+                          <td><%= quotation.updated_on%></td> 
                           <td><%= quotation.created_by%></td>
-                          <td><%= quotation.amount_budgeted%></td>
                           <%if ( quotation.bu_head_approval == 'PENDING') { %>
                           <td><a href="/admin/manage/viewQuotation?id=<%=quotation.id%>" id='<%=quotation.id%>' class="btn btn-sm btn-warning rounded-pill" > <%= quotation.bu_head_approval%></a></td>
                           <% } else{ %>

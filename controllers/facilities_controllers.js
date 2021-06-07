@@ -122,8 +122,9 @@ class Facilities {
         const userDetails = req.session.userDetails
         const token = userDetails.token;
         
-        
-       const query = {
+        var query;
+        if (req.body.payment_type == 'yes') {
+        query = {
             bill_of_material: req.body.bill_of_material,
             location: req.body.location,
             created_by: req.body.created_by,
@@ -148,6 +149,33 @@ class Facilities {
             if (err) console.log('error', err)
             resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
         }
+    } else{
+        query = {
+            bill_of_material: req.body.bill_of_material,
+            location: req.body.location,
+            created_by: req.body.created_by,
+            servicing_date: req.body.servicing_date,
+            
+        }
+    
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await servicingQueue(query, token);
+            const response = resbody
+            // console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to servicing queue, you need to upload invoice`,`/facilities/viewServicingInvoice?id=${response.id}`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  `,'/facilities/allBillOfMaterials')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+    }
     };
 
     static async servicingQueueList (req, res) {
@@ -1155,21 +1183,11 @@ class Facilities {
         var query;
         if (req.body.payment_type == 'advance') {
         query = {
-            recommended: req.body.quotation,
+            recommended: Number(req.body.quotation),
             repair_date: req.body.repair_date,
             created_by: req.body.created_by,
             
         }
-    } else {
-        query = {
-            recommended: req.body.quotation,
-            repair_date: req.body.repair_date,
-            payment_type: req.body.payment_type,
-            created_by: req.body.created_by,
-            
-        }
-    }
-
         console.log('query', query)
         console.log('token', token)
         try{
@@ -1178,7 +1196,7 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to repair queue`,'/facilities/repairQueueList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle to repair queue`,`/facilities/viewAdvanceInvoice_driverAdmin?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response.recommended}  `,'/facilities/quotationList')
             }
@@ -1186,6 +1204,32 @@ class Facilities {
             if (err) console.log('error', err)
             resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
         }
+
+    } else{
+        query = {
+            recommended: Number(req.body.quotation),
+            repair_date: req.body.repair_date,
+            payment_type: req.body.payment_type,
+            balance_amount: req.body.balance_amount,
+            created_by: req.body.created_by,       
+        }
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await repairQueue(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated vehicle repair`,`/facilities/viewBalanceInvoice_driverAdmin?id=${response.id}`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.recommended}  `,'/facilities/quotationList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+        }
+    } 
     };
 
     static async repairQueueList (req, res) {
@@ -1488,7 +1532,7 @@ class Facilities {
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            recommended: req.body.id,
+            recommended: req.body.recommended,
             finance_advance_approval: boolValue,
             finance_comment: req.body.finance_comment,
             finance_name: req.body.finance_name,
@@ -1623,9 +1667,9 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully created vehicle repair status for vehicle`,'/facilities/repairQueueList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created vehicle repair status for vehicle`,'/facilities/carRepairStatusList_driverAdmin')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response.repair_queue}  `,'/facilities/repairQueueList')
+                resMessageRedirect(res, req, 'error_msg', ` ${response.repair_queue}  `,'/facilities/carRepairStatusList_driverAdmin')
             }
         } catch(err){
             if (err) console.log('error', err)

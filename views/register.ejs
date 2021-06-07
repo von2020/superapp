@@ -113,7 +113,7 @@
           function changeFun_role(){
             //var subID = $('#subsidiary').val();
 
-            $.get(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/accounts/registration_roles`, function(data, status){
+            $.get(`https://telnetsupperapp.com.ng:8443/api/v1/accounts/registration_roles`, function(data, status){
               console.log(data)
               console.log(status)
               if (status == "success") {
@@ -137,7 +137,7 @@
           function changeFun(){
             var subID = $('#subsidiary').val();
 
-            $.get(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/accounts/department/${subID}`, function(data, status){
+            $.get(`https://telnetsupperapp.com.ng:8443/api/v1/accounts/department/${subID}`, function(data, status){
               console.log(data)
               console.log(status)
               if (status == "success") {
@@ -162,7 +162,7 @@
             var subID = $('#department').val();
             console.log('Hi');
             console.log($('#department').val())
-            $.get(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/accounts/uplines/${subID}`, function(data, status){
+            $.get(`https://telnetsupperapp.com.ng:8443/api/v1/accounts/uplines/${subID}`, function(data, status){
               console.log(data)
               console.log(status)
               if (status == "success") {
