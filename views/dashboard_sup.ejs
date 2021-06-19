@@ -17,7 +17,10 @@
     <!-- endinject -->
     <!-- Layout styles -->  
 	<link rel="stylesheet" href="assets/css/demo_1/style.css">
+  <link rel="stylesheet" href="assets/css/demo_1/custom.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -78,25 +81,14 @@
             <div class="row flex-grow">
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-one">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">All Downlines</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      <h6 class="card-title mb-0">Number Of Downlines</h6>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2"><%=totals.downline_staff_count%></h3>
+                        <h3 class="mb-2" id="total_downlines"></h3>
                         <div class="d-flex align-items-baseline">
                           <p class="text-success">
                             <!-- <span>+3.3%</span>
@@ -113,25 +105,14 @@
               </div>
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-two">
                     <div class="d-flex justify-content-between align-items-baseline">
                       <h6 class="card-title mb-0">Total Requests</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2"><%=totals.total_requests%></h3>
+                        <h3 class="mb-2" id="total_requests"></h3>
                         <div class="d-flex align-items-baseline">
                           <p class="text-danger">
                             <!-- <span>-2.8%</span>
@@ -148,25 +129,14 @@
               </div>
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-three">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Downline Requests</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      <h6 class="card-title mb-0">Total Downline Requests</h6>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2"><%=totals.downline_requests%></h3>
+                        <h3 class="mb-2" id="total_downlineRequests"></h3>
                         <div class="d-flex align-items-baseline">
                           <p class="text-success">
                             <!-- <span>+2.8%</span>
@@ -185,6 +155,36 @@
           </div>
         </div> <!-- row -->
 
+        <div class="table-responsive">
+          <table id="dataTableExample" class="table" data-order=''>
+            <thead>
+
+              <tr>
+                <th>Staff Name</th>
+                <th>Role</th>
+                <th>Request Type</th>
+                <th>Status</th>
+                <th>View Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item) => {%>
+            <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+                <tr>
+                  <td><%= item.requester_name%></td>
+                  <td><%= item.requester_role%></td>
+                  <td><%= item.request_type%></td>
+                  <% if (item.driver_admin_approval == 'PENDING') { %>
+                    <td><button class="badge badge-danger">Pending</button></td>
+                  <% }  else { %>
+                    <td><button class="badge badge-primary">Reassign Priority</button></td>
+                  <% }%>
+                  <td> <a href="/requests/individual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View request</a></td>
+                </tr>
+                <% })%>
+            </tbody>
+          </table>
+        </div>
         <!-- <div class="row">
           <div class="col-12 col-xl-12 grid-margin stretch-card">
             <div class="card overflow-hidden">
@@ -317,7 +317,7 @@
           </div>
         </div> -->
          <!-- row -->
-
+         <input type="hidden" name="token" class="form-control" id="token" value="<%= userDetails.token %>" required>
 			</div>
 
 			<!-- partial:partials/_footer.html -->
@@ -326,7 +326,45 @@
 		
 		</div>
 	</div>
-
+  <script>
+    var token = $('#token').val();
+    console.log('token', token)
+    $(document).ready(function(){
+    
+      $.ajax({
+            url:'https://telnetsupperapp.com.ng:8443/api/v1/core/driver_admin_totals',
+            // url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/core/driver_admin_totals',
+            type:'GET',
+            dataType: 'json',
+            headers: { "Authorization": "Token" + token },
+        
+            success:function(data){
+                if(data){
+                    $('#total_downlines').html('<h1>'+ data.downline_staff_count +'</h1>');
+                    $('#total_requests').html('<h1>'+ data.total_requests +'</h1>');
+                    $('#total_downlineRequests').html('<h1>'+ data.downline_requests +'</h1>');
+                    
+                }               
+            }, 
+            error:function(data){
+          //    alert('Error Retrieving data');
+            }
+          });
+    
+    // $('#membertypeForm').submit(function(evt){
+     
+    //      $('#nodata').hide();
+    
+    //     evt.preventDefault();
+    //     var reqobj = new Object();
+    //         reqobj.first = $('#first').val();
+    //         reqobj.last = $('#last').val();
+    //         var dsent = JSON.stringify(reqobj);
+    
+   
+    })
+    // });
+      </script>
 
     
 	<!-- core:js -->

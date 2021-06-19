@@ -57,12 +57,12 @@
 
 			<div class="page-content">
         <div class="d-flex">
-          <div class="col-sm-8">
+          <div class="col-sm-7">
             <div class="row">
               <div class="col-sm-12">
                 <div>
                   <h4 class="mb-3 mb-md-0">Car Requests <a class="text-primary"><%=data.created_on.slice(0,10)%></a></h4>
-                  <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span><i class="i mr-3" data-feather="mail"></i> </span></p></div>
+                  
                 </div>
                 
               </div>
@@ -76,41 +76,39 @@
                       <div class="thread-profile mr-2"><img src="" alt=""></div>
                       <div>
                         <h5 class="font-weight-bold">New Car Request</h5>
-                        <p><span><a href="" class="text-primary"></a></span></p>
+                        <div class="thread-body p-5">
+                          <h5 class="font-weight-bold">Destination:</h5>
+                          <% var destination %>
+                          <%if (data.trip_type == 'single') { %>
+                            <%purpose = [{location: data.destination}] %>
+                            <%} else { %>
+                              <%purpose = data.place_set %>
+                              <%} %>
+                              <% purpose.forEach((item) => {%>
+                              <p><%= item.location%></p>
+                              <% })%>
+      
+                            <h5 class="font-weight-bold">Purpose:</h5>
+                            <% var purpose %>
+                            <%if (data.trip_type == 'single') { %>
+                              <%purpose = [{purpose: data.purpose}] %>
+                              <%} else { %>
+                                <%purpose = data.place_set %>
+                                <%} %>
+                                <% purpose.forEach((item) => {%>
+                                <p><%= item.purpose%></p>
+                                <% })%>
+      
+                        </div>
                     </div>
                     </div>
-                    <div class="thread-more">
-                      <p class="text-light2"><%=data.created_on.slice(0,10)%><i class="btn-icon-prepend ml-3 pr-0 mr-0" data-feather="more-vertical"></i></p>
-                    </div>
+                    
                   </div>
-                  <div class="thread-body p-5">
-                    <h5 class="font-weight-bold">Destination:</h5>
-                    <% var destination %>
-                    <%if (data.trip_type == 'single') { %>
-                      <%purpose = [{location: data.destination}] %>
-                      <%} else { %>
-                        <%purpose = data.place_set %>
-                        <%} %>
-                        <% purpose.forEach((item) => {%>
-                        <p><%= item.location%></p>
-                        <% })%>
-
-                      <h5 class="font-weight-bold">Purpose:</h5>
-                      <% var purpose %>
-                      <%if (data.trip_type == 'single') { %>
-                        <%purpose = [{purpose: data.purpose}] %>
-                        <%} else { %>
-                          <%purpose = data.place_set %>
-                          <%} %>
-                          <% purpose.forEach((item) => {%>
-                          <p><%= item.purpose%></p>
-                          <% })%>
-
-                  </div>
+                  
                   <div class="thread-foot p-4 d-flex justify-content-between">
                     <h5>Take Action</h5>
                    <div>
-                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button"value = true>Accept</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button"value = false>Reject</button>
+                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" onclick="onSubmit_approval()" name = "button" value = true>Accept</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button"value = false>Reject</button>
                     </div>
                   </div>
                 </div>
@@ -131,7 +129,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 thread-sidebar d-flex">
+          <div class="col-sm-5 thread-sidebar d-flex">
             <div class="col-sm-6 pt-4">
 
                 <h5>Properties</h5>
@@ -142,12 +140,16 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Status:</label>
-                  <button class="btn btn-success mr-2 rounded-pill" ></button>
+                  <% if (data.upline_approval == 'APPROVED') { %>
+                  <button class="btn btn-success mr-2 rounded-pill"><%= data.upline_approval%></button>
+                  <% }  else { %>
+                    <button class="btn btn-danger mr-2 rounded-pill"><%= data.upline_approval%></button>
+                    <% }%>
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Priority</label>
-                  <select name= "priority" class ="form-control" id = priority required>
-                    <option selected value= "1"> --- </option>
+                  <select name= "priority" class ="form-control" id="priority" required>
+                    <option selected disabled> ---- </option>
                     <option value = "1"> Low Priority </option>
                     <option value = "2"> Medium Priority </option>
                     <option value = "3"> High Priority </option>
@@ -160,7 +162,7 @@
             <div class="col-sm-6 border-left pt-4">
 
                 <div class="d-flex justify-content-between">
-                  <h5>Contact Details <span><small></small></span></h5><a class="text-primary">edit</a>
+                  <h5>Contact Details <span><small></small></span></h5><a class="text-primary"></a>
                 </div>
                 <br>
                 <div class="Profile">
@@ -203,11 +205,24 @@
       
     function onSubmit(){
       // alert('hey')
+      
       var comment = document.getElementById('simpleMdeExample').value;
       console.log(comment)
       if(comment == ''){
         alert('specify reason for rejection')
-        event.preventDefault();;
+        event.preventDefault();
+      };
+    }
+
+    function onSubmit_approval(){
+      // alert('hey') 
+      var selectBox = document.getElementById("priority");
+			var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+      // var prior = document.getElementById('priority').value;
+      console.log(selectedValue)
+      if(selectedValue == '----'){
+        alert('Pls set the priority')
+        event.preventDefault();
       };
     }
   </script>

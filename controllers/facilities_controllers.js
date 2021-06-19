@@ -115,6 +115,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -147,7 +149,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     } else{
         query = {
@@ -173,7 +176,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
     };
@@ -193,9 +197,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -221,9 +225,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -243,9 +247,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -265,9 +269,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -290,9 +294,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -315,9 +319,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -349,6 +353,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -370,9 +376,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -404,6 +410,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -425,9 +433,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -468,6 +476,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -489,9 +499,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', err);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -533,6 +543,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -553,9 +565,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -578,9 +590,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -603,9 +615,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -646,6 +658,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -686,6 +700,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -707,9 +723,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -740,7 +756,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -760,9 +777,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -783,9 +800,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -809,9 +826,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -848,6 +865,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -869,9 +888,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -908,6 +927,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
     // this is to post the data from the table to the database
@@ -947,6 +968,8 @@ class Facilities {
             
         } catch (err) {
             if (err) console.log('Error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -965,9 +988,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -989,9 +1012,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1024,7 +1047,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1044,9 +1068,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1066,9 +1090,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1088,9 +1112,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1112,9 +1136,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1147,7 +1171,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1169,9 +1194,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1202,7 +1227,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     } else{
@@ -1227,7 +1253,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     } 
     };
@@ -1247,9 +1274,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1271,9 +1298,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1295,9 +1322,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1319,9 +1346,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1346,9 +1373,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1370,9 +1397,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1411,6 +1438,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1431,9 +1460,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1472,6 +1501,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1493,9 +1524,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1517,9 +1548,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1558,6 +1589,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1578,9 +1611,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1619,6 +1652,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1640,9 +1675,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1673,7 +1708,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1693,9 +1729,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1719,9 +1755,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1758,6 +1794,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1776,9 +1814,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1801,9 +1839,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1820,9 +1858,9 @@ class Facilities {
                 res.render('dieselVendor', {userDetails});
 
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1857,7 +1895,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1877,9 +1916,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1901,9 +1940,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1923,9 +1962,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.error);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1950,9 +1989,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1985,7 +2024,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2014,9 +2054,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2039,9 +2079,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2080,6 +2120,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -2105,9 +2147,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2130,9 +2172,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2171,6 +2213,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -2191,9 +2235,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2215,9 +2259,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2253,7 +2297,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2278,6 +2323,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         } 
     };
 
@@ -2348,6 +2395,8 @@ class Facilities {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
         
 
@@ -2402,7 +2451,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2425,9 +2475,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2449,9 +2499,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2473,9 +2523,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2491,9 +2541,9 @@ class Facilities {
                 res.render('generator', {userDetails});
             
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2515,9 +2565,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2538,7 +2588,9 @@ class Facilities {
 
             res.render('genServiceRequest', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2570,7 +2622,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2592,9 +2645,9 @@ class Facilities {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2616,7 +2669,9 @@ class Facilities {
 
             res.render('request_files', {userDetails, id}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2649,7 +2704,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2670,7 +2726,9 @@ class Facilities {
 
             res.render('genDueServiceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2693,7 +2751,9 @@ class Facilities {
 
             res.render('genServicing_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2726,7 +2786,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2747,7 +2808,9 @@ class Facilities {
 
             res.render('genServiceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2768,7 +2831,9 @@ class Facilities {
 
             res.render('viewGenServicing_facility', {userDetails, gens: gens.resbody, id}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2805,7 +2870,8 @@ class Facilities {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/genServicingList_facility')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -2825,7 +2891,9 @@ class Facilities {
 
             res.render('genServiceSignOffDocUpload', {userDetails, gens: gens.resbody, id}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2847,7 +2915,9 @@ class Facilities {
 
             res.render('genServiceList_driverAdmin', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2868,7 +2938,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('viewGenServicing_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };        
@@ -2882,10 +2954,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         console.log('token', token)
 
         try {
-            // const gens = await allGenerator(token);
-
-            // console.log('response',gens.resbody)
-            // console.log('token',token)
+            
 
             res.render('sLA', {userDetails, id}); 
         } catch (err) {
@@ -2933,7 +3002,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2955,9 +3025,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2984,9 +3054,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3009,9 +3079,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3050,6 +3120,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -3073,9 +3145,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3098,9 +3170,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3139,6 +3211,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -3159,9 +3233,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3184,9 +3258,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3208,9 +3282,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3256,7 +3330,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -3275,7 +3350,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('billOfMaterial', {userDetails, vehs: vehs.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -3339,6 +3416,8 @@ static async viewGenServicing_diverAdmin (req, res) {
                 }
             } catch (err) {
                 if (err) console.log('error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
             }
             
     
@@ -3361,9 +3440,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3386,9 +3465,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3411,9 +3490,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3436,9 +3515,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3470,7 +3549,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -3511,7 +3591,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
             
     };
@@ -3532,9 +3613,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3556,9 +3637,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -3609,7 +3690,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -3629,7 +3711,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
                 res.render('genFaultReport', {userDetails, gens: gens.resbody}) 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
      
     };
@@ -3665,7 +3749,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -3681,7 +3766,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('genFaultList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -3699,7 +3786,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('gen_repairs', {userDetails, slas: slas.resbody, id}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
          
         };
@@ -3738,7 +3827,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     } else{
@@ -3767,7 +3857,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     }
@@ -3787,7 +3878,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('gen_repairList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -3804,7 +3897,9 @@ static async viewGenServicing_diverAdmin (req, res) {
     
                 res.render('genRepairList_procurement', {userDetails, gens: gens.resbody}); 
             } catch (err) {
-                if (err) return console.error('display page details error', err)
+                if (err) console.error('display page details error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
             };
               
             };
@@ -3821,7 +3916,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('genRepairStatusList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -3855,9 +3952,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                     res.redirect('/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                if (err) console.error('Error', err);
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
             }
 
         // res.render('genRepairStatus', {userDetails, repair}) 
@@ -3893,7 +3990,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -3945,7 +4043,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -3961,7 +4060,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('genMaintenanceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -3978,7 +4079,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('genDailyMaintenanceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4084,7 +4187,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -4104,7 +4208,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('phcnBillList', {userDetails, gens}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4121,7 +4227,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('phcnBillList_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4144,9 +4252,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4169,9 +4277,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4217,7 +4325,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -4240,9 +4349,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4275,7 +4384,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -4291,7 +4401,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('phcnBillPaymentList_driverAdmin', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4314,9 +4426,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4356,6 +4468,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -4379,6 +4493,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             res.render('phcnBillPaymentList_auditor', {userDetails, gens}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4401,9 +4517,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4443,6 +4559,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -4465,6 +4583,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             res.render('phcnBillPaymentList_finance', {userDetails, gens}); 
         } catch (err) {
             if (err) return console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4487,9 +4607,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.redirect('/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4529,6 +4649,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 
@@ -4542,9 +4664,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.render('phcnDailyReading', {userDetails});
             
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4559,9 +4681,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.render('diesel', {userDetails});
             
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4576,9 +4698,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 res.render('phcn', {userDetails});
             
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
 
     };
@@ -4611,7 +4733,8 @@ static async viewGenServicing_diverAdmin (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -4627,7 +4750,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('phcnDailyReadingList_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };
@@ -4644,7 +4769,9 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             res.render('phcnDailyReadingList_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         };
           
         };

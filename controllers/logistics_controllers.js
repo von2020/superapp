@@ -35,6 +35,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -52,6 +54,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -108,6 +112,8 @@ class Logistics {
             };
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -287,6 +293,8 @@ class Logistics {
          
         }catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };   
 
@@ -331,6 +339,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -388,6 +398,8 @@ class Logistics {
         
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -409,6 +421,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+            return;
         }
     };
 
@@ -455,6 +469,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -500,6 +516,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -552,6 +570,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -592,6 +612,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -621,6 +643,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -665,6 +689,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -768,11 +794,13 @@ class Logistics {
                 resMessageRedirect(res, req, 'error_msg', `${trips.message}`, '/dashboard')
                 // you may need to add a middleware to make sure only the right personal can see this.
             } else {
-                resMessageRedirect(res, req, 'error_msg', `${trips.message}`, '/dashboard')
+                resMessageRedirect(res, req, 'error_msg', `Trip not Created or Registered`, '/dashboard')
             }
         } catch (err) {
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', 'Trip not Created or Registered', '/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
+            
         }
     };
 
@@ -821,6 +849,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -858,6 +888,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
     static async staffEndTrip (req, res) {
@@ -886,6 +918,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -928,6 +962,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -956,6 +992,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -1002,6 +1040,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
     
@@ -1040,6 +1080,8 @@ class Logistics {
     
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -1108,6 +1150,8 @@ class Logistics {
 
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
         break;
         }
@@ -1149,6 +1193,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -1205,6 +1251,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
         break;
     }
@@ -1238,6 +1286,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -1277,6 +1327,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -1306,6 +1358,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1349,6 +1403,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1377,6 +1433,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1424,6 +1482,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
     
@@ -1457,6 +1517,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1507,6 +1569,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1548,6 +1612,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1596,6 +1662,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1625,6 +1693,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1666,6 +1736,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1695,6 +1767,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 
@@ -1736,6 +1810,8 @@ class Logistics {
             }
         } catch (err) {
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     };
 }

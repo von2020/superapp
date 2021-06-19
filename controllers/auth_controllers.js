@@ -14,11 +14,15 @@ const {
     updatePassword,
     reset_password,
     reset_password_confirm,
+    uplinequery,
+    carRequests,
     getTotals,
     getStaffCount,
+    staffDashboard,
     getDirectorCount,
     getSupervisorCount,
     getDriverAdminCount,
+    getDriverAdminDashboard,
     getDeb1
 } = auth_queries;
 
@@ -109,7 +113,9 @@ class auth_controllers {
         }
 
         catch (err){
-             if (err) return console.error('registration err', err)
+             if (err) console.error('registration err', err)
+             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/register'; </script>");
+                return;
         }
 
     
@@ -151,7 +157,9 @@ class auth_controllers {
             
         }
         catch(err) {
-            if (err) return console.log(err)
+            if (err) console.log(err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/reset-password'; </script>");
+                return;
         }
     
     }
@@ -218,7 +226,9 @@ class auth_controllers {
         }
 
         catch (err){
-             if (err) return console.log('error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/reset-password-confirm'; </script>");
+                return;
         }
 
     
@@ -242,6 +252,7 @@ class auth_controllers {
             username: req.body.username,
             password: req.body.password
         }
+        console.log("query", query)
         try{
             const {result, resbody} = await loginRequest(query)
             console.log("response", resbody)
@@ -270,9 +281,9 @@ class auth_controllers {
             
         }
         catch(err) {
-            if (err)  return res.redirect ('/')
-            console.log('err', err)
-            
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                return;
         }
     }
 
@@ -317,6 +328,8 @@ class auth_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                return;
         }
         
     };
@@ -326,7 +339,7 @@ class auth_controllers {
         const token = userDetails.token
 
         try{
-            const {result, resbody} = await getStaffCount(token);
+            const {result, resbody} = await staffDashboard(token);
             const totals = resbody;
             req.session.totals = resbody;
             console.log("totals", totals)
@@ -338,7 +351,9 @@ class auth_controllers {
                     resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                 }
         } catch(err){
-                if (err) console.log('error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                return;
             }
         };
 
@@ -359,7 +374,9 @@ class auth_controllers {
                     resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                 }
         } catch(err){
-                if (err) console.log('error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                return;
             }
         };
 
@@ -368,19 +385,42 @@ class auth_controllers {
         const token = userDetails.token
     
             try{
-                const {result, resbody} = await getSupervisorCount(token);
-                const totals = resbody;
-                req.session.totals = resbody;
-                console.log("totals", totals)
+                const {result, resbody} = await carRequests(token);
+                
+                const data_request = resbody;
+            console.log('vehicle request', resbody)
+
+            var data = data_request.filter(function (data) {
+                return data.upline_approval == 'PENDING' // need to come back to this to populate the feilds with the data about the users
+            });
+
+            var driver = data_request.filter(function (data) {
+                return data.driver_admin_approval == 'DENIED' // need to come back to this to populate the feilds with the data about the users
+            });
+
+            driver = driver[0];
+            if (!driver) {
+                data = data
+            } else {
+                data.push(driver)
+            }
+            
+            console.log(driver)
+            console.log('the data complete', data)
+            req.session.carRequests = resbody
+                
+                console.log("data", data)
                 if (result.statusCode == '200') {
                     
-                        res.render('dashboard_sup', {userDetails, totals})
+                        res.render('dashboard_sup', {userDetails, data})
                     } 
                     else {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
             } catch(err){
-                    if (err) console.log('error', err)
+                if (err) console.log('error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                    return;
                 }
         };
 
@@ -389,7 +429,7 @@ class auth_controllers {
         const token = userDetails.token
     
             try{
-                const {result, resbody} = await getSupervisorCount(token);
+                const {result, resbody} = await staffDashboard(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
@@ -401,7 +441,9 @@ class auth_controllers {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
             } catch(err){
-                    if (err) console.log('error', err)
+                if (err) console.log('error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                    return;
                 }
         };
 
@@ -410,7 +452,7 @@ class auth_controllers {
         const token = userDetails.token
     
             try{
-                const {result, resbody} = await getSupervisorCount(token);
+                const {result, resbody} = await staffDashboard(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
@@ -422,7 +464,9 @@ class auth_controllers {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
             } catch(err){
-                    if (err) console.log('error', err)
+                if (err) console.log('error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                    return;
                 }
         };
 
@@ -431,7 +475,7 @@ class auth_controllers {
         const token = userDetails.token
         
             try{
-                const {result, resbody} = await getSupervisorCount(token);
+                const {result, resbody} = await staffDashboard(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
@@ -443,7 +487,9 @@ class auth_controllers {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
                 } catch(err){
-                        if (err) console.log('error', err)
+                    if (err) console.log('error', err)
+                    res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                        return;
                     }
             };
 
@@ -452,7 +498,7 @@ class auth_controllers {
         const token = userDetails.token
     
             try{
-                const {result, resbody} = await getSupervisorCount(token);
+                const {result, resbody} = await staffDashboard(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
@@ -464,7 +510,9 @@ class auth_controllers {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
             } catch(err){
-                    if (err) console.log('error', err)
+                if (err) console.log('error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                    return;
                 }
         };
 
@@ -485,7 +533,9 @@ class auth_controllers {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
             } catch(err){
-                    if (err) console.log('error', err)
+                if (err) console.log('error', err)
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                    return;
                 }
             };
 
@@ -494,7 +544,7 @@ class auth_controllers {
         const token = userDetails.token
         
             try{
-                const {result, resbody} = await getDriverAdminCount(token);
+                const {result, resbody} = await getDriverAdminDashboard(token);
                 const totals = resbody;
                 req.session.totals = resbody;
                 console.log("totals", totals)
@@ -506,7 +556,9 @@ class auth_controllers {
                     resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')
                     }
                 } catch(err){
-                        if (err) console.log('error', err)
+                    if (err) console.log('error', err)
+                    res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                        return;
                     }
         };
     

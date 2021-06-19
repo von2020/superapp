@@ -109,14 +109,14 @@
                           <td><%= vehicle.technician_charged_amount%></td>
 
                           <%if (vehicle.auditor_advance_approval == 'PENDING') { %>
-                            <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.auditor_advance_approval%></a></td>
+                            <td><a class="badge badge-info"><%= vehicle.auditor_advance_approval%></a></td>
                             <% } else{ %>
-                              <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.auditor_advance_approval%></a></td>
+                              <td><a class="badge badge-primary"><%= vehicle.auditor_advance_approval%></a></td>
                             <% } %>
                             <%if ( vehicle.auditor_balance_approval == 'PENDING') { %>
-                              <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.auditor_balance_approval%></a></td>
+                              <td><a class="badge badge-info"><%= vehicle.auditor_balance_approval%></a></td>
                               <% } else{ %>
-                                <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.auditor_balance_approval%></a></td>
+                                <td><a class="badge badge-primary"><%= vehicle.auditor_balance_approval%></a></td>
                               <% } %>
                             
                           

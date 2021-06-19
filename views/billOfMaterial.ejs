@@ -112,7 +112,7 @@
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Advance Payment</label>
                         <select class='form-control' id='advance_payment' name='advance_payment'>
-                          <option>----</option>
+                          <option selected disabled>----</option>
                           <option>yes</option>
                           <option>no</option>
                         </select>
@@ -154,7 +154,7 @@
                     </div>
                   </div>
 
-                  
+                  <input type="hidden" name="token" class="form-control" id="token" value="<%= userDetails.token %>" required>
                     <div class="row">
                       <div class="col">
                         <div class="form-group">
@@ -174,13 +174,15 @@
   
                           function changeFun() {
                             console.log("starting")
-
+                            var token = $('#token').val();
+                            
+                            console.log('token', token)
                             var getJSON = function (url) {
                               console.log("get lost")
     return $.ajax({
         url: url,
         type: 'GET',
-        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+        headers: { "Authorization": "Token " + token },
         contentType: 'application/json'
     });
   };

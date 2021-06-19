@@ -17,7 +17,10 @@
     <!-- endinject -->
     <!-- Layout styles -->  
 	<link rel="stylesheet" href="assets/css/demo_1/style.css">
+  <link rel="stylesheet" href="../assets/css/demo_1/custom.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -82,245 +85,131 @@
             <div class="row flex-grow">
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">All Downlines</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2"><%=totals.downline_staff_count%></h3>
-                        <div class="d-flex align-items-baseline">
-                          <p class="text-success">
-                            <!-- <span>+3.3%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i> -->
-                          </p>
-                        </div>
-                      </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart1" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-one">
                     <div class="d-flex justify-content-between align-items-baseline">
                       <h6 class="card-title mb-0">Total Requests</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2"><%=totals.total_requests%></h3>
+                        <h3 class="mb-2" id="total_requests"><%=totals.total_requests%></h3>
                         <div class="d-flex align-items-baseline">
-                          <p class="text-danger">
-                            <!-- <span>-2.8%</span>
-                            <i data-feather="arrow-down" class="icon-sm mb-1"></i> -->
+                          <p class="text-success">
+                            <span class="dashboard" > 
+                              <i class="fas fa-car circleThree"></i> 
+                          </span>
                           </p>
                         </div>
                       </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart2" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
+                      
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-three">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Downline Requests</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      <h6 class="card-title mb-0">Total Approved Requests</h6>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2"><%=totals.downline_requests%></h3>
+                        <h3 class="mb-2" id="total_approved_requests"><%=totals.total_approved_requests%></h3>
                         <div class="d-flex align-items-baseline">
-                          <p class="text-success">
-                            <!-- <span>+2.8%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i> -->
-                          </p>
+                          <p class="text-danger">
+                            
                         </div>
                       </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart3" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
+                      <div class="col-6 col-md-12 col-xl-7">
+                        <span class="dashboard" > 
+                          <i class="fas fa-car circleFour"></i> 
+                      </span>
+                      </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-one">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Rejected Requests</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=totals.total_rejected_requests%></h3>
+                        <div class="d-flex align-items-baseline">
+                          
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-12 col-xl-7">
+                        <span class="dashboard" > 
+                          <i class="fas fa-car circleTwo"></i> 
+                      </span>
+                      </div>
+                    </div> 
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div> <!-- row -->
-
-        <!-- <div class="row">
-          <div class="col-12 col-xl-12 grid-margin stretch-card">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
-                  <h6 class="card-title mb-0">Revenue</h6>
-                  <div class="dropdown">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+        <div class="row">
+          <div class="col-12 col-xl-12 stretch-card">
+            <div class="row flex-grow">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-two">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Trips Embarked On</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=totals.user_total_trip%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-success">
+                            <span class="dashboard" > 
+                              <i class="fas fa-car circleThree"></i> 
+                          </span>
+                          </p>
+                        </div>
+                      </div>
+                      
                     </div>
                   </div>
-                </div>
-                <div class="row align-items-start mb-2">
-                  <div class="col-md-7">
-                    <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
-                  </div>
-                  <div class="col-md-5 d-flex justify-content-md-end">
-                    <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-outline-primary">Today</button>
-                      <button type="button" class="btn btn-outline-primary d-none d-md-block">Week</button>
-                      <button type="button" class="btn btn-primary">Month</button>
-                      <button type="button" class="btn btn-outline-primary">Year</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="flot-wrapper">
-                  <div id="flotChart1" class="flot-chart"></div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div> -->
-         <!-- row -->
-
-        <!-- <div class="row">
-          <div class="col-lg-12 col-xl-12 stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Projects</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-three">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Weekly Request</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=totals.user_weekly_request%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-danger">
+                            
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-12 col-xl-7">
+                        <span class="dashboard" > 
+                          <i class="fas fa-car circleThree"></i> 
+                      </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="table-responsive">
-                  <table class="table table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th class="pt-0">#</th>
-                        <th class="pt-0">Staff Name</th>
-                        <th class="pt-0">Request Type</th>
-                        <th class="pt-0">Priority</th>
-                        <th class="pt-0">Action</th>
-                        <th class="pt-0">Time Stamp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td><span><a class="list-profile" href="#" role="button" >
-                          <img src="https://via.placeholder.com/30x30" alt="profile">
-                        </a></span>Olamide Abayomi</td>
-                        <td>Car Request</td>
-                        <td><span class="badge badge-danger">High</span></td>
-                        <td><button class="btn btn-success mr-2 rounded-pill">Accept</button><button class="btn btn-danger rounded-pill">Reject</button></td>                    
-                        <td>5:30 pm</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td><span><a class="list-profile" href="#" role="button" >
-                          <img src="https://via.placeholder.com/30x30" alt="profile">
-                        </a></span>Michael Balogun</td>
-                        <td>Gen Request</td>
-                        <td><span class="badge badge-warning">Medium</span></td>
-                        <td><button class="btn btn-success mr-2 rounded-pill">Accept</button><button class="btn btn-danger rounded-pill">Reject</button></td>
-                        <td>3:30 pm</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td><span><a class="list-profile" href="#" role="button" >
-                          <img src="https://via.placeholder.com/30x30" alt="profile">
-                        </a></span>Michael Balogun</td>
-                        <td>PHCN Request</td>
-                        <td><span class="badge badge-warning">Medium</span></td>
-                        <td><button class="btn btn-block badge-success rounded-pill">rejected</button></td>
-                        <td>2:30 pm</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td><span><a class="list-profile" href="#" role="button" >
-                          <img src="https://via.placeholder.com/30x30" alt="profile">
-                        </a></span>Michael Balogun</td>
-                        <td>Gen Request</td>
-                        <td><span class="badge badge-success">Medium</span></td>
-                        <td><button class="btn btn-block badge-danger rounded-pill">rejected</button></td>
-                        <td>12:30 pm</td>
-                      </tr>
-
-                      <tr>
-                        <td>2</td>
-                        <td><span><a class="list-profile" href="#" role="button" >
-                          <img src="https://via.placeholder.com/30x30" alt="profile">
-                        </a></span>Michael Balogun</td>
-                        <td>Gen Request</td>
-                        <td><span class="badge badge-primary">low</span></td>
-                        <td><button class="btn btn-block badge-danger rounded-pill">rejected</button></td>
-                        <td>10:30 am</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div> 
+              </div>
+              
             </div>
           </div>
-        </div> -->
-         <!-- row -->
+        </div> <!-- row -->
 
 			</div>
 

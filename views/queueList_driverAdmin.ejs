@@ -108,24 +108,24 @@
                           <td><%= vehicle.location%></td>
 
                           <%if ( vehicle.auditor_advance_approval == 'PENDING') { %>
-                          <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.auditor_advance_approval%></a></td>
+                          <td><a class="badge badge-danger"><%= vehicle.auditor_advance_approval%></a></td>
                           <% } else{ %>
-                          <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.auditor_advance_approval%></a></td>
+                          <td><a class="badge badge-primary"><%= vehicle.auditor_advance_approval%></a></td>
                           <% } %>
                           <%if ( vehicle.auditor_balance_approval == 'PENDING') { %>
-                          <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.auditor_balance_approval%></a></td>
+                          <td><a class="badge badge-danger"><%= vehicle.auditor_balance_approval%></a></td>
                           <% } else{ %>
-                          <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.auditor_balance_approval%></a></td>
+                          <td><a class="badge badge-primary"><%= vehicle.auditor_balance_approval%></a></td>
                           <% } %>
                           <%if ( vehicle.finance_advance_approval == 'PENDING') { %>
-                          <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.finance_advance_approval%></a></td>
+                          <td><a class="badge badge-danger"><%= vehicle.finance_advance_approval%></a></td>
                           <% } else{ %>
-                          <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.finance_advance_approval%></a></td>
+                          <td><a class="badge badge-primary"><%= vehicle.finance_advance_approval%></a></td>
                           <% } %>
                           <%if ( vehicle.finance_balance_approval == 'PENDING') { %>
-                          <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.finance_balance_approval%></a></td>
+                          <td><a class="badge badge-danger"><%= vehicle.finance_balance_approval%></a></td>
                           <% } else{ %>
-                          <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.finance_balance_approval%></a></td>
+                          <td><a class="badge badge-primary"><%= vehicle.finance_balance_approval%></a></td>
                           <% } %>
                           
                           

@@ -1,4 +1,4 @@
-const {getResponse, getResponse_get, putResponseparam, postResponse,postResponse_reset, getResponse_request} = require('../utils/query_util');
+const {getResponse, getResponse_get, putResponseparam, postResponse,postResponse_reset, getResponse_request, putResponse} = require('../utils/query_util');
 
 class auth_queries {
 
@@ -27,7 +27,28 @@ class auth_queries {
         }catch(err){
             if (err) console.log('login error', err)
         }
-    };    
+    };   
+    static async carRequests(token) {
+        const url = 'core/vrequest';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    }; 
+
+    static async uplinequery(query, token, id) {
+        const url = `core/vrequest/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    }; 
 
     //Get list of the departments
     static async getDeb () {
@@ -99,6 +120,17 @@ class auth_queries {
         }
     };
 
+    static async staffDashboard(token) {
+        const url = 'core/user_dashboard';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async getDirectorCount(token) {
         const url = 'core/director_count';
         try {
@@ -123,6 +155,17 @@ class auth_queries {
 
     static async getDriverAdminCount(token) {
         const url = 'core/driver_admin_count';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getDriverAdminDashboard(token) {
+        const url = 'core/driver_admin_dashboard';
         try {
             const { result, resbody } = await getResponse_request(url, token)
             return { result, resbody }

@@ -112,14 +112,14 @@
                           
                           
                           <%if (vehicle.finance_advance_approval == 'PENDING') { %>
-                            <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.finance_advance_approval%></a></td>
+                            <td><a class="badge badge-info"><%= vehicle.finance_advance_approval%></a></td>
                             <% } else{ %>
-                              <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.finance_advance_approval%></a></td>
+                              <td><a class="badge badge-primary"><%= vehicle.finance_advance_approval%></a></td>
                             <% } %>
                             <%if ( vehicle.finance_balance_approval == 'PENDING') { %>
-                              <td><a class="btn btn-sm btn-warning rounded-pill"><%= vehicle.finance_balance_approval%></a></td>
+                              <td><a class="badge badge-info"><%= vehicle.finance_balance_approval%></a></td>
                               <% } else{ %>
-                                <td><a class="btn btn-sm btn-success rounded-pill"><%= vehicle.finance_balance_approval%></a></td>
+                                <td><a class="badge badge-primary"><%= vehicle.finance_balance_approval%></a></td>
                               <% } %>
                           
                           <%if (vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED' ) { %>

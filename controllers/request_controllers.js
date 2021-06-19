@@ -56,13 +56,15 @@ class Requests {
             console.log('the result body of the request to create event', resbody)
             if (result.statusCode == 201) {
                 req.flash('success_msg', 'You have succesfully created a new vehicle request');
-                return res.redirect('/requests/create_request');
+                return res.redirect('/requests/my_request');
             } else {
                 req.flash('error_msg', 'Your request has not been succesfully made');
                 return res.redirect('/requests/create_request');
             }
         } catch(err) {
             if (err) return console.error('Error', error);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
 
     }
@@ -102,6 +104,8 @@ class Requests {
             }
         }catch(err){
             if (err) return console.error('Error', error)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -128,6 +132,8 @@ class Requests {
               res.render('indCarRequest', {data:car_request, userDetails});
         }catch(err){
             if (err) return console.error('Error', error)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -153,6 +159,8 @@ class Requests {
             
         }catch(err){
             if (err) return console.error('Error', error);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     }
 
@@ -169,7 +177,7 @@ class Requests {
             requester: car_request.requester,
             trip_type:  car_request.trip_type,
             request_type: car_request.request_type,
-            priority: parseInt(req.body.priority),
+            priority: Number(req.body.priority),
             destination: car_request.destination,
             purpose: car_request.purpose,
             upline: userDetails.id,
@@ -201,6 +209,8 @@ class Requests {
             
         }catch(err){
             if (err) return console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     }
 
@@ -230,6 +240,8 @@ class Requests {
             }
         }catch(err){
             if (err) return console.error('Error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -257,6 +269,8 @@ class Requests {
             }
         }catch(err){
             if (err) return console.error('Error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -280,6 +294,8 @@ class Requests {
               res.render('manageindCarRequest', {data:car_request, userDetails});
         }catch(err){
             if (err) return console.error('Error', error)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 
@@ -332,6 +348,8 @@ class Requests {
             
         }catch(err){
             if (err) return console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     }
 
@@ -355,6 +373,8 @@ class Requests {
             }
         }catch(err) {
             if (err) return console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
 
     };
@@ -375,8 +395,8 @@ class Requests {
             }
         }catch(err) {
             if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
 
     };
@@ -390,6 +410,8 @@ class Requests {
             res.render('reassignPriority', {userDetails})
         }catch(err) {
             if (err) return console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
 
     }; 
@@ -419,6 +441,8 @@ class Requests {
             }
         } catch (err){
             if (err) return console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                    return;
         }
     };
 };

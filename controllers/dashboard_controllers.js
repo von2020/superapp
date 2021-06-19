@@ -41,6 +41,8 @@ static async editProfile (req, res) {
         res.render('edit-profile', {userDetails,  ups: ups.resbody})
     } catch(err){
         if (err) console.log('error', err)
+        res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+            return;
     }
   
     };
@@ -72,6 +74,8 @@ static async editProfile (req, res) {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
         }
     }
 

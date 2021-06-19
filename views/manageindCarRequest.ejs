@@ -57,12 +57,12 @@
 
 			<div class="page-content">
         <div class="d-flex">
-          <div class="col-sm-8">
+          <div class="col-sm-7">
             <div class="row">
               <div class="col-sm-12">
                 <div>
                   <h4 class="mb-3 mb-md-0">Car Requests <a class="text-primary"><%=data.created_on.slice(0,10)%></a></h4>
-                  <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span><i class="i mr-3" data-feather="mail"></i> </span></p></div>
+                  
                 </div>
                 
               </div>
@@ -76,45 +76,36 @@
                       <div class="thread-profile mr-2"><img src="" alt=""></div>
                       <div>
                         <h5 class="font-weight-bold">New Car Request</h5>
-                        <table id="dataTableExample" class="table" data-order=''>
-                          <thead>
-              
-                            <tr>
-                              <th>Destination</th>
-                              <th>Purpose</th>
-                              
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <% var destination %>
-                    <%if (data.trip_type == 'single') { %>
-                            <tr>
-                             
-                              <td><%purpose = [{location: data.destination}] %></td>
-                              <td><%purpose = [{purpose: data.purpose}] %></td>
-                                <%} else { %>
-                              <td><%purpose = data.place_set %></td>
-                              <td> <%purpose = data.place_set %></td>
+                        
+                          <h5 class="font-weight-bold">Destination:</h5>
+                          <% var destination %>
+                          <%if (data.trip_type == 'single') { %>
+                            <%purpose = [{location: data.destination}] %>
+                            <%} else { %>
+                              <%purpose = data.place_set %>
+                              <%} %>
                               <% purpose.forEach((item) => {%>
-                                <td><%= item.location%></td>
-                                <td><%= item.purpose%></td>
+                              <p><%= item.location%></p>
+                              <% })%>
+      
+                            <h5 class="font-weight-bold">Purpose:</h5>
+                            <% var purpose %>
+                            <%if (data.trip_type == 'single') { %>
+                              <%purpose = [{purpose: data.purpose}] %>
+                              <%} else { %>
+                                <%purpose = data.place_set %>
+                                <%} %>
+                                <% purpose.forEach((item) => {%>
+                                <p><%= item.purpose%></p>
                                 <% })%>
-                              
-                              
-                            </tr>
-                            <%} %>
-                          </tbody>  
-                        </table>
+      
+                        
                         <p><span><a href="" class="text-primary"></a></span> </p>
                     </div>
                     </div>
-                    <div class="thread-more">
-                      <p class="text-light2"><%=data.created_on.slice(0,10)%><i class="btn-icon-prepend ml-3 pr-0 mr-0" data-feather="more-vertical"></i></p>
-                    </div>
-                  </div>
-                  <div class="thread-body p-5">
                     
                   </div>
+                  
                   <div class="thread-foot p-4 d-flex justify-content-between">
                     <h5>Take Action</h5>
                    <div>
@@ -143,7 +134,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 thread-sidebar d-flex">
+          <div class="col-sm-5 thread-sidebar d-flex">
             <div class="col-sm-6 pt-4">
 
                 <h5>Properties</h5>
@@ -154,7 +145,11 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Status:</label>
-                  <button class="btn btn-success mr-2 rounded-pill" ></button>
+                  <% if (data.driver_admin_approval == 'APPROVED') { %>
+                    <button class="btn btn-success mr-2 rounded-pill"><%= data.driver_admin_approval%></button>
+                    <% }  else { %>
+                      <button class="btn btn-danger mr-2 rounded-pill"><%= data.driver_admin_approval%></button>
+                      <% }%>
                 </div>
                 <!-- assigned to should be a drop doewn list that should be populated once the data is available-->
 
@@ -166,7 +161,7 @@
             <div class="col-sm-6 border-left pt-4">
 
                 <div class="d-flex justify-content-between">
-                  <h5>Contact Details <span><small></small></span></h5><a class="text-primary">edit</a>
+                  <h5>Contact Details <span><small></small></span></h5><a class="text-primary"></a>
                 </div>
                 <br>
                 <div class="Profile">

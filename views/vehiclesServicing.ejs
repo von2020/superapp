@@ -94,7 +94,7 @@
                         <th>Next Servicing Date</th>
                         <th>Purchase Date</th>
                         <th>Plate Number</th>
-                        <th>Bill Of Material</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -108,7 +108,7 @@
                           <td><%= vehicle.next_servicing_date%></td>
                           <td><%= vehicle.purchase_date%></td>
                           <td><%= vehicle.plate%></td>
-                          <td> <a href="/facilities/viewVehicle?id=<%=vehicle.id&technician=%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Create </td>
+                          
                         </tr>
                       <% })%>
                     </tbody>

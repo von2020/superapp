@@ -14,6 +14,22 @@
 
 }
 
+.card-color-one{
+    background-color: #ccb3db;
+}
+
+.card-color-two{
+    background-color: #9d88fb;
+}
+
+.card-color-three{
+    background-color: #e692bc;
+}
+
+.card-color-four{
+    background-color: #9bceba;
+}
+
 .card-special .table td {
     box-sizing: content-box;
     background-color: transparent;
