@@ -45,36 +45,9 @@
               <div class="col-sm-12">
                 <div>
                   <h4 class="mb-3 mb-md-0">Car Requests <a class="text-primary"><%=data.created_on.slice(0,10)%></a></h4>
-                  <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span><i class="i mr-3" data-feather="mail"></i> </span></p></div>
+                  
                 </div>
-                <div class="d-flex align-items-center flex-wrap text-nowrap mt-3">
-                  <button type="button" class="btn btn-outline-light2 thread-btn btn-icon-text mr-3 mb-md-0">
-                    <i class="btn-icon-prepend mr-0" data-feather="star"></i>
-                  </button>
-                  <button type="button" class="btn btn-outline-light2 thread-btn rounded-0 btn-icon-text d-none d-md-block">
-                    <i class="btn-icon-prepend mdi mdi-reply-all"></i>
-                    Reply
-                  </button>
-                  <button type="button" class="btn btn-outline-light2 thread-btn rounded-0 btn-icon-text mb-2 mb-md-0">
-                    <i class="btn-icon-prepend" data-feather="printer"></i>
-                    Add note
-                  </button>
-                  <button type="button" class="btn btn-outline-light2 thread-btn rounded-0 btn-icon-text d-none d-md-block">
-                    <i class="btn-icon-prepend mdi mdi-reply"></i>
-                    Forward
-                  </button>
-                  <button type="button" class="btn btn-outline-light2 thread-btn rounded-0 btn-icon-text d-none d-md-block">
-                    <i class="btn-icon-prepend" data-feather="download"></i>
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-outline-light2 thread-btn rounded-0 btn-icon-text mb-md-0">
-                    <i class="btn-icon-prepend" data-feather="trash-2"></i>
-                    Delete
-                  </button>
-                  <button type="button" class="btn btn-outline-light2 thread-btn btn-icon-text ml-3 mb-md-0">
-                    <i class="btn-icon-prepend mr-0" data-feather="more-vertical"></i>
-                  </button>
-                </div>
+                
               </div>
             </div>
             <div class="row mt-5">
@@ -86,41 +59,39 @@
                       <div class="thread-profile mr-2"><img src="" alt=""></div>
                       <div>
                         <h5 class="font-weight-bold">New Car Request</h5>
-                        <p><span><a href="" class="text-primary"></a></span></p>
+                        
+                          <h5 class="font-weight-bold">Destination:</h5>
+                          <% var destination %>
+                          <%if (data.trip_type == 'single') { %>
+                            <%purpose = [{location: data.destination}] %>
+                            <%} else { %>
+                              <%purpose = data.place_set %>
+                              <%} %>
+                              <% purpose.forEach((item) => {%>
+                              <p><%= item.location%></p>
+                              <% })%>
+      
+                            <h5 class="font-weight-bold">Purpose:</h5>
+                            <% var purpose %>
+                            <%if (data.trip_type == 'single') { %>
+                              <%purpose = [{purpose: data.purpose}] %>
+                              <%} else { %>
+                                <%purpose = data.place_set %>
+                                <%} %>
+                                <% purpose.forEach((item) => {%>
+                                <p><%= item.purpose%></p>
+                                <% })%>
+      
+                        
                     </div>
                     </div>
-                    <div class="thread-more">
-                      <p class="text-light2">a day ago ( Wed 08 2018 at 08:15AM )<i class="btn-icon-prepend ml-3 pr-0 mr-0" data-feather="more-vertical"></i></p>
-                    </div>
+                    
                   </div>
-                  <div class="thread-body p-5">
-                    <h5 class="font-weight-bold">Destination:</h5>
-                    <% var destination %>
-                    <%if (data.trip_type == 'single') { %>
-                      <%purpose = [{location: data.destination}] %>
-                      <%} else { %>
-                        <%purpose = data.place_set %>
-                        <%} %>
-                        <% purpose.forEach((item) => {%>
-                        <p><%= item.location%></p>
-                        <% })%>
-
-                      <h5 class="font-weight-bold">Purpose:</h5>
-                      <% var purpose %>
-                      <%if (data.trip_type == 'single') { %>
-                        <%purpose = [{purpose: data.purpose}] %>
-                        <%} else { %>
-                          <%purpose = data.place_set %>
-                          <%} %>
-                          <% purpose.forEach((item) => {%>
-                          <p><%= item.purpose%></p>
-                          <% })%>
-
-                  </div>
+                  
                   <div class="thread-foot p-4 d-flex justify-content-between">
                     <h5>Take Action</h5>
                    <div>
-                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button"value = true>Accept</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button"value = false>Reject</button>
+                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" onclick="onSubmit_approval()" name = "button"value = true>Accept</button><button class="btn btn-danger rounded-pill" type = "submit" onclick="onSubmit()" name = "button"value = false>Reject</button>
                     </div>
                   </div>
                 </div>
@@ -157,7 +128,7 @@
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Priority</label>
                   <select name= "priority" class ="form-control" id = priority required>
-                    <option selected value= "1"> --- </option>
+                    <option selected value= "null" disabled> ---- </option>
                     <option value = "1"> Low Priority </option>
                     <option value = "2"> Medium Priority </option>
                     <option value = "3"> High Priority </option>
@@ -176,7 +147,7 @@
                 <div class="Profile">
                   <div class="dropdown-header d-flex flex-column align-items-center">
                     <div class="figure mb-3">
-                      <img src="https://via.placeholder.com/80x80" alt="">
+                      <img src="../../images/default-avatar.png" class="thumbnail img-responsive" style="max-width:100%;height: auto;max-height: 100%;" alt="">
                     </div>
                     <div class="info text-center">
                       <p class="name font-weight-bold mb-0"><%=data.requester_name%></p>
@@ -193,7 +164,7 @@
                   <span><%=data.requester_phone%></span>
                 </div>
                 <div class="form-group">
-                  <label for="exampleFormControlSelect1">Assigned To:</label>
+                  <label for="exampleFormControlSelect1">Assigned By:</label>
                   <span> <%= userDetails.first_name + ' ' + userDetails.last_name %></span>
                 </div>
 
@@ -202,16 +173,38 @@
         </div>
      </div>
 
-			<!-- partial:../../partials/_footer.html -->
-			<footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
-				<p class="text-muted text-center text-md-left">Copyright © 2020 <a href="https://www.nobleui.com" target="_blank">TELNET</a>. All rights reserved</p>
-				<p class="text-muted text-center text-md-left mb-0 d-none d-md-block">Handcrafted With <i class="mb-1 text-primary ml-1 icon-small" data-feather="heart"></i></p>
-			</footer>
+			<!-- partial:partials/_footer.html -->
+      <%- include('./bars/admin_footer') %>
 			<!-- partial -->
 	
 		</div>
 	</div>
 
+  <script>
+      
+    function onSubmit(){
+      // alert('hey')
+      
+      var comment = document.getElementById('simpleMdeExample').value;
+      console.log(comment)
+      if(comment == ''){
+        alert('specify reason for rejection')
+        event.preventDefault();
+      };
+    }
+
+    function onSubmit_approval(){
+      // alert('hey') 
+      var selectBox = document.getElementById("priority");
+			var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+      // var prior = document.getElementById('priority').value;
+      console.log(selectedValue)
+      if(selectedValue == "null"){
+        alert('Pls set the priority')
+        event.preventDefault();
+      };
+    }
+  </script>
 	<!-- core:js -->
 	<script src="../../../assets/vendors/core/core.js"></script>
 	<!-- endinject -->
