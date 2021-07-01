@@ -103,7 +103,14 @@
                       <div class="form-group" id="divtechnician">
                           <label for="exampleFormControlSelect1">Technician</label>
                           <select class='form-control' id='technician' name='technician'>
-
+                            <option selected disabled> --- </option>
+                          <% 
+                                                    tech.forEach((techs, i) => { 
+                                                  %>
+                          <option value=<%= techs.id %>> <%= techs.company_name %>  </option>
+                          <% 
+                                                    }) 
+                                                  %>
                           </select>
                     </div>
                     </div>

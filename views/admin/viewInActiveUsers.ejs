@@ -203,7 +203,7 @@
 										function changeFun() {
 										  var subID = $('#subsidiary').val();
 				
-										  $.get(`https://telnetsupperapp.com.ng:8443/api/v1/accounts/account_department/${subID}`, function (data, status) {
+										  $.get(`/api/ajax?id=${subID}&type=dept`, function (data, status) {
 											console.log(data)
 											console.log(status)
 											if (status == "success") {
@@ -214,7 +214,6 @@
 											  }
 											  // onchange = '"+changeFun2()+"'
 				
-											  //display the thing
 											  $("#department").html(html);
 											  $("#divdepartment").show();
 				

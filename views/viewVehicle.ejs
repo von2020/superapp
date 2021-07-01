@@ -73,7 +73,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">PHCN Bill</h6>
+                                        <h6 class="card-title d-block">Edit Vehicle Information</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -101,85 +101,98 @@
                                             <tr>
                                                 <th> Driver </th>
                                                 <td> <div class="form-group">
-                                                    <select class='form-control' id='driver_name' name='driver_name'>
-
+                                                    <select class='form-control' id='driver' name='driver'>
+                                                        <option selected disabled> ---</option>
+										            <% drivers.forEach((driver) => { %>
+											            <option value = "<%= driver.id%>"> <%= driver.first_name + ' ' + driver.last_name%> </option>
+										            <% }) %>
                                                     </select>
                                                 </div> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> VColour </th>
-                                                <td> <input name="vcolour" class="form-control" id="vcolour" required> </td>
+                                                <td> <input name="vcolor" class="form-control" id="vcolor" value="<%= materials.vcolor%>" required> </td>
                                             </tr>
 
+                                            <tr>
+                                                <th> Availability </th>
+                                                <td> <div class="form-group">
+                                                    <select class="form-control-lg"  name= "idle" class="form-control" id="idle" required>
+                                                        <%if (materials.idle == 'true' ) { %>
+                                                        <option selected disabled> Yes</option>
+                                                        <% } else{ %>
+                                                            <option selected disabled> No</option>
+                                                        <% } %>
+                                                        <option value = "true"> Yes</option>
+                                                        <option value = "false">No</option>
+                                                    </select>
+                                                </div> </td>
+                                            </tr>
+
+                                            
                                             <tr>
                                                 <th> Plate </th>
-                                                <td> <%= materials.plate%> </td>
+                                                <td> <input name="plate" class="form-control" id="plate"value="<%= materials.plate%>" required> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th> Driver Name </th>
-                                                <td> <%= materials.driver_name%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> Driver Phone Number </th>
-                                                <td> <%= materials.driver_phone%> </td>
+                                                <td> <input name="driver_phone" class="form-control" id="driver_phone" value="<%= materials.driver_phone%>" readonly> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Servicing CountDown </th>
-                                                <td> <%= materials.servicing_countdown%> </td>
+                                                <td> <input name="servicing_countdown" class="form-control" id="servicing_countdown" value="<%= materials.servicing_countdown%>" readonly> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Servicing Status </th>
-                                                <td> <%= materials.servicing_status%> </td>
+                                                <td> <input name="servicing_status" class="form-control" id="servicing_status" value="<%= materials.servicing_status%>" readonly> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Type </th>
-                                                <td> <%= materials.type%> </td>
+                                                <td> <input name="type" class="form-control" id="type" value="<%= materials.type%>" required> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Chasis </th>
-                                                <td> <%= materials.chasis%> </td>
+                                                <td> <input name="chasis" class="form-control" id="chasis" value="<%= materials.chasis%>" required> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Vin </th>
-                                                <td> <%= materials.vin%> </td>
+                                                <td> <input name="vin" class="form-control" id="vin" value="<%= materials.vin%>" required> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Vmake </th>
-                                                <td> <%= materials.vmake%> </td>
+                                                <td> <input name="vmake" class="form-control" id="vmake" value="<%= materials.vmake%>" required> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Vmodel </th>
-                                                <td> <%= materials.vmodel%> </td>
+                                                <td> <input name="vmodel" class="form-control" id="vmodel" value="<%= materials.vmodel%>" required> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Fuel Type </th>
-                                                <td> <%= materials.fuel_type%> </td>
+                                                <td> <input name="fuel_type" class="form-control" id="fuel_type" value="<%= materials.fuel_type%>" required> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th> Idle </th>
-                                                <td> <%= materials.idle%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> Purchase Date </th>
-                                                <td> <%= materials.purchase_date%> </td>
+                                                <td> <input name="purchase_date" class="form-control" id="purchase_date" value="<%= materials.purchase_date%> " readonly></td>
                                             </tr>
 
                                             <tr>
                                                 <th> Next Servicing Date </th>
-                                                <td> <%= materials.next_servicing_date%> </td>
+                                                <td> <input name="next_servicing_date" class="form-control" id="next_servicing_date" value="<%= materials.next_servicing_date%>" required> </td>
                                             </tr>
 
                                             <tr>

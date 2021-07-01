@@ -251,14 +251,13 @@ var file = document.getElementById('balance_invoice').files[0];
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
-type: 'PUT',
+type: 'POST',
 data:JSON.stringify({"balance_invoice"  : reader.result}),
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/servicing_queue/${ID}/upload`).done(function(data, status){
+putJSON(`/api/upload/balance_invoice?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")

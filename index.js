@@ -18,6 +18,7 @@ var flash = require('connect-flash');
 const routes = require('./routes/index');
 const admin_routes = require('./admin/routes/index');
 const test = require('./test');
+const api = require('./admin/routes/api');
 
 // Terminate the node process if the req.session is not working
 
@@ -63,7 +64,8 @@ app.use(function(req, res, next) {
 // All the routes.
 app.use('/', routes);
 app.use('/admin', admin_routes);
-app.use('/test', test)
+app.use('/test', test);
+app.use('/api', api);
 
 
 //Defining the environment variable and server

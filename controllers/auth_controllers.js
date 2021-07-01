@@ -268,14 +268,12 @@ class auth_controllers {
             }
             else if (result.statusCode == 400) {
                 console.log("resbody", resbody)
-                req.flash('error', resbody.error);
-                res.redirect('/');
+                res.send(" '<script> alert('400! Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
                 return;
             }
             else {
                 console.log("resbody", resbody)
-                req.flash('error_msg', resbody.error);
-                res.redirect('/');
+                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
                 return; 
             }
             
@@ -386,10 +384,12 @@ class auth_controllers {
     
             try{
                 const {result, resbody} = await carRequests(token);
+                const myData = await getSupervisorCount(token);
                 
                 const data_request = resbody;
             console.log('vehicle request', resbody)
-
+                console.log('mydata', myData.resbody)
+                var dashboardCount = myData.resbody
             var data = data_request.filter(function (data) {
                 return data.upline_approval == 'PENDING' // need to come back to this to populate the feilds with the data about the users
             });
@@ -405,14 +405,14 @@ class auth_controllers {
                 data.push(driver)
             }
             
-            console.log(driver)
-            console.log('the data complete', data)
+            // console.log(driver)
+            // console.log('the data complete', data)
             req.session.carRequests = resbody
                 
-                console.log("data", data)
+                // console.log("data", data)
                 if (result.statusCode == '200') {
                     
-                        res.render('dashboard_sup', {userDetails, data})
+                        res.render('dashboard_sup', {userDetails, data, dashboardCount})
                     } 
                     else {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')

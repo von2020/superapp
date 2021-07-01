@@ -29,10 +29,10 @@ class admin_manage_queries {
     static async listVehicle(token) {
         const url = 'vehicle/available';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -40,10 +40,10 @@ class admin_manage_queries {
     static async carRequests_admin(token) {
         const url = 'core/vrequest';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -51,10 +51,10 @@ class admin_manage_queries {
     static async carRequests(token) {
         const url = 'core/vrequest/all_requests';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -63,13 +63,13 @@ class admin_manage_queries {
     static async uplinequery(query, token, id) {
         const url = `core/vrequest/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
-    }; 
+    };
 
 
     //update the account of a user
@@ -93,7 +93,7 @@ class admin_manage_queries {
         } catch (err) {
             if (err) console.log('login error', err)
         }
-    }; 
+    };
 
     static async singleUpload(query) {
         const url = 'accounts/register';
@@ -105,99 +105,124 @@ class admin_manage_queries {
             if (err) console.log('login error', err)
         }
     };
-    static async getSubs (token) {
+    static async getSubs(token) {
         const url = 'accounts/subsidiaries';
 
         try {
-            const {result, resbody} = await getResponse_getT(url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_getT(url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
-    
-    static async getSubs_createusers () {
+
+    static async getSubs_createusers() {
         const url = 'accounts/account_subsidiary';
 
         try {
-            const {result, resbody} = await getResponse_get(url)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_get(url)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
     //Get list of the roles
-    static async getRole () {
+    static async getRole() {
         const url = 'accounts/roles';
 
         try {
-            const {result, resbody} = await getResponse_get(url)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_get(url)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
 
     //Get list of the upline
-    static async getUpline () {
+    static async getUpline() {
         const url = 'accounts/uplines';
 
         try {
-            const {result, resbody} = await getResponse_get(url)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_get(url)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
 
-    static async getUpline_edit (id) {
+    static async viewUpline(id, token) {
         const url = `accounts/uplines/${id}`;
 
         try {
-            const {result, resbody} = await getResponse_get(url)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_get(url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
 
-    static async getDept () {
+    static async getUpline_edit(id) {
+        const url = `accounts/uplines/${id}`;
+
+        try {
+            const { result, resbody } = await getResponse_get(url)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getDept() {
         const url = 'accounts/departments';
 
         try {
-            const {result, resbody} = await getResponse_get(url)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_get(url)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
 
-    static async viewDept (id, token) {
-        const url = `accounts/department/${id}`;
+    static async viewDept(id, token) {
+        const url = `accounts/account_department/${id}`;
 
         try {
-            const {result, resbody} = await getResponse_getT(url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_getT(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+    static async uploadServiceBalanceInvoice(body,id, token) {
+        const url = `vehicle/servicing_queue/${id}/upload`;
+
+        try {
+            const { result, resbody } = await putResponse(body,url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
 
-    static async viewSub (id, token) {
+
+
+    static async viewSub(id, token) {
         const url = `accounts/subsidiary/${id}`;
 
         try {
-            const {result, resbody} = await getResponse_getT(url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_getT(url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -249,10 +274,10 @@ class admin_manage_queries {
     static async getBillOfMaterials(token) {
         const url = 'vehicle/bill_of_materials';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -260,10 +285,10 @@ class admin_manage_queries {
     static async viewBillOfMaterials(token, id) {
         const url = `vehicle/bill_of_material/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -271,10 +296,10 @@ class admin_manage_queries {
     static async updateBillOfMaterials(query, token, id) {
         const url = `vehicle/bill_of_material/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -283,10 +308,10 @@ class admin_manage_queries {
     static async quotationList(token) {
         const url = `vehicle/recommend_quotation`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -294,10 +319,10 @@ class admin_manage_queries {
     static async viewQuotation(token, id) {
         const url = `vehicle/recommend_quotation/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -305,10 +330,10 @@ class admin_manage_queries {
     static async updateQuotation(query, token, id) {
         const url = `vehicle/recommend_quotation/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -316,10 +341,10 @@ class admin_manage_queries {
     static async allGenerator(token) {
         const url = 'generator/generator';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -327,10 +352,10 @@ class admin_manage_queries {
     static async sendGenerator(query, token) {
         const url = 'generator/generator';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -338,10 +363,10 @@ class admin_manage_queries {
     static async sendGenServiceRequest(query, token) {
         const url = 'generator/servicing_request';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -349,10 +374,10 @@ class admin_manage_queries {
     static async genServiceRequestList(token) {
         const url = 'generator/servicing_request';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -360,10 +385,10 @@ class admin_manage_queries {
     static async sendRequestFiles(query, token) {
         const url = 'generator/request_files';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -371,10 +396,10 @@ class admin_manage_queries {
     static async RequestFiles(token) {
         const url = 'generator/request_files';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -382,10 +407,10 @@ class admin_manage_queries {
     static async genDueServiceList(token) {
         const url = 'generator/due_servicing';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -393,10 +418,10 @@ class admin_manage_queries {
     static async genServicing(query, token) {
         const url = 'generator/servicing';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -404,10 +429,10 @@ class admin_manage_queries {
     static async genServiceList(token) {
         const url = 'generator/servicing';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -415,10 +440,10 @@ class admin_manage_queries {
     static async viewGenService(token, id) {
         const url = `generator/servicing/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -426,10 +451,10 @@ class admin_manage_queries {
     static async updateGenService(query, token, id) {
         const url = `generator/servicing/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -437,10 +462,10 @@ class admin_manage_queries {
     static async sendMaintenance(query, token) {
         const url = 'generator/maintenance';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -448,10 +473,10 @@ class admin_manage_queries {
     static async genMaintenanceList(token) {
         const url = 'generator/maintenance';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -459,10 +484,10 @@ class admin_manage_queries {
     static async genDailyMaintenanceList(token) {
         const url = '/generator/all_daily_maintenance';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -470,10 +495,10 @@ class admin_manage_queries {
     static async sendGenDailyMaintenance(query, token) {
         const url = 'generator/daily_maintenance';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -481,10 +506,10 @@ class admin_manage_queries {
     static async sendGenServiceCompany(query, token) {
         const url = 'generator/servicing_company';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -492,10 +517,10 @@ class admin_manage_queries {
     static async sendGenFaults(query, token) {
         const url = 'generator/report_faults';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -503,10 +528,10 @@ class admin_manage_queries {
     static async sendGenSla(query, token) {
         const url = 'generator/slas';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -514,10 +539,10 @@ class admin_manage_queries {
     static async sendPhcnBill(query, token) {
         const url = 'power/billings';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -525,10 +550,10 @@ class admin_manage_queries {
     static async sendPhcnBillPayment(query, token) {
         const url = 'power/payments';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -536,10 +561,10 @@ class admin_manage_queries {
     static async sendPhcnDailyMeterReading(query, token) {
         const url = 'power/daily_reading';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -547,10 +572,10 @@ class admin_manage_queries {
     static async viewGenRepairStatus(token, id) {
         const url = `generator/repair_status/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -559,10 +584,10 @@ class admin_manage_queries {
     static async phcnDailyReadingList(token) {
         const url = 'power/daily_reading';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -570,10 +595,10 @@ class admin_manage_queries {
     static async phcnBillList(token) {
         const url = 'power/billings';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -581,10 +606,10 @@ class admin_manage_queries {
     static async phcnBillPaymentList(token) {
         const url = 'power/payments';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -592,10 +617,10 @@ class admin_manage_queries {
     static async viewPhcnBill(token, id) {
         const url = `power/billing/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -603,10 +628,10 @@ class admin_manage_queries {
     static async updatePhcnBill(query, token, id) {
         const url = `power/billing/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -614,10 +639,10 @@ class admin_manage_queries {
     static async viewPhcnBillPayment(token, id) {
         const url = `power/payment/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -625,10 +650,10 @@ class admin_manage_queries {
     static async updatePhcnBillPayment(query, token, id) {
         const url = `power/payment/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -636,10 +661,10 @@ class admin_manage_queries {
     static async genSlaList(token) {
         const url = 'generator/slas';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -647,10 +672,10 @@ class admin_manage_queries {
     static async updateSLA(token, id) {
         const url = `generator/sla/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -658,10 +683,10 @@ class admin_manage_queries {
     static async paid_repairList(token) {
         const url = `generator/paid_repair`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -670,10 +695,10 @@ class admin_manage_queries {
     static async viewPaid_repair(token, id) {
         const url = `generator/paid_repair/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -681,10 +706,10 @@ class admin_manage_queries {
     static async updatePaidRepair(query, token, id) {
         const url = `generator/paid_repair/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -692,10 +717,10 @@ class admin_manage_queries {
     static async genFaultList(token) {
         const url = 'generator/report_faults';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -703,10 +728,10 @@ class admin_manage_queries {
     static async viewGenRepair(token, id) {
         const url = `generator/repair/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -714,10 +739,10 @@ class admin_manage_queries {
     static async sendGenRepair(query, token) {
         const url = 'generator/repair';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -725,10 +750,10 @@ class admin_manage_queries {
     static async sendGenRepairStatus(query, token) {
         const url = 'generator/repair_status';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -736,10 +761,10 @@ class admin_manage_queries {
     static async genRepairStatusList(token) {
         const url = `generator/repair_status`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -748,10 +773,10 @@ class admin_manage_queries {
     static async gen_repairList(token) {
         const url = 'generator/repair';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -759,10 +784,10 @@ class admin_manage_queries {
     static async genServiceCompanyList(token) {
         const url = 'generator/servicing_company';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -770,21 +795,21 @@ class admin_manage_queries {
     static async carTechnicianList(token) {
         const url = 'vehicle/technicians';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
-    
+
     static async dieselVendorList(token) {
         const url = 'diesel/vendors';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -792,10 +817,10 @@ class admin_manage_queries {
     static async dieselRequestQuotationList(token) {
         const url = 'diesel/request_quotations';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -803,10 +828,10 @@ class admin_manage_queries {
     static async viewDieselRequestQuotation(token, id) {
         const url = `diesel/request_quotation/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -814,10 +839,10 @@ class admin_manage_queries {
     static async updateDieselRequestQuotation(query, token, id) {
         const url = `diesel/request_quotation/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -825,10 +850,10 @@ class admin_manage_queries {
     static async handlePurchaseOrder(query, token) {
         const url = 'diesel/purchase_order';
         try {
-            const {result, resbody} = await postResponse_request(query, url, token)
-            return {result, resbody}
-            
-        }catch(err){
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -836,10 +861,10 @@ class admin_manage_queries {
     static async purchaseOrderList(token) {
         const url = 'diesel/purchase_order';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -847,10 +872,10 @@ class admin_manage_queries {
     static async viewPurchaseOrder(token, id) {
         const url = `diesel/purchase_order/${id}`;
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -858,10 +883,10 @@ class admin_manage_queries {
     static async updatePurchaseOrder(query, token, id) {
         const url = `diesel/purchase_order/${id}`;
         try {
-            const {result, resbody} = await putResponse(query, url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -869,10 +894,10 @@ class admin_manage_queries {
     static async dieselUsageList(token) {
         const url = 'diesel/usage';
         try {
-            const {result, resbody} = await getResponse_request(url, token)
-            return {result, resbody};
-            
-        }catch(err){
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };

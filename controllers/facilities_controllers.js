@@ -1003,10 +1003,13 @@ class Facilities {
         
         try {
             const {result, resbody} = await viewVehicle(token, id);
+            const driver = await getDrivers(token);
+            var drivers = driver.resbody
+            console.log('drivers', drivers)
             const materials = resbody
             console.log('materials', materials)
             if (result.statusCode == 200) {
-                res.render('viewVehicle', {userDetails, materials});
+                res.render('viewVehicle', {userDetails, materials, drivers});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -1027,9 +1030,18 @@ class Facilities {
         console.log("id", id)
         
         const query = {
-            driver_name: req.body.driver_name,
-            vcolour: req.body.vcolour,
-            
+            plate: req.body.plate,
+            type: req.body.type,
+            chasis: req.body.chasis,
+            vin: req.body.vin,
+            vmake: req.body.vmake,
+            vmodel: req.body.vmodel,
+            vcolor: req.body.vcolor,
+            fuel_type: req.body.fuel_type,
+            purchase_date: req.body.purchase_date,
+            next_servicing_date: req.body.next_servicing_date,
+            driver: req.body.driver,
+            idle: req.body.idle,
                     
         }
 
@@ -1041,9 +1053,9 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '200') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated Vehicle`,'/facilities/quotationList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated Vehicle`,'/facilities/vehicleList')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response.detail} `,'/facilities/quotationList')
+                resMessageRedirect(res, req, 'error_msg', ` ${response.detail} `,'/facilities/vehicleList')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -2251,9 +2263,12 @@ class Facilities {
         try {
             const {result, resbody} = await updateFault(token, id);
             const faults = resbody
+            const techs = await carTechnicianList(token);
+            var tech = techs.resbody
+            console.log('tech', tech)
             console.log('faults', faults)
             if (result.statusCode == 200) {
-                res.render('quotation_driverAdmin', {userDetails, faults});
+                res.render('quotation_driverAdmin', {userDetails, faults, tech});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -3344,11 +3359,13 @@ static async viewGenServicing_diverAdmin (req, res) {
 
         try {
             const vehs = await allVehicle(token);
-
+            const techs = await carTechnicianList(token);
+            var tech = techs.resbody
+            console.log('tech', tech)
             console.log('response',vehs.resbody)
             console.log('token',token)
 
-            res.render('billOfMaterial', {userDetails, vehs: vehs.resbody}); 
+            res.render('billOfMaterial', {userDetails, vehs: vehs.resbody, tech}); 
         } catch (err) {
             if (err) console.error('display page details error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");

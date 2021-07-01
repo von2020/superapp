@@ -95,7 +95,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${data.detail}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -116,6 +117,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -142,6 +145,8 @@ class admin_manage_controllers {
             res.render('admin/viewDepartment', {userDetails, depts: depts.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -168,6 +173,8 @@ class admin_manage_controllers {
             res.render('admin/view-subsidiary', {userDetails, subs: subs.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -194,6 +201,8 @@ class admin_manage_controllers {
             res.render('admin/edit-subsidiary', {userDetails, subs: subs.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -222,7 +231,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/admin/manage/all-subsidiaries')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -248,6 +258,8 @@ class admin_manage_controllers {
             res.render('admin/add-subsidiary', {userDetails})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -278,7 +290,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/manage/all-subsidiaries')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             // var user = users.filter(function (user) {
             //     return user.id == user_id
@@ -313,6 +326,8 @@ class admin_manage_controllers {
             res.render('admin/edit-department', {userDetails, depts: depts.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -342,6 +357,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -356,6 +373,8 @@ class admin_manage_controllers {
             res.render('admin/add_department', {userDetails})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -385,7 +404,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/manage/all-departments')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             // var user = users.filter(function (user) {
             //     return user.id == user_id
@@ -414,7 +434,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/admin/manage/getInActiveUsers')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -455,7 +476,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/manage/view_request')
             }
         }catch(err){
-            if (err) return console.error('Error', error)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -481,7 +504,9 @@ class admin_manage_controllers {
               req.session.car_request = car_request;
               res.render('admin/indCarRequest', {data:car_request, userDetails});
         }catch(err){
-            if (err) return console.error('Error', error)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -507,7 +532,9 @@ class admin_manage_controllers {
                 res.redirect('/requests/manage_request')
             }
         }catch(err){
-            if (err) return console.error('Error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -530,7 +557,9 @@ class admin_manage_controllers {
 
               res.render('admin/manageindCarRequest', {data:car_request, userDetails});
         }catch(err){
-            if (err) return console.error('Error', error)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -582,7 +611,9 @@ class admin_manage_controllers {
             }
             
         }catch(err){
-            if (err) return console.error('Error', err);
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -606,7 +637,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -635,7 +668,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/manage/viewmanage_request');      
             }
         } catch (err){
-            if (err) return console.error('Error', err);
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -647,7 +682,9 @@ class admin_manage_controllers {
         try {
             res.render('admin/reassignPriority', {userDetails})
         }catch(err) {
-            if (err) return console.error('Error', err);
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -696,7 +733,9 @@ class admin_manage_controllers {
             }
             
         }catch(err){
-            if (err) return console.error('Error', err);
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -720,6 +759,8 @@ class admin_manage_controllers {
             res.render('admin/viewActiveUsers', {userDetails, user, subs: subs.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -752,6 +793,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -776,6 +819,8 @@ class admin_manage_controllers {
             res.render('admin/activeUsersInactive', {userDetails, user, subs: subs.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -806,6 +851,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -826,6 +873,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -848,6 +897,8 @@ class admin_manage_controllers {
             res.render('admin/viewInActiveUsers', {userDetails, user, subs: subs.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -880,6 +931,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -912,6 +965,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -942,6 +997,8 @@ class admin_manage_controllers {
             
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -971,6 +1028,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -984,6 +1043,8 @@ class admin_manage_controllers {
             res.send(user_response)
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -999,7 +1060,9 @@ class admin_manage_controllers {
 
             res.render('admin/singleUserUpload', {userDetails, subs: subs.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
 
     };
@@ -1032,7 +1095,9 @@ class admin_manage_controllers {
                 }      
         }
         catch (err){
-             if (err) return console.error('registration err', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     
@@ -1052,7 +1117,9 @@ class admin_manage_controllers {
             console.log('details', details);
             res.render('admin/listFailedUsers', {userDetails, details}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
 
     };
@@ -1065,7 +1132,9 @@ class admin_manage_controllers {
         try {
             res.render('admin/failedUsers', {userDetails, subs: subs.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
 
     };
@@ -1098,6 +1167,8 @@ class admin_manage_controllers {
             res.render('admin/admin-edit-profile', {userDetails,  ups: ups.resbody})
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
   
     };
@@ -1129,6 +1200,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1160,7 +1233,9 @@ class admin_manage_controllers {
                 }      
         }
         catch (err){
-             if (err) return console.error('registration err', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     
@@ -1180,12 +1255,12 @@ class admin_manage_controllers {
                 res.render('admin/billOfMaterialList', {userDetails, materials});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
          
         };
@@ -1205,12 +1280,12 @@ class admin_manage_controllers {
                 res.render('admin/viewBillOfMaterial', {userDetails, materials});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
          
         };
@@ -1251,6 +1326,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1270,9 +1347,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1295,9 +1372,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1337,6 +1414,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -1355,9 +1434,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1377,9 +1456,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1402,9 +1481,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1439,7 +1518,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1481,7 +1561,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1522,7 +1603,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1544,9 +1626,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1568,9 +1650,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1586,9 +1668,9 @@ class admin_manage_controllers {
                 res.render('admin/generator', {userDetails});
             
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1610,9 +1692,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1633,7 +1715,9 @@ class admin_manage_controllers {
 
             res.render('admin/genServiceRequest', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
          
         };
@@ -1665,7 +1749,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1687,9 +1772,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1711,7 +1796,9 @@ class admin_manage_controllers {
 
             res.render('admin/request_files', {userDetails, id}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
          
         };
@@ -1744,7 +1831,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1766,9 +1854,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -1789,7 +1877,9 @@ class admin_manage_controllers {
 
             res.render('admin/genDueServiceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
          
         };
@@ -1812,7 +1902,9 @@ class admin_manage_controllers {
 
             res.render('admin/genServicing_facility', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
          
         };
@@ -1845,7 +1937,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -1866,7 +1959,9 @@ class admin_manage_controllers {
 
             res.render('admin/genServiceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
          
         };
@@ -1888,9 +1983,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
     
         };
@@ -1912,9 +2007,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
     
         };
@@ -1965,7 +2060,8 @@ class admin_manage_controllers {
                 }
             } catch(err){
                 if (err) console.log('error', err)
-                resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
         };
 
@@ -2011,7 +2107,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -2027,7 +2124,9 @@ class admin_manage_controllers {
 
             res.render('admin/genFaultList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };
@@ -2045,7 +2144,9 @@ class admin_manage_controllers {
 
             res.render('admin/gen_repairs', {userDetails, slas: slas.resbody, id}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
          
         };
@@ -2066,7 +2167,9 @@ class admin_manage_controllers {
     
                 res.render('admin/sLA', {userDetails, id}); 
             } catch (err) {
-                if (err) return console.error('display page details error', err)
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             };
              
             };
@@ -2087,7 +2190,9 @@ class admin_manage_controllers {
     
                 res.render('admin/phcn', {userDetails, id}); 
             } catch (err) {
-                if (err) return console.error('display page details error', err)
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             };
              
             };
@@ -2108,7 +2213,9 @@ class admin_manage_controllers {
     
                 res.render('admin/diesel', {userDetails, id}); 
             } catch (err) {
-                if (err) return console.error('display page details error', err)
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             };
              
             };
@@ -2129,7 +2236,9 @@ class admin_manage_controllers {
     
                 res.render('admin/generators_repair_report', {userDetails, id}); 
             } catch (err) {
-                if (err) return console.error('display page details error', err)
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             };
              
             };
@@ -2150,7 +2259,9 @@ class admin_manage_controllers {
     
                 res.render('admin/generator_daily_maintenance', {userDetails, id}); 
             } catch (err) {
-                if (err) return console.error('display page details error', err)
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             };
              
             };
@@ -2194,7 +2305,8 @@ class admin_manage_controllers {
                 }
             } catch(err){
                 if (err) console.log('error', err)
-                resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
                 
         };
@@ -2216,9 +2328,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
     
         };
@@ -2241,9 +2353,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
     
         };
@@ -2282,7 +2394,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     } else{
@@ -2311,7 +2424,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     }
@@ -2331,7 +2445,9 @@ class admin_manage_controllers {
 
             res.render('admin/gen_repairList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };
@@ -2354,9 +2470,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         } 
         };
 
@@ -2377,9 +2493,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
     
         };
@@ -2402,9 +2518,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
  
         };
@@ -2439,7 +2555,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -2455,7 +2572,9 @@ class admin_manage_controllers {
 
             res.render('admin/genRepairStatusList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
     };
@@ -2478,9 +2597,9 @@ class admin_manage_controllers {
                     res.redirect('/admin/dashboard')
                 }
             }catch(err) {
-                if (err) return console.error('Error', err);
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/admin/dashboard')
+                if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
             }
  
         };
@@ -2533,7 +2652,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -2549,7 +2669,9 @@ class admin_manage_controllers {
 
             res.render('admin/genMaintenanceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };
@@ -2566,7 +2688,9 @@ class admin_manage_controllers {
 
             res.render('admin/genDailyMaintenanceList', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };
@@ -2589,9 +2713,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2628,7 +2752,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
             
     };
@@ -2648,9 +2773,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2673,9 +2798,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2694,9 +2819,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2717,7 +2842,9 @@ class admin_manage_controllers {
 
             res.render('admin/phcnBillList', {userDetails, gens}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };
@@ -2740,9 +2867,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2765,9 +2892,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2814,7 +2941,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -2837,9 +2965,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2872,7 +3000,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
-            resMessageRedirect(res, req, 'error_msg', `${response.error}`,'/admin/dashboard')
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     };
 
@@ -2888,7 +3017,9 @@ class admin_manage_controllers {
 
             res.render('admin/phcnBillPaymentList_driverAdmin', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };
@@ -2911,9 +3042,9 @@ class admin_manage_controllers {
                 res.redirect('/admin/dashboard')
             }
         }catch(err) {
-            if (err) return console.error('Error', err);
-            req.flash('error_msg', resbody.detail);
-            res.redirect('/admin/dashboard')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
 
     };
@@ -2953,6 +3084,8 @@ class admin_manage_controllers {
             }
         } catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         }
     }
 
@@ -2968,7 +3101,9 @@ class admin_manage_controllers {
 
             res.render('admin/phcnDailyReadingList_driverAdmin', {userDetails, gens: gens.resbody}); 
         } catch (err) {
-            if (err) return console.error('display page details error', err)
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
         };
           
         };

@@ -67,7 +67,15 @@ static getResponse_getT(url, token) {
         if (result.statusCode == '500') {
           throw new Error('ERROR 500: Internal server error')
         } else {
-          var resbody = JSON.parse(result.body);
+        console.log(typeof(result.body))
+         if(typeof(result.body) == 'object'){
+          var resbody = result.body;
+         }
+         else{
+           console.log(result.body);
+             var resbody = JSON.parse(result.body);
+         }
+        
           resolve({result, resbody})
         }
       });
@@ -133,6 +141,7 @@ static putResponse(query, url, token) {
       };
       request.put(options, (error, result, resBody) => {
         if (error) reject(error);
+        console.log(result.body)
         var resbody = JSON.parse(result.body);
         resolve({result, resbody})
       });

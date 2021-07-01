@@ -95,30 +95,18 @@
 									  </div>
 
 									  <div class="row">
-										<div class="col">
-											<% var x =  user.last_login %>
-											<% if (typeof x == 'object') { %>
-												 <% var login = 'N/A' %>
-											
-											<div class="form-group">
-                                                <label for="exampleFormControlSelect1">Last Login Date</label>
-                                                <input name= "last_login" class="form-control" id="last_login" value="<%= login %>" readonly required>
-											</div>
-										<% } %>
-										</div>
+										
 										<div class="col">
 											<div class="form-group">
                                                 <label for="exampleFormControlSelect1">Destination</label>
                                                 <input name= "destination" class="form-control" id="destination" value="<%= user.last_name %>" required>
                                             </div>
 										</div>
-									  </div>
-									  <div class="row">
 										<div class="col">
 											<div class="form-group">
                                                 <label for="exampleFormControlSelect1">Subsidiary</label>
 												<select class="form-control" id="subsidiary" name="subsidiary" onchange="changeFun()">
-													<option selected> --- </option>
+													<option selected disabled> --- </option>
 													<% 
 																			  subs.forEach((sub, i) => { 
 																			%>
@@ -129,20 +117,18 @@
 												  </select>
                                             </div>
 										</div>
+									  </div>
+									  <div class="row">
+										
 										<div class="col">
 											<div class="form-group" id="divdepartment">
 											  <label for="exampleFormControlSelect1">Department</label>
 											  <select class='form-control' id='department' name='department' onchange='changeFun2()'>
-					  
+												
 											  </select>
 											</div>
 										  </div>
-										  
-									  </div>
-										
-
-									  <div class="row">
-										<div class="col">
+										  <div class="col">
 											<div class="form-group" id="divupline">
 											  <label for="exampleFormControlSelect1">Upline</label>
 											  <select class='form-control' id='upline' name='upline' onchange='changeFun_role()'>
@@ -150,6 +136,11 @@
 											  </select>
 											</div>
 										  </div>
+									  </div>
+										
+
+									  <div class="row">
+										
 										<div class="col">
 											<div class="form-group" id="divrole">
 											  <label for="exampleFormControlSelect1">Role</label>
