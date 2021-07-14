@@ -476,6 +476,8 @@ class vehicle_queries {
         }
     };
 
+    
+
 
     static async gen_repairList(token) {
         const url = 'generator/repair';

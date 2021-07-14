@@ -75,7 +75,7 @@
                         <th>Within SLA?</th>
                         <th>Created By</th>
                         <th>Created On</th>
-                        <th>Servicing Company</th>
+                        
                         <th>Status</th>
                         
                           
@@ -90,7 +90,7 @@
                           <td><%= repair.within_sla%></td>
                           <td><%= repair.created_by%></td>
                           <td><%= repair.created_on.slice(0,10)%></td>
-                          <td><%= repair.servicing_company%></td>
+                          
                           
                           <%if (repair.within_sla == false)  { %>
                           <td><a href="/admin/manage/gen_paidRepair?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Paid Repair</a>   </td>

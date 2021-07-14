@@ -80,7 +80,7 @@
 
                                             <tr>
                                                 <th> Upload Invoice </th>
-                                                <td> <input type="file" name="data" class="form-control" id="invoice" accept=".doc,.docx,.xsxl, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf" required> </td>
+                                                <td> <input type="file" name="data" class="form-control" id="invoice" accept="application/pdf" required> </td>
                                             </tr>
 
                                             <tr>
@@ -238,12 +238,11 @@ return $.ajax({
 url: url,
 type: 'POST',
 data:JSON.stringify({"invoice"  : reader.result, "repair": repair, "created_by": created_by}),
-headers: { "Authorization": "Token fdf4561f7ec51563c1556d24ee2a84547a755ff0" },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/generator/paid_repair`).done(function(data, status){
+putJSON(`/api/upload/paid_repair`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")

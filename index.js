@@ -32,9 +32,12 @@ app.set("view engine", "ejs");
 // for public content
 app.use(express.static(path.join(__dirname) + "/public"));
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded());
+app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}))
 // parse application/json
-app.use(bodyParser.json());
+// app.use(bodyParser.json({limit: "50mb"}));
+app.use(express.json({limit: "50mb"}))
+
 
 
 

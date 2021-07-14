@@ -31,6 +31,7 @@ const {
     dieselRequestQuotationList,
     viewDieselRequestQuotation,
     updateDieselRequestQuotation,
+    approved_dieselVendorList,
     handlePurchaseOrder,
     purchaseOrderList,
     viewPurchaseOrder,
@@ -755,8 +756,8 @@ class admin_manage_controllers {
             user = user[0]
             
             console.log("user", user)
-            
-            res.render('admin/viewActiveUsers', {userDetails, user, subs: subs.resbody})
+            console.log('id', user_id)
+            res.render('admin/viewActiveUsers', {userDetails, user, subs: subs.resbody, user_id})
         } catch(err){
             if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
@@ -769,6 +770,7 @@ class admin_manage_controllers {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
         const user_id = req.session.user_id;
+        const id = req.body.id;
 
         const query = {
             email: req.body.email,
@@ -784,7 +786,7 @@ class admin_manage_controllers {
 
         console.log('query', query)
         try{
-            const {result, resbody} = await updateUsers(query, token, user_id);
+            const {result, resbody} = await updateUsers(query, token, id);
 
             if (result.statusCode == '200') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully updated the profile of ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getActiveUsers')
@@ -816,7 +818,7 @@ class admin_manage_controllers {
             console.log("user", user)
             
             
-            res.render('admin/activeUsersInactive', {userDetails, user, subs: subs.resbody})
+            res.render('admin/activeUsersInactive', {userDetails, user, subs: subs.resbody, user_id})
         } catch(err){
             if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
@@ -829,6 +831,7 @@ class admin_manage_controllers {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
         const user_id = req.session.user_id;
+        const id = req.body.id;
 
         const query = {
             email: req.body.email,
@@ -842,7 +845,7 @@ class admin_manage_controllers {
 
         console.log('query', query)
         try{
-            const {result, resbody} = await updateUsers(query, token, user_id);
+            const {result, resbody} = await updateUsers(query, token, id);
 
             if (result.statusCode == '200') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully made ${query.first_name + ' '+ query.last_name} inactive`,'/admin/manage/getActiveUsers')
@@ -884,17 +887,18 @@ class admin_manage_controllers {
         const token = userDetails.token;
         const user_id = req.query.id;
         req.session.user_id = user_id;
-
+        console.log('id', user_id)
         try{
             const subs = await getSubs(token);
             var users = req.session.users;
-
+            // console.log('users', users)
             var user = users.filter(function (user) {
                 return user.id == user_id
             });
             user = user[0]
             console.log('user:', user);
-            res.render('admin/viewInActiveUsers', {userDetails, user, subs: subs.resbody})
+            console.log('id', user_id);
+            res.render('admin/viewInActiveUsers', {userDetails, user, subs: subs.resbody, user_id})
         } catch(err){
             if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
@@ -906,8 +910,8 @@ class admin_manage_controllers {
     static async handleViewInActiveUsers (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
-        const user_id = req.session.user_id;
-
+        const id = req.body.id;
+        console.log('id', id)
         const query = {
             email: req.body.email,
             first_name: req.body.first_name,
@@ -922,7 +926,7 @@ class admin_manage_controllers {
 
         console.log('query', query)
         try{
-            const {result, resbody} = await updateUsers(query, token, user_id);
+            const {result, resbody} = await updateUsers(query, token, id);
 
             if (result.statusCode == '200') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully updated the profile of ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getInActiveUsers')
@@ -937,39 +941,39 @@ class admin_manage_controllers {
 
     }
 
-    static async handleViewInActiveUsers (req, res) {
-        const userDetails = req.session.userDetails;
-        const token = userDetails.token;
-        const user_id = req.session.user_id;
+    // static async handleViewInActiveUsers (req, res) {
+    //     const userDetails = req.session.userDetails;
+    //     const token = userDetails.token;
+    //     const user_id = req.session.user_id;
 
-        const query = {
-            email: req.body.email,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            phone: req.body.phone,
-            title: req.body.title,
-            upline: parseInt(req.body.upline) ,
-            subsidiary: parseInt(req.body.subsidiary),
-            department: parseInt(req.body.department),
-            role: parseInt(req.body.role)
-        }
+    //     const query = {
+    //         email: req.body.email,
+    //         first_name: req.body.first_name,
+    //         last_name: req.body.last_name,
+    //         phone: req.body.phone,
+    //         title: req.body.title,
+    //         upline: parseInt(req.body.upline) ,
+    //         subsidiary: parseInt(req.body.subsidiary),
+    //         department: parseInt(req.body.department),
+    //         role: parseInt(req.body.role)
+    //     }
 
-        console.log('query', query)
-        try{
-            const {result, resbody} = await updateUsers(query, token, user_id);
+    //     console.log('query', query)
+    //     try{
+    //         const {result, resbody} = await updateUsers(query, token, user_id);
 
-            if (result.statusCode == '200') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated the profile of ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getInActiveUsers')
-            } else {
-                resMessageRedirect(res, req, 'error_msg', `Updates could not be made on the profile of  ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getInActiveUsers')
-            }
-        } catch(err){
-            if (err) console.log('error', err)
-            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
-                return;
-        }
+    //         if (result.statusCode == '200') {
+    //             resMessageRedirect(res, req, 'success_msg', `You have succesfully updated the profile of ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getInActiveUsers')
+    //         } else {
+    //             resMessageRedirect(res, req, 'error_msg', `Updates could not be made on the profile of  ${query.first_name + ' '+ query.last_name}`,'/admin/manage/getInActiveUsers')
+    //         }
+    //     } catch(err){
+    //         if (err) console.log('error', err)
+    //         res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+    //             return;
+    //     }
 
-    }
+    // }
 
     // static async createUsers (req, res) {
     //     const userDetails = req.session.userDetails
@@ -1473,9 +1477,12 @@ class admin_manage_controllers {
 
             const {result, resbody} = await viewDieselRequestQuotation(token, id);
             const diesel = resbody
+            const vendor = await approved_dieselVendorList(token, id);
+            const vendor_list = vendor.resbody;
+            console.log('list', vendor_list);
             console.log('diesel', diesel)
             if (result.statusCode == 200) {
-                res.render('admin/viewDieselRequestQuotation', {userDetails, diesel});
+                res.render('admin/viewDieselRequestQuotation', {userDetails, diesel, vendor_list});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/admin/dashboard')
@@ -2138,11 +2145,13 @@ class admin_manage_controllers {
 
         try {
             const slas = await genSlaList(token);
-
+            const technicians = await genServiceCompanyList(token);
+            const techs = technicians.resbody
             console.log('response',slas.resbody)
+            console.log('techs', techs)
             console.log('token',token)
 
-            res.render('admin/gen_repairs', {userDetails, slas: slas.resbody, id}); 
+            res.render('admin/gen_repairs', {userDetails, slas: slas.resbody, techs, id}); 
         } catch (err) {
             if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");

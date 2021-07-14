@@ -80,7 +80,7 @@
 
                                             <tr>
                                                 <th> Upload Document </th>
-                                                <td> <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf,"
+                                                <td> <input type="file" name="data" class="form-control" id="document" accept="application/pdf,"
                                                     required> </td>
                                             </tr>
 
@@ -111,9 +111,13 @@
 
                                             <tr>
                                                 <th> Document </th>
-                                                <td>
-                                                <a class="text-primary" href="<%= purchase.document_uploaded%>" onclick="dieselClick()">view</a> 
-                                                </td>
+                                                <td><%if (purchase.document_uploaded == 'no file uploaded yet!') { %>
+                                                    <p><span><a class="text-primary">Not Yet Uploaded</a></span></p>
+                                                    <% } else{ %>
+                                                  <p><span><a class="text-primary" href="<%= purchase.document_uploaded%>" onclick="dieselClick()">view</a></span></p>
+                                                  <% } %>
+                                                      </td>
+                                                
                                                 
                                             </tr>
 
@@ -277,16 +281,13 @@ var file = document.getElementById('document').files[0];
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
-type: 'PUT',
+type: 'POST',
 data:JSON.stringify({"document"  : reader.result}),
-headers: { "Authorization": "Token fdf4561f7ec51563c1556d24ee2a84547a755ff0",
-            // "Access-Control-Allow-Origin": "localhost:3000" 
-        },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/purchase_order/${ID}/upload`).done(function(data, status){
+putJSON(`/api/upload/purchase_order?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")

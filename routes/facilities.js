@@ -193,6 +193,11 @@ const {
     AllPhcnBillPayment_finance,
     viewBillPayment_finance,
     updateViewBillPayment_finance,
+    sendPayment_finance,
+    handleSendPayment_finance,
+    allPhcnBillPayment_facility,
+    receivedPayment_facility,
+    handleReceivedPayment_facility,
     handleFaultRepair
 } = failities_controllers;
 
@@ -477,6 +482,13 @@ router.post('/billPayment_auditor', [checkSession, auditorAuthorize], updateView
 router.get('/AllPhcnBillPayment_finance', [checkSession, financeAuthorize], AllPhcnBillPayment_finance),
 router.get('/billPayment_finance', [checkSession, financeAuthorize], viewBillPayment_finance),
 router.post('/billPayment_finance', [checkSession, financeAuthorize], updateViewBillPayment_finance),
+
+router.get('/sendPayment_finance', [checkSession, financeAuthorize], sendPayment_finance),
+router.post('/sendPayment_finance', [checkSession, financeAuthorize], handleSendPayment_finance),
+
+router.get('/allPhcnBillPayment_facility', [checkSession, facilityAuthorize], allPhcnBillPayment_facility),
+router.get('/receivedPayment_facility', [checkSession, facilityAuthorize], receivedPayment_facility),
+router.post('/receivedPayment_facility', [checkSession, facilityAuthorize], handleReceivedPayment_facility),
 
 router.get('/phcnDailyReading', [checkSession, facilityAuthorize], phcnDailyReading),
 router.post('/phcnDailyReading', [checkSession, facilityAuthorize], handlePhcnDailyReading),

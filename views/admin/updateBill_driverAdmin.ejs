@@ -20,6 +20,8 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
     <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/jquery.fancybox.min.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
 </head>
@@ -68,8 +70,8 @@
                                         <th>Unit Consumed</th>
                                         <th>Vat</th>
                                         <th>Amount Due</th>
-                                        <th>Created By</th>
-                                        <th>Comment</th>
+                                        <!-- <th>Created By</th>
+                                        <th>Comment</th> -->
                                         <th>Created On</th>
                                         
                                         <th>Bill</th>
@@ -81,14 +83,14 @@
                                         <td><%= phcn.unit_consumed%></th>
                                         <td><%= phcn.vat%></th>
                                         <td><%= phcn.amount_due%></th>
-                                        <td><%= phcn.created_by%></th>
-                                        <td><%= phcn.comment%></th>
+                                        <!-- <td><%= phcn.created_by%></th>
+                                        <td><%= phcn.comment%></th> -->
                                         <td><%= phcn.created_on.slice(0,10)%></th>
                                         
                                           <%if (phcn.uploaded_bill == '') { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
-                                        <td><img src="<%=phcn.uploaded_bill%>" style="height: 250px; width: 250px; " alt="bill not uploaded yet" /></th>
+                                        <td><a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></a> </th>
                                           <% } %>
                                       </tr>
                                     </tbody>  
@@ -178,7 +180,7 @@
                           <div class="Profile">
                             <div class="dropdown-header d-flex flex-column align-items-center">
                               <div class="figure mb-3">
-                                <img src="../images/default-avatar.png" class="thumbnail img-responsive" style="max-width:100%;height: auto;max-height: 100%;" alt="">
+                                <img src="../../images/default-avatar.png" class="thumbnail img-responsive" style="max-width:100%;height: auto;max-height: 100%;" alt="">
                               </div>
                               <div class="info text-center">
                                 <p class="name font-weight-bold mb-0"></p>
@@ -245,6 +247,8 @@
     <!-- custom js for this page -->
     <script src="../../../assets/js/dashboard.js"></script>
     <script src="../../../assets/js/data-table.js"></script>
+    <script src="../../../assets/js/jquery.fancybox.js"></script>
+    <script src="../../../assets/js/jquery.fancybox.min.js"></script>
     <!-- end custom js for this page -->
 </body>
 

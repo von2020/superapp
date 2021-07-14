@@ -114,19 +114,25 @@
                                             </tr>
 
                                             <tr>
+                                                
                                                 <th> Payment Type </th>
+                                                <%if (materials.advance_percentage != null) { %>
                                                 <td> <%= materials.payment_type%> </td>
+                                                <% } else{ %>
+                                                <td>full payment</td>
+                                                <% } %>
                                             </tr>
 
                                             <tr>
                                                 <th> Advance Percentage </th>
+                                                <%if (materials.advance_percentage != null) { %>
                                                <td> <%= materials.advance_percentage%> </td>
+                                               <% } else{ %>
+                                                <td>Nill</td>
+                                                <% } %>
                                             </tr>
 
-                                            <tr>
-                                                <th> Amount Budgeted </th>
-                                                <td> <%= materials.amount_budgeted%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> BU Head Approval </th>

@@ -89,8 +89,8 @@
                           <td><%= item.reg_number%></td>
                           <td><%= item.contact_person%></td>
                           <td><%= item.contact_person_phone%></td>
-                          <td><%= item.created_on%></td>
-                          <td><%= item.updated_on%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
                           
                         </tr>
                         <% })%>

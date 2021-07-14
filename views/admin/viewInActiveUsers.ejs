@@ -117,13 +117,13 @@
                                             </div>
 										</div>
 									  </div>
-
+									  <input type="hidden" name= "id" class="form-control" id="id" value="<%= user_id %>" required>
 									  <div class="row">
 										<div class="col">
 											<div class="form-group">
                                                 <label for="exampleFormControlSelect1">Subsidiary</label>
 												<select class="form-control" id="subsidiary" name="subsidiary" onchange="changeFun()">
-													<option selected> --- </option>
+													<option selected disabled> --- </option>
 													<% 
 																			  subs.forEach((sub, i) => { 
 																			%>
@@ -179,14 +179,14 @@
 										function changeFun_role() {
 										  //var subID = $('#subsidiary').val();
 				
-										  $.get(`https://telnetsupperapp.com.ng:8443/api/v1/accounts/registration_roles`, function (data, status) {
+										  $.get(`/api/ajax?type=role`, function (data, status) {
 											console.log(data)
 											console.log(status)
 											if (status == "success") {
 											  console.log('data', data)
-											  var html = "<option selected> --- </option>"
+											  var html = "<option selected disabled> --- </option>"
 											  for (var i = 0; i < data.length; i++) {
-												html += "<option value = '" + data[i].id + "'> " + data[i].role_title + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+												html += "<option value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
 											  }
 											  // onchange = '"+changeFun2()+"'
 				
@@ -208,7 +208,7 @@
 											console.log(status)
 											if (status == "success") {
 											  console.log('data', data)
-											  var html = "<option selected> --- </option>"
+											  var html = "<option selected disabled> --- </option>"
 											  for (var i = 0; i < data.length; i++) {
 												html += "<option value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
 											  }
@@ -227,11 +227,11 @@
 										  var subID = $('#subsidiary').val();
 										  console.log('Hi');
 										  console.log($('#department').val())
-										  $.get(`https://telnetsupperapp.com.ng:8443/api/v1/accounts/uplines/${subID}`, function (data, status) {
+										  $.get(`/api/ajax?id=${subID}&type=upline`, function (data, status) {
 											console.log(data)
 											console.log(status)
 											if (status == "success") {
-											  var html = "<option selected> --- </option>"
+											  var html = "<option selected disabled> --- </option>"
 											  for (var i = 0; i < data.length; i++) {
 												html += "<option value = '" + data[i].id + "'> " + data[i].first_name + "  </option>"
 											  }

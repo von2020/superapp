@@ -111,7 +111,14 @@
                       <div class="form-group" id="divservicing_company">
                           <label for="exampleFormControlSelect1">Servicing Company</label>
                           <select class='form-control' id='servicing_company' name='servicing_company'>
-
+                            <option selected disabled> ---- </option>
+                            <% 
+                                                      techs.forEach((tech, i) => { 
+                                                    %>
+                            <option value=<%= tech.id %>> <%= tech.company_name %> </option>
+                            <% 
+                                                      }) 
+                                                    %>
                           </select>
                     </div>
                     </div>
@@ -124,7 +131,7 @@
                         <div class="form-group" id="divsla">
                           <label for="exampleFormControlSelect1">SLAs</label>
                           <select class="form-control" id="sla" name="sla" >
-                            <option selected> --- </option>
+                            <option selected disabled> ---- </option>
                             <% 
                                                       slas.forEach((sla, i) => { 
                                                     %>

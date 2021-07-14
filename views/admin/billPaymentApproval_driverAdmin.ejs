@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Telnet SuperApp</title>
+    <!-- core:css -->
+    <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- end plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+</head>
+
+<body>
+    <div class="main-wrapper">
+
+        <!-- Insert the sidebar partial here-->
+<%- include('./bars/admin_sidebar') %>
+<!-- partial -->
+
+<div class="page-wrapper">
+        
+    <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+    <%- include('./bars/admin_topbar') %>
+    <!-- partial -->
+
+    <div class="page-content">
+        <%- include('.././partials/messages')%>
+
+                <nav class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">PHCN</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Bill Payment</li>
+                    </ol>
+                </nav>
+
+
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card card-special">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    <div>
+                                        <h6 class="card-title d-block">Bill Payment</h6>
+                                    </div>
+
+                                    <div class="d-flex align-items-center flex-wrap text-nowrap ">
+                                        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex"
+                                            id="dashboardDate">
+                                            <span class="input-group-addon bg-transparent"><i data-feather="calendar"
+                                                    class=" text-primary"></i></span>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <form class="" action="/facilities/servicingQueue" method="post">
+                                <div class="table-responsive">
+                                    <table  class="table">
+
+                                        <thead>
+                                            <tr>
+                                                <th> Value </th>
+                                                <th> Description </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                          <tr>
+                                            <th> Bill Name </th>
+                                            <td> <%= phcn.bill_name%> </td>
+                                        </tr>
+
+                                            <tr>
+                                                <th> Unit Consumed </th>
+                                                <td> <%= phcn.unit_consumed%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Created By </th>
+                                                <td> <%= phcn.created_by%> </td>
+                                            </tr>
+
+                                            <tr>
+                                              <th> Auditor Approval </th>
+                                              <td> <%= phcn.auditor_approval%> </td>
+                                          </tr>
+
+                                          <tr>
+                                            <th> Auditor Comment </th>
+                                            <td> <%= phcn.auditor_comment%> </td>
+                                        </tr>
+
+                                        <tr>
+                                          <th> Auditor Name </th>
+                                          <td> <%= phcn.auditor_name%> </td>
+                                      </tr>
+
+                                      <tr>
+                                        <th> Finance Approval </th>
+                                        <td> <%= phcn.finance_approval%> </td>
+                                    </tr>
+
+                                    <tr>
+                                      <th> Finance Comment </th>
+                                      <td><%= phcn.finance_comment%></td>
+                                  </tr>
+
+                                  <tr>
+                                    <th> Finance Name </th>
+                                    <td><%= phcn.finance_name%> </td>
+                                </tr>
+
+                                <tr>
+                                  <th> Created On </th>
+                                  <td> <%= phcn.created_on%> </td>
+                              </tr>
+
+                              <tr>
+                                <th> Updated On </th>
+                                <td> <%= phcn.updated_on%> </td>
+                            </tr>
+                                            
+
+                                            
+                                        </tbody>
+                                        
+
+                                        <!-- you may need to come back to change the outlook of the table to make it a two column table-->
+                                    </table>
+                                    <br>
+                                    <br>
+                                    <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%=phcn.id%>" required>
+                                    
+                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+
+                                    <input type="hidden" name="advance_payment" class="form-control" id="advance_payment" value="<%phcn.advance_payment%>" required>
+
+                                    
+                                    
+                                </div>
+                                
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- partial:partials/_footer.html -->
+            <%- include('./bars/admin_footer') %>
+			<!-- partial -->
+
+        </div>
+    </div>
+
+    <!-- core:js -->
+    <script src="../../../assets/vendors/core/core.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="../../../assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="../../../assets/vendors/jquery.flot/jquery.flot.js"></script>
+    <script src="../../../assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../../../assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="../../../assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="../../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <!-- end plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="../../../assets/js/template.js"></script>
+    <!-- endinject -->
+    <!-- custom js for this page -->
+    <script src="../../../assets/js/dashboard.js"></script>
+    <script src="../../../assets/js/data-table.js"></script>
+    <!-- end custom js for this page -->
+</body>
+
+</html>

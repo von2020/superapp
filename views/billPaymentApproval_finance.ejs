@@ -20,6 +20,8 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
     <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/jquery.fancybox.min.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
 </head>
@@ -81,7 +83,7 @@
                                       <tr>
                                         <th>Bill Name</th>
                                         <th>Finance Approval</th>
-                                        <th>Finance Comment</th>
+                                        
                                         <th>Created By</th>
                                         <th>Created On</th>
                                         
@@ -90,9 +92,9 @@
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <td><%= materials.bill_name%></th>
+                                        <td><%= materials.bill_name.slice(0,13)%></th>
                                         <td><%= materials.finance_approval%></th>
-                                        <td><%= materials.finance_comment%></th>
+                                        
                                         <td><%= materials.created_by%></th>
                                         
                                         <td><%= materials.created_on.slice(0,10)%></th>
@@ -100,8 +102,8 @@
                                           <%if (materials.file_uploaded == '') { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
-                                        <td><img src="<%=materials.file_uploaded%>" style="height: 250px; width: 250px; " alt="bill not uploaded yet" /></th>
-                                          <% } %>
+                                            <td><a data-fancybox="gallery" href="<%=materials.file_uploaded%>"> <img src="<%=materials.file_uploaded%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></a></th>
+                                              <% } %>
                                       </tr>
                                     </tbody>  
                                   </table>
@@ -252,6 +254,8 @@
     <!-- custom js for this page -->
     <script src="../../../assets/js/dashboard.js"></script>
     <script src="../../../assets/js/data-table.js"></script>
+    <script src="../../../assets/js/jquery.fancybox.js"></script>
+    <script src="../../../assets/js/jquery.fancybox.min.js"></script>
     <!-- end custom js for this page -->
 </body>
 

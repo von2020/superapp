@@ -101,15 +101,11 @@
                           <td><%= item.finance_approval%></td>
                           <td><%= item.created_on.slice(0,10)%></td>
                           <td><%= item.updated_on.slice(0,10)%></td>
-                          <% if (item.finance_approval == 'PENDING') { %>
-                            <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" ><%= item.finance_approval%></a></td>
-                          <% }  else { %>
-                            <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > <%= item.finance_approval%></a></td>
-                          <% }%>
-                          <% if (item.finance_approval == 'APPROVED' && item.finance_sent_payment == 'no' ) { %>
-                            <td><a href="/facilities/sendPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-warning rounded-pill" >send payment</a></td>
-                          <% }  else if (item.finance_approval == 'APPROVED' && item.finance_sent_payment == 'yes' ){ %>
-                            <td><a  class="badge badge-primary"> Payment Sent</a></td>
+                          
+                          <% if (item.finance_approval == 'APPROVED' && item.finance_sent_payment == 'yes' ) { %>
+                            <td><a href="/facilities/receivedPayment_facility?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-warning rounded-pill" >receive payment</a></td>
+                          <% }  else if (item.finance_approval == 'APPROVED' && item.finance_sent_payment == 'no' ){ %>
+                            <td><a  class="badge badge-primary"> Payment Not Sent</a></td>
                           <% }  else { %>
                             <td><a  class="badge badge-danger"> Payment Rejected</a></td>
                           <% }%>

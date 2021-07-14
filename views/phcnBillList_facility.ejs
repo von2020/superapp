@@ -88,9 +88,12 @@
                         <th>Unit Consumed</th>
                         <th>Amount Due</th>
                         <th>Admin Approval</th>
+                        <th> Payment Status </th>
+                        <th> Received Payment </th>
                         <th> Created By </th>
-                        <th> Updated On </th>
+                        
                         <th> View </th>
+                        <th>Payment Update</th>
                         
                         
                       </tr>
@@ -105,10 +108,21 @@
                           <td><%= item.unit_consumed%></td>
                           <td><%= item.amount_due%></td>
                           <td><%= item.admin_approval%></td>
+                          <td><%= item.payment_status%></td>
+                          <td><%= item.received_payment%></td>
                           <td><%= item.created_on.slice(0,10)%></td>
-                          <td><%= item.updated_on.slice(0,10)%></td>
-                          <td> <a href="/facilities/viewPhcnBill?id=<%= item.id%>" id='<%= item.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           
+                          <td> <a href="/facilities/viewPhcnBill?id=<%= item.id%>" id='<%= item.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+
+                            <% if (item.payment_status == 'Money has been released.' && item.received_payment == 'no' ) { %>
+                              <td><a href="/facilities/receivedPayment_facility?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-warning rounded-pill" >receive payment</a></td>
+                            <% }  else if (item.payment_status == 'Money has been released.' && item.received_payment == 'yes'  ){ %>
+                              <td><a  class="badge badge-primary"> Payment Received</a></td>
+                            <% }  else if (item.payment_status == 'The money has not been released yet!' && item.received_payment == 'no' ){ %>
+                              <td><a  class="badge badge-primary"> Payment Not Sent</a></td>
+                            <% }  else { %>
+                              <td><a  class="badge badge-danger"> Payment Rejected</a></td>
+                            <% }%>
                         </tr>
                         <% })%>
                     </tbody>

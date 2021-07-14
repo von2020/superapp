@@ -140,7 +140,7 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Document</label>
-                        <input type="file" name="document" class="form-control " id="document" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
+                        <input type="file" name="document" class="form-control " id="document" accept="application/pdf"  >
                       </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                     <div class="col">
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Invoice</label>
-                          <input type="file" name="invoice" class="form-control " id="invoice" accept=".doc,.docx,.xsxl, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"  required>
+                          <input type="file" name="invoice" class="form-control " id="invoice" accept="application/pdf" >
                         </div>
                       </div>
                       <div class="col">
@@ -233,7 +233,7 @@
                         <input type="hidden" name="fault" class="form-control" id="fault" value="<%= faults.id %>"  required>
                       </div>
                     </div> 
-                    
+                    <input type="hidden" name="token" class="form-control" id="token" value="<%= userDetails.token %>"  required>
                       
                   </div>
 
@@ -307,17 +307,34 @@ function arrange() {
 
     var file2 = document.getElementById('invoice').files[0];
 
-    console.log('file', file)
-    console.log('file2', file2)
+    // console.log('file', file)
+    // console.log('file2', file2)
 
 
     var reader = new FileReader();
     var reader2 = new FileReader();
-    
+
+
+    if(file != undefined && file2 != undefined)  {
+  console.log('hey you')
     reader.readAsDataURL(file);
         reader.onload  = function () {
             
-          
+          if (file.size > 2000000) {
+            alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        
+
+        }
+        else if(file.size > 2000000){
+          alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+              
+        else
+        {
             
             dataURL = reader.result;
           
@@ -338,17 +355,73 @@ function arrange() {
             console.log("output2", output2.src);
             sessionStorage.setItem("result2",reader2.result);
             
-            
+        }
           };
-    
-    
+        }
+    else if(file != undefined || file2 == undefined)  {
+      reader.readAsDataURL(file);
+        reader.onload  = function () {
+          if (file.size > 2000000) {
+            alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        
+
+        }
+        else if(file.size > 2000000){
+          alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+              
+        else
+        {
+          
+            
+            dataURL = reader.result;
+          
+            var output = document.getElementById('document');
+            output.src = dataURL;
+            console.log("output", output.src);
+            
+            sessionStorage.setItem("result",reader.result);
+          };
+         }
+        }
+        else{
+          if (file2.size > 2000000) {
+            alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        
+
+        }
+        else if(file2.size > 2000000){
+          alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        }
+              
+        else
+        {
+          reader2.readAsDataURL(file2);
+        reader2.onload  = function () {
+          dataURL2 = reader2.result;
+            
+            var output2 = document.getElementById('invoice');
+            output2.src = dataURL2;
+            console.log("output2", output2.src);
+            sessionStorage.setItem("result2",reader2.result);
+             }
+            }
+        };
 
     var result = sessionStorage.getItem("result")
-    console.log("result", result);
+    // console.log("result", result);
 
 
     var result2 = sessionStorage.getItem("result2")
-    console.log("result2", result2);
+    // console.log("result2", result2);
 
 
 var advance_percentage = document.getElementById('advance_percentage').value;
@@ -360,20 +433,18 @@ console.log(technician)
 var technician_name = $( "#technician option:selected" ).text();;
 console.log(technician_name)
 var doc = result;
-console.log(doc)
+// console.log(doc)
 var invoice = result2;
-console.log(invoice)
+// console.log(invoice)
 var amount_charged = document.getElementById('amount_charged').value;
 
-if (advance_payment == '' || technician == '' || doc =='' || invoice =='' || amount_charged =='') {
-alert('kindly fill all fields!');
-return;
-  // swal("kindly fill all fields!", {
-  //   buttons: false,
-  //   timer: 2000,  // disappears after 2 seconds
-  //});
-} 
-if(advance_percentage != '' || advance_payment == 'yes' || technician != '' || doc !='' || invoice !='' || amount_charged !='')  {
+// if (technician == '' || amount_charged =='') {
+// alert('kindly fill all fields!');
+// return;
+ 
+// } 
+// if(advance_percentage != '' || advance_payment == 'yes' || technician != '' || amount_charged !='')  {
+//   console.log('hey you')
 var details = {
   technician: Number(technician),
   advance_payment: advance_payment,
@@ -384,7 +455,9 @@ var details = {
   
 };
 values.push(details);
-appendFunction();
+// appendFunction();
+
+console.log('values', values)
 
 var table_details = {
   technician_name: technician_name,
@@ -439,135 +512,135 @@ $("#extrafeild").show();
 }
 
 }
-else if(advance_payment == 'no' || technician != '' || doc !='' || invoice !='' || amount_charged !='')  {
-
-var details = {
-  technician: Number(technician),
-  advance_payment: advance_payment,
-  amount_charged: Number(amount_charged),
-  document: doc,
-  invoice: invoice
+// else if(advance_payment == 'no' || technician != '' || amount_charged !='')  {
+//   console.log('hello')
+// var details = {
+//   technician: Number(technician),
+//   advance_payment: advance_payment,
+//   amount_charged: Number(amount_charged),
+//   document: doc,
+//   invoice: invoice
   
-};
-values.push(details);
-appendFunction();
+// };
+// values.push(details);
+// appendFunction();
 
-var table_details = {
-  technician_name: technician_name,
-  advance_payment: advance_payment,
-  advance_percentage: Number(advance_percentage),
-  amount_charged: Number(amount_charged),
-  document: doc,
-  invoice: invoice
+// var table_details = {
+//   technician_name: technician_name,
+//   advance_payment: advance_payment,
+//   advance_percentage: Number(advance_percentage),
+//   amount_charged: Number(amount_charged),
+//   document: doc,
+//   invoice: invoice
   
-};
-table_values.push(table_details);
-appendFunction();
+// };
+// table_values.push(table_details);
+// appendFunction();
 
-// you can use the array. for each to set a value for the id
-// or maybe you can use the post using jquery to send this to a route.
+// // you can use the array. for each to set a value for the id
+// // or maybe you can use the post using jquery to send this to a route.
 
-var html = "<br>"
-html += "<table class='table table-striped'>";
-html += "<thead>";
-html += "<tr>";
-html += "<th>" + "advance_payment" + "</th>";
-html += "<th>" + "technician" + "</th>";
-html += "<th>" + "document" + "</th>";
-html += "<th>" + "invoice" + "</th>";
-html += "<th>" + "amount_charged" + "</th>";
-html += "<th>" + "Action" + "</th>";
-html += "</tr>";
-html += "</thead>";
-html += "<tbody>";
-for (var i = 0; i < table_values.length; i++) {
-  html += "<tr>";
-  html += "<td>" + table_values[i].advance_payment + "</td>";
-  html += "<td>" + table_values[i].technician_name + "</td>";
-  html += "<td>" + "document" + "</td>";
-  html += "<td>" + "invoice" + "</td>";
-  html += "<td>" + table_values[i].amount_charged + "</td>";
-  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+// var html = "<br>"
+// html += "<table class='table table-striped'>";
+// html += "<thead>";
+// html += "<tr>";
+// html += "<th>" + "advance_payment" + "</th>";
+// html += "<th>" + "technician" + "</th>";
+// html += "<th>" + "document" + "</th>";
+// html += "<th>" + "invoice" + "</th>";
+// html += "<th>" + "amount_charged" + "</th>";
+// html += "<th>" + "Action" + "</th>";
+// html += "</tr>";
+// html += "</thead>";
+// html += "<tbody>";
+// for (var i = 0; i < table_values.length; i++) {
+//   html += "<tr>";
+//   html += "<td>" + table_values[i].advance_payment + "</td>";
+//   html += "<td>" + table_values[i].technician_name + "</td>";
+//   html += "<td>" + "document" + "</td>";
+//   html += "<td>" + "invoice" + "</td>";
+//   html += "<td>" + table_values[i].amount_charged + "</td>";
+//   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
-  html += "</tr>";
-}
-html += "</tbody>"
-html += "</table>";
-html += "<br>"
+//   html += "</tr>";
+// }
+// html += "</tbody>"
+// html += "</table>";
+// html += "<br>"
 
-// display record
-$("#extrafeild").html(html);
+// // display record
+// $("#extrafeild").html(html);
 
-if (table_values.length > 0) {
-$("#extrafeild").show();
-}
-}
- else  {
-
-var details = {
-technician: Number(technician),
-advance_payment: advance_payment,
-advance_percentage: Number(advance_percentage),
-amount_charged: Number(amount_charged),
-document: doc,
-invoice: invoice
+// if (table_values.length > 0) {
+// $("#extrafeild").show();
+// }
+// }
+//  else  {
+//   console.log('hey ')
+// var details = {
+// technician: Number(technician),
+// advance_payment: advance_payment,
+// advance_percentage: Number(advance_percentage),
+// amount_charged: Number(amount_charged),
+// document: doc,
+// invoice: invoice
   
-};
-values.push(details);
-appendFunction();
+// };
+// values.push(details);
+// appendFunction();
 
-var table_details = {
-  technician_name: technician_name,
-  advance_payment: advance_payment,
-  advance_percentage: Number(advance_percentage),
-  amount_charged: Number(amount_charged),
-  document: doc,
-  invoice: invoice
+// var table_details = {
+//   technician_name: technician_name,
+//   advance_payment: advance_payment,
+//   advance_percentage: Number(advance_percentage),
+//   amount_charged: Number(amount_charged),
+//   document: doc,
+//   invoice: invoice
   
-};
-table_values.push(table_details);
-appendFunction();
-// you can use the array. for each to set a value for the id
-// or maybe you can use the post using jquery to send this to a route.
+// };
+// table_values.push(table_details);
+// appendFunction();
+// // you can use the array. for each to set a value for the id
+// // or maybe you can use the post using jquery to send this to a route.
 
-var html = "<br>"
-html += "<table class='table table-striped'>";
-html += "<thead>";
-html += "<tr>";
-html += "<th>" + "advance_payment" + "</th>";
-html += "<th>" + "advance_percentage" + "</th>";
-html += "<th>" + "technician" + "</th>";
-html += "<th>" + "document" + "</th>";
-html += "<th>" + "invoice" + "</th>";
-html += "<th>" + "amount_charged" + "</th>";
-html += "<th>" + "Action" + "</th>";
-html += "</tr>";
-html += "</thead>";
-html += "<tbody>";
-for (var i = 0; i < table_values.length; i++) {
-  html += "<tr>";
-  html += "<td>" + table_values[i].advance_payment + "</td>";
-  html += "<td>" + table_values[i].advance_percentage + "</td>";
-  html += "<td>" + table_values[i].technician_name + "</td>";
-  html += "<td>" + "document" + "</td>";
-  html += "<td>" + "invoice" + "</td>";
-  html += "<td>" + table_values[i].amount_charged + "</td>";
-  html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
+// var html = "<br>"
+// html += "<table class='table table-striped'>";
+// html += "<thead>";
+// html += "<tr>";
+// html += "<th>" + "advance_payment" + "</th>";
+// html += "<th>" + "advance_percentage" + "</th>";
+// html += "<th>" + "technician" + "</th>";
+// html += "<th>" + "document" + "</th>";
+// html += "<th>" + "invoice" + "</th>";
+// html += "<th>" + "amount_charged" + "</th>";
+// html += "<th>" + "Action" + "</th>";
+// html += "</tr>";
+// html += "</thead>";
+// html += "<tbody>";
+// for (var i = 0; i < table_values.length; i++) {
+//   html += "<tr>";
+//   html += "<td>" + table_values[i].advance_payment + "</td>";
+//   html += "<td>" + table_values[i].advance_percentage + "</td>";
+//   html += "<td>" + table_values[i].technician_name + "</td>";
+//   html += "<td>" + "document" + "</td>";
+//   html += "<td>" + "invoice" + "</td>";
+//   html += "<td>" + table_values[i].amount_charged + "</td>";
+//   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
-  html += "</tr>";
-}
-html += "</tbody>"
-html += "</table>";
-html += "<br>"
+//   html += "</tr>";
+// }
+// html += "</tbody>"
+// html += "</table>";
+// html += "<br>"
 
-// display record
-$("#extrafeild").html(html);
+// // display record
+// $("#extrafeild").html(html);
 
-if (table_values.length > 0) {
-$("#extrafeild").show();
-}
-}
-}
+// if (table_values.length > 0) {
+// $("#extrafeild").show();
+// }
+// }
+// }
 
 
 
@@ -619,7 +692,9 @@ if (table_values.length > 0) {
 
 function appendFunction() {
 var x = JSON.stringify(values)
+console.log('array', x)
 $('#random').val(x)
+
 }
 
 function  Submit(){
@@ -632,90 +707,13 @@ loader.style.display = "inline-block";
 
 var fileInput = document.getElementById('document').value
 console.log(fileInput);
-// var fileInput2 = document.getElementById('invoice').value
-// console.log(fileInput2);
 
-if (fileInput == "" ) {
-            alert('Please Select a document to Continue');
-            loading.disabled = false; 
-            loader.style.display = "none";
-        }
-    else if(fileInput == "" ){
-        alert('Please Select a document to Continue');
-            loading.disabled = false; 
-            loader.style.display = "none";
-        }
-  else {     
-
-var file = document.getElementById('document').files[0]
-var file2 = document.getElementById('invoice').files[0]
-
-console.log("file", file);
-
-
-    var reader = new FileReader();
-    var reader2 = new FileReader();
-    
-        
-        
-        if (file.size > 2000000) {
-            alert('file must be 2mb or less')
-            loading.disabled = false; 
-            loader.style.display = "none";
-        
-
-        }
-        else if(file.size > 2000000){
-          alert('file must be 2mb or less')
-            loading.disabled = false; 
-            loader.style.display = "none";
-        }
-              
-        else
-        {
-
-    // function reader(){
-      
-    // }
-        reader.onload  = function () {
-            
-            
-            dataURL = reader.result;
-          //  console.log("result_one", result_one)
-            // return result_one
-            var output = document.getElementById('document');
-            output.src = dataURL;
-            // console.log("output", output.src);
-            
-            sessionStorage.setItem("result",reader.result);
-          };
-    
-    
-    // const result2 = async ()=>{
-        reader2.onload  = function () {
-          dataURL2 = reader2.result;
-            
-            var output2 = document.getElementById('invoice');
-            output2.src = dataURL2;
-    //         console.log("output2", output2.src);
-    sessionStorage.setItem("result2",reader2.result);
-            
-            
-          };
-    // }
-    // console.log("dataURL", reader.readAsDataURL(file))
-    reader.readAsDataURL(file);
-    var result = sessionStorage.getItem("result")
-    console.log("result", result);
-
-    reader2.readAsDataURL(file2);
-    var result2 = sessionStorage.getItem("result2")
-    console.log("result2", result2);
     
 
     
     var fault = $('#fault').val();
-    //           console.log(fault)
+    var token = $('#token').val();
+              console.log(token)
               var require_advance = $('#advance_payment').val();
     //           console.log(require_advance)
               var advance_percentage = $('#advance_percentage').val();
@@ -729,23 +727,23 @@ console.log("file", file);
     //           console.log(technician)
               var amount_charged = $('#amount_charged').val();
     //           console.log(amount_charged)
-              appendFunction();
+              // appendFunction();
               var random = $('#random').val();
-    //           console.log("random", random)
+
+              console.log("random", random)
               
               const data ={
                 "fault" : fault, 
                 "created_by": created_by, 
-                "quotation_set": JSON.parse(random)
+                "quotation_set": values
               }
               
               console.log("data", JSON.stringify(data))
-                var putJSON = function (url) {
+var putJSON = function (url) {
 return $.ajax({
 url: url,
 type: 'POST',
 data:JSON.stringify(data),
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
 contentType: 'application/json',
 error: function(xhr, status, error) {
   var err = eval("(" + xhr.responseText + ")");
@@ -763,29 +761,9 @@ else {
 }
 }
 });
-};
+// }
 
-putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation`).done(function(data, status){
-                  console.log("here",data),
-                  
-                  console.log("here")
-                  console.log("here",data)
-                  console.log(status)
-                  ID = data.id
-                  if (status == "success") {
 
-                    loading.disabled = false;
-                    loader.style.display = "none";
-                    alert('submitted successfully,quotations upload successful, select one')
-                    window.location.href=`/facilities/viewQuotation?id=${ID}`;
-                } else {
-                    loading.disabled = false; 
-                    loader.style.display = "none";
-                    alert('invoice upload Not successful')
-                  }
-        
-                }).fail(function (){
-            })
            
           reader.onerror = function (error) {
           console.log('Error: ', error);
@@ -811,8 +789,33 @@ putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation`
   //   
  return;
  }
-}        
+ putJSON(`/api/upload/quotation_driverAdmin`).done(function(data, status){
+  
+                  console.log("here",data),
+                  
+                  console.log("here")
+                  console.log("here",data)
+                  console.log(status)
+                  ID = data.id
+                  if (status == "success") {
+
+                    loading.disabled = false;
+                    loader.style.display = "none";
+                    alert('submitted successfully,quotations upload successful, select one')
+                    window.location.href=`/facilities/viewQuotation?id=${ID}`;
+                } else {
+                    loading.disabled = false; 
+                    loader.style.display = "none";
+                    alert('invoice upload Not successful')
+                  }
+        
+                }).fail(function (){
+            })
 }
+ 
+
+
+
 
       </script>
 

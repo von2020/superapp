@@ -139,6 +139,7 @@ static putResponse(query, url, token) {
         url: `${baseUrl}${url}`,
         body,
       };
+      
       request.put(options, (error, result, resBody) => {
         if (error) reject(error);
         console.log(result.body)

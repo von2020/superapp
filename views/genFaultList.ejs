@@ -102,7 +102,7 @@
                           <td><%= item.reason%></td>
                           <td><%= item.fault_description%></td>
                           <td><%= item.created_by%></td>
-                          <td><%= item.created_on%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
                           <!-- <td><a href="/facilities/gen_repair?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Update</a>   </td> -->
                         </tr>
                         <% })%>

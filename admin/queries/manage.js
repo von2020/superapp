@@ -129,11 +129,23 @@ class admin_manage_queries {
         }
     };
     //Get list of the roles
-    static async getRole() {
+    static async getRole(token) {
         const url = 'accounts/roles';
 
         try {
-            const { result, resbody } = await getResponse_get(url)
+            const { result, resbody } = await getResponse_getT(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async getRoles(token) {
+        const url = 'accounts/registration_roles';
+
+        try {
+            const { result, resbody } = await getResponse_getT(url, token)
             return { result, resbody }
 
         } catch (err) {
@@ -213,6 +225,62 @@ class admin_manage_queries {
         }
     };
 
+    static async uploadPhcnBill(body,id, token) {
+        const url = `power/billing/${id}/upload`;
+
+        try {
+            const { result, resbody } = await putResponse(body,url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async uploadPurchaseOrder(body,id, token) {
+        const url = `diesel/purchase_order/${id}/upload`;
+
+        try {
+            const { result, resbody } = await putResponse(body,url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async quotation_driverAdmin(body, token) {
+        const url = 'vehicle/recommend_quotation';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async request_quotation(body, token) {
+        const url = 'diesel/request_quotations';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async paid_repair(body, token) {
+        const url = 'generator/paid_repair';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
 
 
     static async viewSub(id, token) {
@@ -805,6 +873,17 @@ class admin_manage_queries {
 
     static async dieselVendorList(token) {
         const url = 'diesel/vendors';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async approved_dieselVendorList(token, id) {
+        const url = `diesel/vendor_selected_list/${id}`;
         try {
             const { result, resbody } = await getResponse_request(url, token)
             return { result, resbody };

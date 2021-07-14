@@ -109,11 +109,11 @@
                   <div class="thread-foot p-4 d-flex justify-content-between">
                     <h5>Take Action</h5>
                    <div>
-                      <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button"value = true>Assign Vehicle</button>
+                    <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Accept</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button"value = false>Reject</button>
                       
                       <script>
 
-//<button class="btn btn-danger rounded-pill" type = "submit" name = "button"value = false>Reject</button>
+
                       </script>
                     </div>
                   </div>
@@ -125,7 +125,7 @@
                   <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <textarea class="form-control" name = "driver_admin_reason" id="simpleMdeExample" rows="10"></textarea>
+                        <textarea class="form-control" name = "driver_admin_reason" id="simple" rows="10"></textarea>
                       </div>
                     </div>
                   </div>
@@ -197,6 +197,22 @@
 	
 		</div>
 	</div>
+
+  <script>
+      
+    function onSubmit(){
+      // alert('hey')
+      
+      var comment = document.getElementById("simple").value;
+      console.log('comment', comment)
+      if(comment == ''){
+        alert('specify reason for rejection')
+        event.preventDefault();
+      };
+    }
+
+    
+  </script>
 
 	<!-- core:js -->
 	<script src="../../../assets/vendors/core/core.js"></script>

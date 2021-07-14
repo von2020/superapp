@@ -3745,7 +3745,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             generator: req.body.generator,
             faulty_part: req.body.faulty_part,
             reason: req.body.reason,
-            description: req.body.description,
+            fault_description: req.body.description,
             created_by: req.body.created_by,
             
             
@@ -4181,9 +4181,9 @@ static async viewGenServicing_diverAdmin (req, res) {
         
         
         const query = {
-            vat: req.body.vat,
-            unit_consumed: req.body.unit_consumed,
-            consumption_rate: req.body.consumption_rate,
+            vat: Number(req.body.vat),
+            unit_consumed: Number(req.body.unit_consumed),
+            consumption_rate: Number(req.body.consumption_rate),
             comment: req.body.comment,
             created_by: req.body.created_by,
             
@@ -4261,9 +4261,11 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             const {result, resbody} = await viewPhcnBill(token, id);
             const phcn = resbody
+            var phcn_id = phcn.id
+            console.log('id', phcn_id)
             console.log('phcn', phcn)
             if (result.statusCode == 200) {
-                res.render('viewPhcnBill', {userDetails, phcn});
+                res.render('viewPhcnBill', {userDetails, phcn, phcn_id});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
@@ -4663,6 +4665,150 @@ static async viewGenServicing_diverAdmin (req, res) {
                 }
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/AllPhcnBillPayment_finance')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+    }
+
+    static async sendPayment_finance (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBillPayment(token, id);
+            const phcn = resbody
+            console.log(phcn)
+            if (result.statusCode == 200) {
+                res.render('sendPayment_finance', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+    static async handleSendPayment_finance (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        
+
+        const query = {
+            bill: req.body.bill,
+            finance_sent_payment: req.body.finance_sent_payment,
+            sent_payment_date: req.body.sent_payment_date,
+                
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updatePhcnBillPayment(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {                
+                req.flash('success_msg', 'You have successfully approved bill payment')
+                res.redirect('/facilities/AllPhcnBillPayment_finance');
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/AllPhcnBillPayment_finance')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+    }
+
+    static async allPhcnBillPayment_facility (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+
+        try {
+            const {result, resbody} = await phcnBillPaymentList(token);
+            const gen = resbody
+            console.log('phcn', gen)
+
+            
+            console.log('token',token)
+
+            var gens = gen.filter(function (data) {
+                return data.finance_approval != 'DENIED' && data.auditor_approval == 'APPROVED' // need to come back to this to populate the feilds with the data about the users
+            });
+
+            res.render('phcnBillPaymentList_facility', {userDetails, gens}); 
+        } catch (err) {
+            if (err) return console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        };
+          
+        };
+
+    static async receivedPayment_facility (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewPhcnBill(token, id);
+            const phcn = resbody
+            console.log(phcn)
+            if (result.statusCode == 200) {
+                res.render('receivedPayment_facility', {userDetails, phcn});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+    static async handleReceivedPayment_facility (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        
+
+        const query = {
+            id: req.body.id,
+            received_payment: req.body.received_payment,
+            unit_consumed: Number(req.body.unit_consumed),
+            consumption_rate: Number(req.body.consumption_rate),
+            vat: Number(req.body.vat),
+            
+                
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updatePhcnBill(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {                
+                req.flash('success_msg', 'You have successfully updated bill payment')
+                res.redirect('/facilities/phcnBillList_facility');
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/phcnBillList_facility')
             }
         } catch(err){
             if (err) console.log('error', err)

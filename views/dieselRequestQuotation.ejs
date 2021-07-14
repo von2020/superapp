@@ -110,8 +110,15 @@
                             <div class="form-group" id="divvendor">
                               <label for="exampleFormControlSelect1">Vendor</label>
                               <select class="form-control" id="vendor" name="vendor" onchange="vendorName(this)" >
-                                <option selected disabled> ---- </option>
                                 
+                                <option selected disabled> ---- </option>
+													<% 
+                                                                diesel.forEach((vendor, i) => { 
+																			%>
+													<option value=<%= vendor.id %>> <%= vendor.name %> </option>
+													<% 
+																			  }) 
+																			%>
                               </select>
                             </div>
                             </div>
@@ -195,7 +202,7 @@
                       <div class="col">
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Document</label>
-                          <input type="file" name="data" class="form-control" id="document" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"  required> </td>
+                          <input type="file" name="data" class="form-control" id="document" accept="application/pdf"  required> </td>
                         </div>
                       </div>
 
@@ -541,7 +548,6 @@ return $.ajax({
 url: url,
 type: 'POST',
 data:JSON.stringify(data),
-headers: { "Authorization": "Token 65e62220bf1af76f6bbcbc8d859e2d0fe80959d6" },
 contentType: 'application/json',
 error: function(xhr, status, error) {
   var err = eval("(" + xhr.responseText + ")");
@@ -560,7 +566,7 @@ else {
 });
 };
 
-putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/diesel/request_quotations`).done(function(data, status){
+putJSON(`/api/upload/request_quotation`).done(function(data, status){
                   console.log("here",data),
                   
                   console.log("here")

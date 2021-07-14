@@ -129,8 +129,15 @@
 
                                             <tr>
                                                 <th>Approved Vendor</th>
-                                                <td> <select class='form-control' id='servicing_company' name='approved_vendor'>
-
+                                                <td> <select class='form-control' id='approved_vendor' name='approved_vendor'>
+                                                    <option selected disabled> ---- </option>
+													<% 
+                                                                vendor_list.forEach((vendor, i) => { 
+																			%>
+													<option value=<%= vendor.vendor %>> <%= vendor.vendor_name %> </option>
+													<% 
+																			  }) 
+																			%>
                                                 </select> </td>
                                             </tr>
 

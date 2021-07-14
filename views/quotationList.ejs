@@ -106,7 +106,11 @@
                         <tr>
                           <td><%= quotation.created_on.slice(0,10)%></td>
                           <td><%= quotation.updated_on.slice(0,10)%></td>
+                          <%if (quotation.advance_percentage != null) { %>
                           <td><%= quotation.payment_type%></td>
+                          <% } else{ %>
+                            <td>full payment</td>
+                            <% } %>
                           <td><%= quotation.created_by%></td>
                           
                           <%if (quotation.approved_technician_reason == '') { %>
