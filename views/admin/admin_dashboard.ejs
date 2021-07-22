@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../assets/vendors/simplemde/simplemde.min.css">
   <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
    <!-- end plugin css for this page --> 
-   <link rel="stylesheet" type="text/css" href="../assets/vendors/datatables/jquery.dataTables.min.css">
+   <link rel="stylesheet" type="text/css" href="../assets/vendors/datatables.net/jquery.dataTables.min.css">
 	 <!-- inject:css -->
 	<link rel="stylesheet" href="../assets/fonts/feather-font/css/iconfont.css">
 	<link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -266,7 +266,7 @@
       // *Total No* //
       //var url = "dashboard.ejs";
       $.ajax({
-        url:'https://telnetsupperapp.com.ng:8443/api/v1/accounts/totals',
+        url:'/api/ajax/dashboard_admin_totals',
         type:'GET',
         dataType: 'json',
         success:function(data){
@@ -307,7 +307,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_vrequest_subsidiaries',
+          url:'/api/ajax/dashboard_admin_request_subsidiaries',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -347,7 +347,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_trip',
+          url:'/api/ajax/dashboard_admin_total_subsidiary_trip',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -383,7 +383,7 @@ jQuery(document).ready(function($) {
  
  var jobtable = $('#RequestInfo').DataTable({
    ajax: {
-    url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+    url: "/api/ajax/dashboard_admin_all_requests",
           dataSrc: "",
           type:'GET',
           dataType: 'json',
@@ -420,7 +420,7 @@ jQuery(document).ready(function($) {
 
         $("#RequestInfoooo").DataTable({
       ajax: {
-          url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
+          url: "/api/ajax/dashboard_admin_all_requests",
           dataSrc: "",
           type:'GET',
           dataType: 'json',
@@ -489,7 +489,7 @@ jQuery(document).ready(function($) {
 	<script src="../assets/vendors/feather-icons/feather.min.js"></script>
 	<script src="../assets/js/template.js"></script>
    <!-- endinject --> 
-   <script src="../assets/vendors/datatables/jquery.dataTables.min.js"></script>
+   <script src="../assets/vendors/datatables.net/jquery.dataTables.min.js"></script>
 
   <!-- custom js for this page -->
   <script src="../assets/js/simplemde.js"></script>

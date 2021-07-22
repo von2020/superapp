@@ -10,6 +10,8 @@ const {
     getDrivers,
     allVehicle,
     updateVehicle,
+    sendVehiclePart,
+    vehiclePartList,
     tripList,
     sendFaults,
     sendTechnician,
@@ -1913,6 +1915,78 @@ class Facilities {
             
     };
 
+    static async addVehiclePart (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            
+                res.render('addVehiclePart', {userDetails});
+
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+    static async handleAddVehiclePart (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        const query = {
+            part_name: req.body.part_name,
+            unit_price: req.body.unit_price,
+            supplier_name: req.body.supplier_name,
+            supplier_info: req.body.supplier_info,
+            description: req.body.description,
+            
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await sendVehiclePart(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.name }`,'/facilities/vehiclePartList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.name}`,'/facilities/vehiclePartList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+            
+    };
+
+    static async vehiclePartList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await vehiclePartList(token);
+            const part = resbody
+            console.log('part', part)
+            if (result.statusCode == 200) {
+                res.render('allVehiclePart', {userDetails, part});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
     static async dieselVendorList (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
@@ -3359,13 +3433,16 @@ static async viewGenServicing_diverAdmin (req, res) {
 
         try {
             const vehs = await allVehicle(token);
+            const vehParts = await vehiclePartList(token);
             const techs = await carTechnicianList(token);
             var tech = techs.resbody
+            var vehPart = vehParts.resbody
             console.log('tech', tech)
+            console.log('vehPart', vehPart)
             console.log('response',vehs.resbody)
             console.log('token',token)
 
-            res.render('billOfMaterial', {userDetails, vehs: vehs.resbody, tech}); 
+            res.render('billOfMaterial', {userDetails, vehs: vehs.resbody, tech, vehPart}); 
         } catch (err) {
             if (err) console.error('display page details error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
@@ -3386,17 +3463,15 @@ static async viewGenServicing_diverAdmin (req, res) {
     
             bill_set = [
                 {
-                    description: req.body.description,
-                    unit_price: req.body.unit_price,
-                    quantity: req.body.quantity
+                    vehicle_part: Number(req.body.vehicle_part),
+                    quantity: Number(req.body.quantity)
                 }
             ]
              query = {
                 bill_set: bill_set,
-                name: req.body.name,
                 created_by: req.body.created_by,
-                vehicle: req.body.vehicle,
-                technician: req.body.technician,
+                vehicle: Number(req.body.vehicle),
+                technician: Number(req.body.technician),
                 technician_workmanship: req.body.technician_workmanship,
                 advance_payment: req.body.advance_payment
                 
@@ -3405,11 +3480,11 @@ static async viewGenServicing_diverAdmin (req, res) {
         } else{
              query = {
                 bill_set: JSON.parse(req.body.random),
-                name: req.body.name,
                 created_by: req.body.created_by,
-                vehicle: req.body.vehicle,
-                technician: req.body.technician,
+                vehicle: Number(req.body.vehicle),
+                technician: Number(req.body.technician),
                 technician_workmanship: req.body.technician_workmanship,
+                advance_payment: req.body.advance_payment,
             }
         }
     

@@ -94,6 +94,7 @@
                         </select>
                       </div>
                       </div>
+                      
                     
                     
                   </div>
@@ -165,6 +166,21 @@
                     <div class="row">
                       <div class="col">
                         <div class="form-group">
+                          <label for="exampleFormControlSelect1">Vehicle Part</label>
+                          <select class="form-control" id="vehicle_part" name="vehicle_part" >
+                            <option selected disabled> --- </option>
+                            <% 
+                                          vehPart.forEach((veh, i) => { 
+                                                    %>
+                            <option value=<%= veh.id %>> <%= veh.part_name %>  </option>
+                            <% 
+                                                      }) 
+                                                    %>
+                          </select>
+                        </div>
+                        </div>
+                      <div class="col">
+                        <div class="form-group">
                           <label for="exampleFormControlSelect1">Quantity</label>
                           <input name="quantity" class="form-control" id="quantity" required>
                         </div>
@@ -224,26 +240,12 @@
                   }
   
                  </script>
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Unit Price</label>
-                      <input name="unit_price" class="form-control" id="unit_price" required>
-                    </div>
-                  </div>
+                  
                          
                   </div>
                   
 
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Description</label>
-                        <textarea name="description" class="form-control" rows="10" id="description" required></textarea>
-                      </div>
-                    </div>
-                    
-                      
-                  </div>
+                  
 
                   <div>
 										<p id="addMore" class="btn btn-light" style="float: right;"
@@ -288,11 +290,10 @@
 
         function onclickfunction() {
 
-var description = $('#description').val();
-var unit_price = $('#unit_price').val();
+var vehicle_part = $('#vehicle_part').val();
 var quantity = $('#quantity').val();
 
-if (description == '' || unit_price == '' || quantity =='') {
+if (vehicle_part == '' || quantity =='') {
 
   swal("kindly fill all fields!", {
     buttons: false,
@@ -301,9 +302,8 @@ if (description == '' || unit_price == '' || quantity =='') {
 } else {
 
   var details = {
-    description: description,
-    unit_price: unit_price,
-    quantity: quantity
+    vehicle_part: Number(vehicle_part),
+    quantity: Number(quantity)
   };
   values.push(details);
   appendFunction();
@@ -315,8 +315,7 @@ if (description == '' || unit_price == '' || quantity =='') {
   html += "<table class='table table-striped'>";
   html += "<thead>";
   html += "<tr>";
-  html += "<th>" + "description" + "</th>";
-  html += "<th>" + "unit_price" + "</th>";
+  html += "<th>" + "vehicle_part" + "</th>";
   html += "<th>" + "quantity" + "</th>";
   html += "<th>" + "Action" + "</th>";
   html += "</tr>";
@@ -324,8 +323,7 @@ if (description == '' || unit_price == '' || quantity =='') {
   html += "<tbody>";
   for (var i = 0; i < values.length; i++) {
     html += "<tr>";
-    html += "<td>" + values[i].description + "</td>";
-    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + values[i].vehicle_part + "</td>";
     html += "<td>" + values[i].quantity + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
@@ -351,8 +349,7 @@ var html = "<br>"
 html += "<table class='table table-striped'>";
 html += "<thead>";
 html += "<tr>";
-html += "<th>" + "description" + "</th>";
-html += "<th>" + "unit_price" + "</th>";
+html += "<th>" + "vehicle_part" + "</th>";
 html += "<th>" + "quantity" + "</th>";
 html += "<th>" + "Action" + "</th>";
 html += "</tr>";
@@ -360,8 +357,7 @@ html += "</thead>";
 html += "<tbody>";
 for (var i = 0; i < values.length; i++) {
   html += "<tr>";
-  html += "<td>" + values[i].description + "</td>";
-  html += "<td>" + values[i].unit_price + "</td>";
+  html += "<td>" + values[i].vehicle_part + "</td>";
   html += "<td>" + values[i].quantity + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 

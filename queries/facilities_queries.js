@@ -24,6 +24,28 @@ class vehicle_queries {
         }
     };
 
+    static async sendVehiclePart(query, token) {
+        const url = 'vehicle/vehicle_components';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async vehiclePartList(token) {
+        const url = 'vehicle/vehicle_components';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async carFaultList_driver(token) {
         const url = 'vehicle/report_fault';
         try {

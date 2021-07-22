@@ -15,6 +15,149 @@ class admin_manage_queries {
         }
     };
 
+    static async dashboard_total_reports(token) {
+        const url = 'core/driver_admin_totals';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_total_subsidiary_request_type(token) {
+        const url = 'core/total_subsidiary_request_type';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_trip_range(token) {
+        const url = 'core/trip_range';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_vehicle(token) {
+        const url = 'vehicle/vehicle';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_admin_totals(token) {
+        const url = 'accounts/totals';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_admin_request_subsidiaries(token) {
+        const url = 'core/total_vrequest_subsidiaries';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_admin_all_requests(token) {
+        const url = 'core/vrequest/all_requests';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_admin_total_subsidiary_trip(token) {
+        const url = 'core/total_subsidiary_trip';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async dashboard_admin_total_subsidiary_trip(token) {
+        const url = 'core/total_subsidiary_trip';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async admin_power_bill_report(body, token) {
+        const url = 'power/bill_report';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async admin_all_daily_maintenance(token) {
+        const url = 'generator/all_daily_maintenance';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async admin_generator_repair_report(token) {
+        const url = 'generator/generator_repair_report';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async admin_diesel_bi_report(body, token) {
+        const url = 'diesel/diesel_bi_report';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async getInactiveUsers(token) {
         const url = 'accounts/inactive_users';
         try {

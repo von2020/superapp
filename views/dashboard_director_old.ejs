@@ -182,6 +182,40 @@
           </div>
         </div> <!-- row -->
 
+        <div class="table-responsive">
+          <table id="dataTableExample" class="table" data-order=''>
+            <thead>
+
+              <tr>
+                <th>Staff Name</th>
+                <th>Role</th>
+                <th>Request Type</th>
+                <th>Status</th>
+                <th>View Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item) => {%>
+            <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+                <tr>
+                  <%if (item.driver_admin_approval == 'DENIED' || item.upline_approval == 'PENDING') { %>
+                  <td><%= item.requester_name%></td>
+                  <td><%= item.requester_role%></td>
+                  <td><%= item.request_type%></td>
+                  <% if (item.driver_admin_approval == 'PENDING') { %>
+                    <td><button class="badge badge-danger">Pending</button></td>
+                  <% }  else { %>
+                    <td><button class="badge badge-primary">Reassign Priority</button></td>
+                  <% }%>
+                  <td> <a href="/requests/individual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View request</a></td>
+                  <% } else{ %>
+
+                    <% } %>
+                </tr>
+                <% })%>
+            </tbody>
+          </table>
+        </div>
         <!-- <div class="row">
           <div class="col-12 col-xl-12 grid-margin stretch-card">
             <div class="card overflow-hidden">

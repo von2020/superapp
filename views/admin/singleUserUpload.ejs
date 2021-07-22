@@ -90,6 +90,17 @@
                         <input name="title" class="form-control" id="title" required>
                       </div>
                     </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Region</label>
+                        <select class="form-control-lg" id="region" name="region" required>
+                          <option value="lagos" selected>Lagos</option>
+                          <option value="abuja">Abuja</option>
+                          <option value="port harcourt">Port Harcourt</option>
+                                                    
+                        </select>
+                      </div>
+                    </div>
 
                   </div>
                  
@@ -129,7 +140,7 @@
                               console.log('data', data)
                               var html = "<option selected disabled> --- </option>"
                               for (var i = 0; i < data.length; i++) {
-                                html += "<option value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                                html += "<option  value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
                               }
                               // onchange = '"+changeFun2()+"'
 
@@ -153,7 +164,7 @@
                               console.log('data', data)
                               var html = "<option selected disabled> --- </option>"
                               for (var i = 0; i < data.length; i++) {
-                                html += "<option value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                                html += "<option  value = '" + data[i].id + "'> " + data[i].name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
                               }
                               // onchange = '"+changeFun2()+"'
 
@@ -177,7 +188,7 @@
                             if (status == "success") {
                               var html = "<option selected disabled> --- </option>"
                               for (var i = 0; i < data.length; i++) {
-                                html += "<option value = '" + data[i].id + "'> " + data[i].first_name + "  </option>"
+                                html += "<option value = '" + data[i].id + "'> " + data[i].first_name + " " + data[i].last_name + "  </option>"
                               }
                               //display the thing
                               $("#upline").html(html);

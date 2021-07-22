@@ -14,6 +14,9 @@ const {
     vehicleList,
     viewVehicle,
     handleUpdateVehicle,
+    addVehiclePart,
+    handleAddVehiclePart,
+    vehiclePartList,
     faultRepair,
     addTechician,
     carFaultList,
@@ -208,6 +211,11 @@ router.post('/addVehicle', [checkSession, driverAuthorize], handleAddVehicle)
 router.get('/vehicleList', [checkSession, driverAuthorize], vehicleList),
 router.get('/viewVehicle', [checkSession, driverAuthorize], viewVehicle),
 router.post('/viewVehicle', [checkSession, driverAuthorize], handleUpdateVehicle)
+
+router.get('/addVehiclePart', [checkSession, driverAuthorize], addVehiclePart),
+router.post('/addVehiclePart', [checkSession, driverAuthorize], handleAddVehiclePart)
+
+router.get('/vehiclePartList', [checkSession, driverAuthorize], vehiclePartList),
 
 
 router.get('/tripDistanceList', [checkSession, driverAuthorize], tripDistanceList),

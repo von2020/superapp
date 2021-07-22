@@ -1,5 +1,26 @@
 const express = require('express');
-const { viewDept,viewUpline,getRole,quotation_driverAdmin, uploadServiceBalanceInvoice, uploadPhcnBill, uploadPurchaseOrder, request_quotation, paid_repair } = require('../queries/manage');
+const { 
+    viewDept,
+    viewUpline,
+    getRole,
+    quotation_driverAdmin,
+    uploadServiceBalanceInvoice, 
+    uploadPhcnBill, 
+    uploadPurchaseOrder, 
+    request_quotation, 
+    paid_repair, 
+    dashboard_total_reports, 
+    dashboard_total_subsidiary_request_type, 
+    dashboard_trip_range,
+    dashboard_admin_totals, 
+    dashboard_admin_request_subsidiaries,
+    dashboard_admin_all_requests,
+    admin_power_bill_report,
+    admin_diesel_bi_report,
+    dashboard_admin_total_subsidiary_trip,
+    admin_all_daily_maintenance,
+    admin_generator_repair_report,
+    dashboard_vehicle } = require('../queries/manage');
 const router = express.Router();
 
 router.get('/ajax', async (req, res) => {
@@ -15,13 +36,13 @@ router.get('/ajax', async (req, res) => {
     try{
         console.log("I don enter")
         const subs = await viewDept(user_id,token);
-        var user = users.filter(function (user) {
-            return user.id == user_id
-        });
-        user = user[0]
+        // var user = users.filter(function (user) {
+        //     return user.id == user_id
+        // });
+        // user = user[0]
 
         
-        console.log("user", user)
+        // console.log("user", user)
         console.log("I don enter", subs.resbody)
        res.json( subs.resbody);
     } catch(err){
@@ -36,13 +57,13 @@ router.get('/ajax', async (req, res) => {
        try{
         console.log("I don enter")
         const subs = await viewUpline(user_id,token);
-        var user = users.filter(function (user) {
-            return user.id == user_id
-        });
-        user = user[0]
+        // var user = users.filter(function (user) {
+        //     return user.id == user_id
+        // });
+        // user = user[0]
 
         
-        console.log("user", user)
+        // console.log("user", user)
         console.log("I don enter", subs.resbody)
        res.json( subs.resbody);
     } catch(err){
@@ -58,13 +79,13 @@ router.get('/ajax', async (req, res) => {
        try{
         console.log("I don enter")
         const subs = await getRole(token);
-        var user = users.filter(function (user) {
-            return user.id == user_id
-        });
-        user = user[0]
+        // var user = users.filter(function (user) {
+        //     return user.id == user_id
+        // });
+        // user = user[0]
 
         
-        console.log("user", user)
+        // console.log("user", user)
         console.log("I don enter", subs.resbody)
        res.json( subs.resbody);
     } catch(err){
@@ -168,6 +189,179 @@ router.post('/upload/paid_repair', async (req, res)=> {
     const token = userDetails.token;
     try {
         const subs = await paid_repair(data,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
+
+router.get('/ajax/dashboard_total_reports', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_total_reports(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_total_subsidiary_request_type', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_total_subsidiary_request_type(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_trip_range', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_trip_range(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_vehicle', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_vehicle(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_admin_totals', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_admin_totals(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_admin_request_subsidiaries', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_admin_request_subsidiaries(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_admin_all_requests', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_admin_all_requests(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/dashboard_admin_total_subsidiary_trip', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_admin_total_subsidiary_trip(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.post('/ajax/admin_power_bill_report', async (req, res)=> {
+    let data = req.body;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await admin_power_bill_report(data,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
+router.get('/ajax/admin_all_daily_maintenance', async (req, res)=> {
+    
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await admin_all_daily_maintenance(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
+router.get('/ajax/admin_generator_repair_report', async (req, res)=> {
+    
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await admin_generator_repair_report(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
+router.post('/ajax/admin_diesel_bi_report', async (req, res)=> {
+    let data = req.body;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await admin_diesel_bi_report(data, token);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)

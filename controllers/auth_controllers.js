@@ -386,30 +386,30 @@ class auth_controllers {
                 const {result, resbody} = await carRequests(token);
                 const myData = await getSupervisorCount(token);
                 
-                const data_request = resbody;
+                const data = resbody;
             console.log('vehicle request', resbody)
                 console.log('mydata', myData.resbody)
                 var dashboardCount = myData.resbody
-            var data = data_request.filter(function (data) {
-                return data.upline_approval == 'PENDING' // need to come back to this to populate the feilds with the data about the users
-            });
+            // var data = data_request.filter(function (data) {
+            //     return data.upline_approval == 'PENDING' 
+            // });
 
-            var driver = data_request.filter(function (data) {
-                return data.driver_admin_approval == 'DENIED' // need to come back to this to populate the feilds with the data about the users
-            });
+            // var driver = data_request.filter(function (data) {
+            //     return data.driver_admin_approval == 'DENIED' 
+            // });
 
-            driver = driver[0];
-            if (!driver) {
-                data = data
-            } else {
-                data.push(driver)
-            }
+            // driver = driver[0];
+            // if (!driver) {
+            //     data = data
+            // } else {
+            //     data.push(driver)
+            // }
             
             // console.log(driver)
             // console.log('the data complete', data)
             req.session.carRequests = resbody
                 
-                // console.log("data", data)
+                console.log("data", data)
                 if (result.statusCode == '200') {
                     
                         res.render('dashboard_sup', {userDetails, data, dashboardCount})
@@ -522,12 +522,15 @@ class auth_controllers {
     
             try{
                 const {result, resbody} = await getDirectorCount(token);
+                const myData = await carRequests(token);
+                const data = myData.resbody;
                 const totals = resbody;
                 req.session.totals = resbody;
+                console.log('data', data)
                 console.log("totals", totals)
                 if (result.statusCode == '200') {
                     
-                        res.render('dashboard_director_old', {userDetails, totals})
+                        res.render('dashboard_director_old', {userDetails, totals, data})
                     } 
                     else {
                         resMessageRedirect(res, req, 'error_msg', 'Something went wrong','/')

@@ -270,7 +270,7 @@
       // *Total No* //
       //var url = "dashboard.ejs";
       $.ajax({
-        url:'https://telnetsupperapp.com.ng:8443/api/v1/core/driver_admin_totals',
+        url:'/api/ajax/dashboard_total_reports',
         type:'GET',
         dataType: 'json',
         success:function(data){
@@ -311,7 +311,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_request_type',
+          url:'/api/ajax/dashboard_total_subsidiary_request_type',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -354,7 +354,7 @@
     }
         //var url = "dashboard.ejs";
         $.ajax({
-          url:'https://telnetsupperapp.com.ng:8443/api/v1/core/total_subsidiary_request_type',
+          url:'/api/ajax/dashboard_total_subsidiary_request_type',
           type:'GET',
           dataType: 'json',
           success:function(data){
@@ -372,7 +372,7 @@
 
         $("#TripRange").DataTable({
       ajax: {
-          url: "https://telnetsupperapp.com.ng:8443/api/v1/core/trip_range",
+          url: "/api/ajax/dashboard_trip_range",
           dataSrc: ""
       },
       columns: [

@@ -1078,6 +1078,7 @@ class admin_manage_controllers {
             last_name: req.body.last_name,
             phone: req.body.phone,
             title: req.body.title,
+            region: req.body.region,
             password: '1234',
             confirm_password: '1234',
             upline: parseInt(req.body.upline) ,
@@ -1089,13 +1090,14 @@ class admin_manage_controllers {
         console.log('query', query)
         try{
                const {result, resbody} = await singleUpload(query);
-
+               const data = resbody;
+               console.log('data', resbody)
                 if ( result.statusCode == 201 ) {
                     resMessageRedirect(res, req, 'success_msg', 'You succesfully created a user','/admin/manage/createSingleUsers')         
                 }
                 // there should be a logic here for the 400 error.   
                 else  {
-                    resMessageRedirect(res, req, 'error_msg', 'A user could not be created','/admin/manage/createSingleUsers')  
+                    resMessageRedirect(res, req, 'error_msg', `${data[0].error}`,'/admin/manage/createSingleUsers')  
                 }      
         }
         catch (err){
