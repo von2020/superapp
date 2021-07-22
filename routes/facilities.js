@@ -81,6 +81,7 @@ const {
     queueRepair,
     statusRepair,
     car_servicing_report,
+    car_repair_report,
     servicingQueue,
     servicingQueueList,
     servicingQueueList_Auditor,
@@ -230,6 +231,7 @@ router.get('/updateRepairQueue_driveradmin', [checkSession, driverAuthorize], up
 router.post('/updateRepairQueue_driveradmin', [checkSession, driverAuthorize], handleUpdateRepairQueue_driverAdmin)
 
 router.get('/car_servicing_report', [checkSession, driverAuthorize], car_servicing_report),
+router.get('/car_repair_report', [checkSession, driverAuthorize], car_repair_report),
 
 router.get('/genRequestFiles', [checkSession, driverAuthorize], genRequestFiles),
 router.post('/genRequestFiles', [checkSession, driverAuthorize], handleGenRequestFiles),

@@ -20,6 +20,7 @@ const {
     dashboard_admin_total_subsidiary_trip,
     admin_all_daily_maintenance,
     admin_generator_repair_report,
+    dashboard_vehicle_repair_report,
     dashboard_vehicle } = require('../queries/manage');
 const router = express.Router();
 
@@ -347,6 +348,21 @@ router.get('/ajax/admin_generator_repair_report', async (req, res)=> {
     const token = userDetails.token;
     try {
         const subs = await admin_generator_repair_report(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
+router.get('/ajax/vehicle_repair_report', async (req, res)=> {
+    
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await dashboard_vehicle_repair_report(token);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)

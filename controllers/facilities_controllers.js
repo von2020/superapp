@@ -4184,6 +4184,12 @@ static async viewGenServicing_diverAdmin (req, res) {
         res.render('driver_admin_car_servicing', {userDetails}) 
         };
 
+    static async car_repair_report (req, res) {
+        var userDetails = req.session.userDetails
+        
+        res.render('vehicle_repair_report', {userDetails}) 
+        };
+
     static async listFaults (req, res) {
         var userDetails = req.session.userDetails
         

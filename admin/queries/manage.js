@@ -70,6 +70,17 @@ class admin_manage_queries {
         }
     };
 
+    static async dashboard_vehicle_repair_report(token) {
+        const url = 'vehicle/vehicle_repair_report';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
     static async dashboard_admin_request_subsidiaries(token) {
         const url = 'core/total_vrequest_subsidiaries';
         try {

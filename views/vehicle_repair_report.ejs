@@ -1,47 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>TELNET Super Admin</title>
+	<title>TELNET Director</title>
 	 <!-- core:css --> 
-	<link rel="stylesheet" href="../../assets/vendors/core/core.css">
+	<link rel="stylesheet" href="../assets/vendors/core/core.css">
 	 <!-- endinject --> 
   <!-- plugin css for this page --> 
-  <link rel="stylesheet" href="../../assets/vendors/simplemde/simplemde.min.css">
-  <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="../assets/vendors/simplemde/simplemde.min.css">
+  <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
    <!-- end plugin css for this page --> 
-   <link rel="stylesheet" type="text/css" href="../../assets/vendors/datatables.net/jquery.dataTables.min.css">
+   <link rel="stylesheet" type="text/css" href="../assets/vendors/datatables.net/jquery.dataTables.min.css">
 	 <!-- inject:css -->
-	<link rel="stylesheet" href="../../assets/fonts/feather-font/css/iconfont.css">
-	<link rel="stylesheet" href="../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
-	<link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="../assets/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
 	 <!-- endinject --> 
   <!-- Layout styles -->   
-  <link rel="stylesheet" href="../../assets/css/demo_1/style.css">
-  <link rel="stylesheet" href="../../assets/css/demo_1/custom.css">
+  <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+  <link rel="stylesheet" href="../assets/css/demo_1/custom.css">
  <!-- End layout styles --> 
-  <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../assets/images/favicon.png" />
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
 </head>
 <body>
 	<div class="main-wrapper">
 
-     <!-- Insert the sidebar partial here-->
-<%- include('./bars/admin_sidebar') %>
-<!-- partial -->
+    <!-- Insert the sidebar partial here-->
+<% if (userDetails.role == 'Staff') { %>
+  <%- include('./bars/sidebar_staff') %>
+  <% } else if (userDetails.role == 'Supervisor') { %>
+  <%- include('./bars/sidebar_sup') %>  
+  <% } else if (userDetails.role == 'Auditor') { %>
+  <%- include('./bars/sidebar_auditor') %> 
+  <% } else if (userDetails.role == 'Finance') { %>
+  <%- include('./bars/sidebar_finance') %>
+  <%  } else if (userDetails.role == 'Driver Admin') { %>
+  <%- include('./bars/sidebar_driver') %>  
+  <%  } else if (userDetails.role == 'Driver') { %>
+  <%- include('./bars/sidebar_carDriver') %>  
+  <%  } else { %>
+  <%- include('./bars/sidebar') %>    
+  <%  } %>
+		<!-- partial -->
+	
+		<div class="page-wrapper">
+				
+			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
+      <%- include('./bars/topbar') %>
+			<!-- partial -->
 
-<div class="page-wrapper">
-    
-  <!-- partial:partials/_navbar.html, this represents the topbar bar -->
-        <%- include('./bars/admin_topbar') %>
-  <!-- partial -->
-
-  <div class="page-content">
-            <%- include('.././partials/messages')%>
+			<div class="page-content">
+        <%- include('./partials/messages')%>
 
         <div class="row">
           <div class="col-md-2 grid-margin">
@@ -103,7 +116,7 @@
                 <canvas id="TripsInSubsidiaryID"></canvas>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="col-xl-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -113,41 +126,17 @@
             </div>
           </div>
         </div> -->
-        
 
         <div class="row">
           <div class="col-md-12">
-
-            <form id="requestInfo">
-              <div class="card-body"> 
-                  <div class="form-group">
-                      <div class="col-12">
-                          <div class="row">
-                              <label for="start_date"> Start Date </label>
-                              <input type="date" class="form-control" placeholder="Start Date" name="start_date" id="startdate">
-                          </div>
-                      </div>
-                      <br>
-                      <div class="col-12">
-                          <div class="row">
-                              <label for="end_date"> End Date</label>
-                              <input type="date" class="form-control" placeholder="End Date" name="end_date" id="enddate">
-                          </div>
-                      </div>
-                  </div>
-                  <!-- <input type="submit" class="btn btn-success" value="View"> -->
-                   <button type="submit" href="#" class="btn btn-info">View</button>
-              </div>
-            </form>
-
           <table id="TripRange" class="table table-bordered table-hover">
               <thead>
               <tr>
-                <th>Created Name</th>
-                <th>Date</th>
-                <th>Unit Consumed</th>
-                <th>Amount Due</th>
-                <th>Admin Aproval Status</th>
+                <th>Vehicle Brand</th>
+                <th>Vehicle Model</th>
+                <th>Technician</th>
+                <th>Amount</th>
+                <!-- <th>Subsidiary</th> -->
               </tr>
               </thead>
               <tbody  id="result">
@@ -236,8 +225,8 @@
 			</div>
 
 			 <!-- partial:partials/_footer.html -->
-       <%- include('./bars/admin_footer') %>
-       <!-- partial --> 
+       <%- include('./bars/footer') %>
+       <!-- partial -->
 	
 		</div>
   </div>
@@ -261,6 +250,7 @@
       //var url = "dashboard.ejs";
       $.ajax({
         url:'/api/ajax/dashboard_admin_totals',
+        // url:'https://cors-anywhere.herokuapp.com/http://173.212.208.45:8000/api/v1/accounts/totals',
         type:'GET',
         dataType: 'json',
         success:function(data){
@@ -357,183 +347,27 @@
           }
         });
 
-
-//         $(document).ready(function() {
-//     $('#example').DataTable( {
-//         "ajax": "data/objects.txt",
-//         "columns": [
-//             { "data": "name" },
-//             { "data": "position" },
-//             { "data": "office" },
-//             { "data": "extn" },
-//             { "data": "start_date" },
-//             { "data": "salary" }
-//         ]
-//     } );
-// } );
-
-$('#requestInfo').submit(function(evt){
-
-evt.preventDefault();
-    var reqobj = new Object();
-        reqobj.start_date = $('#startdate').val();
-        reqobj.end_date = $('#enddate').val();
-        var dsent = JSON.stringify(reqobj);
-
-        //console.log(dsent);
-$.ajax({
-    // url: "https://telnetsupperapp.com.ng:8443/api/v1/power/bill_report",
-    url: "/api/ajax/admin_power_bill_report",
-    type:'POST',
-    data:dsent,
-	contentType: "application/json; charset=utf-8",
-    beforeSend: function (xhr) {
-    xhr.setRequestHeader ("Authorization", "Token 0a80ea028c9f552632b2ad03a6fcc2043ac79b62")
-    },
-	success: function(result){
-        console.log(result);
         $("#TripRange").DataTable({
-            "aaData" : result,
-            columns: [
-                {
-                    data: "created_by"
-                },
-                {
-                    data: "created_on"
-                },
-                
-                {
-                    data: "bill__unit_consumed"
-                },
-                {
-                    data: "bill__amount_due"
-                },
-                {
-                    data: "bill__admin_approval"
-                },
-            ]
-        });
-	}
-})
-});
-
-
-// $("#TripRange").DataTable({
-//       ajax: {
-//           url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
-//           dataSrc: ""
-//       },
-//       columns: [
-//           {
-//               data: "requester_name"
-//           },
-//           {
-//               data: "requester_email"
-//           },
-//           {
-//               data: "requester_role"
-//           },
-//           {
-//               data: "request_date"
-//           },
-//           {
-//               data: "requester_upline"
-//           },
+      ajax: {
+          url: "/api/ajax/vehicle_repair_report",
+          dataSrc: ""
+      },
+      columns: [
+          {
+              data: "recommended__fault__vehicle__vmake"
+          },
+          {
+              data: "recommended__fault__vehicle__vmodel"
+          },
+          {
+              data: "recommended__approved_technician__specialty"
+          },
+          {
+              data: "recommended__amount"
+          }
           
-//       ]
-//             });
-
-//Examples 1
-// jQuery(document).ready(function($) {
- 
-//  var jobtable = $('#RequestInfo').DataTable({
-//    ajax: {
-//     url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
-//           dataSrc: "",
-//           type:'GET',
-//           dataType: 'json',
-// 		  beforeSend: function (xhr) {
-//                 xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
-//             },
-//    },
-//    columns: [
-//           {
-//               data: "requester_name"
-//           },
-//           {
-//               data: "requester_email"
-//           },
-//           {
-//               data: "requester_role"
-//           },
-//           {
-//               data: "request_date"
-//           },
-//           {
-//               data: "requester_upline"
-//           },
-          
-//       ]
-   
-//  });
-// });
-
-
-
-
-
-//Examples 2
-      //   $("#RequestInfoooo").DataTable({
-      // ajax: {
-      //     url: "https://telnetsupperapp.com.ng:8443/api/v1/core/vrequest/all_requests",
-      //     dataSrc: "",
-      //     type:'GET',
-      //     dataType: 'json',
-		  // beforeSend: function (xhr) {
-      //           xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
-      //       },
-      //       success:function(data){
-      //         if(data){
-               
-                
-               // console.log(data)
-                // let requester_name = data.data.requester_name;
-                //console.log(data);
-
-                // $.each(data, function(key, value) {
-                //     //For example
-                //     let requester_name = value.requester_name;
-                //     // console.log(value.requester_name)
-                //     // console.log(value.requester_email)
-                //     // console.log(value.requester_role)
-                // });
-                
-      //         }               
-      //     }, 
-      //     error:function(data){
-      //       console.log("Error Occurred!!")
-      //     }
-          
-      // },
-      // columns: [
-      //     {
-      //         data: "requester_name"
-      //     },
-      //     {
-      //         data: "requester_email"
-      //     },
-      //     {
-      //         data: "requester_role"
-      //     },
-      //     {
-      //         data: "request_date"
-      //     },
-      //     {
-      //         data: "requester_upline"
-      //     },
-          
-      // ]
-      //       });
+      ]
+            });
 
 
     });
@@ -544,25 +378,25 @@ $.ajax({
 <script src="./myChart.js"></script>
 
 	 <!-- core:js -->
-	<script src="/assets/vendors/core/core.js"></script>
+	<script src="../assets/vendors/core/core.js"></script>
 	 <!-- endinject -->
    <!-- plugin js for this page --> 
-  <script src="/assets/vendors/simplemde/simplemde.min.js"></script>
-  <script src="/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="../assets/vendors/simplemde/simplemde.min.js"></script>
+  <script src="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	 <!-- end plugin js for this page --> 
 	 <!-- inject:js --> 
-	<script src="/assets/vendors/feather-icons/feather.min.js"></script>
-	<script src="/assets/js/template.js"></script>
+	<script src="../assets/vendors/feather-icons/feather.min.js"></script>
+	<script src="../assets/js/template.js"></script>
    <!-- endinject --> 
-   <script src="/assets/vendors/datatables.net/jquery.dataTables.min.js"></script>
+   <script src="../assets/vendors/datatables.net/jquery.dataTables.min.js"></script>
 
   <!-- custom js for this page -->
-  <script src="/assets/js/simplemde.js"></script>
-  <script src="/assets/js/dashboard.js"></script>
-  <script src="/assets/js/datepicker.js"></script>
+  <script src="../assets/js/simplemde.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+  <script src="../assets/js/datepicker.js"></script>
   <!-- end custom js for this page --> 
-  <script src="/assets/js/chartjs.js"></script>
-  <script src="/assets/vendors/chartjs/Chart.min.js"></script>
-  <script src="/views/pages/dashboard.ejs"></script>
+  <script src="../assets/js/chartjs.js"></script>
+  <script src="../assets/vendors/chartjs/Chart.min.js"></script>
+  <script src="../views/pages/dashboard.ejs"></script>
 </body>
 </html>
