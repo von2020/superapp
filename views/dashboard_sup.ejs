@@ -14,6 +14,8 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- endinject -->
     <!-- Layout styles -->  
 	<link rel="stylesheet" href="assets/css/demo_1/style.css">
@@ -171,19 +173,23 @@
               <% data.forEach((item) => {%>
             <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                 <tr>
-                  <%if (item.driver_admin_approval == 'DENIED' || item.upline_approval == 'PENDING') { %>
+                  
                   <td><%= item.requester_name%></td>
                   <td><%= item.requester_role%></td>
                   <td><%= item.request_type%></td>
-                  <% if (item.driver_admin_approval == 'PENDING') { %>
+                  <% if (item.driver_admin_approval == 'PENDING' && item.upline_approval == 'PENDING') { %>
                     <td><button class="badge badge-danger">Pending</button></td>
-                  <% }  else { %>
+                  <% }  else if (item.driver_admin_approval == 'DENIED' && item.upline_approval == 'PENDING'){ %>
                     <td><button class="badge badge-primary">Reassign Priority</button></td>
+                  <% }  else if (item.driver_admin_approval == 'DENIED' && item.upline_approval == 'DENIED'){ %>
+                      <td><button class="badge badge-danger">Denied</button></td>
+                  <% }  else if (item.driver_admin_approval == 'APPROVED' && item.upline_approval == 'APPROVED'){ %>
+                      <td><button class="badge badge-primary">approved</button></td>
+                  <% }  else { %>
+                    <td><button class="badge badge-primary">Pending</button></td>
                   <% }%>
                   <td> <a href="/requests/individual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View request</a></td>
-                  <% } else{ %>
-
-                    <% } %>
+                  
                 </tr>
                 <% })%>
             </tbody>
@@ -381,6 +387,8 @@
   <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <script src="assets/vendors/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendors/progressbar.js/progressbar.min.js"></script>
+  <script src="../../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
 	<!-- end plugin js for this page -->
 	<!-- inject:js -->
 	<script src="assets/vendors/feather-icons/feather.min.js"></script>
@@ -389,6 +397,8 @@
   <!-- custom js for this page -->
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/datepicker.js"></script>
+  <script src="../../../assets/js/data-table.js"></script>
 	<!-- end custom js for this page -->
+  
 </body>
 </html>

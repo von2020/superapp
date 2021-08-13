@@ -93,10 +93,11 @@
                    <div>
                       <!-- <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button"value = true>Assign Vehicle</button> -->
                       
-                      <script>
+                      
+              <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Accept</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button"value = false>Reject</button>
 
-//<button class="btn btn-danger rounded-pill" type = "submit" name = "button"value = false>Reject</button>
-                      </script>
+          <script>
+        </script>
                     </div>
                   </div>
                 </div>
@@ -107,7 +108,7 @@
                   <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <textarea class="form-control" name = "driver_admin_reason" id="simpleMdeExample" rows="10"></textarea>
+                        <textarea class="form-control" name = "driver_admin_reason" id="simple" rows="10"></textarea>
                       </div>
                     </div>
                   </div>
@@ -180,7 +181,7 @@
       
     function onSubmit(){
       // alert('hey')
-      var comment = document.getElementById('simpleMdeExample').value;
+      var comment = document.getElementById('simple').value;
       console.log(comment)
       if(comment == ''){
         alert('comment cannot be empty')

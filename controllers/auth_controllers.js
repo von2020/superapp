@@ -268,12 +268,14 @@ class auth_controllers {
             }
             else if (result.statusCode == 400) {
                 console.log("resbody", resbody)
-                res.send(" '<script> alert('400! Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                req.flash('error_msg', resbody.error);
+                res.redirect('/');
                 return;
             }
             else {
                 console.log("resbody", resbody)
-                res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/'; </script>");
+                req.flash('error_msg', resbody.error);
+                res.redirect('/');
                 return; 
             }
             
@@ -390,23 +392,7 @@ class auth_controllers {
             console.log('vehicle request', resbody)
                 console.log('mydata', myData.resbody)
                 var dashboardCount = myData.resbody
-            // var data = data_request.filter(function (data) {
-            //     return data.upline_approval == 'PENDING' 
-            // });
-
-            // var driver = data_request.filter(function (data) {
-            //     return data.driver_admin_approval == 'DENIED' 
-            // });
-
-            // driver = driver[0];
-            // if (!driver) {
-            //     data = data
-            // } else {
-            //     data.push(driver)
-            // }
             
-            // console.log(driver)
-            // console.log('the data complete', data)
             req.session.carRequests = resbody
                 
                 console.log("data", data)

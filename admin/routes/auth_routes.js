@@ -12,6 +12,7 @@ const {
     displayLogin,
     handleLogin,
     displayDashboard,
+    generalReport,
     logout,
     adminDisplayPrivacyPolicy,
     authorization,
@@ -25,6 +26,8 @@ router.post('', handleLogin);
 router.get('/privacy-policy',  adminDisplayPrivacyPolicy);
 
 router.get('/dashboard', adminCheckSession, displayDashboard);
+
+router.get('/report', adminCheckSession, generalReport);
 
 router.get('/authorization', authorization);
 

@@ -1078,7 +1078,7 @@ class admin_manage_controllers {
             last_name: req.body.last_name,
             phone: req.body.phone,
             title: req.body.title,
-            region: req.body.region,
+            // region: req.body.region,
             password: '1234',
             confirm_password: '1234',
             upline: parseInt(req.body.upline) ,

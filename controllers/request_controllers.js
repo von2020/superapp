@@ -181,10 +181,10 @@ class Requests {
             if (result.statusCode == 200) {
                 if(data.upline_approval_status == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully accepted a request')
-                    res.redirect('/requests/view_request');
+                    res.redirect('/dashboard');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected a request')
-                    res.redirect('/requests/view_request');
+                    res.redirect('/dashboard');
                 }
 
             } else {
@@ -274,7 +274,8 @@ class Requests {
                 
               });
               car_request = car_request[0];
-              req.session.managecar_request = car_request;;
+              req.session.managecar_request = car_request;
+              console.log('see', car_request)
 
               res.render('manageindCarRequest', {data:car_request, userDetails});
         }catch(err){
@@ -313,11 +314,11 @@ class Requests {
 
             const {result, resbody} = await uplinequery(query, token, id);
             const data = resbody;
-            console.log("resbody", resbody)
+            console.log("data", data)
             if (result.statusCode == 200) {
-                if (resbody.driver_admin_status == 'APPROVED'){
+                if (data.driver_admin_status == 'APPROVED'){
                     req.session.approved = resbody
-
+                    req.flash('success_msg', 'You have succesfully approved a request. Assign Vehicle')
                     res.redirect('/requests/assign_vehicle')
                     // here it will not route back because the driver admin approval value is not here.
                 } else {

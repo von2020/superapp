@@ -3472,7 +3472,7 @@ static async viewGenServicing_diverAdmin (req, res) {
                 created_by: req.body.created_by,
                 vehicle: Number(req.body.vehicle),
                 technician: Number(req.body.technician),
-                technician_workmanship: req.body.technician_workmanship,
+                technician_workmanship: Number(req.body.technician_workmanship),
                 advance_payment: req.body.advance_payment
                 
             }
@@ -3483,7 +3483,7 @@ static async viewGenServicing_diverAdmin (req, res) {
                 created_by: req.body.created_by,
                 vehicle: Number(req.body.vehicle),
                 technician: Number(req.body.technician),
-                technician_workmanship: req.body.technician_workmanship,
+                technician_workmanship: Number(req.body.technician_workmanship),
                 advance_payment: req.body.advance_payment,
             }
         }

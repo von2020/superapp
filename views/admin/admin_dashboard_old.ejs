@@ -15,10 +15,13 @@
     <link rel="stylesheet" href="../assets/fonts/feather-font/css/iconfont.css">
     <link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <!-- endinject -->
-    <!-- Layout styles -->  
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+  <link rel="stylesheet" href="../assets/css/demo_1/custom.css">  
 	<link rel="stylesheet" href="../assets/css/demo_1/style.css">
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 </head>
 <body>
 	<div class="main-wrapper">
@@ -37,7 +40,7 @@
         <%- include('.././partials/messages')%>
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
           <div>
-            <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+            <h4 class="mb-3 mb-md-0">Welcome <%= userDetails.first_name + ' '+ userDetails.last_name%></h4>
           </div>
           <div class="d-flex align-items-center flex-wrap text-nowrap">
             <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
@@ -64,21 +67,10 @@
             <div class="row flex-grow">
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-three">
                     <div class="d-flex justify-content-between align-items-baseline">
                       <h6 class="card-title mb-0">All Users</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
@@ -90,30 +82,19 @@
                           </p>
                         </div>
                       </div>
-                      <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart1" class="mt-md-3 mt-xl-0"></div>
-                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-user-friends circleOne"></i> 
+                    </span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-one">
                     <div class="d-flex justify-content-between align-items-baseline">
                       <h6 class="card-title mb-0">Active Users</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
@@ -125,30 +106,19 @@
                           </p>
                         </div>
                       </div>
-                      <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart2" class="mt-md-3 mt-xl-0"></div>
-                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-user-friends circleThree"></i> 
+                    </span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body card-color-two">
                     <div class="d-flex justify-content-between align-items-baseline">
                       <h6 class="card-title mb-0">Inactive Users</h6>
-                      <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                      </div>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
@@ -160,9 +130,167 @@
                           </p>
                         </div>
                       </div>
-                      <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart3" class="mt-md-3 mt-xl-0"></div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-user-friends circleTwo"></i> 
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- row -->
+
+        <div class="row">
+          <div class="col-12 col-xl-12 stretch-card">
+            <div class="row flex-grow">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-three">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Generators</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=dashTotals.total_generator%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-success">
+                            <!-- <span>+3.3%</span> -->
+                            <!-- <i data-feather="arrow-up" class="icon-sm mb-1"></i> -->
+                          </p>
+                        </div>
                       </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-adjust circleTwo"></i> 
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-one">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total PHCN Requests</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=dashTotals.total_phcn_request%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-danger">
+                            <!-- <span>-2.8%</span> -->
+                            <!-- <i data-feather="arrow-down" class="icon-sm mb-1"></i> -->
+                          </p>
+                        </div>
+                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-car circleThree"></i> 
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-two">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Diesel Requests</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=dashTotals.total_diesel_request%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-success">
+                            <!-- <span>+2.8%</span> -->
+                            <!-- <i data-feather="arrow-up" class="icon-sm mb-1"></i> -->
+                          </p>
+                        </div>
+                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-car circleFour"></i> 
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- row -->
+
+        <div class="row">
+          <div class="col-12 col-xl-12 stretch-card">
+            <div class="row flex-grow">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-two">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Generator Servicing Request</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=dashTotals.total_generator_servicing_request%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-success">
+                            <!-- <span>+3.3%</span> -->
+                            <!-- <i data-feather="arrow-up" class="icon-sm mb-1"></i> -->
+                          </p>
+                        </div>
+                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-adjust circleThree"></i> 
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-three">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Generator Repair Requests</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=dashTotals.total_generator_repair_request%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-danger">
+                            <!-- <span>-2.8%</span> -->
+                            <!-- <i data-feather="arrow-down" class="icon-sm mb-1"></i> -->
+                          </p>
+                        </div>
+                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-adjust circleTwo"></i> 
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body card-color-four">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                      <h6 class="card-title mb-0">Total Car Reported Faults</h6>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-md-12 col-xl-5">
+                        <h3 class="mb-2"><%=dashTotals.total_reported_faults%></h3>
+                        <div class="d-flex align-items-baseline">
+                          <p class="text-success">
+                            <!-- <span>+2.8%</span> -->
+                            <!-- <i data-feather="arrow-up" class="icon-sm mb-1"></i> -->
+                          </p>
+                        </div>
+                      </div>
+                      <span class="dashboard" > 
+                        <i class="fas fa-adjust circleOne"></i> 
+                    </span>
                     </div>
                   </div>
                 </div>

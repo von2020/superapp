@@ -27,6 +27,17 @@ class auth_queries {
         }
     };
 
+    static async getAdminTotals(token) {
+        const url = 'generator/sa_dash_counts';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     //Get list of the subsidiaries
     static async getSubs () {
         const url = 'accounts/subsidiaries';

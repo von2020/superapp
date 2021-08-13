@@ -7,6 +7,7 @@ const {auth_queries} = require('../queries');
 const {
     loginRequest,
     getTotals,
+    getAdminTotals,
 } = auth_queries;
 
 class auth_controllers {
@@ -56,15 +57,20 @@ class auth_controllers {
             
         }
         catch(err) {
-            if (err) 
-            return console.log(err)
-            res.redirect ('')
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin'; </script>");
+                return;
         }
     }
 
     static async adminDisplayPrivacyPolicy (req, res) {
         var userDetails = req.session.userDetails
         res.render('admin/admin_privacy_policy', {userDetails}) 
+        };
+
+    static async generalReport (req, res) {
+        var userDetails = req.session.userDetails
+        res.render('admin/admin_dashboard', {userDetails}) 
         };
 
     static async displayDashboard (req, res) {
@@ -74,12 +80,17 @@ class auth_controllers {
         try{
             const {result, resbody} = await getTotals(token);
             const totals = resbody;
+            const adminTotals = await getAdminTotals(token);
+            var dashTotals = adminTotals.resbody
+            console.log('dashtotals', dashTotals)
             req.session.totals = resbody;
             console.log("totals", totals)
-        res.render('admin/admin_dashboard', {userDetails, totals}) 
+        res.render('admin/admin_dashboard_old', {userDetails, totals, dashTotals}) 
     
         }catch(err){
             if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin'; </script>");
+                return;
         }
     };
 
