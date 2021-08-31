@@ -149,7 +149,13 @@
                           <% } else{ %>
                             <td ><span class="badge badge-danger">HIGH</span></td>
                           <% } %>
-                          <td><button class="btn btn-danger rounded-pill">Pending</button></td>
+                          <%if (item.driver_admin_approval == 'PENDING') { %>
+                          <td><span class="badge badge-primary">Pending</span></td>
+                          <% } else if (item.driver_admin_approval == 'DENIED') { %>
+                            <td><span class="badge badge-danger">Denied</span></td>
+                            <% } else { %>
+                              <td ><span class="badge badge-info">Approved</span></td>
+                            <% } %>
                           <td> <a href="/requests/viewindividual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View request</button></td>
                             <% })%>
                           </tr>

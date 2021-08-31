@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
-
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
 </head>
 <body>
@@ -34,6 +34,8 @@
             <%- include('./bars/sidebar_auditor') %> 
             <% } else if (userDetails.role == 'Finance') { %>
             <%- include('./bars/sidebar_finance') %>
+			<% } else if (userDetails.role == 'Facility Officer') { %>
+			<%- include('./bars/sidebar_facility') %>
 			<%  } else if (userDetails.role == 'Driver Admin') { %>
 			<%- include('./bars/sidebar_driver') %>  
 			<%  } else if (userDetails.role == 'Driver') { %>
@@ -62,19 +64,19 @@
 								<h6 class="card-title">Upload SignOff</h6>
 
 								
-                                <form class="" action="/facilities/genDailyMaintenance" method="post">
+                                <form class=""  method="post">
                                     
                                     <div class="row">
                                         <!-- <div class="col">
                                             <div class="form-group"> -->
                                                 
-                                                <input name= "generator" type="hidden" class="form-control" id="generator"  required> 
+                                                <input name= "id" type="hidden" class="form-control" id="id" value="<%= gens.id%>"  required> 
                                             <!-- </div>
                                         </div> -->
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1"> Sign Off Document</label>
-                                                <input type="file" name= "gen_time_on" class="form-control" id="gen_time_on" value="2020-01-01 00:30:00"  required>
+                                                <input type="file" name= "sign_off_document" class="form-control" id="sign_off_document" accept="application/pdf" required>
                                             </div>
                                         </div>
                                         
@@ -94,7 +96,11 @@
 				
 									  
 								<!-- need to come back here to add the list of all the subsidiaries and uplines in case it needs to be changed, just copy from the old registration page-->
-									<button class="btn-lg btn-primary" type="submit">Save</button>
+								<button id="reqBtn" class="btn-lg btn-primary" onclick="Submit()" type="submit" value="Save"> Save 
+                                    <span id="reqLoader" style="display: none;"> 
+                                         <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
+                                     </span> 
+                                    </button>
 									
 								</form>
 								
@@ -124,5 +130,102 @@
 	<!-- custom js for this page -->
 	<script src="../../../assets/js/file-upload.js"></script>
 	<!-- end custom js for this page -->
+
+	<script>
+        let data;
+        function convert(){
+            // alert('abeg');
+            var file = document.getElementById('sign_off_document').files[0];
+                getBase64(file);
+                console.log("begining")
+                console.log(data)
+            // var data = reader.result;
+        }
+
+        function getBase64(file) {            
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+              this.data = reader.result
+               // return data
+        };
+        reader.onerror = function (error) {
+        console.log('Error: ', error);
+        };
+    }
+function Submit(){
+    var loading = document.getElementById("reqBtn");
+    loading.disabled = true;
+    var loader = document.getElementById("reqLoader");
+    loader.style.display = "inline-block";
+
+var fileInput = document.getElementById('sign_off_document').value
+console.log(fileInput);
+
+if (fileInput == "") {
+                alert('Please Select a document to Continue');
+                loading.disabled = false; 
+                loader.style.display = "none";
+            }
+      else {      
+
+var file = document.getElementById('sign_off_document').files[0];
+        var reader = new FileReader();
+            reader.readAsDataURL(file);
+            if (file.size > 2000000) {
+                alert('file must be 2mb or less')
+				loading.disabled = false; 
+                loader.style.display = "none";
+            }
+            else 
+            {
+            reader.onload = function () {
+                console.log("starting", reader.result)
+				var ID = $('#id').val();
+                  console.log(ID)
+				  
+                    var putJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'POST',
+data:JSON.stringify({"sign_off_document"  : reader.result}),
+contentType: 'application/json'
+});
+};
+
+putJSON(`/api/upload/sign_off?id=${ID}`).done(function(data, status){
+                      console.log("here",data),
+                      
+                      console.log("here")
+                      console.log("here",data)
+                      console.log(status)
+                      
+                      if (status == "success") {
+                        loading.disabled = false;
+                        loader.style.display = "none";
+                        alert('SignOff File submitted successful')
+						window.location.href=`/facilities/viewGenServiceStatus?id=${ID}`;
+                    } else {
+                        loading.disabled = false; 
+                        loader.style.display = "none";
+                        alert('SignOff File Not successfully submitted')
+                      }
+            
+                    }).fail(function(){
+
+                    })
+               // return data
+        };
+    }
+        reader.onerror = function (error) {
+        console.log('Error: ', error);
+        };
+                    
+    }                 
+          
+}
+
+    </script>
+
 </body>
 </html>

@@ -80,12 +80,12 @@ class auth_controllers {
         try{
             const {result, resbody} = await getTotals(token);
             const totals = resbody;
-            const adminTotals = await getAdminTotals(token);
-            var dashTotals = adminTotals.resbody
-            console.log('dashtotals', dashTotals)
+            // const adminTotals = await getAdminTotals(token);
+            // var dashTotals = adminTotals.resbody
+            // console.log('dashtotals', dashTotals)
             req.session.totals = resbody;
             console.log("totals", totals)
-        res.render('admin/admin_dashboard_old', {userDetails, totals, dashTotals}) 
+        res.render('admin/admin_dashboard_old', {userDetails, totals}) 
     
         }catch(err){
             if (err) console.log('error', err)

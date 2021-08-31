@@ -91,10 +91,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th> Vehicle Name </th>
-                                                <td> <%= queues.vehicle%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> Upload Invoice </th>
@@ -103,7 +100,7 @@
 
                                             
                                             
-                                            <tr>
+                                            <!-- <tr>
                                                 <th> Bill Of Material Name </th>
                                                 <td> <%= queues.bill_of_material_name%> </td>
                                             </tr>
@@ -131,7 +128,7 @@
                                                   <p><span>Balance Invoice: <a class="text-primary" href="<%= queues.balance_invoice%>">view</a></span></p>
                                                   <% } %>
                                                       </td>
-                                            </tr>
+                                            </tr> -->
 
                                             
                                             
@@ -252,12 +249,12 @@ var file = document.getElementById('balance_invoice').files[0];
 return $.ajax({
 url: url,
 type: 'POST',
-data:JSON.stringify({"balance_invoice"  : reader.result}),
+data:JSON.stringify({"balance_payment_invoice"  : reader.result}),
 contentType: 'application/json'
 });
 };
 
-putJSON(`/api/upload/balance_invoice?id=${ID}`).done(function(data, status){
+putJSON(`/api/upload/bill_of_material_invoice?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")
@@ -268,7 +265,7 @@ putJSON(`/api/upload/balance_invoice?id=${ID}`).done(function(data, status){
                         loading.disabled = false;
                         loader.style.display = "none";
                         alert('invoice upload successful')
-                        window.location.href=`/facilities/servicingQueueDriverAdmin`;
+                        window.location.href=`/facilities/allBillOfMaterials`;
                     } else {
                         loading.disabled = false; 
                         loader.style.display = "none";

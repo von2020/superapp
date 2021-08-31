@@ -59,7 +59,7 @@
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Facilities</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Generator List</li>
+						<li class="breadcrumb-item active" aria-current="page">Bill Of Materials</li>
 					</ol>
                 </nav>
 
@@ -70,7 +70,7 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">List of Generators</h6>
+                  <h6 class="card-title d-block">List of Bill Of Materials</h6>
                   </div>
 
                   <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -93,9 +93,8 @@
                         <th>Technician Name</th>
                         <th>Created By</th>
                         <th>Created On</th>
-                        <th>BU Head Approval</th>
-                        <th>BU Head Name</th>
-                        <th>Add To Queue</th>
+                        
+                        <th>View</th>
                         
                       </tr>
                     </thead>
@@ -107,11 +106,10 @@
                           <td><%= material.vehicle_name%></td>
                           <td><%= material.technician_name%></td>
                           <td><%= material.created_by%></td>
-                          <td><%= material.created_on%></td>
-                          <td><%= material.bu_head_approval%></td>
-                          <td><%= material.bu_head_name%></td>
+                          <td><%= material.created_on.slice(0,10)%></td>
                           
-                          <td><a href="/facilities/viewBillOfMaterials?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-success rounded-pill" > Schedule For Maintenance</a> </td>
+                          
+                          <td><a href="/facilities/viewBillOfMaterials?id=<%=material.id%>" id='<%=material.id%>' class="btn btn-sm btn-success rounded-pill" >View</a> </td>
                           
                         </tr>
                         <% })%>

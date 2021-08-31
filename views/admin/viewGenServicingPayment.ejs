@@ -28,36 +28,21 @@
     <div class="main-wrapper">
 
         <!-- Insert the sidebar partial here-->
-        <% if (userDetails.role == 'Staff') { %>
-        <%- include('./bars/sidebar_staff') %>
-        <% } else if (userDetails.role == 'Supervisor') { %>
-        <%- include('./bars/sidebar_sup') %>
-        <% } else if (userDetails.role == 'Auditor') { %>
-        <%- include('./bars/sidebar_auditor') %> 
-        <% } else if (userDetails.role == 'Finance') { %>
-        <%- include('./bars/sidebar_finance') %>
-        <%  } else if (userDetails.role == 'Driver Admin') { %>
-        <%- include('./bars/sidebar_driver') %>
-        <%  } else if (userDetails.role == 'Driver') { %>
-        <%- include('./bars/sidebar_carDriver') %>
-        <%  } else { %>
-        <%- include('./bars/sidebar') %>
-        <%  } %>
+        <%- include('./bars/admin_sidebar') %>
+	
+		<div class="page-wrapper">
+				
+        <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+        <%- include('./bars/admin_topbar') %>
         <!-- partial -->
 
-        <div class="page-wrapper">
-
-            <!-- partial:partials/_navbar.html, this represents the topbar bar -->
-            <%- include('./bars/topbar') %>
-            <!-- partial -->
-
-            <div class="page-content">
-                <%- include('./partials/messages')%>
+			<div class="page-content">
+                <%- include('.././partials/messages')%>
 
                 <nav class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Vehicle</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Repair</li>
+                        <li class="breadcrumb-item"><a href="#">Generator</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Servicing Payment</li>
                     </ol>
                 </nav>
 
@@ -68,7 +53,7 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Quotation</h6>
+                                        <h6 class="card-title d-block">Generator Servicing Payment</h6>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -80,115 +65,84 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form class="" action="/facilities/viewQuotation" method="post">
+                                <form class="" action="/admin/manage/viewGenServicePayment" method="post">
                                 <div class="table-responsive">
                                     <table  class="table">
 
                                         <thead>
                                             <tr>
-                                                <th> Information </th>
                                                 <th> Value </th>
+                                                <th> Description </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <tr>
-                                                <th> Quotation Set </th>
+                                                <th> Servicing Details </th>
                                                 <td>
-                                                <% materials.quotation_set.forEach((item) => { %> 
-                                                  <p>Technician Name:  <%= item.technician_name%></p>
-                                                    <br>
-                                                   <p>Advance Payment: NGN <%= item.advance_payment%></p>
-                                                    <br>
-                                                    <p>Advance Percentage:  <%= item.advance_percentage%></p>
-                                                    <br>
-                                                    <!-- <p>Document: <%= item.document%></p> -->
-                                                    <br>
-                                                    <!-- <p>Invoice: <%= item.invoice%></p> -->
-                                                    <br>
-                                                    <p>Amount Charged: <%= item.amount_charged%></p>
-                                                    <hr>
-                                                    <br>
-                                                <% }) %>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
+                                            <% gens.servicing_details.forEach((item) => { %>
                                                 
-                                                <th> Payment Type </th>
-                                                <%if (materials.advance_percentage != null) { %>
-                                                <td> <%= materials.payment_type%> </td>
-                                                <% } else{ %>
-                                                <td>full payment</td>
-                                                <% } %>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Advance Percentage </th>
-                                                <%if (materials.advance_percentage != null) { %>
-                                               <td> <%= materials.advance_percentage%> </td>
-                                               <% } else{ %>
-                                                <td>Nill</td>
-                                                <% } %>
-                                            </tr>
-
+                                                    <p> <%= item.amount_charged%> </p>
+                                                                                             
+                                                     
+                                                <p><a class="text-primary" href="<%= item.invoice%>">view invoice</a> </p><hr>
+                                                
                                             
-
-                                            <tr>
-                                                <th> BU Head Approval </th>
-                                                <td> <%= materials.bu_head_approval%> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> BU Head Comment </th>
-                                                <td> <%= materials.bu_head_comment%> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> BU Head Name </th>
-                                                <td> <%= materials.bu_head_name%> </td>
-                                            </tr>
-
+                                            <% }) %>
+                                        </td>
+                                                
+                                    </tr>
+                                            <hr>
                                             <tr>
                                                 <th> Created By </th>
-                                                <td> <%= materials.created_by%> </td>
+                                                <td> <%= gens.created_by%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Within SLA? </th>
+                                                <td> <%= gens.within_sla%> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Approved Technician Reason </th>
-                                                <td> <%= materials.approved_technician_reason%> </td>
+                                                <th> Auditor Approval </th>
+                                                <td> <%= gens.auditor_approval%> </td>
                                             </tr>
-
+                                            <tr>
+                                                <th> Auditor Name </th>
+                                                <td> <%= gens.auditor_name%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Finance Approval </th>
+                                                <td> <%= gens.finance_approval%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Finance Name </th>
+                                                <td> <%= gens.finance_name%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Servicing Date </th>
+                                                <td> <%= gens.servicing_date.slice(0,10)%> </td>
+                                            </tr>
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <%= materials.created_on.slice(0,10)%> </td>
+                                                <td> <%= gens.created_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= materials.updated_on.slice(0,10)%> </td>
+                                                <td> <%= gens.updated_on.slice(0,10)%> </td>
                                             </tr>
-
                                             
 
-
-                                            <tr>
-                                                <th>Approved Technician</th>
-                                                <td> <select class='form-control' id='servicing_company' name='approved_technician'>
-
-                                                </select> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Approved Technician Reason </th>
-                                                <td> <textarea  name="approved_technician_reason" class="form-control" id="approved_technician_reason" rows="10"  required></textarea> </td>
-                                            </tr>
+                                            
 
                                             
                                             
                                             
+
                                             
-                                           
+
+                                            
+                                            
+                                            
 
                                             
 
@@ -202,18 +156,16 @@
                                     </table>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="quotation" class="form-control" id="quotation" value="<%=materials.id%>" required>
+                                    <input type="hidden" name="serviced" class="form-control" id="serviced" value="<%=gens.id%>" required>
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
-
-                                    <input type="hidden" name="fault" class="form-control" id="fault" value="<%=materials.fault%>" required>
 
                                     
 
                                     
                                     
                                 </div>
-                                <button class="btn-lg btn-primary" type="submit">Save</button>
+                                <button class="btn-lg btn-primary" type="submit">Create Status</button>
                             </form>
                             </div>
                         </div>
@@ -223,8 +175,8 @@
             </div>
 
             <!-- partial:partials/_footer.html -->
-            <%- include('./bars/footer') %>
-            <!-- partial -->
+            <%- include('./bars/admin_footer') %>
+			<!-- partial -->
 
         </div>
     </div>
@@ -253,6 +205,11 @@
 
     <script>
         // this did not work because the google API was at the bottom
+
+        function dieselClick() {
+        var diesel = document.getElementById('diesel')
+        console.log('diesel', diesel);
+    }
         $(document).ready(function () {
           
           
@@ -263,19 +220,19 @@
 
         function changeFun() {
           console.log("starting")
-          var ID = $('#quotation').val();
+          var ID = $('#dieselQuotation').val();
                   console.log(ID)
 
           var getJSON = function (url) {
 return $.ajax({
 url: url,
 type: 'GET',
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+headers: { "Authorization": "Token fdf4561f7ec51563c1556d24ee2a84547a755ff0" },
 contentType: 'application/json'
 });
 };
 
-          getJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation_approved_tech/${ID}`).done(function(data, status){
+          getJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/diesel/vendor_selected_list/${ID}`).done(function(data, status){
             console.log("here",data),
             
             console.log("here")
@@ -283,9 +240,9 @@ contentType: 'application/json'
             console.log(status)
             if (status == "success") {
               console.log('data', data)
-              var html = "<option selected> --- </option>"
+              var html = "<option selected disabled> --- </option>"
               for (var i = 0; i < data.length; i++) {
-                html += "<option value = '" + data[i].technician + "'> " + data[i].technician_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+                html += "<option value = '" + data[i].vendor + "'> " + data[i].vendor_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
               }
               
 
@@ -305,6 +262,7 @@ contentType: 'application/json'
 }
 
 </script>
+
 </body>
 
 </html>

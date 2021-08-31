@@ -31,12 +31,14 @@
   <%- include('./bars/sidebar_staff') %>
   <% } else if (userDetails.role == 'Supervisor') { %>
   <%- include('./bars/sidebar_sup') %>  
-  <% } else if (userDetails.role == 'Procurement') { %>
-  <%- include('./bars/sidebar_procurement') %>
   <% } else if (userDetails.role == 'Auditor') { %>
   <%- include('./bars/sidebar_auditor') %> 
   <% } else if (userDetails.role == 'Finance') { %>
   <%- include('./bars/sidebar_finance') %>
+  <% } else if (userDetails.role == 'Procurement') { %>
+  <%- include('./bars/sidebar_procurement') %>
+  <% } else if (userDetails.role == 'Facility Officer') { %>
+  <%- include('./bars/sidebar_facility') %>
   <%  } else if (userDetails.role == 'Driver Admin') { %>
   <%- include('./bars/sidebar_driver') %>  
   <%  } else if (userDetails.role == 'Director') { %>
@@ -55,13 +57,13 @@
 			<!-- partial:partials/_navbar.html, this represents the topbar bar -->
       <%- include('./bars/topbar') %>
 			<!-- partial -->
-            
+
 			<div class="page-content">
                 <%- include('./partials/messages')%>
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Car Repair</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Status List</li>
+						<li class="breadcrumb-item"><a href="#">Generator</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Service</li>
 					</ol>
         </nav>
 
@@ -72,46 +74,50 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <!-- <h6 class="card-title d-block">Generator Daily Maintenance</h6> -->
+                  <h6 class="card-title d-block">Generator Service List</h6>
                   <!-- <p class="card-description d-block">Latest Request (Showing 01 to 08 of 48 Tickets)</p> -->
                   </div>
 
                 </div>
                 <div class="table-responsive">
-                  <table id="dataTableExample" class="table" data-order=''>
-                    <thead>
-
-                      <tr>
-                        
-                        <th>Vehicle Name</th>
-                        <th>Vehicle Condition</th>
-                        <th>Condition Comment</th>
-                        <th>Technician Revisit</th>
-                        <th>Created on</th>
-                        <th>Updated on</th>
-                        
-                        <th>View</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      
-                    <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
-
-                    <% vehicles.forEach((item) => {%>
-                        <tr>
-                          <td><%= item.vehicle_name%></td>
-                          <td><%= item.vehicle_condition%></td>
-                          <td><%= item.condition_comment%></td>
-                          <td><%= item.technician_revisit%></td>
-                          <td><%= item.created_on.slice(0,10)%></td>
-                          <td><%= item.updated_on.slice(0,10)%></td>
+                    <table id="dataTableExample" class="table" data-order=''>
+                        <thead>
+    
+                          <tr>
+                            
+                            
+                            
+                            <th>Generator Condition</th>
+                            <th>Created By</th>
+                            <th>Confirmed By</th>
+                            <th>Status</th>
+                            
+                            
+                            <th>View</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
                           
-                          
-                          <td> <a href="/facilities/viewRepairStatus_driverAdmin?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" >View</a> </td>
-                        </tr>
-                        <% })%>
-                    </tbody>
-                  </table>
+                        <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
+    
+                        <% gens.forEach((item) => {%>
+                            <tr>
+                              
+                              
+                              
+                              <td><%= item.generator_condition%></td>
+                              <td><%= item.created_by%></td>
+                              <td><%= item.confirmed_by%></td>
+                              <td><%= item.servicing_status%></td>
+                              
+                              <td><a href="/facilities/viewGenServiceStatus?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
+                              
+                              
+                            </tr>
+                            <% })%>
+                        </tbody>
+                      </table>
                 </div>
               </div>
             </div>

@@ -67,7 +67,7 @@
                       </div>
                       <div class="row mt-5">
                         <div class="col-sm-12">
-                          <form class="" action="/facilities/viewservicingQueueAuditor_advance" method="post">
+                          <form class="" action="/facilities/viewBillOfMaterialAuditor_advance" method="post">
                           <div class="thread-box">
                             <div class="thread-head d-flex justify-content-between p-4">
                               <div class="thread-desc d-flex">
@@ -83,21 +83,21 @@
                                         <th>Servicing Date</th>
                                         
                                         <th>Created By</th>
-                                        <th>Created On</th>
+                                        
                                         
                                         <th>Document</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <td><%= materials.vehicle%></th>
+                                        <td><%= materials.vehicle_name%></th>
                                         <td><%= materials.servicing_date%></th>
                                         
                                         <td><%= materials.created_by%></th>
                                         
-                                        <td><%= materials.created_on.slice(0,10)%></th>
                                         
-                                          <%if (materials.advance_payment_invoice == '') { %>
+                                        
+                                          <%if (materials.advance_payment_invoice == 'No file uploaded') { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
                                         <td><a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></th>
@@ -127,8 +127,8 @@
                             <div class="thread-body p-5">
                               
                                 <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%= materials.bill_of_material%>" required>
-                                <input type="hidden" name="location" class="form-control" id="location" value="<%=materials.location%>" required>
-                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
+                                <input type="hidden" name="technician" class="form-control" id="technician" value="<%=materials.technician%>" required>
+                                <input type="hidden" name="vehicle" class="form-control" id="vehicle" value="<%=materials.vehicle%>" required>
           
                                 <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
                                 
@@ -179,9 +179,7 @@
           
           
                         </form>
-                        <form>
-          
-                        </form>
+                        
                       </div>
                       <div class="col-sm-6 border-left pt-4">
           

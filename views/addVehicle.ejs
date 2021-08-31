@@ -67,17 +67,17 @@
 					<div class="col-md-12 grid-margin stretch-card">
 						<div class="card">
 							<div class="card-body">
-								<h6 class="card-title">Inputs</h6>
+								<h6 class="card-title">Vehicle</h6>
 
 								
 								<form class="" action="/facilities/addVehicle" method="post">
                                     <div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle Plate Number</label>
+										<label for="exampleFormControlSelect1">Plate/Registration Number</label>
                                         <input name= "plate" class="form-control" id="plate" placeholder="KJA 100 XB" required>
 									</div>
 
                                     <div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle Type</label>
+										<label for="exampleFormControlSelect1">Type</label>
 										<select class="form-control-lg"  name= "type" class="form-control" id="type" required>
 											<option selected disabled> ---</option>
 											<option value = "wagon">Wagon</option>
@@ -89,32 +89,32 @@
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Chassis Type</label>
+										<label for="exampleFormControlSelect1">Chasis Number</label>
                                         <input name= "chasis" class="form-control" id="chasis" placeholder="Doe" required>
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle's Identification Number</label>
+										<label for="exampleFormControlSelect1">Identification Number</label>
                                         <input name= "vin" class="form-control" id="vin" placeholder="E43R5T6YU789IUO09" required>
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle OEM</label>
+										<label for="exampleFormControlSelect1">Brand</label>
                                         <input name= "vmake" class="form-control" id="vmake" placeholder="Toyota" required>
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle Model</label>
+										<label for="exampleFormControlSelect1">Model</label>
                                         <input name= "vmodel" class="form-control" id="vmodel" placeholder="Hiace" required>
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle Colour</label>
+										<label for="exampleFormControlSelect1">Colour</label>
                                         <input name= "vcolor" class="form-control" id="vcolor" placeholder="white" required>
 									</div>
                                     
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Vehicle Fuel Type</label>
+										<label for="exampleFormControlSelect1">Fuel Type</label>
 										
 										<select class="form-control-lg"  name= "fuel_type" class="form-control" id="fuel_type" required>
 											<option selected disabled> ---</option>
@@ -160,7 +160,10 @@
 	
 		</div>
 	</div>
-
+	<script>
+        document.getElementById("purchase_date").valueAsDate = new Date()
+        document.getElementById("next_servicing_date").valueAsDate = new Date()
+    </script>
 	<!-- core:js -->
 	<script src="../../../assets/vendors/core/core.js"></script>
 	<!-- endinject -->

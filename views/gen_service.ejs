@@ -66,140 +66,64 @@
           <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h6 class="card-title">Bill Of Material</h6>
+                <h6 class="card-title">Generator Repair</h6>
 
 
-                <form class="" action="/facilities/addBillOfMaterial" method="post">
+                <form class="" action="/facilities/gen_repair" method="post">
 
                   <div class="row">
-                    <!-- <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Part Name</label>
-                        <input name="name" class="form-control" id="name" required>
-                      </div>
-                    </div> -->
                     
                     <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Vehicle</label>
-                        <select class="form-control" id="vehicle" name="vehicle" >
-                          <option selected disabled> --- </option>
-                          <% 
-                                                    vehs.forEach((veh, i) => { 
-                                                  %>
-                          <option value=<%= veh.id %>> <%= veh.vmake %> <%= veh.vmodel %> (<%= veh.plate %>) </option>
-                          <% 
-                                                    }) 
-                                                  %>
+                      <div class="form-group" id = "request">
+                        <label for="exampleFormControlSelect1" >Within SLA</label>
+                        <select class="form-control-lg" id="within_sla" name="within_sla"
+                          onchange="changeFun2()" required>
+                          <option value="true" selected>True</option>
+                          <option value="false">False</option>
                         </select>
-                      </div>
-                      </div>
-                      
-                    
-                    
-                  </div>
-
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-group" id="divtechnician">
-                          <label for="exampleFormControlSelect1">Technician</label>
-                          <select class='form-control' id='technician' name='technician'>
-                            <option selected disabled> --- </option>
-                          <% 
-                                                    tech.forEach((techs, i) => { 
-                                                  %>
-                          <option value=<%= techs.id %>> <%= techs.company_name %>  </option>
-                          <% 
-                                                    }) 
-                                                  %>
-                          </select>
-                    </div>
-                    </div>
-                    
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Advance Payment</label>
-                        <select class='form-control' id='advance_payment' name='advance_payment'>
-                          <option selected disabled>----</option>
-                          <option>yes</option>
-                          <option>no</option>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Advance Percentage</label>
-                        <input name="advance_percentage" class="form-control" id="advance_percentage" required>
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Servicing Date</label>
-                        <input name="servicing_date" class="form-control" id="servicing_date" type="date" required>
+                        <input name="servicing_date" type="date" value="2020-01-01" class="form-control" id="servicing_date" required>
                       </div>
                     </div>
+                    
                   </div>
+
+                  
+
                   <div class="row">
-
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Cost of Servicing</label>
-                        <input name="technician_workmanship" class="form-control" id="technician_workmanship" required>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="form-group" id = "request">
-                        <label for="exampleFormControlSelect1" >Item</label>
-                        <select class="form-control-lg" id="bill-type" name="bill_type"
-                          onchange="changeFun2()" required>
-                          <option value="single" selected>One item</option>
-                          <option value="multiple">More than one item</option>
-                        </select>
-                      </div>
-                    </div>
-
-                  </div>
-                  <br><hr>
-                  <div class="row">
+                    
                     <div class="col">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Created By</label>
                         <input name="created_by" class="form-control" id="created_by" value="<%= userDetails.first_name + ' ' + userDetails.last_name %>"  readonly>
                       </div>
                     </div>
-                  </div>
-
-                  <input type="hidden" name="token" class="form-control" id="token" value="<%= userDetails.token %>" required>
-                    <div class="row">
-                      <div class="col">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Vehicle Part</label>
-                          <select class="form-control" id="vehicle_part" name="vehicle_part" >
-                            <option selected disabled> --- </option>
+                    <div class="col">
+                        <div class="form-group" id="divsla">
+                          <label for="exampleFormControlSelect1">SLAs</label>
+                          <select class="form-control" id="sla" name="sla" >
+                            <option selected disabled> ---- </option>
                             <% 
-                                          vehPart.forEach((veh, i) => { 
+                                                      slas.forEach((sla, i) => { 
                                                     %>
-                            <option value=<%= veh.id %>> <%= veh.part_name %>  </option>
+                            <option value=<%= sla.id %>> sla with <%= sla.company_name %><%= sla.expiration %>  </option>
                             <% 
                                                       }) 
                                                     %>
                           </select>
                         </div>
                         </div>
-                      <div class="col">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Quantity</label>
-                          <input name="quantity" class="form-control" id="quantity" required>
-                        </div>
-                      </div>
+
+                  </div>
+
+                  
+                    <div class="row">
+                      
                         <script>
-                          document.getElementById("servicing_date").valueAsDate = new Date()
                           // this did not work because the google API was at the bottom
                           $(document).ready(function () {
                             
@@ -211,20 +135,17 @@
   
                           function changeFun() {
                             console.log("starting")
-                            var token = $('#token').val();
-                            
-                            console.log('token', token)
+
                             var getJSON = function (url) {
-                              console.log("get lost")
     return $.ajax({
         url: url,
         type: 'GET',
-        headers: { "Authorization": "Token " + token },
+        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
         contentType: 'application/json'
     });
   };
 
-                            getJSON("https://telnetsupperapp.com.ng:8443/api/v1/vehicle/technicians").done(function(data, status){
+                            getJSON("https://telnetsupperapp.com.ng:8443/api/v1/generator/servicing_company").done(function(data, status){
                               console.log("here",data),
                               
                               console.log("here")
@@ -239,8 +160,8 @@
                                 
   
                                 //display the thing
-                                $("#technician").html(html);
-                                $("#divtechnician").show();
+                                $("#servicing_company").html(html);
+                                $("#divservicing_company").show();
   
                               } else {
                                 alert("try again or contact the admin.")
@@ -254,10 +175,15 @@
                   }
   
                  </script>
-                  
-                         
+
+<div class="col">
+  <div class="form-group" >
+      
+    <input type="hidden" name="request" class="form-control" id="request" value="<%=id%>"  required>
+</div>
+</div>                         
+
                   </div>
-                  
 
                   
 
@@ -288,29 +214,27 @@
 			</script>
       <script>
 				var values = [];
-        var table_values = [];
 				function changeFun2() {
-					var selectBox = document.getElementById("bill-type");
+					var selectBox = document.getElementById("within_sla");
 					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
 
-					if (selectedValue == 'multiple') {
-						$("#addMore").show();
-						$("#extrafeild").show();
-					} else if (selectedValue == 'single') {
+					if (selectedValue == 'true') {
+						$("#divsla").show();
+						
+					} else if (selectedValue == 'false') {
 
-						$("#addMore").hide();
-						$("#extrafeild").hide();
+						$("#divsla").hide();
+						
 					}
 				};
 
         function onclickfunction() {
 
-var vehicle_part = $('#vehicle_part').val();
-var vehicle_part_name = $( "#vehicle_part option:selected" ).text();
-console.log(vehicle_part_name)
+var description = $('#description').val();
+var unit_price = $('#unit_price').val();
 var quantity = $('#quantity').val();
 
-if (vehicle_part == '' || quantity =='') {
+if (description == '' || unit_price == '' || quantity =='') {
 
   swal("kindly fill all fields!", {
     buttons: false,
@@ -319,18 +243,13 @@ if (vehicle_part == '' || quantity =='') {
 } else {
 
   var details = {
-    vehicle_part: Number(vehicle_part),
-    quantity: Number(quantity)
+    description: description,
+    unit_price: unit_price,
+    quantity: quantity
   };
   values.push(details);
   appendFunction();
 
-  var name_details = {
-    vehicle_part_name: vehicle_part_name,
-    quantity: Number(quantity)
-  };
-  table_values.push(name_details);
-  appendFunction();
   // you can use the array. for each to set a value for the id
   // or maybe you can use the post using jquery to send this to a route.
 
@@ -338,16 +257,18 @@ if (vehicle_part == '' || quantity =='') {
   html += "<table class='table table-striped'>";
   html += "<thead>";
   html += "<tr>";
-  html += "<th>" + "vehicle_part" + "</th>";
+  html += "<th>" + "description" + "</th>";
+  html += "<th>" + "unit_price" + "</th>";
   html += "<th>" + "quantity" + "</th>";
   html += "<th>" + "Action" + "</th>";
   html += "</tr>";
   html += "</thead>";
   html += "<tbody>";
-  for (var i = 0; i < table_values.length; i++) {
+  for (var i = 0; i < values.length; i++) {
     html += "<tr>";
-    html += "<td>" + table_values[i].vehicle_part_name + "</td>";
-    html += "<td>" + table_values[i].quantity + "</td>";
+    html += "<td>" + values[i].description + "</td>";
+    html += "<td>" + values[i].unit_price + "</td>";
+    html += "<td>" + values[i].quantity + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
     html += "</tr>";
@@ -365,23 +286,25 @@ if (vehicle_part == '' || quantity =='') {
 }
 
 function deleteFunction(param) {
-table_values.splice(param, 1)
+values.splice(param, 1)
 appendFunction()
 
 var html = "<br>"
 html += "<table class='table table-striped'>";
 html += "<thead>";
 html += "<tr>";
-html += "<th>" + "vehicle_part" + "</th>";
+html += "<th>" + "description" + "</th>";
+html += "<th>" + "unit_price" + "</th>";
 html += "<th>" + "quantity" + "</th>";
 html += "<th>" + "Action" + "</th>";
 html += "</tr>";
 html += "</thead>";
 html += "<tbody>";
-for (var i = 0; i < table_values.length; i++) {
+for (var i = 0; i < values.length; i++) {
   html += "<tr>";
-  html += "<td>" + table_values[i].vehicle_part_name + "</td>";
-  html += "<td>" + table_values[i].quantity + "</td>";
+  html += "<td>" + values[i].description + "</td>";
+  html += "<td>" + values[i].unit_price + "</td>";
+  html += "<td>" + values[i].quantity + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
   html += "</tr>";

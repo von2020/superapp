@@ -62,15 +62,15 @@
                     <thead>
 
                       <tr>
-                        
                         <th>Generator Name</th>
-                        <th>Servicing Company Name</th>
-                        <th>Servicing Reason</th>
-                        <th> Servicing Cost </th>
-                        <th> Sign Off Uploaded </th>
-                        <th> Created On </th>
-                        <th> Requester </th>
-                        <th> Servicing File </th>
+                        <th>Company Name</th>
+                        <th>Servicing Status</th>
+                        
+                        <th>Created On</th>
+                        <th>Updated On</th>
+                        <th>View</th>
+                        
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -80,14 +80,18 @@
                     <% materials.forEach((item) => {%>
                         <tr>
                           <td><%= item.generator_name%></td>
-                          <td><%= item.servicing_company_name%></td>
-                          <td><%= item.servicing_reason%></td>
-                          <td><%= item.servicing_cost%></td>
-                          <td><%= item.sign_off_uploaded%></td>
-                          <td><%= item.created_on.slice(0,10)%></td>
                           <td><%= item.requester%></td>
-                          <td><a href="/admin/manage/genRequestFiles?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Create</a>   </td>
+                          <td><%= item.admin_status%></td>
                           
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
+                          <%if (item.admin_status == 'PENDING') { %>
+                          <td><a href="/admin/manage/viewGenRequest?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-danger rounded-pill" > View</a>   </td>
+                          <% } else if (item.admin_status == 'APPROVED') { %>
+                          <td><a href="/admin/manage/genServicePayment?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Payment</a>   </td>
+                          <% } else { %>
+                            <td ><span class="badge badge-danger"><%= item.admin_status%></span></td>
+                          <% } %>
                         </tr>
                         <% })%>
                     </tbody>

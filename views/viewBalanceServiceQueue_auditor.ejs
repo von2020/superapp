@@ -94,7 +94,7 @@
                       </div>
                       <div class="row mt-5">
                         <div class="col-sm-12">
-                          <form class="" action="/facilities/viewservicingQueueAuditor_balance" method="post">
+                          <form class="" action="/facilities/viewBillOfMaterialAuditor_balance" method="post">
                           <div class="thread-box">
                             <div class="thread-head d-flex justify-content-between p-4">
                               <div class="thread-desc d-flex">
@@ -109,24 +109,24 @@
                                         <th>Servicing Date</th>
                                         
                                         <th>Created By</th>
-                                        <th>Created On</th>
+                                        
                                         
                                         <th>Document</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <td><%= materials.vehicle%></th>
+                                        <td><%= materials.vehicle_name%></th>
                                         <td><%= materials.servicing_date%></th>
                                         
                                         <td><%= materials.created_by%></th>
                                         
-                                        <td><%= materials.created_on.slice(0,10)%></th>
                                         
-                                          <%if (materials.balance_invoice == 'http://173.212.213.205:8090/media/vehicle_servicing_balance_invoice_document/') { %>
+                                        
+                                          <%if (materials.balance_payment_invoice == 'No file uploaded') { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
-                                        <td><a class="text-primary" href="<%= materials.balance_invoice%>">view</a></th>
+                                        <td><a class="text-primary" href="<%= materials.balance_payment_invoice%>">view</a></th>
                                           <% } %>
                                       </tr>
                                     </tbody>  

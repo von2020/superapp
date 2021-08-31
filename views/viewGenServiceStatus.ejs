@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Telnet SuperApp</title>
+    <!-- core:css -->
+    <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- end plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
+    <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+</head>
+
+<body>
+    <div class="main-wrapper">
+
+        <!-- Insert the sidebar partial here-->
+        <% if (userDetails.role == 'Staff') { %>
+        <%- include('./bars/sidebar_staff') %>
+        <% } else if (userDetails.role == 'Supervisor') { %>
+        <%- include('./bars/sidebar_sup') %>
+        <% } else if (userDetails.role == 'Auditor') { %>
+        <%- include('./bars/sidebar_auditor') %> 
+        <% } else if (userDetails.role == 'Finance') { %>
+        <%- include('./bars/sidebar_finance') %>
+        <% } else if (userDetails.role == 'Facility Officer') { %>
+		<%- include('./bars/sidebar_facility') %>
+        <%  } else if (userDetails.role == 'Driver Admin') { %>
+        <%- include('./bars/sidebar_driver') %>
+        <%  } else if (userDetails.role == 'Driver') { %>
+        <%- include('./bars/sidebar_carDriver') %>
+        <%  } else { %>
+        <%- include('./bars/sidebar') %>
+        <%  } %>
+        <!-- partial -->
+
+        <div class="page-wrapper">
+
+            <!-- partial:partials/_navbar.html, this represents the topbar bar -->
+            <%- include('./bars/topbar') %>
+            <!-- partial -->
+
+            <div class="page-content">
+                <%- include('./partials/messages')%>
+
+                <nav class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Generator</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Servicing Status</li>
+                    </ol>
+                </nav>
+
+
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card card-special">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    <div>
+                                        <h6 class="card-title d-block">Generator Servicing Status</h6>
+                                    </div>
+
+                                    <div class="d-flex align-items-center flex-wrap text-nowrap ">
+                                        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex"
+                                            id="dashboardDate">
+                                            <span class="input-group-addon bg-transparent"><i data-feather="calendar"
+                                                    class=" text-primary"></i></span>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <form class="" action="/facilities/viewGenServiceStatus" method="post">
+                                    <div class="table-responsive">
+                                        <table  class="table">
+    
+                                            <thead>
+                                                <tr>
+                                                    <th> Value </th>
+                                                    <th> Description </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>SignOff</th>
+                                                    <%if (gens.sign_off_document == 'The sign-off document has not been uploaded!') { %>
+                                                    <td><a href="/facilities/genServiceStatusSignOff?id=<%=gens.id%>" id='<%=gens.id%>' class="btn btn-sm btn-success rounded-pill" > Upload</a>   </td>
+                                                    <% } else { %>
+                                                        <td> <%= gens.sign_off_document%> </td>
+                                                    <% } %>
+                                                    
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th> Generator Condition </th>
+                                                    <td> <%= gens.generator_condition%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Created By</th>
+                                                    <td> <%= gens.created_by%> </td>
+                                                </tr>
+    
+                                                <tr>
+                                                    <th> Confirmed By </th>
+                                                    <td> <%= gens.confirmed_by%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th> Servicing Status </th>
+                                                    <td> <%= gens.servicing_status%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th> Status Reason </th>
+                                                    <td> <%= gens.status_reason%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th> Internal Signoff </th>
+                                                    <td> <%= gens.internal_sign_off%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th> External Signoff </th>
+                                                    <td> <%= gens.external_sign_off%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th> Created On </th>
+                                                    <td> <%= gens.created_on.slice(0,10)%> </td>
+                                                </tr>
+    
+                                                <tr>
+                                                    <th> Updated On </th>
+                                                    <td> <%= gens.updated_on.slice(0,10)%> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Update Generator Condition</th>
+                                                    <td> <input name="generator_condition"  class="form-control" id="generator_condition" required> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Update Servicing Status</th>
+                                                    <td> <input name="servicing_status"  class="form-control" id="servicing_status" required> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Status Reason</th>
+                                                    <td> <textarea name="status_reason"  class="form-control" id="status_reason" rows="5" required></textarea> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Internal Sign off</th>
+                                                    <td>  <select class="form-control" id="internal_sign_off" name="internal_sign_off">
+                                                        <option selected>True</option>
+                                                        <option>False</option>
+                                                    </select> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>External Sign Off</th>
+                                                    <td> <select class="form-control" id="external_sign_off" name="external_sign_off">
+                                                        <option selected>True</option>
+                                                        <option>False</option>
+                                                    </select> </td>
+                                                </tr>
+                                                
+    
+                                                
+                                                
+                                                
+    
+                                                
+    
+                                                
+                                                
+                                                
+    
+                                                
+    
+                                                
+    
+                                                
+                                            </tbody>
+                                            
+    
+                                            <!-- you may need to come back to change the outlook of the table to make it a two column table-->
+                                        </table>
+                                        <br>
+                                        <br>
+                                        <input type="hidden" name="serviced" class="form-control" id="serviced" value="<%=gens.serviced%>" required>
+
+                                        <input type="hidden" name="id" class="form-control" id="id" value="<%=gens.id%>" required>
+                                        
+                                        <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+    
+                                        
+    
+                                        
+                                        
+                                    </div>
+                                <button class="btn-lg btn-primary" type="submit">Save</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- partial:partials/_footer.html -->
+            <%- include('./bars/footer') %>
+            <!-- partial -->
+
+        </div>
+    </div>
+
+    <!-- core:js -->
+    <script src="../../../assets/vendors/core/core.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="../../../assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="../../../assets/vendors/jquery.flot/jquery.flot.js"></script>
+    <script src="../../../assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="../../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../../../assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="../../../assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="../../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="../../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <!-- end plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="../../../assets/js/template.js"></script>
+    <!-- endinject -->
+    <!-- custom js for this page -->
+    <script src="../../../assets/js/dashboard.js"></script>
+    <script src="../../../assets/js/data-table.js"></script>
+    <!-- end custom js for this page -->
+</body>
+
+</html>

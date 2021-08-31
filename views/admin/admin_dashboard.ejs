@@ -146,14 +146,37 @@
 
         <div class="row">
           <div class="col-md-12">
+            <form id="requestInfo">
+              <div class="card-body"> 
+                  <div class="form-group">
+                      <div class="col-12">
+                          <div class="row">
+                              <label for="start_date"> Start Date </label>
+                              <input type="date" class="form-control" placeholder="Start Date" name="start_date" id="startdate">
+                          </div>
+                      </div>
+                      <br>
+                      <div class="col-12">
+                          <div class="row">
+                              <label for="end_date"> End Date</label>
+                              <input type="date" class="form-control" placeholder="End Date" name="end_date" id="enddate">
+                          </div>
+                      </div>
+                  </div>
+                  <!-- <input type="submit" class="btn btn-success" value="View"> -->
+                   <button type="submit" href="#" class="btn btn-info">View</button>
+              </div>
+            </form>
           <table id="RequestInfo" class="table table-bordered table-hover">
               <thead>
               <tr>
-                <th>Requester Name</th>
-                <th>Requester Email</th>
+                <th>Requester Name</th>                
                 <th>Requester Role</th>
                 <th>Date Requested</th>
                 <th>Requester Upline</th>
+                <th>Request Type</th>
+                <th>Trip Type</th>
+                <th>Trip Duration</th>
               </tr>
               </thead>
               <tbody  id="result">
@@ -378,9 +401,16 @@
 //     } );
 // } );
 
-
+function formatDate (str) {
+    var date = new Date(str).toLocaleString('en-US');
+  console.log(date);
+    return date;
+  }
+  
 jQuery(document).ready(function($) {
  
+  
+        
  var jobtable = $('#RequestInfo').DataTable({
    ajax: {
     url: "/api/ajax/dashboard_admin_all_requests",
@@ -390,13 +420,15 @@ jQuery(document).ready(function($) {
 		  beforeSend: function (xhr) {
                 xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
             },
-   },
+          },
+
+
+//Create new Datatable
+
+        
    columns: [
           {
               data: "requester_name"
-          },
-          {
-              data: "requester_email"
           },
           {
               data: "requester_role"
@@ -407,10 +439,126 @@ jQuery(document).ready(function($) {
           {
               data: "requester_upline"
           },
+          {
+              data: "request_type"
+          },
+          {
+              data: "trip_type"
+          },
+          {
+              data: "trip_duration"
+          },
           
-      ]
-   
+      ],
+      columnDefs:[{targets:2, render:function(data){
+      return formatDate(data);
+    }}]
+      
  });
+});
+
+// $.ajax({
+    
+//     url: "/api/ajax/dashboard_admin_all_requests",
+//     dataSrc: "",
+//           type:'GET',
+//           dataType: 'json',
+//   beforeSend: function (xhr) {
+//                 xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
+//   },
+// 	success: function(result){
+//         console.log(result);
+// //Create new Datatable
+
+//         $("#RequestInfo").DataTable({
+//             "aaData" : result,
+//             columns: [
+//             {
+//               data: "requester_name"
+//           },
+//           {
+//               data: "requester_role"
+//           },
+//           {
+//               data: "request_date"
+//           },
+//           {
+//               data: "requester_upline"
+//           },
+//           {
+//               data: "request_type"
+//           },
+//           {
+//               data: "trip_type"
+//           },
+//           {
+//               data: "trip_duration"
+//           },
+//             ],
+//             columnDefs:[{targets:2, render:function(data){
+//       return formatDate(data);
+//     }}]
+//         });
+// 	}
+// })
+// });
+
+$('#requestInfo').submit(function(evt){
+
+evt.preventDefault();
+    var reqobj = new Object();
+        reqobj.start_date = $('#startdate').val();
+        reqobj.end_date = $('#enddate').val();
+        var dsent = JSON.stringify(reqobj);
+
+        //console.log(dsent);
+$.ajax({
+    // url: "https://telnetsupperapp.com.ng:8443/api/v1/power/bill_report",
+    url: "/api/ajax/dashboard_admin_filter_requests",
+    type:'POST',
+    data:dsent,
+	contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+    xhr.setRequestHeader ("Authorization", "Token 0a80ea028c9f552632b2ad03a6fcc2043ac79b62")
+    },
+	success: function(result){
+        console.log(result);
+        //Destroy the old Datatable
+$('#RequestInfo').DataTable().clear().destroy();
+
+//Create new Datatable
+
+        $("#RequestInfo").DataTable({
+            "aaData" : result,
+            columns: [
+            {
+              data: "requester_name"
+          },
+          {
+              data: "requester_role"
+          },
+          {
+              data: "request_date"
+          },
+          {
+              data: "requester_upline"
+          },
+          {
+              data: "request_type"
+          },
+          {
+              data: "trip_type"
+          },
+          {
+              data: "trip_duration"
+          },
+            ],
+            columnDefs:[{targets:2, render:function(data){
+      return formatDate(data);
+    }}]
+        });
+	}
+})
 });
 
 
@@ -430,6 +578,9 @@ jQuery(document).ready(function($) {
             success:function(data){
               if(data){
                
+                let str = data.requestDate;
+                str.slice(0, 10)   // Returns "Hello"
+                console.log('str',str)
                 
                // console.log(data)
                 // let requester_name = data.data.requester_name;
@@ -461,7 +612,8 @@ jQuery(document).ready(function($) {
               data: "requester_role"
           },
           {
-              data: "request_date"
+            
+              data: str
           },
           {
               data: "requester_upline"

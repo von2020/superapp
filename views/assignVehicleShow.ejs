@@ -89,12 +89,12 @@
                       <tr>
                         <th>Driver Name</th>
                         <th>Type</th>
-                        <th>Version Make</th>
-                        <th>Version Model</th>
-                        <th>Version Color</th>
-                        <th>Type of Fuel</th>
-                        <th>Plate Number</th>
-                        <th>Chasis Number</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Color</th>
+                        <th>Fuel Type</th>
+                        <th>Reg Number</th>
+                        <!-- <th>Chasis Number</th> -->
                         <th>View</th>
                       </tr>
                     </thead>
@@ -109,7 +109,7 @@
                           <td><%= vehicle.vcolor%></td>
                           <td><%= vehicle.fuel_type%></td>
                           <td><%= vehicle.plate%></td>
-                          <td><%= vehicle.vin%></td>
+                          <!-- <td><%= vehicle.vin%></td> -->
                           <td> <a href="/facilities/viewVehicle?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           
                         </tr>

@@ -21,6 +21,8 @@ const {
     carRequests_admin,
     getUpline,
     getUpline_edit,
+    viewGenServiceRequest,
+    updateRecommendServiceCompany,
     getBillOfMaterials,
     viewBillOfMaterials,
     updateBillOfMaterials,
@@ -36,10 +38,16 @@ const {
     purchaseOrderList,
     viewPurchaseOrder,
     updatePurchaseOrder,
+    sendGenServicePayment,
+    genServicePaymentList,
+    sendGenServiceStatus,
+    genServiceStatusList,
+    viewGenServiceStatus,
     dieselUsageList,
     sendGenerator,
     sendGenServiceRequest,
     genServiceRequestList,
+    viewGenServicePayment,
     sendRequestFiles,
     RequestFiles,
     genDueServiceList,
@@ -59,6 +67,7 @@ const {
     sendGenSla,
     genSlaList,
     updateSLA,
+    recommendServiceCompany,
     sendGenRepair,
     viewGenRepair,
     sendGenRepairStatus,
@@ -1788,7 +1797,288 @@ class admin_manage_controllers {
 
     };
 
+    static async viewGenServiceRequest (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
 
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServiceRequest(token, id);
+            const {result, resbody} = await recommendServiceCompany(token, id);
+            const company = resbody
+            console.log('company', company)
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/viewGenServiceRequest', {userDetails, gens: gens.resbody, id, company}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> al ert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+        static async genServicePayment (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServiceRequest(token, id);
+            const {result, resbody} = await genSlaList(token, id);
+            const company = resbody
+            console.log('company', company)
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/gen_service', {userDetails, gens: gens.resbody, id, company}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> al ert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async handleGenServicePayment (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        
+        var query 
+        if (req.body.within_sla == 'true') { 
+            query = {
+                request: req.body.request,
+                created_by: req.body.created_by,
+                within_sla: req.body.within_sla,
+                sla: req.body.sla,
+                servicing_date: req.body.servicing_date,
+            
+        }
+
+        
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendGenServicePayment(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created gen servicing payment`,`/admin/manage/genServicePaymentList`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/genServicePaymentList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        }
+
+    } else{
+        query = {
+            request: req.body.request,
+            created_by: req.body.created_by,
+            within_sla: req.body.within_sla,
+            servicing_date: req.body.servicing_date
+        
+        
+    }
+    
+    console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await sendGenServicePayment(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created gen servicing payment`,`/admin/manage/genServicePaymentList`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/genServicePaymentList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        }
+
+    }
+    };
+
+    static async genServicePaymentList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await genServicePaymentList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/genServicePaymentList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async viewGenServicePayment (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServicePayment(token, id);
+            
+            
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/viewGenServicingPayment', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> al ert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async createGenServiceStatus (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        const query = {
+            serviced: req.body.serviced,
+            created_by: req.body.created_by,
+            
+       }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await sendGenServiceStatus(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a generator service status`,`/admin/manage/genServiceStatusList`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/admin/manage/genServiceStatusList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        }
+            
+    };
+
+    static async genServiceStatusList (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await genServiceStatusList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/genServiceStatusList', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+    };
+
+    static async viewGenServiceStatus (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServiceStatus(token, id);
+            
+            
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('admin/viewGenServiceStatus', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> al ert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+    
+    static async handleViewGenServiceRequest (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            admin_name: req.body.admin_name,
+            admin_comment: req.body.admin_comment,
+            admin_status: boolValue,
+            approved_company: req.body.approved_company,  
+            generator: req.body.generator,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateRecommendServiceCompany(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.admin_status == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved a generator request')
+                    res.redirect('/admin/manage/genServiceRequestList');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected a generator request')
+                    res.redirect('/admin/manage/genServiceRequestList');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/admin/manage/genServiceRequestList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        }
+    }
     static async genRequestFiles (req, res) {
         var userDetails = req.session.userDetails;
         const token = userDetails.token;

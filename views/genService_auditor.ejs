@@ -59,7 +59,7 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div>
-                            <h4 class="mb-3 mb-md-0">Approve/Reject Paid Repair Invoice <a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
+                            <h4 class="mb-3 mb-md-0">Approve/Reject Generator Service Payment <a class="text-primary"><%= gens.created_on.slice(0,10)%></a></h4>
                             <!-- <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span> 24 <i class="i mr-3" data-feather="mail"></i> </span> Overdue by 21 days </p></div> -->
                           </div>
                           
@@ -67,7 +67,7 @@
                       </div>
                       <div class="row mt-5">
                         <div class="col-sm-12">
-                          <form class="" action="/facilities/viewPaidRepairAuditor" method="post">
+                          <form class="" action="/facilities/viewGenServicePayment_auditor" method="post">
                           <div class="thread-box">
                             <div class="thread-head d-flex justify-content-between p-4">
                               <div class="thread-desc d-flex">
@@ -79,37 +79,58 @@
                                     <thead>
                         
                                       <tr>
-                                        <th>Repair Name</th>
-                                        <th>Auditor Approval</th>
                                         
+                                        <th>Servicing Date</th>
                                         <th>Created By</th>
-                                        <th>Created On</th>
+                                                                      
                                         
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                      <tr>
+                                        
+                                        
+                                        <td><%= gens.servicing_date%></th>
+                                        
+                                        
+                                        
+                                        <td><%= gens.created_by%></th>
+                                        
+                                          
+                                      </tr>
+                                     
+                                    </tbody>  
+                                  </table>
+        
+                                  <table id="dataTableExample" class="table" data-order=''>
+                                    <thead>
+                        
+                                      <tr>
+                                                                      
+                                        <th>Amount</th>
                                         <th>Document</th>
                                       </tr>
                                     </thead>
                                     <tbody>
+                                      <% gens.servicing_details.forEach((item) => { %>
                                       <tr>
-                                        <td><%= materials.repair_name%></th>
-                                        <td><%= materials.auditor_approval%></th>
                                         
-                                        <td><%= materials.created_by%></th>
                                         
-                                        <td><%= materials.created_on.slice(0,10)%></th>
                                         
-                                          <%if (materials.invoice == 'Invoice has not been uploaded!') { %>
+                                          <td><%= item.amount_charged%></th>
+                                          <%if (item.invoice == null) { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
-                                        <td><a class="text-primary" href="<%= materials.invoice%>">view</a></th>
+                                        <td><a class="text-primary" href="<%= item.invoice%>">view</a></td>
                                           <% } %>
+                                          
                                       </tr>
+                                      <% }) %>
                                     </tbody>  
                                   </table>
                                   
-                                  <!-- <p><span>Auditor Approval: <a class="text-primary"><%= materials.auditor_approval%></a></span></p>
-                                  <p><span>Created On: <a class="text-primary"><%= materials.created_on%></a></span></p>
-                                  <p><span>Created By: <a class="text-primary"><%= materials.created_by%></a></span></p>
-                                  <p><span>Auditor Comment: <a class="text-primary"><%= materials.auditor_comment%></a></span></p> -->
+                                  
 
                               </div>
                               </div>
@@ -119,16 +140,16 @@
                             </div>
                             <div class="thread-body p-5">
                               
-                                <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%= materials.bill_of_material%>" required>
-                                <input type="hidden" name="location" class="form-control" id="location" value="<%=materials.location%>" required>
-                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
+                                <input type="hidden" name="within_sla" class="form-control" id="within_sla" value="<%= gens.within_sla%>" required>
+                                <input type="hidden" name="request" class="form-control" id="request" value="<%=gens.request%>" required>
+                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=gens.servicing_date%>" required>
           
-                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
+                                <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=gens.created_by%>" required>
                                 
                                 
                                 <input type="hidden" name="auditor_name" class="form-control" id="auditor_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
-                                <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.repair%>" required>
+                                <input type="hidden" name="id" class="form-control" id="id" value="<%=id%>" required>
           
                             </div>
                             <div class="thread-foot p-4 d-flex justify-content-between">
@@ -161,12 +182,18 @@
                           <h5>Properties</h5>
                           <br>
                           <div class="form-group">
-                            <label for="exampleFormControlSelect1">Type: Paid Repair</label>
+                            <label for="exampleFormControlSelect1">Type: Gen Service Payment</label>
           
                           </div>
                           <div class="form-group">
                             <label for="exampleFormControlSelect1">Status:</label>
-                            <button class="btn btn-success mr-2 rounded-pill" ></button>
+                            <%if (gens.auditor_approval == 'DENIED') { %>
+                            <button class="btn btn-danger mr-2 rounded-pill" ></button>
+                            <% } else if(gens.auditor_approval == 'PENDING'){ %> 
+                            <button class="btn btn-info mr-2 rounded-pill" ></button> 
+                            <% } else{ %> 
+                            <button class="btn btn-success mr-2 rounded-pill" ></button>  
+                              <% } %>
                           </div>
                           
           

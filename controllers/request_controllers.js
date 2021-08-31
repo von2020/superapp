@@ -214,7 +214,7 @@ class Requests {
                 return dataApproved.upline_approval == 'APPROVED'
             });
             var data = dataApproved.filter (function (data) {
-                return data.driver_admin_approval == 'PENDING'
+                return data.driver_admin_approval == 'PENDING' || data.driver_admin_approval == 'APPROVED'
             });
             req.session.managecarRequests = resbody
             if (result.statusCode == 200) {
@@ -301,7 +301,7 @@ class Requests {
             priority: car_request.priority,
             destination: car_request.destination,
             purpose: car_request.purpose,
-            upline: userDetails.upline_id,//car_request.upline, // this was taking out to see 
+            upline: car_request.upline_id,//car_request.upline, // this was taking out to see 
             driver_admin_approval: boolValue,
             driver_admin_reason: req.body.driver_admin_reason,
             trip_duration:  car_request.trip_duration 

@@ -134,7 +134,7 @@
                       <% data.forEach((item) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <%if (item.driver_admin_approval == 'DENIED' || item.upline_approval == 'PENDING') { %>
+                          <%if (item.driver_admin_approval == 'DENIED' && item.upline_approval == 'PENDING') { %>
                           <td><%= item.requester_name%></td>
                           <td><%= item.requester_role%></td>
                           <td><%= item.request_type%></td>

@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="../../../assets/css/demo_1/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
-
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -73,7 +73,7 @@
                 <h6 class="card-title">Generator Service</h6>
 
 
-                <form class="" action="/facilities/genServicing_facility" method="post">
+                <form class="" method="post">
 
                   <div class="row">
                     
@@ -112,23 +112,29 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-group" >
-                        <label for="exampleFormControlSelect1">Servicing Date</label>
-                        <input type="date"  name="servicing_date" class="form-control" id="servicing_date" valu="2021-01-01"  required>
+                        <label for="exampleFormControlSelect1">Servicing Reason</label>
+                        <textarea  name="servicing_reason" class="form-control" id="servicing_reason" value="2021-01-01" rows="5" required></textarea>
                     </div>
                     </div>
-                    
-                    <div class="col">
-                      <div class="form-group" id="divservicing_company">
-                          <label for="exampleFormControlSelect1">Servicing Company</label>
-                          <select class='form-control' id='servicing_company' name='servicing_company'>
 
-                          </select>
-                    </div>
-                    </div>
+                    <div class="col">
+  
+                      <div class="form-group" id = "request">
+                        <label for="exampleFormControlSelect1" >Request</label>
+                        <select class="form-control-lg" id="bill-type" name="bill_type"
+                          onchange="changeFun1()" required>
+                          <option value="single" selected>One Request</option>
+                          <option value="multiple">More than one Request</option>
+                        </select>
+                      </div>
+                    
+                  </div>
+                    
+                    
 
                   </div>
 
-                  
+                  <hr>
                     <div class="row">
                       
                         <script>
@@ -148,12 +154,11 @@
     return $.ajax({
         url: url,
         type: 'GET',
-        headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
         contentType: 'application/json'
     });
   };
 
-                            getJSON("https://telnetsupperapp.com.ng:8443/api/v1/generator/servicing_company").done(function(data, status){
+                            getJSON("/api/ajax/gen_serviceCompany").done(function(data, status){
                               console.log("here",data),
                               
                               console.log("here")
@@ -168,7 +173,7 @@
                                 
   
                                 //display the thing
-                                $("#servicing_company").html(html);
+                                $("#company").html(html);
                                 $("#divservicing_company").show();
   
                               } else {
@@ -183,25 +188,47 @@
                   }
   
                  </script>
+
 <div class="col">
-<div class="form-group">
-  <label for="exampleFormControlSelect1">Purpose</label>
-  <textarea name="purpose" class="form-control" id="purpose" rows="10"></textarea>
+  <div class="form-group" id="divservicing_company">
+      <label for="exampleFormControlSelect1">Servicing Company</label>
+      <select class='form-control' id='company' name='company'>
+
+      </select>
 </div>
 </div>
+
+<div class="col">
+  
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Amount Charged</label>
+      <input name="amount_charged" class="form-control" id="amount_charged" required>
+    </div>
+  
+  
+</div>
+
 </div>                         
 
-                  
+      <div class="row">
+<div class="col">
+  <input type="file" name="data" class="form-control" id="invoice" accept="application/pdf" required>  
+
+</div>
+      </div>            
 
                   
 
-                  <!-- <div>
+                  <div>
 						<p id="addMore" class="btn btn-light" style="float: right;" onclick="onclickfunction()">add to list</p>
-				</div> -->
+				</div>
 
 									<div class="table-responsive" id="extrafeild"></div>
                   
-                  <button class="btn-lg btn-primary" type="submit">Submit</button>
+                  <button class="btn-lg btn-primary" id="btnsub" onclick="Submit()" type="submit">Submit
+                    <span id="reqLoader" style="display: none;"> 
+                      <i class="fa fa-spin fa-spinner" aria-hidden="true"></i> 
+                  </span></button>
                   <input name="random" id="random">
                 </form>
               </div>
@@ -213,14 +240,15 @@
 
       <script>
 				$(document).ready(function removeButton() {
-					$("#addMore").hide()
+					$("#addMore").show()
 					$("#random").hide()
 					$("#extrafeild").hide()
-					// $("#request").hide()
+					$("#btnsub").hide()
 				});
 			</script>
       <script>
 				var values = [];
+        var table_values = [];
 				function changeFun2() {
 					var selectBox = document.getElementById("within_sla");
 					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
@@ -235,28 +263,89 @@
 					}
 				};
 
+
+        function changeFun1() {
+					var selectBox = document.getElementById("bill-type");
+					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+					if (selectedValue == 'single') {
+						$("#addMore").show();
+						
+					} else if (selectedValue == 'multiple') {
+
+						$("#addMore").show();
+						
+					}
+				};
+
+
         function onclickfunction() {
+          $("#btnsub").show()
+          console.log("values",values);
+    var file = document.getElementById('invoice').files[0];
+    var reader = new FileReader();
 
-var description = $('#description').val();
-var unit_price = $('#unit_price').val();
-var quantity = $('#quantity').val();
+    if(file != undefined )  {
+      console.log('hey you')
+    reader.readAsDataURL(file);
+        reader.onload  = function () {
+            
+          if (file.size > 2000000) {
+            alert('file must be 2mb or less')
+            loading.disabled = false; 
+            loader.style.display = "none";
+        
 
-if (description == '' || unit_price == '' || quantity =='') {
+        }
+        else
+        {
+            
+            dataURL = reader.result;
+          
+            var output = document.getElementById('invoice');
+            output.src = dataURL;
+            console.log("output", output.src);
+            
+            sessionStorage.setItem("result",reader.result);
+          };
+        }
+      }
+          var result = sessionStorage.getItem("result")
+    // console.log("result", result);
+
+var company = $('#company').val();
+var invoice = result;
+var amount_charged = $('#amount_charged').val();
+var company_name = $( "#company option:selected" ).text();
+console.log('name', company_name)
+
+if (company == '' || invoice == '' || amount_charged =='') {
+  // alert('hey you')
 
   swal("kindly fill all fields!", {
     buttons: false,
     timer: 2000,  // disappears after 2 seconds
   });
 } else {
-
+  // alert('hey you')
   var details = {
-    description: description,
-    unit_price: unit_price,
-    quantity: quantity
+    company: Number(company),
+    invoice: invoice,
+    amount_charged: amount_charged
+  };
+
+  var table_details = {
+    company_name: company_name,
+    invoice: invoice,
+    amount_charged: amount_charged
   };
   values.push(details);
   appendFunction();
 
+  table_values.push(table_details);
+  appendFunction();
+
+  console.log('table values', table_values)
   // you can use the array. for each to set a value for the id
   // or maybe you can use the post using jquery to send this to a route.
 
@@ -264,18 +353,18 @@ if (description == '' || unit_price == '' || quantity =='') {
   html += "<table class='table table-striped'>";
   html += "<thead>";
   html += "<tr>";
-  html += "<th>" + "description" + "</th>";
-  html += "<th>" + "unit_price" + "</th>";
-  html += "<th>" + "quantity" + "</th>";
+  html += "<th>" + "company" + "</th>";
+  html += "<th>" + "invoice" + "</th>";
+  html += "<th>" + "amount charged" + "</th>";
   html += "<th>" + "Action" + "</th>";
   html += "</tr>";
   html += "</thead>";
   html += "<tbody>";
-  for (var i = 0; i < values.length; i++) {
+  for (var i = 0; i < table_values.length; i++) {
     html += "<tr>";
-    html += "<td>" + values[i].description + "</td>";
-    html += "<td>" + values[i].unit_price + "</td>";
-    html += "<td>" + values[i].quantity + "</td>";
+    html += "<td>" + table_values[i].company_name + "</td>";
+    html += "<td>" + "invoice" + "</td>";
+    html += "<td>" + table_values[i].amount_charged + "</td>";
     html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
     html += "</tr>";
@@ -286,6 +375,10 @@ if (description == '' || unit_price == '' || quantity =='') {
 
   // display record
   $("#extrafeild").html(html);
+
+if (table_values.length > 0) {
+$("#extrafeild").show();
+}
 
 
 
@@ -300,18 +393,18 @@ var html = "<br>"
 html += "<table class='table table-striped'>";
 html += "<thead>";
 html += "<tr>";
-html += "<th>" + "description" + "</th>";
-html += "<th>" + "unit_price" + "</th>";
-html += "<th>" + "quantity" + "</th>";
+html += "<th>" + "company" + "</th>";
+html += "<th>" + "invoice" + "</th>";
+html += "<th>" + "amount charged" + "</th>";
 html += "<th>" + "Action" + "</th>";
 html += "</tr>";
 html += "</thead>";
 html += "<tbody>";
-for (var i = 0; i < values.length; i++) {
+for (var i = 0; i < table_values.length; i++) {
   html += "<tr>";
-  html += "<td>" + values[i].description + "</td>";
-  html += "<td>" + values[i].unit_price + "</td>";
-  html += "<td>" + values[i].quantity + "</td>";
+  html += "<td>" + table_values[i].company_name + "</td>";
+  html += "<td>" + "invoice" + "</td>";
+  html += "<td>" + table_values[i].amount_charged + "</td>";
   html += "<td class='deleteButton btn btn-default' onClick='deleteFunction(" + i + ")'>remove</td>";
 
   html += "</tr>";
@@ -323,10 +416,9 @@ html += "<br>"
 // display record
 $("#extrafeild").html(html);
 
-// show
-if (employmentHistoryList.length > 0) {
-  $("#extrafeild").show();
-};
+if (table_values.length > 0) {
+$("#extrafeild").show();
+}
 
 
 }
@@ -335,6 +427,107 @@ function appendFunction() {
 var x = JSON.stringify(values)
 $('#random').val(x)
 }
+
+function  Submit(){
+  // alert('hey you?'); 
+
+var loading = document.getElementById("btnsub");
+loading.disabled = true;
+var loader = document.getElementById("reqLoader");
+loader.style.display = "inline-block";
+
+var fileInput = document.getElementById('invoice').value
+console.log(fileInput);
+
+    
+
+    
+    // var fault = $('#fault').val();
+    // var token = $('#token').val();
+    //           console.log(token)
+              var servicing_reason = $('#servicing_reason').val();
+    //           console.log(require_advance)
+              var generator = $('#generator').val();
+    //           console.log(advance_percentage)
+              var requester = $('#created_by').val();
+    //           console.log(amount_budgeted)
+              var company = $('#company').val();
+    //           console.log(created_by)
+              
+              var amount_charged = $('#amount_charged').val();
+    //           
+              var random = $('#random').val();
+
+              console.log("random", random)
+              
+              
+              const data ={
+                "servicing_reason" : servicing_reason, 
+                "generator": generator, 
+                "requester": requester,
+                "request_set": values
+              }
+              
+              console.log("data", JSON.stringify(data))
+var putJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'POST',
+data:JSON.stringify(data),
+contentType: 'application/json',
+error: function(xhr, status, error) {
+  var err = eval("(" + xhr.responseText + ")");
+  console.log(xhr)
+  if (err.fault) {
+  alert("fault :" + err.fault)
+  loading.disabled = false; 
+  loader.style.display = "none";
+  
+}
+else {
+  alert("fields cannot be submitted")
+  loading.disabled = false; 
+  loader.style.display = "none";
+}
+}
+});
+// }
+
+
+           
+          reader.onerror = function (error) {
+          console.log('Error: ', error);
+    };
+
+  
+           
+          
+ return;
+ }
+ putJSON(`/api/ajax/genserviceRequest`).done(function(data, status){
+  
+                  console.log("here",data),
+                  
+                  console.log("here")
+                  console.log("here",data)
+                  console.log(status)
+                  ID = data.id
+                  if (status == "success") {
+
+                    loading.disabled = false;
+                    loader.style.display = "none";
+                    alert('servicing request submitted successfully')
+                    window.location.href=`/facilities/genServiceRequestList`;
+                } else {
+                    loading.disabled = false; 
+                    loader.style.display = "none";
+                    alert('invoice upload Not successful')
+                  }
+        
+                }).fail(function (){
+            })
+}
+
       </script>
 
       <!-- partial:partials/_footer.html -->

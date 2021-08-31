@@ -91,10 +91,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th> Vehicle Name </th>
-                                                <td> <%= queues.vehicle%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> Upload Invoice </th>
@@ -103,7 +100,7 @@
 
                                             
                                             
-                                            <tr>
+                                            <!-- <tr>
                                                 <th> Bill Of Material Name </th>
                                                 <td> <%= queues.bill_of_material_name%> </td>
                                             </tr>
@@ -132,7 +129,7 @@
                                                   <% } %>
                                                 </td>
                                                 
-                                            </tr>
+                                            </tr> -->
 
                                             
                                         </tbody>
@@ -244,20 +241,19 @@ var file = document.getElementById('advance_payment_invoice').files[0];
             else 
             {
             reader.onload = function () {
-                console.log("starting")
+                console.log("starting", reader.result)
                     var ID = $('#id').val();
                   console.log(ID)
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
-type: 'PUT',
+type: 'POST',
 data:JSON.stringify({"advance_payment_invoice"  : reader.result}),
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/servicing_queue/${ID}/upload`).done(function(data, status){
+putJSON(`/api/upload/bill_of_material_invoice?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")
@@ -268,7 +264,7 @@ putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/servicing_queue/${ID
                         loading.disabled = false;
                         loader.style.display = "none";
                         alert('invoice upload successful')
-                        window.location.href=`/facilities/servicingQueueDriverAdmin`;
+                        window.location.href=`/facilities/allBillOfMaterials`;
                     } else {
                         loading.disabled = false; 
                         loader.style.display = "none";

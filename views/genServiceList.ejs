@@ -87,7 +87,7 @@
                         <th>Generator Name</th>
                         <th>Company Name</th>
                         <th>Servicing Status</th>
-                        <th>Servicing Date</th>
+                        
                         <th>Created On</th>
                         <th>Updated On</th>
                         <th>View</th>
@@ -102,11 +102,11 @@
                     <% gens.forEach((item) => {%>
                         <tr>
                           <td><%= item.generator_name%></td>
-                          <td><%= item.servicing_company_name%></td>
-                          <td><%= item.servicing_status%></td>
-                          <td><%= item.servicing_date%></td>
-                          <td><%= item.created_on%></td>
-                          <td><%= item.updated_on%></td>
+                          <td><%= item.requester%></td>
+                          <td><%= item.admin_status%></td>
+                          
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
                           <td><a href="/facilities/viewGenServicing_facility?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
                           <td><a href="/facilities/viewGenServicingSignOff?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Upload</a>   </td>
                           

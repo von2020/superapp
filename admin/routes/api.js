@@ -5,6 +5,7 @@ const {
     getRole,
     quotation_driverAdmin,
     uploadServiceBalanceInvoice, 
+    uploadBillOfMaterialInvoice,
     uploadPhcnBill, 
     uploadPurchaseOrder, 
     request_quotation, 
@@ -15,12 +16,18 @@ const {
     dashboard_admin_totals, 
     dashboard_admin_request_subsidiaries,
     dashboard_admin_all_requests,
+    send_dashboard_admin_all_requests,
     admin_power_bill_report,
+    filter_admin_power_bill_report,
     admin_diesel_bi_report,
     dashboard_admin_total_subsidiary_trip,
     admin_all_daily_maintenance,
+    send_admin_all_daily_maintenance,
     admin_generator_repair_report,
     dashboard_vehicle_repair_report,
+    genServiceRequest,
+    gen_servicingCompany,
+    updateGenServiceStatusSignOff,
     dashboard_vehicle } = require('../queries/manage');
 const router = express.Router();
 
@@ -114,6 +121,22 @@ router.post('/upload/balance_invoice', async (req, res)=> {
     }
 })
 
+router.post('/upload/bill_of_material_invoice', async (req, res)=> {
+    let data = req.body;
+    let id = req.query.id;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await uploadBillOfMaterialInvoice(data,id,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
 router.post('/upload/phcn_bill', async (req, res)=> {
     let data = req.body;
     let id = req.query.id;
@@ -143,6 +166,26 @@ router.post('/upload/purchase_order', async (req, res)=> {
     
     try {
         const subs = await uploadPurchaseOrder(data,id,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.post('/upload/sign_off', async (req, res)=> {
+    let data = req.body;
+    let id = req.query.id;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    console.log('id', id)
+    console.log('token', token)
+    
+    
+    try {
+        const subs = await updateGenServiceStatusSignOff(data,id,token);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)
@@ -199,6 +242,22 @@ router.post('/upload/paid_repair', async (req, res)=> {
     }   
 })
 
+router.post('/ajax/genserviceRequest', async (req, res)=> {
+    let data = req.body;
+    // let id = req.query.id;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await genServiceRequest(data,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
 
 router.get('/ajax/dashboard_total_reports', async (req, res)=> {
     const userDetails = req.session.userDetails;
@@ -233,6 +292,20 @@ router.get('/ajax/dashboard_trip_range', async (req, res)=> {
     const token = userDetails.token;
     try {
         const subs = await dashboard_trip_range(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/gen_serviceCompany', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await gen_servicingCompany(token);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)
@@ -298,6 +371,21 @@ router.get('/ajax/dashboard_admin_all_requests', async (req, res)=> {
     }
 })
 
+router.post('/ajax/dashboard_admin_filter_requests', async (req, res)=> {
+    let data = req.body;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await send_dashboard_admin_all_requests(data,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
 router.get('/ajax/dashboard_admin_total_subsidiary_trip', async (req, res)=> {
     const userDetails = req.session.userDetails;
     const token = userDetails.token;
@@ -327,6 +415,20 @@ router.post('/ajax/admin_power_bill_report', async (req, res)=> {
     }   
 })
 
+router.get('/ajax/admin_filter_power_bill_report', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await filter_admin_power_bill_report(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
 router.get('/ajax/admin_all_daily_maintenance', async (req, res)=> {
     
     const userDetails = req.session.userDetails;
@@ -341,6 +443,22 @@ router.get('/ajax/admin_all_daily_maintenance', async (req, res)=> {
         return;
     }   
 })
+
+router.post('/ajax/admin_filter_all_daily_maintenance', async (req, res)=> {
+    let data = req.body;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await send_admin_all_daily_maintenance(data,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
 
 router.get('/ajax/admin_generator_repair_report', async (req, res)=> {
     

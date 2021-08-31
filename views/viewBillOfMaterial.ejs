@@ -92,8 +92,18 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th> Material Name </th>
-                                                <td> <%= materials.name%> </td>
+                                                <th>Upload</th>
+                                                <%if ((materials.advance_payment == 'yes' && materials.advance_payment_invoice == 'No file uploaded' ) || (materials.advance_payment == 'yes' && materials.auditor_advance_approval == 'PENDING' && materials.finance_advance_approval == 'PENDING' ) || (materials.advance_payment == 'yes' && materials.finance_advance_approval == 'DENIED' && materials.auditor_advance_approval == 'DENIED' ) || (materials.finance_advance_approval == 'DENIED' || materials.auditor_advance_approval == 'PENDING' ) || (materials.finance_advance_approval == 'PENDING' || materials.auditor_advance_approval == 'DENIED' )){ %>
+                                                <td><a href="/facilities/viewAdvanceServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Advance</a> </td>
+                                                <% } else { %>
+                                                    <td><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Balance</a> </td>
+                                                    <% } %>
+                                            </tr>
+
+                                            
+                                            <tr>
+                                                <th> Vehicle Name </th>
+                                                <td> <%= materials.vehicle_name%> </td>
                                             </tr>
 
                                             <tr>
@@ -102,33 +112,78 @@
                                             </tr>
 
                                             <tr>
-                                                <th> Technician Location </th>
-                                                <td> <input  name="location" class="form-control" id="location"  required> </td>
+                                                <th> Advance Invoice </th>
+                                                <%if (materials.advance_payment_invoice == 'No file uploaded') { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %> 
+                                                    <td><a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></th>
+                                                      <% } %>
+                                            </tr>
+                                            <tr>
+                                                <th> Balance Invoice </th>
+                                                <%if (materials.balance_payment_invoice == 'No file uploaded') { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %> 
+                                                    <td><a class="text-primary" href="<%= materials.balance_payment_invoice%>">view</a></th>
+                                                      <% } %>
                                             </tr>
 
                                             <tr>
+                                                <th> Total Price </th>
+                                                <td> <%= materials.total_price%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Cost Of Servicing </th>
+                                                <td> <%= materials.technician_workmanship%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Advance Payment </th>
+                                                <td> <%= materials.advance_payment%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Auditor Advance Approval </th>
+                                                <td> <%= materials.auditor_advance_approval%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Auditor Balance Approval </th>
+                                                <td> <%= materials.auditor_balance_approval%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Finance Advance Approval </th>
+                                                <td> <%= materials.finance_advance_approval%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Finance Balance Approval </th>
+                                                <td> <%= materials.finance_balance_approval%> </td>
+                                            </tr>
+
+                                            <!-- <tr>
+                                                <th> Technician Name </th>
+                                                <td> <input  name="location" class="form-control" id="location"  required> </td>
+                                            </tr> -->
+
+                                            <!-- <tr>
                                                 <th>Servicing Date</th>
                                                 <td> <input name="servicing_date" type="date" value="2021-01-01" class="form-control" id="servicing_date" required> </td>
-                                            </tr>
+                                            </tr> -->
                                             
-                                            <tr>
-                                                <th> BU Head Name </th>
-                                                <td> <%= materials.bu_head_name%> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> BU Head Approval </th>
-                                                <td> <%= materials.bu_head_approval%> </td>
-                                            </tr>
-
                                             
 
-                                            <tr>
+                                            
+                                            
+
+                                            <!-- <tr>
                                                 <th> BU Head Comment </th>
                                                 <td> <%= materials.bu_head_comment%> </td>
-                                            </tr>
+                                            </tr> -->
 
-                                            <tr>
+                                            <!-- <tr>
                                                 <th> Bill Set </th>
                                                 <td>
                                                 <% materials.bill_set.forEach((item) => { %> 
@@ -141,7 +196,7 @@
                                                     <br>
                                                 <% }) %>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                         
 
@@ -160,7 +215,7 @@
                                     
                                     
                                 </div>
-                                <button class="btn-lg btn-primary" type="submit">Save</button>
+                                <!-- <button class="btn-lg btn-primary" type="submit">Save</button> -->
                             </form>
                             </div>
                         </div>

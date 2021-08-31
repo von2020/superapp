@@ -28,7 +28,17 @@ const {
     carTechnicianList,
     servicingList,
     genServiceRequests,
+    genServicePaymentList_auditor,
+    viewGenServicePayment_auditor,
+    updateGenServicePayment_auditor,
+    genServicePaymentList_finance,
+    viewGenServicePayment_finance,
+    updateGenServicePayment_finance,
     handleGenServiceRequests,
+    genServiceStatusList,
+    viewGenServiceStatus,
+    updateGenServiceStatus,
+    genServiceStatusSignOff,
     allGenMaintenanceList,
     allGenDailyMaintenanceList,
     addGenerator,
@@ -38,6 +48,7 @@ const {
     generatorList_fault,
     generator_report,
     genRequestFiles,
+    viewServiceRequest,
     handleGenRequestFiles,
     requestFilesList,
     addGenTechnician,
@@ -287,21 +298,21 @@ router.get('/carServiceStatusList', [checkSession, driverAuthorize], carServiceS
 
 router.get('/carServiceStatusList_driver', [checkSession, carDriverAuthorize], carServiceStatusList_driver),
 
-router.get('/servicingQueueAuditor', [checkSession, auditorAuthorize], servicingQueueList_Auditor),
+router.get('/billOfMaterialListAuditor', [checkSession, auditorAuthorize], servicingQueueList_Auditor),
 
-router.get('/viewservicingQueueAuditor_advance', [checkSession, auditorAuthorize], viewservicingQueueAuditor),
-router.post('/viewservicingQueueAuditor_advance', [checkSession, auditorAuthorize], updateservicingQueueAuditor),
+router.get('/viewBillOfMaterialAuditor_advance', [checkSession, auditorAuthorize], viewservicingQueueAuditor),
+router.post('/viewBillOfMaterialAuditor_advance', [checkSession, auditorAuthorize], updateservicingQueueAuditor),
 
-router.get('/viewservicingQueueAuditor_balance', [checkSession, auditorAuthorize], viewBalanceServicingQueueAuditor),
-router.post('/viewservicingQueueAuditor_balance', [checkSession, auditorAuthorize], updateBalanceServicingQueueAuditor),
+router.get('/viewBillOfMaterialAuditor_balance', [checkSession, auditorAuthorize], viewBalanceServicingQueueAuditor),
+router.post('/viewBillOfMaterialAuditor_balance', [checkSession, auditorAuthorize], updateBalanceServicingQueueAuditor),
 
-router.get('/servicingQueueFinance', [checkSession, financeAuthorize], servicingQueueList_Finance),
+router.get('/billOfMaterialListFinance', [checkSession, financeAuthorize], servicingQueueList_Finance),
 
-router.get('/viewadvanceservicingQueueFinance', [checkSession, financeAuthorize], viewservicingQueueFinance),
-router.post('/viewadvanceservicingQueueFinance', [checkSession, financeAuthorize], updateservicingQueueFinance),
+router.get('/viewBillOfMaterialFinance_advance', [checkSession, financeAuthorize], viewservicingQueueFinance),
+router.post('/viewBillOfMaterialFinance_advance', [checkSession, financeAuthorize], updateservicingQueueFinance),
 
-router.get('/viewbalanceservicingQueueFinance', [checkSession, financeAuthorize], viewBalanceServicingQueueFinance),
-router.post('/viewbalanceservicingQueueFinance', [checkSession, financeAuthorize], updateBalanceServicingQueueFinance),
+router.get('/viewBillOfMaterialFinance_balance', [checkSession, financeAuthorize], viewBalanceServicingQueueFinance),
+router.post('/viewBillOfMaterialFinance_balance', [checkSession, financeAuthorize], updateBalanceServicingQueueFinance),
 
 router.get('/carFaultList', [checkSession, driverAuthorize], carFaultList),
 router.get('/carFaultList_driver', [checkSession, carDriverAuthorize], carFaultList_driver),
@@ -384,8 +395,8 @@ router.get('/recommendTechnician', [checkSession, driverAuthorize], recommendTec
 
 router.get('/genDueServicingList', [checkSession, driverAuthorize], genDueServicingList),
 
-router.get('/genServicing_facility', [checkSession, facilityAuthorize], genServicing),
-router.post('/genServicing_facility', [checkSession, facilityAuthorize], handleGenServicing),
+router.get('/genServicingRequest_facility', [checkSession, facilityAuthorize], genServicing),
+// router.post('/genServicing_facility', [checkSession, facilityAuthorize], handleGenServicing),
 
 router.get('/genServicingList_facility', [checkSession, facilityAuthorize], genServicingList),
 router.get('/viewGenServicing_facility', [checkSession, facilityAuthorize], viewGenServicing),
@@ -399,8 +410,14 @@ router.get('/viewGenServicing_diverAdmin', [checkSession, driverAuthorize], view
 router.get('/genServiceRequests', [checkSession, driverAuthorize], genServiceRequests),
 router.post('/genServiceRequests', [checkSession, driverAuthorize], handleGenServiceRequests),
 
-router.get('/genServiceRequestList', [checkSession, driverAuthorize], genServiceRequestList),
+router.get('/genServiceStatusList', [checkSession, facilityAuthorize], genServiceStatusList),
+router.get('/viewGenServiceStatus', [checkSession, facilityAuthorize], viewGenServiceStatus),
+router.post('/viewGenServiceStatus', [checkSession, facilityAuthorize], updateGenServiceStatus),
 
+router.get('/genServiceStatusSignOff', [checkSession, facilityAuthorize], genServiceStatusSignOff),
+
+router.get('/genServiceRequestList', [checkSession, facilityAuthorize], genServiceRequestList),
+router.get('/viewServiceRequest', [checkSession, facilityAuthorize], viewServiceRequest),
 
 router.get('/genFaultReport', [checkSession, facilityAuthorize], genFaultReport),
 router.post('/genFaultReport', [checkSession, facilityAuthorize], handleGenFaultReport),
@@ -453,8 +470,13 @@ router.get('/dieselRequestQuotationList_procurement', [checkSession, procurement
 router.get('/viewDieselRequestQuotation_procurement', [checkSession, procurementAuthorize], viewDieselRequestQuotation_procurement),
 router.post('/viewDieselRequestQuotation_procurement', [checkSession, procurementAuthorize], handleDieselRequestQuotation_procurement),
 
+router.get('/genServicePaymentList_auditor', [checkSession, auditorAuthorize], genServicePaymentList_auditor),
+router.get('/viewGenServicePayment_auditor', [checkSession, auditorAuthorize], viewGenServicePayment_auditor),
+router.post('/viewGenServicePayment_auditor', [checkSession, auditorAuthorize], updateGenServicePayment_auditor),
 
-
+router.get('/genServicePaymentList_finance', [checkSession, financeAuthorize], genServicePaymentList_finance),
+router.get('/viewGenServicePayment_finance', [checkSession, financeAuthorize], viewGenServicePayment_finance),
+router.post('/viewGenServicePayment_finance', [checkSession, financeAuthorize], updateGenServicePayment_finance),
 
 
 router.get('/purchaseOrderlist_auditor', [checkSession, auditorAuthorize], purchaseOrderlist_auditor),

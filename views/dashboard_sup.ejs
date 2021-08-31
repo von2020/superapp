@@ -173,23 +173,29 @@
               <% data.forEach((item) => {%>
             <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                 <tr>
-                  
+                  <%if (item.upline_approval == 'PENDING') { %>
                   <td><%= item.requester_name%></td>
                   <td><%= item.requester_role%></td>
                   <td><%= item.request_type%></td>
                   <% if (item.driver_admin_approval == 'PENDING' && item.upline_approval == 'PENDING') { %>
                     <td><button class="badge badge-danger">Pending</button></td>
+                  <% }  else if (item.driver_admin_approval == 'PENDING' && item.upline_approval == 'APPROVED'){ %>
+                    <td><button class="badge badge-primary">Approved</button></td>
+                  <% }  else if (item.driver_admin_approval == 'DENIED' && item.upline_approval == 'APPROVED'){ %>
+                    <td><button class="badge badge-primary">Reassign Priority</button></td>
                   <% }  else if (item.driver_admin_approval == 'DENIED' && item.upline_approval == 'PENDING'){ %>
                     <td><button class="badge badge-primary">Reassign Priority</button></td>
                   <% }  else if (item.driver_admin_approval == 'DENIED' && item.upline_approval == 'DENIED'){ %>
                       <td><button class="badge badge-danger">Denied</button></td>
                   <% }  else if (item.driver_admin_approval == 'APPROVED' && item.upline_approval == 'APPROVED'){ %>
-                      <td><button class="badge badge-primary">approved</button></td>
+                      <td><button class="badge badge-primary">Approved</button></td>
                   <% }  else { %>
                     <td><button class="badge badge-primary">Pending</button></td>
                   <% }%>
                   <td> <a href="/requests/individual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View request</a></td>
-                  
+                  <% } else{ %>
+
+                    <% } %>
                 </tr>
                 <% })%>
             </tbody>

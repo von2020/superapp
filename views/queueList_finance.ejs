@@ -94,45 +94,39 @@
                         <th>Payment Amount</th>
                         <th>Advance Approval</th>
                         <th>Balance Approval</th>
-                        <th>Status</th>
                         
+                        <th>Status</th>
                         
                       </tr>
                     </thead>
                     <tbody>
-                    
                       <% vehicles.forEach((vehicle) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <%if (vehicle.auditor_advance_approval == 'APPROVED') { %>
-                          <td><%= vehicle.vehicle%></td>
+                          <td><%= vehicle.vehicle_name%></td>
                           <td><%= vehicle.servicing_date%></td>
-                          <%if (vehicle.payment_type == 'advance') { %>
+                          <%if (vehicle.advance_payment == 'yes') { %>
                             <td><%= vehicle.advance_amount%></td>
                             <% } else{ %>
                             <td><%= vehicle.balance_amount%></td>
                           <% } %>
-                          <%if (vehicle.finance_advance_approval == 'PENDING') { %>
-                          <td><a class="badge badge-danger"><%= vehicle.finance_advance_approval%></a></td>
+                          <%if (vehicle.auditor_advance_approval == 'PENDING') { %>
+                          <td><a class="badge badge-danger"><%= vehicle.auditor_advance_approval%></a></td>
                           <% } else{ %>
-                            <td><a class="badge badge-primary"><%= vehicle.finance_advance_approval%></a></td>
+                            <td><a class="badge badge-primary"><%= vehicle.auditor_advance_approval%></a></td>
                           <% } %>
-                          <%if ( vehicle.finance_balance_approval == 'PENDING') { %>
-                            <td><a class="badge badge-danger"><%= vehicle.finance_balance_approval%></a></td>
+                          <%if ( vehicle.auditor_balance_approval == 'PENDING') { %>
+                            <td><a class="badge badge-danger"><%= vehicle.auditor_balance_approval%></a></td>
                             <% } else{ %>
-                              <td><a class="badge badge-primary"><%= vehicle.finance_balance_approval%></a></td>
+                              <td><a class="badge badge-primary"><%= vehicle.auditor_balance_approval%></a></td>
                             <% } %>
-                          <% if (vehicle.payment_type == 'yes' && vehicle.finance_advance_approval != 'APPROVED' ) { %>
-                            <td> <a href="/facilities/viewadvanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >view</a></td>
-                          <% }  else { %>
-                            <td> <a href="/facilities/viewbalanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >view</a></td>
-                          <% }%>
-                    
-                          <!-- <td> <a href="/facilities/viewadvanceservicingQueueFinance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td> -->
-                          
+                          <%if (vehicle.advance_payment == 'yes' && vehicle.finance_advance_approval != 'APPROVED' ) { %>
+                            <td> <a href="/facilities/viewBillOfMaterialAuditor_advance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >advance</a></td>
                           <% } else{ %>
-
-                            <% } %>
+                              <td> <a href="/facilities/viewBillOfMaterialAuditor_balance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >balance</a></td>
+                          <% } %>
+                    
+                          
                         </tr>
                         <% })%>
                     </tbody>

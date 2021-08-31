@@ -91,18 +91,18 @@
 
                                         <thead>
                                             <tr>
+                                                <th> Information </th>
                                                 <th> Value </th>
-                                                <th> Description </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             
 
                                             <tr>
-                                                <th> Driver </th>
+                                                <th> Driver Name </th>
                                                 <td> <div class="form-group">
                                                     <select class='form-control' id='driver' name='driver'>
-                                                        <option value="null" selected disabled> ---</option>
+                                                        <option value="<%= materials.driver_id%>" selected><%= materials.driver_name%></option>
 										            <% drivers.forEach((driver) => { %>
 											            <option value = "<%= driver.id%>"> <%= driver.first_name + ' ' + driver.last_name%> </option>
 										            <% }) %>
@@ -111,12 +111,12 @@
                                             </tr>
 
                                             <tr>
-                                                <th> VColour </th>
+                                                <th> Colour </th>
                                                 <td> <input name="vcolor" class="form-control" id="vcolor" value="<%= materials.vcolor%>" required> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Availability </th>
+                                                <th> Vehicle On Trip? </th>
                                                 <td> <div class="form-group">
                                                     <select class="form-control-lg"  name= "idle" class="form-control" id="idle" required>
                                                         <%if (materials.idle == 'true' ) { %>
@@ -132,7 +132,7 @@
 
                                             
                                             <tr>
-                                                <th> Plate </th>
+                                                <th> Registration Number </th>
                                                 <td> <input name="plate" class="form-control" id="plate"value="<%= materials.plate%>" required> </td>
                                             </tr>
 
@@ -144,7 +144,7 @@
                                             </tr>
 
                                             <tr>
-                                                <th> Servicing CountDown </th>
+                                                <th> Servicing Due By </th>
                                                 <td> <input name="servicing_countdown" class="form-control" id="servicing_countdown" value="<%= materials.servicing_countdown%>" readonly> </td>
                                             </tr>
 
@@ -164,23 +164,26 @@
                                             </tr>
 
                                             <tr>
-                                                <th> Vin </th>
+                                                <th> VIN </th>
                                                 <td> <input name="vin" class="form-control" id="vin" value="<%= materials.vin%>" required> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Vmake </th>
+                                                <th> Vehicle Brand </th>
                                                 <td> <input name="vmake" class="form-control" id="vmake" value="<%= materials.vmake%>" required> </td>
                                             </tr>
 
                                             <tr>
-                                                <th> Vmodel </th>
+                                                <th> Vehicle Model </th>
                                                 <td> <input name="vmodel" class="form-control" id="vmodel" value="<%= materials.vmodel%>" required> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Fuel Type </th>
-                                                <td> <input name="fuel_type" class="form-control" id="fuel_type" value="<%= materials.fuel_type%>" required> </td>
+                                                <td>  <select class="form-control" id="fuel_type" name="fuel_type">
+                                                    <option value="diesel" selected>Diesel</option>
+                                                    <option value="petrol">Petrol</option>
+                                                </select> </td>
                                             </tr>
 
                                             
@@ -200,10 +203,7 @@
                                                 <td> <%= materials.created_on.slice(0,10)%> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th> Updated On </th>
-                                                <td> <%= materials.updated_on.slice(0,10)%> </td>
-                                            </tr>
+                                            
                                             
                                             
 
@@ -245,6 +245,7 @@
 
         </div>
     </div>
+    
 
     <script>
   

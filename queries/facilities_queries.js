@@ -112,6 +112,83 @@ class vehicle_queries {
         }
     };
 
+    static async viewGenServiceRequest(token, id) {
+        const url = `generator/servicing_request/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genServicePaymentList(token) {
+        const url = 'generator/servicing_payment';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async viewGenServicePayment(token, id) {
+        const url = `generator/servicing_payment/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateGenServicePayment(query, token, id) {
+        const url = `generator/servicing_payment/${id}`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genServiceStatusList(token) {
+        const url = 'generator/servicing_status';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async viewGenServiceStatus(token, id) {
+        const url = `generator/servicing_status/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateGenServiceStatus(query, token, id) {
+        const url = `generator/servicing_status/${id}`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async sendRequestFiles(query, token) {
         const url = 'generator/request_files';
         try {
@@ -157,7 +234,7 @@ class vehicle_queries {
     };
 
     static async genServiceList(token) {
-        const url = 'generator/servicing';
+        const url = 'generator/servicing_request';
         try {
             const {result, resbody} = await getResponse_request(url, token)
             return {result, resbody};
@@ -941,6 +1018,17 @@ class vehicle_queries {
         const url = `vehicle/bill_of_material/${id}`;
         try {
             const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateBillOfMaterial(query, token, id) {
+        const url = `vehicle/bill_of_material/${id}`;
+        try {
+            const {result, resbody} = await putResponse(query, url, token)
             return {result, resbody};
             
         }catch(err){

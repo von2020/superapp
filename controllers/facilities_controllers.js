@@ -24,6 +24,9 @@ const {
     sendGenServiceCompany,
     sendGenServiceRequest,
     genServiceRequestList,
+    genServicePaymentList,
+    genServiceStatusList,
+    viewGenServiceStatus,
     sendGenFaults,
     genFaultList,
     genSlaList,
@@ -36,7 +39,9 @@ const {
     genServicing,
     genServiceList,
     viewGenService,
+    viewGenServicePayment,
     updateGenService,
+    updateGenServiceStatus,
     updatePhcnBill,
     sendPhcnBill,
     phcnBillList,
@@ -73,6 +78,7 @@ const {
     sendBillOfMaterial,
     getBillOfMaterials,
     viewBillOfMaterials,
+    updateBillOfMaterial,
     servicingQueue,
     servicingStatus,
     sendGenSla,
@@ -81,6 +87,7 @@ const {
     viewPaid_repair,
     updatePaidRepair,
     sendGenRepairStatus,
+    updateGenServicePayment,
     repairStatusList,
     updateGenRepairStatus,
     viewGenRepairStatus,
@@ -98,6 +105,7 @@ const {
     carFaultList_driver,
     sendGenDailyMaintenance,
     genDailyMaintenanceList,
+    viewGenServiceRequest,
     listVehicle
 } = facilities_queries;
 
@@ -211,13 +219,11 @@ class Facilities {
         const token = userDetails.token;
         
         try {
-            const {result, resbody} = await servicingQueueList(token);
-            const vehicle = resbody
-            // console.log('vehicles', vehicle)
+            const {result, resbody} = await getBillOfMaterials(token);
+            const vehicles = resbody
+            console.log('vehicles', vehicles)
 
-            var vehicles = vehicle.filter(function (data) {
-                return data.auditor_advance_approval != 'DENIED' && data.auditor_balance_approval != 'DENIED' // need to come back to this to populate the feilds with the data about the users
-            });
+            
             
 
             if (result.statusCode == 200) {
@@ -425,7 +431,7 @@ class Facilities {
         
         try {
 
-            const {result, resbody} = await viewservicingQueue(token, id);
+            const {result, resbody} = await viewBillOfMaterials(token, id);
             const materials = resbody
             console.log('materials', materials)
             if (result.statusCode == 200) {
@@ -450,9 +456,8 @@ class Facilities {
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            bill_of_material: req.body.bill_of_material,
-            location: req.body.location,
-            created_by: req.body.created_by,
+            technician: req.body.technician,
+            vehicle: req.body.vehicle,
             auditor_advance_approval: boolValue,
             auditor_comment: req.body.auditor_comment,
             auditor_name: req.body.auditor_name,
@@ -463,15 +468,15 @@ class Facilities {
         console.log('id', id)
         console.log('token', token)
         try{
-            const {result, resbody} = await updateServicingQueue(query, token, id);
+            const {result, resbody} = await updateBillOfMaterial(query, token, id);
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.auditor_advance_approval == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully approved invoice')
-                    res.redirect('/facilities/servicingQueueAuditor');
+                    res.redirect('/facilities/billOfMaterialListAuditor');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected invoice')
-                    res.redirect('/facilities/servicingQueueAuditor');
+                    res.redirect('/facilities/billOfMaterialListAuditor');
                 }
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/servicingQueueAuditor')
@@ -491,7 +496,7 @@ class Facilities {
         
         try {
 
-            const {result, resbody} = await viewservicingQueue(token, id);
+            const {result, resbody} = await viewBillOfMaterials(token, id);
             const materials = resbody
             console.log('materials', materials)
             if (result.statusCode == 200) {
@@ -530,7 +535,7 @@ class Facilities {
         console.log('id', id)
         console.log('token', token)
         try{
-            const {result, resbody} = await updateServicingQueue(query, token, id);
+            const {result, resbody} = await updateBillOfMaterial(query, token, id);
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.auditor_balance_approval == 'APPROVED') {
@@ -555,7 +560,7 @@ class Facilities {
         const token = userDetails.token;
         
         try {
-            const {result, resbody} = await servicingQueueList(token);
+            const {result, resbody} = await getBillOfMaterials(token);
             const vehicles  = resbody;
             
             // console.log('vehicles', vehicles)
@@ -582,7 +587,7 @@ class Facilities {
         
         try {
 
-            const {result, resbody} = await viewservicingQueue(token, id);
+            const {result, resbody} = await viewBillOfMaterials(token, id);
             const materials = resbody
             console.log('materials', materials)
             if (result.statusCode == 200) {
@@ -607,7 +612,7 @@ class Facilities {
         
         try {
 
-            const {result, resbody} = await viewservicingQueue(token, id);
+            const {result, resbody} = await viewBillOfMaterials(token, id);
             const materials = resbody
             console.log('materials', materials)
             if (result.statusCode == 200) {
@@ -645,7 +650,7 @@ class Facilities {
         console.log('id', id)
         console.log('token', token)
         try{
-            const {result, resbody} = await updateServicingQueue(query, token, id);
+            const {result, resbody} = await updateBillOfMaterial(query, token, id);
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.finance_advance_approval == 'APPROVED') {
@@ -687,7 +692,7 @@ class Facilities {
         console.log('id', id)
         console.log('token', token)
         try{
-            const {result, resbody} = await updateServicingQueue(query, token, id);
+            const {result, resbody} = await updateBillOfMaterial(query, token, id);
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.finance_balance_approval == 'APPROVED') {
@@ -2741,6 +2746,311 @@ class Facilities {
 
     };
 
+    static async genServiceStatusList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        
+        try {
+
+            const {result, resbody} = await genServiceStatusList(token);
+            const gens = resbody
+            console.log('gens', gens)
+            if (result.statusCode == 200) {
+                res.render('genServiceStatusList', {userDetails, gens});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }else{
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+    static async viewGenServiceStatus (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServiceStatus(token, id);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('viewGenServiceStatus', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        };
+         
+    };
+
+    static async updateGenServiceStatus (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        
+        
+        const query = {
+            serviced: req.body.serviced,
+            generator_condition: req.body.generator_condition,
+            servicing_status: req.body.servicing_status,
+            status_reason: req.body.status_reason,
+            confirmed_by: req.body.created_by,
+            internal_sign_off: req.body.internal_sign_off,
+            external_sign_off: req.body.external_sign_off,
+       }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await updateGenServiceStatus(query, token, id);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '200') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated a generator servicing status`,'/facilities/genServiceStatusList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response} `,'/facilities/genServiceStatusList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+            
+    };
+
+    static async genServiceStatusSignOff (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServiceStatus(token, id);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('signoff', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        };
+         
+    };
+
+
+    static async viewServiceRequest (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServiceRequest(token, id);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('request_files', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        };
+         
+    };
+
+    
+    static async genServicePaymentList_auditor (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await genServicePaymentList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genServicePaymentList_auditor', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async viewGenServicePayment_auditor (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServicePayment(token, id);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genService_auditor', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async updateGenServicePayment_auditor (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            request: req.body.request,
+            within_sla: req.body.within_sla,
+            auditor_approval: boolValue,
+            auditor_comment: req.body.auditor_comment,
+            auditor_name: req.body.auditor_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateGenServicePayment(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.auditor_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved generator service payment, awaiting finance approval')
+                    res.redirect('/facilities/genServicePaymentList_auditor');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected generator service payment')
+                    res.redirect('/facilities/genServicePaymentList_auditor');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.repair} `,'/facilities/genServicePaymentList_auditor')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+    }
+
+    static async genServicePaymentList_finance (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = userDetails.first_name;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await genServicePaymentList(token);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genServicePaymentList_finance', {userDetails, gens: gens.resbody}); 
+        } catch (err) {
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async viewGenServicePayment_finance (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        const id = req.query.id;
+
+        console.log('id',id)
+        console.log('token', token)
+
+        try {
+            const gens = await viewGenServicePayment(token, id);
+
+            console.log('response',gens.resbody)
+            console.log('token',token)
+
+            res.render('genService_finance', {userDetails, gens: gens.resbody, id}); 
+        } catch (err) {
+            if (err) console.error('display page details error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        };
+         
+        };
+
+    static async updateGenServicePayment_finance (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        var stringValue = req.body.button;
+        var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
+
+        const query = {
+            request: req.body.request,
+            within_sla: req.body.within_sla,
+            finance_approval: boolValue,
+            finance_comment: req.body.finance_comment,
+            finance_name: req.body.finance_name,
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateGenServicePayment(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                if(resbody.finance_approval == 'APPROVED') {
+                    req.flash('success_msg', 'You have successfully approved generator service payment')
+                    res.redirect('/facilities/genServicePaymentList_finance');
+                } else {
+                    req.flash('success_msg', 'You have successfully rejected generator service payment')
+                    res.redirect('/facilities/genServicePaymentList_finance');
+                }
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.repair} `,'/facilities/genServicePaymentList_finance')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+    }
 
     static async genRequestFiles (req, res) {
         var userDetails = req.session.userDetails;
@@ -3473,7 +3783,9 @@ static async viewGenServicing_diverAdmin (req, res) {
                 vehicle: Number(req.body.vehicle),
                 technician: Number(req.body.technician),
                 technician_workmanship: Number(req.body.technician_workmanship),
-                advance_payment: req.body.advance_payment
+                advance_payment: req.body.advance_payment,
+                advance_percentage: Number(req.body.advance_percentage),
+                servicing_date: req.body.servicing_date
                 
             }
 
@@ -3485,6 +3797,8 @@ static async viewGenServicing_diverAdmin (req, res) {
                 technician: Number(req.body.technician),
                 technician_workmanship: Number(req.body.technician_workmanship),
                 advance_payment: req.body.advance_payment,
+                advance_percentage: Number(req.body.advance_percentage),
+                servicing_date: req.body.servicing_date
             }
         }
     
@@ -3497,9 +3811,12 @@ static async viewGenServicing_diverAdmin (req, res) {
                 
     
                 if (result.statusCode == '201') {
-                    resMessageRedirect(res, req, 'success_msg', 'You have succesfully created a new bill of material, awaiting approval from BU Head', '/facilities/allBillOfMaterials')
-                    // req.flash('success_msg', 'You have succesfully created a new vehicle request');
-                    // res.redirect('/dashboard');
+                    if (details.advance_payment =='yes' ) { 
+                        resMessageRedirect(res, req, 'success_msg', 'You have succesfully created a new bill of material, next upload invoice', `/facilities/viewAdvanceServicingInvoice?id=${details.id}`)
+                    } else{
+                    resMessageRedirect(res, req, 'success_msg', 'You have succesfully created a new bill of material, next upload invoice', `/facilities/viewServicingInvoice?id=${details.id}`)
+                    
+                }
                 } else if (result.statusCode == '200') {
                     resMessageRedirect(res, req, 'error_msg', `${details.info}`, '/facilities/addBillOfMaterial')
                     // you may need to add a middleware to make sure only the right personal can see this.
@@ -3572,7 +3889,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         
         try {
 
-            const {result, resbody} = await viewservicingQueue(token, id);
+            const {result, resbody} = await viewBillOfMaterials(token, id);
             const queues = resbody
             console.log('queues', queues)
             if (result.statusCode == 200) {
@@ -3597,7 +3914,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         
         try {
 
-            const {result, resbody} = await viewservicingQueue(token, id);
+            const {result, resbody} = await viewBillOfMaterials(token, id);
             const queues = resbody
             console.log('queues', queues)
             if (result.statusCode == 200) {

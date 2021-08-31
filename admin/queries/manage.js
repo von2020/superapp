@@ -81,6 +81,18 @@ class admin_manage_queries {
         }
     };
 
+
+    static async gen_servicingCompany(token) {
+        const url = 'generator/servicing_company';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
     static async dashboard_admin_request_subsidiaries(token) {
         const url = 'core/total_vrequest_subsidiaries';
         try {
@@ -100,6 +112,17 @@ class admin_manage_queries {
 
         } catch (err) {
             if (err) console.log('error', err)
+        }
+    };
+
+    static async send_dashboard_admin_all_requests(body, token) {
+        const url = 'core/vrequest/all_requests';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
         }
     };
 
@@ -136,6 +159,151 @@ class admin_manage_queries {
         }
     };
 
+    static async filter_admin_power_bill_report(token) {
+        const url = 'power/bill_report';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async genServiceRequest(body, token) {
+        const url = 'generator/servicing_request';
+        try {
+            const {result, resbody} = await postResponse_request(body, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async viewGenServiceRequest(token, id) {
+        const url = `generator/servicing_request/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async recommendServiceCompany(token, id) {
+        const url = `generator/recommended_servicing_companies/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+    
+    static async updateRecommendServiceCompany(query, token, id) {
+        const url = `generator/servicing_request/${id}`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async sendGenServicePayment(query, token) {
+        const url = 'generator/servicing_payment';
+        try {
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genServicePaymentList(token) {
+        const url = 'generator/servicing_payment';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async viewGenServicePayment(token, id) {
+        const url = `generator/servicing_payment/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateGenServicePayment(query, token, id) {
+        const url = `generator/servicing_payment/${id}`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async sendGenServiceStatus(query, token) {
+        const url = 'generator/servicing_status';
+        try {
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async genServiceStatusList(token) {
+        const url = 'generator/servicing_status';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
+    static async viewGenServiceStatus(token, id) {
+        const url = `generator/servicing_status/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async updateGenServiceStatusSignOff(query,id,token) {
+        console.log('id', id);
+        console.log('token', token);
+        const url = `generator/servicing_status/${id}/upload`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async admin_all_daily_maintenance(token) {
         const url = 'generator/all_daily_maintenance';
         try {
@@ -143,6 +311,17 @@ class admin_manage_queries {
             return {result, resbody}
             
         }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async send_admin_all_daily_maintenance(query, token) {
+        const url = 'generator/all_daily_maintenance';
+        try {
+            const { result, resbody } = await postResponse_request(query, url, token)
+            return { result, resbody }
+
+        } catch (err) {
             if (err) console.log('login error', err)
         }
     };
@@ -369,6 +548,18 @@ class admin_manage_queries {
     };
     static async uploadServiceBalanceInvoice(body,id, token) {
         const url = `vehicle/servicing_queue/${id}/upload`;
+
+        try {
+            const { result, resbody } = await putResponse(body,url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async uploadBillOfMaterialInvoice(body,id, token) {
+        const url = `vehicle/bill_of_material/${id}/upload`;
 
         try {
             const { result, resbody } = await putResponse(body,url, token)

@@ -74,7 +74,12 @@ const {
     genServicing,
     genDailyMaintenance,
     handleGenServicing,
+    viewGenServiceRequest,
+    handleViewGenServiceRequest,
     genServicingList,
+    genServicePaymentList,
+    viewGenServicePayment,
+    genServiceStatusList,
     genMaintenance,
     allGenMaintenanceList,
     allGenDailyMaintenanceList,
@@ -114,7 +119,10 @@ const {
     diesel,
     gen_repair_report,
     gen_daily_maintenance,
-    
+    genServicePayment,
+    handleGenServicePayment,
+    createGenServiceStatus,
+    viewGenServiceStatus,
     handleAddSubsidiary,
     handleAddDepartment,
     getAllSubsidiaries,
@@ -131,6 +139,16 @@ router.get('/gen_repair_report', [adminCheckSession, superAdminAuthorize], gen_r
 router.get('/gen_daily_maintenance', [adminCheckSession, superAdminAuthorize], gen_daily_maintenance);
 
 router.get('/genServicingList', [adminCheckSession, superAdminAuthorize], genServicingList);
+
+router.get('/genServicePaymentList', [adminCheckSession, superAdminAuthorize], genServicePaymentList);
+router.get('/viewGenServicePayment', [adminCheckSession, superAdminAuthorize], viewGenServicePayment);
+router.post('/viewGenServicePayment', [adminCheckSession, superAdminAuthorize], createGenServiceStatus);
+
+router.get('/genServiceStatusList', [adminCheckSession, superAdminAuthorize], genServiceStatusList);
+router.get('/viewGenServiceStatus', [adminCheckSession, superAdminAuthorize], viewGenServiceStatus);
+
+router.get('/genServicePayment', [adminCheckSession, superAdminAuthorize], genServicePayment);
+router.post('/genServicePayment', [adminCheckSession, superAdminAuthorize], handleGenServicePayment);
 
 router.get('/billOfMaterialList', [adminCheckSession, superAdminAuthorize], billOfMaterialList);
 
@@ -192,8 +210,8 @@ router.get('/genServiceRequestList', [adminCheckSession, superAdminAuthorize], g
 
 router.get('/requestFilesList', [adminCheckSession, superAdminAuthorize], requestFilesList),
 
-router.get('/genRequestFiles', [adminCheckSession, superAdminAuthorize], genRequestFiles),
-router.post('/genRequestFiles', [adminCheckSession, superAdminAuthorize], handleGenRequestFiles),
+router.get('/viewGenRequest', [adminCheckSession, superAdminAuthorize], viewGenServiceRequest),
+router.post('/viewGenRequest', [adminCheckSession, superAdminAuthorize], handleViewGenServiceRequest),
 
 router.get('/genFaultReport', [adminCheckSession, superAdminAuthorize], genFaultReport),
 router.post('/genFaultReport', [adminCheckSession, superAdminAuthorize], handleGenFaultReport),

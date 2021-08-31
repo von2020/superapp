@@ -33,6 +33,8 @@
   <%- include('./bars/sidebar_sup') %> 
   <% } else if (userDetails.role == 'Procurement') { %>
   <%- include('./bars/sidebar_procurement') %> 
+  <% } else if (userDetails.role == 'Facility Officer') { %>
+  <%- include('./bars/sidebar_facility') %>
   <% } else if (userDetails.role == 'Auditor') { %>
   <%- include('./bars/sidebar_auditor') %> 
   <% } else if (userDetails.role == 'Finance') { %>
@@ -82,15 +84,15 @@
                     <thead>
 
                       <tr>
-                        
                         <th>Generator Name</th>
-                        <th>Servicing Company Name</th>
-                        <th>Servicing Reason</th>
-                        <th> Servicing Cost </th>
-                        <th> Sign Off Uploaded </th>
-                        <th> Created On </th>
-                        <th> Requester </th>
-                        <th> Servicing File </th>
+                        <th>Company Name</th>
+                        <th>Servicing Status</th>
+                        
+                        <th>Created On</th>
+                        <th>Updated On</th>
+                        <!-- <th>View</th> -->
+                        
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -100,13 +102,12 @@
                     <% materials.forEach((item) => {%>
                         <tr>
                           <td><%= item.generator_name%></td>
-                          <td><%= item.servicing_company_name%></td>
-                          <td><%= item.servicing_reason%></td>
-                          <td><%= item.servicing_cost%></td>
-                          <td><%= item.sign_off_uploaded%></td>
-                          <td><%= item.created_on%></td>
                           <td><%= item.requester%></td>
-                          <td><a href="/facilities/genRequestFiles?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Create</a>   </td>
+                          <td><%= item.admin_status%></td>
+                          
+                          <td><%= item.created_on.slice(0,10)%></td>
+                          <td><%= item.updated_on.slice(0,10)%></td>
+                          <!-- <td><a href="/facilities/viewServiceRequest?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td> -->
                           
                         </tr>
                         <% })%>
