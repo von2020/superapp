@@ -99,8 +99,8 @@
                                             
                                             
                                             <tr>
-                                                <th> Servicing Queue Name </th>
-                                                <td> <%= queues.servicing_queue_name%> </td>
+                                                <th> Servicing Bill Name </th>
+                                                <td> <%= queues.servicing_bill_name%> </td>
                                             </tr>
 
                                             <tr>
@@ -167,7 +167,7 @@
                                     <br>
                                     <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
 
-                                    <input type="hidden" name="servicing_queue" class="form-control" id="servicing_queue" value="<%=queues.servicing_queue%>" required>
+                                    <input type="hidden" name="servicing_bill" class="form-control" id="servicing_bill" value="<%=queues.servicingbill%>" required>
                                     
                                     <input type="hidden" name="report_by" class="form-control" id="report_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 

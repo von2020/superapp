@@ -348,6 +348,17 @@ class admin_manage_queries {
         }
     };
 
+    static async admin_filter_diesel_bi_report(token) {
+        const url = 'diesel/diesel_bi_report';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async getInactiveUsers(token) {
         const url = 'accounts/inactive_users';
         try {

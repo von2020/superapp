@@ -269,8 +269,8 @@ router.post('/viewServicingStatus', [checkSession, carDriverAuthorize], updateVi
 router.get('/viewservicingQueue', [checkSession, driverAuthorize], viewservicingQueue),
 router.post('/servicingQueue', [checkSession, driverAuthorize], servicingQueue),
 
-router.get('/serviceStatus', [checkSession, driverAuthorize], serviceStatus),
-router.post('/serviceStatus', [checkSession, driverAuthorize], handleServiceStatus),
+// router.get('/serviceStatus', [checkSession, driverAuthorize], serviceStatus),
+
 
 router.get('/viewServicingStatus_driverAdmin', [checkSession, driverAuthorize], viewServicingStatus_driverAdmin),
 router.post('/viewServicingStatus_driverAdmin', [checkSession, driverAuthorize], updateViewServicingStatus_driverAdmin),
@@ -373,6 +373,7 @@ router.get('/viewAdvanceServicingInvoice', [checkSession, driverAuthorize], view
 router.get('/allBillOfMaterials', [checkSession, driverAuthorize], allBillOfMaterials),
 
 router.get('/viewBillOfMaterials', [checkSession, driverAuthorize], viewBillOfMaterials),
+router.post('/viewBillOfMaterials', [checkSession, driverAuthorize], handleServiceStatus),
 
 router.get('/faultList', [checkSession, driverAuthorize], listFaults)
 

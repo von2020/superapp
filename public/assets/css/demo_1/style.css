@@ -7406,9 +7406,10 @@ hr {
   overflow: visible; }
 
 h1, h2, h3, h4, h5, h6 {
+  /* font-style: "Poppins" !important; */
   margin-top: 0;
   margin-bottom: 0.5rem; 
-  color: rgb(105, 105, 202) !important}
+  color: rgb(28, 28, 224) !important}
 
 p {
   margin-top: 0;
@@ -7645,7 +7646,7 @@ h2, .h2 {
   font-size: 2rem; }
 
 h3, .h3 {
-  font-size: 1.75rem; }
+  font-size: 1rem !important; }
 
 h4, .h4 {
   font-size: 2.0rem !important;}
@@ -7654,7 +7655,7 @@ h5, .h5 {
   font-size: 1.25rem; }
 
 h6, .h6 {
-  font-size: 1rem; }
+  font-size: 1rem !important; }
 
 .lead {
   font-size: 1.19rem;
@@ -11353,7 +11354,9 @@ input[type="button"].btn-block {
     .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
       color: #fff; }
 
-
+.card-design{
+  border-radius: 1rem !important;
+}
 
 .card {
   position: relative;
@@ -11363,8 +11366,8 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid #f2f4f9;
-  border-radius: 0.25rem; }
+  border: 5px solid #f2f4f9;
+  border-radius: 0.25rem !important; }
   .card > hr {
     margin-right: 0;
     margin-left: 0; }
@@ -11380,10 +11383,15 @@ input[type="button"].btn-block {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0; }
 
+
+  
+
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.5rem; }
+  padding: 1.5rem;
+  /* border-radius: 1rem !important; */
+ }
 
 .card-title {
   margin-bottom: 0.875rem; }

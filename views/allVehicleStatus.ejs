@@ -61,7 +61,7 @@
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Car Servicing</a></li>
-						<li class="breadcrumb-item active" aria-current="page">All Technicians</li>
+						<li class="breadcrumb-item active" aria-current="page">Servicing Status</li>
 					</ol>
         </nav>
 
@@ -83,11 +83,11 @@
 
                       <tr>
                         
-                        <th>Servicing_queue_name</th>
-                        <th>vehicle_condition</th>
+                        <th>Servicing_bill_name</th>
+                        
                         <th>driver_name</th>
                         <th>technician_revisit</th>
-                        <th>Report By</th>
+                        
                         <th>Confirm</th>
                       </tr>
                     </thead>
@@ -97,11 +97,11 @@
 
                     <% vehicles.forEach((item) => {%>
                         <tr>
-                          <td><%= item.servicing_queue_name%></td>
-                          <td><%= item.vehicle_condition%></td>
+                          <td><%= item.servicing_bill_name%></td>
+                          
                           <td><%= item.driver_name%></td>
                           <td><%= item.technician_revisit%></td>
-                          <td><%= item.report_by%></td>
+                          
                           <% if (item.admin_comment == '') { %>
                           <td> <a href="/facilities/viewServicingStatus_driverAdmin?id=<%= item.id%>" id='<%= item.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >Confirm</a></td>
                           <% }  else { %>

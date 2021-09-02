@@ -20,6 +20,7 @@ const {
     admin_power_bill_report,
     filter_admin_power_bill_report,
     admin_diesel_bi_report,
+    admin_filter_diesel_bi_report,
     dashboard_admin_total_subsidiary_trip,
     admin_all_daily_maintenance,
     send_admin_all_daily_maintenance,
@@ -496,6 +497,21 @@ router.post('/ajax/admin_diesel_bi_report', async (req, res)=> {
     const token = userDetails.token;
     try {
         const subs = await admin_diesel_bi_report(data, token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }   
+})
+
+router.get('/ajax/admin_filter_diesel_bi_report', async (req, res)=> {
+    
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await admin_filter_diesel_bi_report(token);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)

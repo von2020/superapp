@@ -479,7 +479,7 @@ class Facilities {
                     res.redirect('/facilities/billOfMaterialListAuditor');
                 }
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/servicingQueueAuditor')
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/billOfMaterialListAuditor')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -521,10 +521,8 @@ class Facilities {
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            bill_of_material: req.body.bill_of_material,
-            location: req.body.location,
-            servicing_date: req.body.servicing_date,
-            created_by: req.body.created_by,
+            technician: req.body.technician,
+            vehicle: req.body.vehicle,
             auditor_balance_approval: boolValue,
             auditor_comment: req.body.auditor_comment,
             auditor_name: req.body.auditor_name,
@@ -540,13 +538,13 @@ class Facilities {
             if (result.statusCode == '200') {
                 if(resbody.auditor_balance_approval == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully approved balance invioce, awaiting finance')
-                    res.redirect('/facilities/servicingQueueAuditor');
+                    res.redirect('/facilities/billOfMaterialListAuditor');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected balance invoice')
-                    res.redirect('/facilities/servicingQueueAuditor');
+                    res.redirect('/facilities/billOfMaterialListAuditor');
                 }
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/servicingQueueAuditor')
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.error} `,'/facilities/billOfMaterialListAuditor')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -637,9 +635,8 @@ class Facilities {
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            bill_of_material: req.body.bill_of_material,
-            location: req.body.location,
-            created_by: req.body.created_by,
+            technician: req.body.technician,
+            vehicle: req.body.vehicle,
             finance_advance_approval: boolValue,
             finance_comment: req.body.finance_comment,
             finance_personnel: req.body.finance_personnel,
@@ -655,13 +652,13 @@ class Facilities {
             if (result.statusCode == '200') {
                 if(resbody.finance_advance_approval == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully approved invoice')
-                    res.redirect('/facilities/servicingQueueFinance');
+                    res.redirect('/facilities/billOfMaterialListFinance');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected invoice')
-                    res.redirect('/facilities/servicingQueueFinance');
+                    res.redirect('/facilities/billOfMaterialListFinance');
                 }
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/facilities/servicingQueueFinance')
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/facilities/billOfMaterialListFinance')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -678,10 +675,8 @@ class Facilities {
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            bill_of_material: req.body.bill_of_material,
-            location: req.body.location,
-            servicing_date: req.body.servicing_date,
-            created_by: req.body.created_by,
+            technician: req.body.technician,
+            vehicle: req.body.vehicle,
             finance_balance_approval: boolValue,
             finance_comment: req.body.finance_comment,
             finance_personnel: req.body.finance_personnel,
@@ -697,13 +692,13 @@ class Facilities {
             if (result.statusCode == '200') {
                 if(resbody.finance_balance_approval == 'APPROVED') {
                     req.flash('success_msg', 'You have successfully approved balance invoice, ')
-                    res.redirect('/facilities/servicingQueueFinance');
+                    res.redirect('/facilities/billOfMaterialListFinance');
                 } else {
                     req.flash('success_msg', 'You have successfully rejected balance invoice')
-                    res.redirect('/facilities/servicingQueueFinance');
+                    res.redirect('/facilities/billOfMaterialListFinance');
                 }
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/facilities/servicingQueueFinance')
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.response}  ${query.name}`,'/facilities/billOfMaterialListFinance')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -743,8 +738,8 @@ class Facilities {
         
         
         const query = {
-            servicing_queue: req.body.id,
-            report_by: req.body.report_by,
+            servicingbill: req.body.servicing_bill,
+            created_by: req.body.created_by,
             
             
         }
@@ -847,10 +842,9 @@ class Facilities {
         
 
         const query = {
-            servicing_queue: req.body.servicing_queue,
+            servicing_bill: req.body.servicing_bill,
             vehicle_condition: req.body.vehicle_condition,
             condition_comment: req.body.condition_comment,
-            technician_revisit: req.body.technician_revisit,
             driver_name: req.body.driver_name,
             
             
@@ -909,13 +903,12 @@ class Facilities {
         
 
         const query = {
-            servicing_queue: req.body.servicing_queue,
-            admin_check: req.body.admin_check,
-            admin_comment: req.body.admin_comment,
+            servicing_bill: req.body.servicing_bill,
             technician_revisit: req.body.technician_revisit,
-            
-            
-            
+            admin_check: req.body.admin_check,
+            admin_check_name: req.body.report_by,
+            admin_comment: req.body.admin_comment,
+                       
         }
 
         console.log('query', query)

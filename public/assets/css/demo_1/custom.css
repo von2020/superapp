@@ -15,19 +15,22 @@
 }
 
 .card-color-one{
-    background-color: #FCE2E7;
+    background-color: #f6e6e9;
 }
 
 .card-color-two{
-    background-color: #F1F7F8;
+    background-color: #e6f1f3;
 }
 
 .card-color-three{
-    background-color: #F8F1F8;
+    background-color: #edf6db;
 }
 
 .card-color-four{
-    background-color: #F0FDFE;
+    background-color: #e4e4f8;
+}
+.card-color-five{
+    background-color: #ffff9d;
 }
 
 .card-special .table td {

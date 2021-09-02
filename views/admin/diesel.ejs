@@ -161,10 +161,11 @@
           <table id="TripRange" class="table table-bordered table-hover">
               <thead>
               <tr>
+                <th>Created On </th>
                 <th>Litres </th>
                 <th>Amount (₦) </th>
-                <th>Auditors Name</th>
-                <th>Finance Name</th>
+                
+                <th>Finance Approval</th>
                 <th>Auditors Approval</th>
                 <th>Vendor Name</th>
                 <th>Purpose</th>
@@ -393,6 +394,66 @@
 //     } );
 // } );
 
+function formatDate (str) {
+    var date = new Date(str).toLocaleString('en-US');
+  console.log(date);
+    return date;
+  }
+
+jQuery(document).ready(function($) {
+ 
+  
+        
+ var jobtable = $('#TripRange').DataTable({
+   ajax: {
+    url: "/api/ajax/admin_filter_diesel_bi_report",
+          dataSrc: "",
+          type:'GET',
+          dataType: 'json',
+		  beforeSend: function (xhr) {
+                xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
+            },
+          },
+
+
+//Create new Datatable
+
+        
+   columns: [
+                {
+                    data: "created_on"
+                },
+               {
+                    data: "liters"
+                },
+                {
+                    data: "total"
+                },
+                
+                {
+                    data: "finance_approval"
+                },
+                {
+                    data: "auditor_approval"
+                },
+                {
+                    data: "request_quotation__approved_vendor__name"
+                },
+                {
+                    data: "request_quotation__purpose"
+                },
+                {
+                    data: "created_on"
+                },
+          
+      ],
+      columnDefs:[{targets:0, render:function(data){
+      return formatDate(data);
+    }}]
+      
+ });
+});
+
 $('#requestInfo').submit(function(evt){
 
 evt.preventDefault();
@@ -414,25 +475,28 @@ $.ajax({
   
 },
     beforeSend: function (xhr) {
-    xhr.setRequestHeader ("Authorization", "Token 0a80ea028c9f552632b2ad03a6fcc2043ac79b62")
+    xhr.setRequestHeader ("Authorization", "Token 48a79b9a6fcef0b70b6a9219e392205c7327c701")
     },
 
 	success: function(result){
         console.log('result',result);
+        $('#TripRange').DataTable().clear().destroy();
+        
         $("#TripRange").DataTable({
             "aaData" : result,
             columns: [
+            {
+                    data: "created_on"
+                },
                 {
                     data: "liters"
                 },
                 {
                     data: "total"
                 },
+                
                 {
-                    data: "auditor_name"
-                },
-                {
-                    data: "finance_name"
+                    data: "finance_approval"
                 },
                 {
                     data: "auditor_approval"
@@ -446,7 +510,10 @@ $.ajax({
                 {
                     data: "created_on"
                 },
-            ]
+            ],
+            columnDefs:[{targets:0, render:function(data){
+            return formatDate(data);
+    }}]
         });
 	}
 })

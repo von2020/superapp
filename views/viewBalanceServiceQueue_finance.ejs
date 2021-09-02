@@ -82,24 +82,24 @@
                                         <th>Servicing Date</th>
                                         
                                         <th>Created By</th>
-                                        <th>Created On</th>
+                                        
                                         
                                         <th>Document</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <td><%= materials.vehicle%></th>
+                                        <td><%= materials.vehicle_name%></th>
                                         <td><%= materials.servicing_date%></th>
                                         
                                         <td><%= materials.created_by%></th>
                                         
-                                        <td><%= materials.created_on.slice(0,10)%></th>
                                         
-                                          <%if (materials.balance_invoice == 'http://173.212.213.205:8090/media/vehicle_servicing_balance_invoice_document/') { %>
+                                        
+                                          <%if (materials.balance_payment_invoice == 'No file uploaded') { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
-                                        <td><a class="text-primary" href="<%= materials.balance_invoice%>">view</a></th>
+                                        <td><a class="text-primary" href="<%= materials.balance_payment_invoice%>">view</a></th>
                                           <% } %>
                                       </tr>
                                     </tbody>  
@@ -124,8 +124,8 @@
                             <div class="thread-body p-5">
                               
                                 <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%= materials.bill_of_material%>" required>
-                                <input type="hidden" name="location" class="form-control" id="location" value="<%=materials.location%>" required>
-                                <input type="hidden" name="servicing_date" class="form-control" id="servicing_date" value="<%=materials.servicing_date%>" required>
+                                <input type="hidden" name="technician" class="form-control" id="technician" value="<%=materials.technician%>" required>
+                                <input type="hidden" name="vehicle" class="form-control" id="vehicle" value="<%=materials.vehicle%>" required>
           
                                 <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
                                 
@@ -206,7 +206,7 @@
                             <span></span>
                           </div>
                           <div class="form-group">
-                            <label for="exampleFormControlSelect1">Auditor: </label>
+                            <label for="exampleFormControlSelect1">Finance: </label>
                             <span> <%= userDetails.first_name + ' ' + userDetails.last_name %></span>
                           </div>
           

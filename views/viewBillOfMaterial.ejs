@@ -80,7 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form class="" action="/facilities/servicingQueue" method="post">
+                                <form class="" action="/facilities/viewBillOfMaterials" method="post">
                                 <div class="table-responsive">
                                     <table  class="table">
 
@@ -164,6 +164,12 @@
                                             </tr>
 
                                             <!-- <tr>
+                                                <th> Servicing Status </th>
+                                                <td> <a href="/facilities/viewBillOfMaterials?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" > Create</a> </td>
+                                                
+                                            </tr> -->
+
+                                            <!-- <tr>
                                                 <th> Technician Name </th>
                                                 <td> <input  name="location" class="form-control" id="location"  required> </td>
                                             </tr> -->
@@ -204,7 +210,7 @@
                                     </table>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="bill_of_material" class="form-control" id="bill_of_material" value="<%=materials.id%>" required>
+                                    <input type="hidden" name="servicing_bill" class="form-control" id="servicing_bill" value="<%=materials.id%>" required>
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
@@ -215,7 +221,11 @@
                                     
                                     
                                 </div>
-                                <!-- <button class="btn-lg btn-primary" type="submit">Save</button> -->
+                                <%if ((materials.auditor_advance_approval == 'APPROVED' && materials.finance_advance_approval == 'APPROVED') || (materials.auditor_balance_approval == 'APPROVED' && materials.finance_balance_approval == 'APPROVED')) { %>
+                                <button class="btn-lg btn-danger" type="submit">Create Servicing Status</button>
+                                <% } else{ %> 
+
+                                    <% } %>
                             </form>
                             </div>
                         </div>
