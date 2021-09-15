@@ -98,7 +98,7 @@
                                                     <%if (gens.sign_off_document == 'The sign-off document has not been uploaded!') { %>
                                                     <td><a href="/facilities/genServiceStatusSignOff?id=<%=gens.id%>" id='<%=gens.id%>' class="btn btn-sm btn-success rounded-pill" > Upload</a>   </td>
                                                     <% } else { %>
-                                                        <td> <%= gens.sign_off_document%> </td>
+                                                        <td><a class="text-primary" href="<%= gens.sign_off_document%>">view</a></td>
                                                     <% } %>
                                                     
                                                 </tr>
@@ -147,7 +147,10 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Update Servicing Status</th>
-                                                    <td> <input name="servicing_status"  class="form-control" id="servicing_status" required> </td>
+                                                    <td> <select class="form-control" id="servicing_status" name="servicing_status">
+                                                        <option value="pending" selected>Pending</option>
+                                                        <option value="completed">Completed</option>
+                                                    </select></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Status Reason</th>

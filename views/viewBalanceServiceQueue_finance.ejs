@@ -59,8 +59,11 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div>
-                            <h4 class="mb-3 mb-md-0">Approve/Reject Balance Invoice<a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
-                            <div class="sub-heading"><p class="mb-3 mb-md-0">All tickets <i class="i mr-2" data-feather="chevron-right"></i><span><i class="i mr-3" data-feather="mail"></i> </span></p></div>
+                            <%if (materials.advance_payment == 'no'){ %>
+                            <h4 class="mb-3 mb-md-0">Approve/Reject Full Payment Invoice<a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
+                            <% } else{ %>
+                              <h4 class="mb-3 mb-md-0">Approve/Reject Balance Invoice<a class="text-primary"><%= materials.created_on.slice(0,10)%></a></h4>
+                            <% } %>
                           </div>
                           
                         </div>

@@ -267,121 +267,28 @@
 
     function onSubmit_approval(){
       // alert('hey') 
+      var comment = document.getElementById('admin_comment').value;
+      console.log(comment)
       var selectBox = document.getElementById("approved_company");
 			var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-      // var prior = document.getElementById('priority').value;
+      
       console.log(selectedValue)
-      if(selectedValue == "null"){
-        alert('Pls approve a gen company')
+      if (selectedValue == "null" &&  comment != ''){
+        alert('Please approve a gen company')
         event.preventDefault();
-      };
+      }
+      else if (selectedValue != "null" &&  comment == ''){
+        alert('Please State Reason')
+        event.preventDefault();
+      }
+      else if (selectedValue == "null" &&  comment == ''){
+        alert('Please approve a gen company and state comment')
+        event.preventDefault();
+      }
     }
   </script>
 
-	<script>
-        let data;
-        function convert(){
-            // alert('abeg');
-            var file = document.getElementById('content').files[0];
-                getBase64(file);
-                console.log("begining")
-                console.log(data)
-            // var data = reader.result;
-        }
-
-        function getBase64(file) {            
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-              this.data = reader.result
-               // return data
-        };
-        reader.onerror = function (error) {
-        console.log('Error: ', error);
-        };
-    }
-function Submit(){
-    var loading = document.getElementById("reqBtn");
-    loading.disabled = true;
-    var loader = document.getElementById("reqLoader");
-    loader.style.display = "inline-block";
-
-var fileInput = document.getElementById('content').value
-console.log(fileInput);
-
-if (fileInput == "") {
-                alert('Please Select a document to Continue');
-                loading.disabled = false; 
-                loader.style.display = "none";
-            }
-      else {      
-
-var file = document.getElementById('content').files[0];
-        var reader = new FileReader();
-            reader.readAsDataURL(file);
-            if (file.size > 2000000) {
-                alert('file must be 2mb or less')
-				loading.disabled = false; 
-                loader.style.display = "none";
-            }
-            else 
-            {
-            reader.onload = function () {
-                console.log("starting")
-                    var ID = $('#id').val();
-                  console.log(ID)
-				  var file_name = $('#file_name').val();
-                  console.log(file_name)
-				  var request_id = $('#request_id').val();
-                  console.log(request_id)
-				  var description = $('#description').val();
-                  console.log(description)
-				  var type = $('#type').val();
-                  console.log(type)
-				  
-                    var putJSON = function (url) {
-return $.ajax({
-url: url,
-type: 'POST',
-data:JSON.stringify({"content"  : reader.result, "file_name"  : file_name, "request_id"  : request_id, "description"  : description,"type"  : type}),
-headers: { "Authorization": "Token fdf4561f7ec51563c1556d24ee2a84547a755ff0" },
-contentType: 'application/json'
-});
-};
-
-putJSON(`https://cors-anywhere.herokuapp.com/http://173.212.213.205:8090/api/v1/generator/request_files`).done(function(data, status){
-                      console.log("here",data),
-                      
-                      console.log("here")
-                      console.log("here",data)
-                      console.log(status)
-                      
-                      if (status == "success") {
-                        loading.disabled = false;
-                        loader.style.display = "none";
-                        alert('Form Submitted Successfully')
-						window.location.href="/admin/manage/requestFilesList";
-                    } else {
-                        loading.disabled = false; 
-                        loader.style.display = "none";
-                        alert('Form Submitted Successfully')
-                      }
-            
-                    }).fail(function(){
-
-                    })
-               // return data
-        };
-    }
-        reader.onerror = function (error) {
-        console.log('Error: ', error);
-        };
-                    
-    }                 
-          
-}
-
-    </script>
+	
 
 </body>
 

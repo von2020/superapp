@@ -72,12 +72,7 @@
                 <form class="" action="/facilities/addBillOfMaterial" method="post">
 
                   <div class="row">
-                    <!-- <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Part Name</label>
-                        <input name="name" class="form-control" id="name" required>
-                      </div>
-                    </div> -->
+                    
                     
                     <div class="col">
                       <div class="form-group">
@@ -93,33 +88,46 @@
                                                   %>
                         </select>
                       </div>
+                    </div>
+                      <div class="col">
+                        <div class="form-group" id="divtechnician">
+                            <label for="exampleFormControlSelect1">Technician</label>
+                            <select class='form-control' id='technician' name='technician'>
+                              <option selected disabled> --- </option>
+                            <% 
+                                                      tech.forEach((techs, i) => { 
+                                                    %>
+                            <option value=<%= techs.id %>> <%= techs.company_name %>  </option>
+                            <% 
+                                                      }) 
+                                                    %>
+                            </select>
                       </div>
-                      
-                    
-                    
+                      </div>
                   </div>
-
+                                        
                   <div class="row">
-                    <div class="col">
-                      <div class="form-group" id="divtechnician">
-                          <label for="exampleFormControlSelect1">Technician</label>
-                          <select class='form-control' id='technician' name='technician'>
-                            <option selected disabled> --- </option>
-                          <% 
-                                                    tech.forEach((techs, i) => { 
-                                                  %>
-                          <option value=<%= techs.id %>> <%= techs.company_name %>  </option>
-                          <% 
-                                                    }) 
-                                                  %>
-                          </select>
-                    </div>
-                    </div>
                     
                     <div class="col">
                       <div class="form-group">
+                        <label for="exampleFormControlSelect1">Servicing Date</label>
+                        <input name="servicing_date" class="form-control" id="servicing_date" type="date" required>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Cost of Servicing</label>
+                        <input name="technician_workmanship" class="form-control" id="technician_workmanship" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                        
+                        
+                    <div class="col">
+                      <div class="form-group">
                         <label for="exampleFormControlSelect1">Advance Payment</label>
-                        <select class='form-control' id='advance_payment' name='advance_payment'>
+                        <select class='form-control' onchange="changeFun2()" id='advance_payment' name='advance_payment'>
                           <option selected disabled>----</option>
                           <option>yes</option>
                           <option>no</option>
@@ -127,33 +135,18 @@
                       </div>
                     </div>
                     
-                    
-                  </div>
-                  
-                  <div class="row">
                     <div class="col">
-                      <div class="form-group">
+                      <div id="advanceDiv" class="form-group">
                         <label for="exampleFormControlSelect1">Advance Percentage</label>
-                        <input name="advance_percentage" class="form-control" id="advance_percentage" required>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Servicing Date</label>
-                        <input name="servicing_date" class="form-control" id="servicing_date" type="date" required>
+                        <input name="advance_percentage" class="form-control" id="advance_percentage" >
                       </div>
                     </div>
                   </div>
                   <div class="row">
 
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Cost of Servicing</label>
-                        <input name="technician_workmanship" class="form-control" id="technician_workmanship" required>
-                      </div>
-                    </div>
+                    
 
-                    <div class="col">
+                    <!-- <div class="col">
                       <div class="form-group" id = "request">
                         <label for="exampleFormControlSelect1" >Item</label>
                         <select class="form-control-lg" id="bill-type" name="bill_type"
@@ -162,7 +155,7 @@
                           <option value="multiple">More than one item</option>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
 
                   </div>
                   <br><hr>
@@ -268,7 +261,7 @@
 
 									<div class="table-responsive" id="extrafeild"></div>
                   
-                  <button class="btn-lg btn-primary" type="submit">Submit</button>
+                  <button id="reqbtn" class="btn-lg btn-primary" type="submit">Submit</button>
                   <input name="random" id="random">
                 </form>
               </div>
@@ -280,7 +273,8 @@
 
       <script>
 				$(document).ready(function removeButton() {
-					$("#addMore").hide()
+					$("#addMore").show()
+          $("#reqbtn").hide()
 					$("#random").hide()
 					$("#extrafeild").hide()
 					// $("#request").hide()
@@ -290,21 +284,22 @@
 				var values = [];
         var table_values = [];
 				function changeFun2() {
-					var selectBox = document.getElementById("bill-type");
+					var selectBox = document.getElementById("advance_payment");
 					var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+          
 
-					if (selectedValue == 'multiple') {
-						$("#addMore").show();
-						$("#extrafeild").show();
-					} else if (selectedValue == 'single') {
+					if (selectedValue == 'yes') {
+						$("#advanceDiv").show();
+						
+					} else if (selectedValue == 'no') {
 
-						$("#addMore").hide();
-						$("#extrafeild").hide();
+						$("#advanceDiv").hide();
+						
 					}
 				};
 
         function onclickfunction() {
-
+          $("#reqbtn").show()
 var vehicle_part = $('#vehicle_part').val();
 var vehicle_part_name = $( "#vehicle_part option:selected" ).text();
 console.log(vehicle_part_name)
@@ -317,7 +312,7 @@ if (vehicle_part == '' || quantity =='') {
     timer: 2000,  // disappears after 2 seconds
   });
 } else {
-
+  
   var details = {
     vehicle_part: Number(vehicle_part),
     quantity: Number(quantity)
@@ -358,6 +353,11 @@ if (vehicle_part == '' || quantity =='') {
 
   // display record
   $("#extrafeild").html(html);
+
+// show
+if (table_values.length > 0) {
+  $("#extrafeild").show();
+};
 
 
 

@@ -93,7 +93,7 @@
                         <th>Servicing Date</th>
                         <th>Payment Amount</th>
                         <th>Advance Approval</th>
-                        <th>Balance Approval</th>
+                        <th>Balance/Full Approval</th>
                         
                         <th>Status</th>
                         
@@ -110,11 +110,15 @@
                             <% } else{ %>
                             <td><%= vehicle.balance_amount%></td>
                           <% } %>
+                        <%if ((vehicle.advance_payment == 'yes')||(vehicle.advance_payment == 'balance')) { %>
                           <%if (vehicle.finance_advance_approval == 'PENDING') { %>
                           <td><a class="badge badge-danger"><%= vehicle.finance_advance_approval%></a></td>
                           <% } else{ %>
                             <td><a class="badge badge-primary"><%= vehicle.finance_advance_approval%></a></td>
                           <% } %>
+                        <% } else{ %>
+                          <td><a class="badge badge-primary">Full Payment</a></td>
+                        <% } %>
                           <%if ( vehicle.finance_balance_approval == 'PENDING') { %>
                             <td><a class="badge badge-danger"><%= vehicle.finance_balance_approval%></a></td>
                             <% } else{ %>
@@ -122,11 +126,18 @@
                             <% } %>
                           <%if (vehicle.advance_payment == 'yes' && vehicle.finance_advance_approval != 'APPROVED' && vehicle.auditor_advance_approval == 'APPROVED' ) { %>
                             <td> <a href="/facilities/viewBillOfMaterialFinance_advance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >advance</a></td>
-                            <% } else if(vehicle.advance_payment == 'yes' && vehicle.finance_advance_approval != 'APPROVED' && vehicle.auditor_advance_approval != 'APPROVED' ){ %>
-                              <td> <a class="badge badge-primary">Awaiting Auditor Approval</a></td>
-                          
-                          <% } else{ %>
+                          <% } else if(vehicle.advance_payment == 'no' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval == 'APPROVED'){ %>
+                              <td> <a href="/facilities/viewBillOfMaterialFinance_balance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >full payment</a></td>
+                          <% } else if(vehicle.advance_payment == 'balance' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval == 'APPROVED'){ %>
                               <td> <a href="/facilities/viewBillOfMaterialFinance_balance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >balance</a></td>
+                          <% } else if(vehicle.advance_payment == 'no' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval != 'APPROVED'){ %>
+                              <td> <a class="badge badge-primary">Awaiting Auditor Approval</a></td>
+                          <% } else if(vehicle.advance_payment == 'yes' && vehicle.finance_advance_approval != 'APPROVED' && vehicle.auditor_advance_approval != 'APPROVED' ){ %>
+                              <td> <a class="badge badge-primary">Awaiting Auditor Approval</a></td>
+                          <% } else if(vehicle.advance_payment == 'balance' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval != 'APPROVED' ){ %>
+                            <td> <a class="badge badge-primary">Awaiting Auditor Approval</a></td>
+                          <% } else{ %>
+                              <td> <a class="badge badge-primary">Completed</a></td>
                           <% } %>
                     
                           

@@ -24,7 +24,7 @@
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
 </head>
 
-<body>
+<body onload="changeFun()">
     <div class="main-wrapper">
 
         <!-- Insert the sidebar partial here-->
@@ -57,7 +57,7 @@
                 <nav class="page-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Vehicle</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Bill Of Material</li>
+                        <li class="breadcrumb-item active" aria-current="page">Servicing</li>
                     </ol>
                 </nav>
 
@@ -80,27 +80,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input  name="advance_payment" class="form-control" id="advance_payment" value="<%=payment%>" required>
-                                
+                                <form class="" action="/facilities/viewBillOfMaterials" method="post">
                                 <div class="table-responsive">
                                     <table  class="table">
 
                                         <thead>
                                             <tr>
+                                                <th> Information </th>
                                                 <th> Value </th>
-                                                <th> Description </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <th>Upload</th>
-                                                <%if ((payment == 'yes' && materials.advance_payment_invoice == 'No file uploaded' ) || (payment == 'yes' && materials.auditor_advance_approval == 'PENDING' && materials.finance_advance_approval == 'PENDING' ) || (payment == 'yes' && materials.finance_advance_approval == 'DENIED' && materials.auditor_advance_approval == 'DENIED' ) || (payment == 'yes' && materials.finance_advance_approval == 'PENDING' && materials.auditor_advance_approval == 'APPROVED' ) || (payment == 'yes' && materials.finance_advance_approval == 'PENDING' && materials.auditor_advance_approval == 'DENIED' )){ %>
-                                                <td><a href="/facilities/viewAdvanceServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Advance</a> </td>
-                                                <% } else if ((payment = 'no' && materials.balance_payment_invoice == 'No file uploaded') || (payment == 'no' && materials.auditor_balance_approval == 'PENDING' && materials.finance_balance_approval == 'PENDING' ) || (payment == 'no' && materials.finance_balance_approval == 'DENIED' && materials.auditor_balance_approval == 'DENIED' ) || (payment == 'no' && materials.finance_balance_approval == 'PENDING' && materials.auditor_balance_approval == 'APPROVED' ) || (payment == 'no' && materials.finance_balance_approval == 'PENDING' && materials.auditor_balance_approval == 'DENIED' )){ %>
-                                                    <td><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Full Payment</a> </td>
-                                                    <% } else{ %>
-                                                        <td><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Balance</a> </td>
-                                                    <% } %>
+                                                
+                                                <td id="one"><a href="/facilities/viewAdvanceServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Advance</a> </td>
+                                                 
+                                                <td id="two"><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Full Payment</a> </td>
+                                                    
+                                                <td id="three"><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Balance</a> </td>
+                                                    
                                             </tr>
 
                                             
@@ -114,15 +113,6 @@
                                             <tr>
                                                 <th> Technician Name </th>
                                                 <td> <%= materials.technician_name%> </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Advance Invoice </th>
-                                                <%if (materials.advance_payment_invoice == 'No file uploaded') { %>
-                                                    <td>Not Yet Uploaded</th>
-                                                      <% } else{ %> 
-                                                    <td><a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></th>
-                                                      <% } %>
                                             </tr>
                                             <tr id="four">
                                                 <th> Full Payment Invoice </th>
@@ -151,6 +141,23 @@
                                                       <% } %>
                                             </tr>
 
+                                            <!-- <tr>
+                                                <th> Advance Invoice </th>
+                                                <%if (materials.advance_payment_invoice == 'No file uploaded') { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %> 
+                                                    <td><a class="text-primary" href="<%= materials.advance_payment_invoice%>">view</a></th>
+                                                      <% } %>
+                                            </tr>
+                                            <tr>
+                                                <th> Balance Invoice </th>
+                                                <%if (materials.balance_payment_invoice == 'No file uploaded') { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %> 
+                                                    <td><a class="text-primary" href="<%= materials.balance_payment_invoice%>">view</a></th>
+                                                      <% } %>
+                                            </tr> -->
+
                                             <tr>
                                                 <th> Total Price </th>
                                                 <td> <%= materials.total_price%> </td>
@@ -162,7 +169,7 @@
                                             </tr>                                            
                                             <tr>
                                                 <th> Advance Payment </th>
-                                                <td> <%=payment%> </td>
+                                                <td id="payment"></td>
                                             </tr>
 
                                             <tr>
@@ -185,20 +192,7 @@
                                                 <td> <%= materials.finance_balance_approval%> </td>
                                             </tr>
 
-                                            <!-- <tr>
-                                                <th> Bill Set </th>
-                                                <td>
-                                                <% materials.bill_set.forEach((item) => { %> 
-                                                  <p>Description:  <%= item.description%></p>
-                                                    <br>
-                                                   <p>Price: NGN <%= item.unit_price%></p>
-                                                    <br>
-                                                    <p>Quantity: <%= item.quantity%></p>
-                                                    <hr>
-                                                    <br>
-                                                <% }) %>
-                                                </td>
-                                            </tr>  -->
+                                            
                                         </tbody>
                                         
 
@@ -206,29 +200,28 @@
                                     </table>
                                     <br>
                                     <br>
-                                </div>
-                                    <form class="" action="/facilities/viewBillOfMaterials" method="post">
-                                    <input type="hidden" name="servicing_bill" class="form-control" id="servicing_bill" value="<%=materials.id%>" required>
                                     
-                                    <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
-
-                                    <input  name="advance_payment" class="form-control" id="advance_payment" value="<%=payment%>" required>
-
+                                        <input type="hidden" name="servicing_bill" class="form-control" id="servicing_bill" value="<%=materials.id%>" required>
+                                        
+                                        <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
+    
+                                        <input type="hidden"  name="advance_payment" class="form-control" id="advance_payment" required>
+    
+                                        
+    
+                                        
+                                        
                                     
-
-                                    
-                                    
-                                
-                            <%if (materials.servicing_status == 'You have not create the serving status for this request!') { %>
-                                <%if ((materials.auditor_advance_approval == 'APPROVED' && materials.finance_advance_approval == 'APPROVED') || (materials.auditor_balance_approval == 'APPROVED' && materials.finance_balance_approval == 'APPROVED')) { %>
-                                <button class="btn-lg btn-danger" type="submit"><%= materials.servicing_status%>, CLICK to Create Servicing Status</button>
+                                <%if (materials.servicing_status == 'You have not create the serving status for this request!') { %>
+                                    <%if ((materials.auditor_advance_approval == 'APPROVED' && materials.finance_advance_approval == 'APPROVED') || (materials.auditor_balance_approval == 'APPROVED' && materials.finance_balance_approval == 'APPROVED')) { %>
+                                    <button class="btn-lg btn-danger" type="submit"><%= materials.servicing_status%>, CLICK to Create Servicing Status</button>
+                                    <% } else{ %> 
+    
+                                        <% } %>
                                 <% } else{ %> 
-
+                                    <a class="badge badge-primary">Servicing Status Created</a>
                                     <% } %>
-                            <% } else{ %> 
-                                <a class="badge badge-primary">Servicing Status Created</a>
-                                <% } %>
-                            </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -264,10 +257,95 @@
     <script src="../../../assets/js/dashboard.js"></script>
     <script src="../../../assets/js/data-table.js"></script>
     <!-- end custom js for this page -->
+
+    
+
     <script>
-        var payment= document.getElementById('advance_payment').value;
-        console.log('see you', payment)
-    </script>
+        $(document).ready(function () {
+            $("#one").hide();
+              $("#two").hide();
+              $("#three").hide();
+              $("#four").hide();
+              $("#five").hide();
+              $("#six").hide();
+
+              var myMaterial = '<%- myMaterials %>';
+       myMaterial = JSON.parse(myMaterial);
+        document.getElementById('payment').innerHTML = myMaterial.advance_payment
+        console.log('see it', document.getElementById('payment').value);
+         document.getElementById('advance_payment').value = myMaterial.advance_payment
+         console.log('heyyyy', document.getElementById('advance_payment').value)
+         
+              
+        if ((myMaterial.advance_payment == 'yes' && myMaterial.advance_payment_invoice == 'No file uploaded' ) || (myMaterial.advance_payment == 'yes' && myMaterial.auditor_advance_approval == 'PENDING' && myMaterial.finance_advance_approval == 'PENDING' ) || (myMaterial.advance_payment == 'yes' && myMaterial.finance_advance_approval == 'DENIED' && myMaterial.auditor_advance_approval == 'DENIED' ) || (myMaterial.advance_payment == 'yes' && myMaterial.finance_advance_approval == 'PENDING' && myMaterial.auditor_advance_approval == 'APPROVED' ) || (myMaterial.advance_payment == 'yes' && myMaterial.finance_advance_approval == 'PENDING' && myMaterial.auditor_advance_approval == 'DENIED' )){
+            
+            $("#one").show();
+
+            } else if ((myMaterial.advance_payment == 'no' && myMaterial.balance_payment_invoice == 'No file uploaded') || (myMaterial.advance_payment == 'no' && myMaterial.auditor_balance_approval == 'PENDING' && myMaterial.finance_balance_approval == 'PENDING' ) || (myMaterial.advance_payment == 'no' && myMaterial.finance_balance_approval == 'DENIED' && myMaterial.auditor_balance_approval == 'DENIED' ) || (myMaterial.advance_payment == 'no' && myMaterial.finance_balance_approval == 'PENDING' && myMaterial.auditor_balance_approval == 'APPROVED' ) || (myMaterial.advance_payment == 'no' && myMaterial.finance_balance_approval == 'PENDING' && myMaterial.auditor_balance_approval == 'DENIED' )){
+                $("#two").show();
+        } else{
+            $("#three").show();
+        };
+
+        if(myMaterial.advance_payment ='no'){
+            $("#four").show();
+        }else {
+            $("#five").show();
+            $("#six").show();
+        };
+          
+        });
+         
+        // this did not work because the google API was at the bottom
+        
+      </script>
+
+      <script>
+
+        function changeFun() {
+          console.log("starting")
+          var ID = $('#quotation').val();
+                  console.log(ID)
+
+          var getJSON = function (url) {
+return $.ajax({
+url: url,
+type: 'GET',
+headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
+contentType: 'application/json'
+});
+};
+
+          getJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation_approved_tech/${ID}`).done(function(data, status){
+            console.log("here",data),
+            
+            console.log("here")
+            console.log("here",data)
+            console.log(status)
+            if (status == "success") {
+              console.log('data', data)
+              var html = "<option selected> --- </option>"
+              for (var i = 0; i < data.length; i++) {
+                html += "<option value = '" + data[i].technician + "'> " + data[i].technician_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
+              }
+              
+
+              //display the thing
+              $("#servicing_company").html(html);
+              $("#divservicing_company").show();
+
+            } else {
+              alert("try again or contact the admin.")
+            }
+          
+  
+          }).fail(function(){
+
+          })
+          
+}
+
+</script>
 </body>
 
 </html>

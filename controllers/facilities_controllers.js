@@ -537,10 +537,10 @@ class Facilities {
             console.log("resbody", resbody)
             if (result.statusCode == '200') {
                 if(resbody.auditor_balance_approval == 'APPROVED') {
-                    req.flash('success_msg', 'You have successfully approved balance invioce, awaiting finance')
+                    req.flash('success_msg', 'You have successfully approved invoice, awaiting finance')
                     res.redirect('/facilities/billOfMaterialListAuditor');
                 } else {
-                    req.flash('success_msg', 'You have successfully rejected balance invoice')
+                    req.flash('success_msg', 'You have successfully rejected invoice')
                     res.redirect('/facilities/billOfMaterialListAuditor');
                 }
             } else {
@@ -777,7 +777,8 @@ class Facilities {
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/dashboard')
-            }
+            }alert('Pls approve a gen company')
+            event.preventDefault();
         }catch(err) {
             if (err) console.error('Error', err);
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
@@ -3760,18 +3761,10 @@ static async viewGenServicing_diverAdmin (req, res) {
 
             
         var query 
-        if (req.body.bill_type == 'single') {
-            var bill_set = []
-    
-    
-            bill_set = [
-                {
-                    vehicle_part: Number(req.body.vehicle_part),
-                    quantity: Number(req.body.quantity)
-                }
-            ]
+        if (req.body.advance_payment == 'yes') {
+            
              query = {
-                bill_set: bill_set,
+                bill_set: JSON.parse(req.body.random),
                 created_by: req.body.created_by,
                 vehicle: Number(req.body.vehicle),
                 technician: Number(req.body.technician),
@@ -3789,8 +3782,7 @@ static async viewGenServicing_diverAdmin (req, res) {
                 vehicle: Number(req.body.vehicle),
                 technician: Number(req.body.technician),
                 technician_workmanship: Number(req.body.technician_workmanship),
-                advance_payment: req.body.advance_payment,
-                advance_percentage: Number(req.body.advance_percentage),
+                advance_payment: req.body.advance_payment,                
                 servicing_date: req.body.servicing_date
             }
         }
@@ -3858,14 +3850,19 @@ static async viewGenServicing_diverAdmin (req, res) {
         try {
 
             const {result, resbody} = await viewBillOfMaterials(token, id);
-            const materials = resbody
-            console.log('materials', materials)
+            let materials = resbody
+            const payment = materials.advance_payment 
+            console.log('payment', payment)
+            let myMaterials = JSON.stringify(materials);
+            console.log('see', myMaterials)
+            materials = materials;
             if (result.statusCode == 200) {
-                res.render('viewBillOfMaterial', {userDetails, materials});
-            } else if (result.statusCode == 401){
-                req.flash('error_msg', resbody.detail);
-                res.redirect('/dashboard')
-            }
+                res.render('singleBillOfMaterial', {userDetails, materials, myMaterials, payment});
+            } 
+            // else if (result.statusCode == 401){
+            //     req.flash('error_msg', resbody.detail);
+            //     res.redirect('/dashboard'), 
+            // }
         }catch(err) {
             if (err) console.error('Error', err);
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
