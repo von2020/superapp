@@ -275,7 +275,7 @@ contentType: 'application/json'
 });
 };
 
-          getJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation_approved_tech/${ID}`).done(function(data, status){
+          getJSON(`/api/ajax/recommendCarTechRequest?id=${ID}`).done(function(data, status){
             console.log("here",data),
             
             console.log("here")

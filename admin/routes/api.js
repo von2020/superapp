@@ -5,6 +5,7 @@ const {
     getRole,
     quotation_driverAdmin,
     uploadServiceBalanceInvoice, 
+    uploadRepairBalanceInvoice,
     uploadBillOfMaterialInvoice,
     uploadPhcnBill, 
     uploadPurchaseOrder, 
@@ -27,6 +28,7 @@ const {
     admin_generator_repair_report,
     dashboard_vehicle_repair_report,
     genServiceRequest,
+    recommendCarTechRequest,
     gen_servicingCompany,
     updateGenServiceStatusSignOff,
     dashboard_vehicle } = require('../queries/manage');
@@ -121,6 +123,24 @@ router.post('/upload/balance_invoice', async (req, res)=> {
         return;
     }
 })
+
+router.post('/upload/car_repair_invoice', async (req, res)=> {
+    let data = req.body;
+    let id = req.query.id;
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await uploadRepairBalanceInvoice(data,id,token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+
 
 router.post('/upload/bill_of_material_invoice', async (req, res)=> {
     let data = req.body;
@@ -265,6 +285,21 @@ router.get('/ajax/dashboard_total_reports', async (req, res)=> {
     const token = userDetails.token;
     try {
         const subs = await dashboard_total_reports(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/recommendCarTechRequest', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    let id = req.query.id;
+    const token = userDetails.token;
+    try {
+        const subs = await recommendCarTechRequest(token, id);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)

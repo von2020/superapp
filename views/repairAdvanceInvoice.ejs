@@ -250,7 +250,7 @@ contentType: 'application/json'
 });
 };
 
-putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/queue_repair/${ID}/upload`).done(function(data, status){
+putJSON(`/api/upload/car_repair_invoice?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")

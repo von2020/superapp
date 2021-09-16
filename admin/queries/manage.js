@@ -192,6 +192,17 @@ class admin_manage_queries {
         }
     };
 
+    static async recommendCarTechRequest(token, id) {
+        const url = `vehicle/recommend_quotation_approved_tech/${id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async recommendServiceCompany(token, id) {
         const url = `generator/recommended_servicing_companies/${id}`;
         try {
@@ -559,6 +570,18 @@ class admin_manage_queries {
     };
     static async uploadServiceBalanceInvoice(body,id, token) {
         const url = `vehicle/servicing_queue/${id}/upload`;
+
+        try {
+            const { result, resbody } = await putResponse(body,url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async uploadRepairBalanceInvoice(body,id, token) {
+        const url = `vehicle/queue_repair/${id}/upload`;
 
         try {
             const { result, resbody } = await putResponse(body,url, token)

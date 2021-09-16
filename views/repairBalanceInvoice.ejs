@@ -69,7 +69,11 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div>
-                                        <h6 class="card-title d-block">Balance Invoice</h6>
+                                        <%if (queues.advance_percentage != 'None%') { %>
+                                        <h6 class="card-title d-block"><%= queues.payment_type%> Invoice</h6>
+                                        <% } else{ %>
+                                            <h6 class="card-title d-block">Full Payment Invoice</h6>
+                                            <% } %>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -115,7 +119,7 @@
                                             
 
                                             <tr>
-                                                <th> Balance Invoice </th>
+                                                <th>  Invoice </th>
                                                 <td><%if (queues.balance_invoice == null) { %>
                                                     <p><span> <a class="text-primary">Not Yet Uploaded</a></span></p>
                                                     <% } else{ %>
@@ -249,14 +253,14 @@ var file = document.getElementById('balance_invoice').files[0];
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
-type: 'PUT',
+type: 'POST',
 data:JSON.stringify({"balance_invoice"  : reader.result}),
 headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
 contentType: 'application/json'
 });
 };
 
-putJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/queue_repair/${ID}/upload`).done(function(data, status){
+putJSON(`/api/upload/car_repair_invoice?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")

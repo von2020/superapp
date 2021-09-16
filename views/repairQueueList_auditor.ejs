@@ -108,11 +108,17 @@
                           <td><%= vehicle.payment_type%></td>
                           <td><%= vehicle.technician_charged_amount%></td>
 
-                          <%if (vehicle.auditor_advance_approval == 'PENDING') { %>
-                            <td><a class="badge badge-info"><%= vehicle.auditor_advance_approval%></a></td>
+                          <%if (vehicle.payment_type == 'advance') { %>
+                            <%if (vehicle.auditor_advance_approval == 'PENDING') { %>
+                            <td><a class="badge badge-danger"><%= vehicle.auditor_advance_approval%></a></td>
                             <% } else{ %>
                               <td><a class="badge badge-primary"><%= vehicle.auditor_advance_approval%></a></td>
                             <% } %>
+                          <% } else{ %>
+                              <td><a class="badge badge-primary">Full Payment</a></td>
+                          <% } %>
+
+                          
                             <%if ( vehicle.auditor_balance_approval == 'PENDING') { %>
                               <td><a class="badge badge-info"><%= vehicle.auditor_balance_approval%></a></td>
                               <% } else{ %>
@@ -121,10 +127,16 @@
                             
                           
                           <%if (vehicle.payment_type == 'advance' && vehicle.auditor_advance_approval != 'APPROVED' ) { %>
-                          <td> <a href="/facilities/viewRepairQueue_auditor?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                          <td> <a href="/facilities/viewRepairQueue_auditor?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > advance </td>
+                            <% } else if (vehicle.payment_type == 'balance' && vehicle.auditor_balance_approval != 'APPROVED'){ %>
+                              <td> <a href="/facilities/viewRepairQueueBalance_auditor?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >full payment</a></td>
+                          <% } else if (vehicle.payment_type == 'advance' && vehicle.auditor_auditor_approval == 'APPROVED'){ %>
+                              <td> <a href="/facilities/viewRepairQueueBalance_auditor?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >balance</a></td>
                           <% } else{ %>
-                          <td> <a href="/facilities/viewRepairQueueBalance_auditor?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
+                                <td><a class="badge badge-primary">Completed</a></td>
+                              
                           <% } %>
+                          
                         </tr>
                         <% })%>
                     </tbody>

@@ -99,7 +99,7 @@
                                                 <td id="two"><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Full Payment</a> </td>
                                                     
                                                 <td id="three"><a href="/facilities/viewServicingInvoice?id=<%=materials.id%>" id='<%=materials.id%>' class="btn btn-sm btn-success rounded-pill" >Balance</a> </td>
-                                                    
+                                                <td id="seven"><a class="badge badge-primary" >Completed</a> </td>
                                             </tr>
 
                                             
@@ -214,7 +214,7 @@
                                     
                                 <%if (materials.servicing_status == 'You have not create the serving status for this request!') { %>
                                     <%if ((materials.auditor_advance_approval == 'APPROVED' && materials.finance_advance_approval == 'APPROVED') || (materials.auditor_balance_approval == 'APPROVED' && materials.finance_balance_approval == 'APPROVED')) { %>
-                                    <button class="btn-lg btn-danger" type="submit"><%= materials.servicing_status%>, CLICK to Create Servicing Status</button>
+                                    <button class="btn-lg btn-danger" type="submit"> CLICK to Create Servicing Status</button>
                                     <% } else{ %> 
     
                                         <% } %>
@@ -268,6 +268,7 @@
               $("#four").hide();
               $("#five").hide();
               $("#six").hide();
+              $("#seven").hide();
 
               var myMaterial = '<%- myMaterials %>';
        myMaterial = JSON.parse(myMaterial);
@@ -283,8 +284,10 @@
 
             } else if ((myMaterial.advance_payment == 'no' && myMaterial.balance_payment_invoice == 'No file uploaded') || (myMaterial.advance_payment == 'no' && myMaterial.auditor_balance_approval == 'PENDING' && myMaterial.finance_balance_approval == 'PENDING' ) || (myMaterial.advance_payment == 'no' && myMaterial.finance_balance_approval == 'DENIED' && myMaterial.auditor_balance_approval == 'DENIED' ) || (myMaterial.advance_payment == 'no' && myMaterial.finance_balance_approval == 'PENDING' && myMaterial.auditor_balance_approval == 'APPROVED' ) || (myMaterial.advance_payment == 'no' && myMaterial.finance_balance_approval == 'PENDING' && myMaterial.auditor_balance_approval == 'DENIED' )){
                 $("#two").show();
-        } else{
+        } else if ((myMaterial.advance_payment == 'yes' && myMaterial.advance_payment_invoice != 'No file uploaded' ) || (myMaterial.advance_payment == 'yes' && myMaterial.finance_advance_approval == 'APPROVED' && myMaterial.auditor_advance_approval == 'APPROVED' )){
             $("#three").show();
+        }else{
+            $("#seven").show();
         };
 
         if(myMaterial.advance_payment ='no'){
@@ -302,48 +305,7 @@
 
       <script>
 
-        function changeFun() {
-          console.log("starting")
-          var ID = $('#quotation').val();
-                  console.log(ID)
-
-          var getJSON = function (url) {
-return $.ajax({
-url: url,
-type: 'GET',
-headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
-contentType: 'application/json'
-});
-};
-
-          getJSON(`https://telnetsupperapp.com.ng:8443/api/v1/vehicle/recommend_quotation_approved_tech/${ID}`).done(function(data, status){
-            console.log("here",data),
-            
-            console.log("here")
-            console.log("here",data)
-            console.log(status)
-            if (status == "success") {
-              console.log('data', data)
-              var html = "<option selected> --- </option>"
-              for (var i = 0; i < data.length; i++) {
-                html += "<option value = '" + data[i].technician + "'> " + data[i].technician_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
-              }
-              
-
-              //display the thing
-              $("#servicing_company").html(html);
-              $("#divservicing_company").show();
-
-            } else {
-              alert("try again or contact the admin.")
-            }
-          
-  
-          }).fail(function(){
-
-          })
-          
-}
+        
 
 </script>
 </body>

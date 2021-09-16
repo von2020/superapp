@@ -151,7 +151,7 @@
 
                                                 <tr>
                                                     <th>Repair Date</th>
-                                                    <td> <input name="repair_date" type="date" value="2021-01-01" class="form-control" id="repair_date" required> </td>
+                                                    <td> <input name="repair_date" type="date" class="form-control" id="repair_date" required> </td>
                                                 </tr>
 
                                                 <tr id="divbalance_amount">
@@ -213,13 +213,14 @@
     </div>
 
     <script>
+        document.getElementById("repair_date").valueAsDate = new Date()
         function changeFun2() {
 			var selectBox = document.getElementById("payment_type").value;
             console.log('selectBox', selectBox);
 			// var selectedValue = selectBox.options[selectBox.selectedIndex].value;
             var advance_percentage = document.getElementById('advance_percentage').value;
             console.log('advance_percentage', advance_percentage)
-				if (selectBox == 'balance' && advance_percentage == null) {
+				if (selectBox == 'balance' && advance_percentage == '') {
 					$("#balance_amount").show();
 						
 				} else  {

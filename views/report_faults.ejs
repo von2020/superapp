@@ -97,20 +97,21 @@
 
 									<div class="form-group">
 										<!-- <label for="exampleFormControlSelect1">vehicle id</label> -->
-										<input name="vehicle_id" value="<%= details.vehicle_id %>" class="form-control" id="purpose" hidden>
+										<input name="vehicle_id" value="<%= details.vehicle_id %>" class="form-control" id="vehicle_id" hidden>
 									</div>
 
                                     <div class="form-group">
 										<!-- <label for="exampleFormControlSelect1">driver id</label> -->
-										<input name="driver_id" value="<%= details.driver_id %>" class="form-control" id="purpose" hidden>
+										<input name="driver_id" value="<%= details.driver_id %>" class="form-control" id="driver_id" hidden>
 									</div>
 
                                     
 
                                     <div class="form-group">
 										<label for="exampleFormControlSelect1">Date</label>
-										<input name="fault_date" type="date" value="2020-01-01" class="form-control" id="purpose" required>
+										<input name="fault_date" type="date"  class="form-control" id="fault_date" required>
 									</div>
+									<hr>
 
                                     <div class="form-group">
 										<label for="exampleFormControlSelect1">Faulty Part</label>
@@ -152,6 +153,7 @@
 			</div>
 
 			<script>
+				document.getElementById("fault_date").valueAsDate = new Date()
 				$(document).ready(function removeButton() {
 					$("#addMore").hide()
 					$("#random").hide()
