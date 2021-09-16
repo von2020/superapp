@@ -127,12 +127,12 @@
                               <% } %>
 
                               <%if (vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED' && vehicle.auditor_advance_approval == 'APPROVED' ) { %>
-                                <td> <a href="/facilities/viewBillOfMaterialFinance_advance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >advance</a></td>
+                                <td> <a href="/facilities/viewRepairQueue_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >advance</a></td>
                               <% } else if(vehicle.payment_type == 'balance' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval == 'APPROVED'){ %>
-                                  <td> <a href="/facilities/viewBillOfMaterialFinance_balance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >full payment</a></td>
-                              <% } else if(vehicle.payment_type == 'advance' && vehicle.finance_advance_approval == 'APPROVED' && vehicle.auditor_advance_approval == 'APPROVED'){ %>
-                                  <td> <a href="/facilities/viewBillOfMaterialFinance_balance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >balance</a></td>
-                              <% } else if(vehicle.payment_type == 'balance' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval != 'APPROVED'){ %>
+                                  <td> <a href="/facilities/viewRepairQueueBalance_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >full payment</a></td>
+                              <% } else if(vehicle.payment_type == 'advance' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval == 'APPROVED'){ %>
+                                  <td> <a href="/facilities/viewRepairQueueBalance_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >balance</a></td>
+                              <% } else if(vehicle.payment_type == 'advance' && vehicle.finance_balance_approval != 'APPROVED' && vehicle.auditor_balance_approval != 'APPROVED'){ %>
                                   <td> <a class="badge badge-primary">Awaiting Auditor Approval</a></td>
                               <% } else if(vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED' && vehicle.auditor_advance_approval != 'APPROVED' ){ %>
                                   <td> <a class="badge badge-primary">Awaiting Auditor Approval</a></td>
@@ -143,11 +143,7 @@
                               <% } %>
 
                           
-                          <%if (vehicle.payment_type == 'advance' && vehicle.finance_advance_approval != 'APPROVED' ) { %>
-                          <td> <a href="/facilities/viewRepairQueue_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
-                          <% } else{ %>
-                          <td> <a href="/facilities/viewRepairQueueBalance_finance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
-                          <% } %>
+                          
                           <% } else{ %>
 
                           <% } %>
