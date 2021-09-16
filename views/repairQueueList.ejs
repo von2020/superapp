@@ -91,10 +91,7 @@
                         <th>Vehicle</th>
                         <th>Repair Date</th>
                         <th>Technician's Name</th>
-                        <th>Auditor Advance Approval</th>
-                        <th>Auditor Balance Approval</th>
-                        <th>Finance Advance Approval</th>
-                        <th>Finance Balance Approval</th>
+                        
                         <th>View</th>
                         
                       </tr>
@@ -106,26 +103,7 @@
                           <td><%= vehicle.vehicle_name%></td>
                           <td><%= vehicle.repair_date%></td>
                           <td><%= vehicle.approved_technician_name%></td>
-                          <%if ( vehicle.auditor_advance_approval == 'PENDING') { %>
-                            <td><a class="badge badge-info"><%= vehicle.auditor_advance_approval%></a></td>
-                            <% } else{ %>
-                            <td><a class="badge badge-primary"><%= vehicle.auditor_advance_approval%></a></td>
-                            <% } %>
-                            <%if ( vehicle.auditor_balance_approval == 'PENDING') { %>
-                            <td><a class="badge badge-info"><%= vehicle.auditor_balance_approval%></a></td>
-                            <% } else{ %>
-                            <td><a class="badge badge-primary"><%= vehicle.auditor_balance_approval%></a></td>
-                            <% } %>
-                            <%if ( vehicle.finance_advance_approval == 'PENDING') { %>
-                            <td><a class="badge badge-info"><%= vehicle.finance_advance_approval%></a></td>
-                            <% } else{ %>
-                            <td><a class="badge badge-primary"><%= vehicle.finance_advance_approval%></a></td>
-                            <% } %>
-                            <%if ( vehicle.finance_balance_approval == 'PENDING') { %>
-                            <td><a class="badge badge-info"><%= vehicle.finance_balance_approval%></a></td>
-                            <% } else{ %>
-                            <td><a class="badge badge-primary"><%= vehicle.finance_balance_approval%></a></td>
-                            <% } %>
+                         
                           
                           <td> <a href="/facilities/viewRepairQueue?id=<%=vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td>
                           
