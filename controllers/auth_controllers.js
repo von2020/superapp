@@ -17,6 +17,7 @@ const {
     uplinequery,
     carRequests,
     getTotals,
+    getTotalTrips,
     getStaffCount,
     staffDashboard,
     getDirectorCount,
@@ -362,7 +363,7 @@ class auth_controllers {
         const token = userDetails.token
 
         try{
-            const {result, resbody} = await getTotals(token);
+            const {result, resbody} = await getTotalTrips(token);
             const totals = resbody;
             req.session.totals = resbody;
             console.log("totals", totals)

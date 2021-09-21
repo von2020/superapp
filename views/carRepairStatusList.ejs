@@ -106,8 +106,13 @@
                           <td><%= item.created_on.slice(0,10)%></td>
                           <td><%= item.updated_on.slice(0,10)%></td>
                           
+                          <% if (item.admin_comment == '') { %>
+                            <td> <a href="/facilities/viewRepairStatus_driverAdmin?id=<%=item.id%>" id='<%= item.id%>' class="btn btn-sm btn-warning rounded-pill" type="submit" >Confirm</a></td>
+                            <% }  else { %>
+                              <td> <a href="/facilities/viewRepairStatus_driverAdmin?id=<%=item.id%>" id='<%= item.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >Completed</a></td>
+                              <% }%>
                           
-                          <td> <a href="/facilities/viewRepairStatus_driverAdmin?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" >View</a> </td>
+                          
                         </tr>
                         <% })%>
                     </tbody>

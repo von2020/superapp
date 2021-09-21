@@ -433,6 +433,7 @@ class Facilities {
 
             const {result, resbody} = await viewBillOfMaterials(token, id);
             const materials = resbody
+            
             console.log('materials', materials)
             if (result.statusCode == 200) {
                 res.render('viewAdvanceServiceQueue_auditor', {userDetails, materials});
@@ -2533,9 +2534,9 @@ class Facilities {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.company_name }`,'/facilities/add_technician')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.company_name }`,'/facilities/carTechnicianList')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.company_name}`,'/facilities/add_technician')
+                resMessageRedirect(res, req, 'error_msg', ` ${response}  ${query.company_name}`,'/facilities/carTechnicianList')
             }
         } catch(err){
             if (err) console.log('error', err)

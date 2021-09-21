@@ -98,6 +98,17 @@ class auth_queries {
         }
     };
 
+    static async getTotalTrips(token) {
+        const url = 'core/driver_dashboard_info';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async getStaffCount(token) {
         const url = 'core/user_count';
         try {

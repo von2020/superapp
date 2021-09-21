@@ -103,6 +103,7 @@
                       <% vehicles.forEach((vehicle) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
+                          <%if ((vehicle.auditor_advance_approval != 'DENIED') && (vehicle.auditor_balance_approval != 'DENIED')) { %>
                           <td><%= vehicle.vehicle_name%></td>
                           <td><%= vehicle.servicing_date%></td>
                           <%if (vehicle.advance_payment == 'yes') { %>
@@ -137,7 +138,9 @@
                           
                           
                           <!-- <td> <a href="/facilities/viewservicingQueueAuditor_advance?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </td> -->
-                          
+                            <% } else{ %>
+
+                              <% } %>
                         </tr>
                         <% })%>
                     </tbody>

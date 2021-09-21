@@ -124,7 +124,31 @@
                                                 <td> <%= queues.updated_on.slice(0,10)%> </td>
                                             </tr>
                                             
+                                            <tr>
+                                                <th> Vehicle Condition </th>
+                                                
+                                                <td>
+                                                    <select class="form-control" id="vehicle_condition" name="vehicle_condition" >
+                                                        <option selected disabled>------</option>
+                                                        <option>perfect</option>
+                                                        <option>adjust</option>
+                                                        <option>bad</option>
+                                                    </td>
+                                            </tr>
 
+                                            <tr>
+                                                <th> Condition Comment </th>
+                                                <td><textarea name="condition_comment" class="form-control" id="condition_comment" required></textarea></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Technician Revisit</th>
+                                                <td><select class="form-control" id="technician_revisit" name="technician_revisit" >
+                                                    <option selected disabled>------</option>
+                                                    <option value="true">Yes</option>
+                                                    <option value="false">No</option>
+                                                    </td>
+                                            </tr>
                                             
 
                                             
@@ -145,7 +169,7 @@
                                     
                                 </div>
                                 <br>
-                                
+                                <button class="btn-lg btn-primary" type="submit">Save</button>
                                 
                             </form>
                             </div>

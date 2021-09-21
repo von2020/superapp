@@ -283,7 +283,7 @@ contentType: 'application/json'
             console.log(status)
             if (status == "success") {
               console.log('data', data)
-              var html = "<option selected> --- </option>"
+              var html = "<option selected disabled> --- </option>"
               for (var i = 0; i < data.length; i++) {
                 html += "<option value = '" + data[i].technician + "'> " + data[i].technician_name + "  </option>" // for some reason this thing does not work when i made it with the select being added here, it could be that you didn't call it properly
               }
