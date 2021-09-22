@@ -117,11 +117,11 @@
                                             </tr>
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <%= queues.created_on%> </td>
+                                                <td> <%= queues.created_on.slice(0,10)%> </td>
                                             </tr>
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= queues.updated_on%> </td>
+                                                <td> <%= queues.updated_on.slice(0,10)%> </td>
                                             </tr>
                                             <tr>
                                                 <th> Vehicle Condition </th>
@@ -140,14 +140,14 @@
                                                 <td><textarea name="condition_comment" class="form-control" id="condition_comment" required></textarea></td>
                                             </tr>
 
-                                            <tr>
+                                            <!-- <tr>
                                                 <th>Technician Revisit</th>
                                                 <td><select class="form-control" id="technician_revisit" name="technician_revisit" >
                                                     <option selected disabled>------</option>
                                                     <option value="true">Yes</option>
                                                     <option value="false">No</option>
                                                     </td>
-                                            </tr>
+                                            </tr> -->
 
                                             <tr>
                                                 <th> Driver's Name </th>

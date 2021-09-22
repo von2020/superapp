@@ -78,7 +78,7 @@
                                         <tbody>
                                             <tr>
                                                 <th> Desription </th>
-                                                <td> <input name="description" class="form-control" id="description"  required> </td>
+                                                <td> <textarea name="description" class="form-control" id="description"  required> </textarea></td>
                                             </tr>
 
                                                                                         
@@ -215,6 +215,7 @@
     <!-- end custom js for this page -->
 
     <script>
+        document.getElementById("expiration").valueAsDate = new Date()
         let data;
         function convert(){
             // alert('abeg');

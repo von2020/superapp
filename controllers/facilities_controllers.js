@@ -1786,7 +1786,6 @@ class Facilities {
             queue_repair: req.body.id,
             vehicle_condition: req.body.vehicle_condition,
             condition_comment: req.body.condition_comment,
-            technician_revisit: req.body.technician_revisit,
             driver_name: req.body.driver_name,
             
             
@@ -1861,7 +1860,42 @@ class Facilities {
     };
 
 
-    
+    static async updateViewRepairStatus_driverAdmin (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id;
+        
+
+        const query = {
+            queue_repair: req.body.id,
+            condition_comment: req.body.condition_comment,
+            admin_comment: req.body.admin_comment,
+            technician_revisit: req.body.technician_revisit,
+            admin_check_name: req.body.admin_check_name,
+            
+            
+        }
+
+        console.log('query', query)
+        console.log('id', id)
+        console.log('token', token)
+        try{
+            const {result, resbody} = await updateRepairStatus_driver(query, token, id);
+            console.log("resbody", resbody)
+            if (result.statusCode == '200') {
+                
+                    req.flash('success_msg', 'You have successfully updated Vehicle Repairing Status')
+                    res.redirect('/facilities/carRepairStatusList_driverAdmin');
+                
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${resbody.queue_repair} `,'/facilities/carRepairStatusList_driverAdmin')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+    }
 
     static async dieselVendor (req, res) {
         const userDetails = req.session.userDetails;

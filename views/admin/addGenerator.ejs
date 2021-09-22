@@ -91,7 +91,7 @@
 										<div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Installation Date</label>
-                                                <input name="installation_date" type="date" value="2020-01-01" class="form-control" id="installation_date" required> 
+                                                <input name="installation_date" type="date" class="form-control" id="installation_date" required> 
                                             </div>
                                         </div>
                                         
@@ -99,7 +99,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Next Servicing Date</label>
-                                                <input name="next_servicing" type="date" value="2020-01-01" class="form-control" id="next_servicing" required> 
+                                                <input name="next_servicing" type="date" class="form-control" id="next_servicing" required> 
                                             </div>
                                         </div>
                                     </div>
@@ -132,6 +132,10 @@
 	
 		</div>
 	</div>
+    <script>
+        document.getElementById("installation_date").valueAsDate = new Date()
+        document.getElementById("next_servicing").valueAsDate = new Date()
+    </script>
 
 	<!-- core:js -->
 	<script src="../../../assets/vendors/core/core.js"></script>

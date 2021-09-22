@@ -3,6 +3,7 @@ const {
     viewDept,
     viewUpline,
     getRole,
+    getSubs,
     quotation_driverAdmin,
     uploadServiceBalanceInvoice, 
     uploadRepairBalanceInvoice,
@@ -285,6 +286,20 @@ router.get('/ajax/dashboard_total_reports', async (req, res)=> {
     const token = userDetails.token;
     try {
         const subs = await dashboard_total_reports(token);
+        res.json( subs.resbody);
+    } catch (err) {
+        if (err) console.log('error', err)
+        
+        res.status(503).json(err);
+        return;
+    }
+})
+
+router.get('/ajax/subsidiaries', async (req, res)=> {
+    const userDetails = req.session.userDetails;
+    const token = userDetails.token;
+    try {
+        const subs = await getSubs(token);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)

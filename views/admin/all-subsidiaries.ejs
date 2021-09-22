@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 <body>
 	<div class="main-wrapper">
@@ -108,7 +109,7 @@
                         <th>All Subsidiaries</th>
                         <th>Subsidiary Short Name</th>
                         <th>View Subsidiary</th>
-                        <th>Edit Subsidiary</th>
+                        <!-- <th>Edit Subsidiary</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -117,12 +118,13 @@
                         <tr>
                           <td><%= item.name%></td>
                           <td><%= item.short_name%></td>
-                          <td><a href="/admin/manage/view-subsidiary?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View Subsidiary</a></td>
-                          <td><a href="/admin/manage/edit-subsidiary?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Edit Subsidiary</a></td>
+                          <td><a href="/admin/manage/view-subsidiary?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View </a></td>
+                          <!-- <td><a href="/admin/manage/edit-subsidiary?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Edit Subsidiary</a></td> -->
                         <% })%>
                     </tbody>
                   </table>
                 </div>
+                <div style="float:right; font-size: 2rem; color:grey;"><a href="/admin/manage/add-subsidiary"><i class="fa fa-plus fa-10x" aria-hidden="true"></a></i></div>
               </div>
             </div>
 					</div>

@@ -56,7 +56,17 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Subsidiary Name</label>
-                                                <input name= "subsidiary_name" class="form-control" id="last_name" value="<%= depts[0].subsidiary_name %>" required>
+                                                <!-- <input name= "subsidiary_name" class="form-control" id="last_name" value="<%= depts[0].subsidiary_name %>" required> -->
+												<select class="form-control" id="subsidiary_name" name="subsidiary_name" >
+													<option selected disabled> --- </option>
+													<% 
+                                                      sub.forEach((sub, i) => { 
+                                                    %>
+                            							<option value=<%= sub.id %>> <%= sub.name %> </option>
+                            						<% 
+                                                      }) 
+                                                    %>
+												  </select>
                                             </div>
                                         </div>
 									  </div>
@@ -65,13 +75,13 @@
 										<div class="col">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Department Short Name</label>
-                                                <input name= "short_name" class="form-control" id="email"  value="<%= depts[0].short_name %>" required>
+                                                <input name= "short_name" class="form-control" id="short_name"  value="<%= depts[0].short_name %>" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Department ID</label>
-                                                <input name= "id" class="form-control" id="email"  value="<%= depts[0].id %>" readonly>
+                                                <label for="exampleFormControlSelect1"></label>
+                                                <input type="hidden" name= "id" class="form-control" id="id"  value="<%= depts[0].id %>" readonly>
                                             </div>
                                         </div>
                                     </div>

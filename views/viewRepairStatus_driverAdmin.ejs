@@ -80,7 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form class="" action="/facilities/viewRepairStatus_driver" method="post">
+                                <form class="" action="/facilities/viewRepairStatus_driverAdmin" method="post">
                                 <div class="table-responsive">
                                     <table class="table">
 
@@ -140,6 +140,10 @@
                                                 <th> Condition Comment </th>
                                                 <td><textarea name="condition_comment" class="form-control" id="condition_comment" required></textarea></td>
                                             </tr>
+                                            <tr>
+                                                <th> Admin Comment </th>
+                                                <td><textarea name="admin_comment" class="form-control" id="admin_comment" required></textarea></td>
+                                            </tr>
 
                                             <tr>
                                                 <th>Technician Revisit</th>
@@ -163,7 +167,7 @@
                                     <br>
                                     
                                     <input type="hidden" name="id" class="form-control" id="id" value="<%=queues.id%>" required>
-                                    
+                                    <input type="hidden" name="admin_check_name" class="form-control" id="admin_check_name" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" readonly> 
 
                                     
                                     

@@ -120,6 +120,7 @@ const {
     handleServiceStatus,
     repairStatus,
     handleRepairStatus,
+    updateViewRepairStatus_driverAdmin,
     carRepairStatusList_driver,
     carRepairStatusList_driverAdmin,
     viewRepairStatus_driverAdmin,
@@ -352,6 +353,7 @@ router.get('/carRepairStatusList_driver', [checkSession, carDriverAuthorize], ca
 router.get('/carRepairStatusList_driverAdmin', [checkSession, driverAuthorize], carRepairStatusList_driverAdmin),
 
 router.get('/viewRepairStatus_driverAdmin', [checkSession, driverAuthorize], viewRepairStatus_driverAdmin),
+router.post('/viewRepairStatus_driverAdmin', [checkSession, driverAuthorize], updateViewRepairStatus_driverAdmin),
 
 router.get('/viewRepairStatus_driver', [checkSession, carDriverAuthorize], viewRepairStatus_driver),
 router.post('/viewRepairStatus_driver', [checkSession, carDriverAuthorize], updateViewRepairStatus_driver),

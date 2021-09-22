@@ -177,7 +177,7 @@ router.get('/dieselUsageList', [adminCheckSession, superAdminAuthorize], dieselU
 router.get('/addGenerator', [adminCheckSession, superAdminAuthorize], addGenerator),
 router.post('/addGenerator', [adminCheckSession, superAdminAuthorize], handleAddGenerator),
 
-router.get('/generatorList', [adminCheckSession, superAdminAuthorize], generatorList),
+router.get('/all_generators', [adminCheckSession, superAdminAuthorize], generatorList),
 
 router.get('/genDueServicingList', [adminCheckSession, superAdminAuthorize], genDueServicingList),
 

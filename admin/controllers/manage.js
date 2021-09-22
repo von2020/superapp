@@ -325,15 +325,17 @@ class admin_manage_controllers {
         try{
             
             const depts = await viewDept(id, token);
+            const subs = await getSubs(token);
 
             // var user = users.filter(function (user) {
             //     return user.id == user_id
             // });
             // user = user[0]
-            
+            const sub = subs.resbody
             console.log("depts", depts.resbody)
+            console.log("subs", sub)
             
-            res.render('admin/edit-department', {userDetails, depts: depts.resbody})
+            res.render('admin/edit-department', {userDetails, depts: depts.resbody, sub})
         } catch(err){
             if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
