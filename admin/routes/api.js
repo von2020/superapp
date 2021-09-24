@@ -4,6 +4,8 @@ const {
     viewUpline,
     getRole,
     getSubs,
+    updatePaidRepair,
+    updatePaidRepairInvoice,
     quotation_driverAdmin,
     uploadServiceBalanceInvoice, 
     uploadRepairBalanceInvoice,
@@ -250,11 +252,12 @@ router.post('/upload/request_quotation', async (req, res)=> {
 
 router.post('/upload/paid_repair', async (req, res)=> {
     let data = req.body;
+    
     let id = req.query.id;
     const userDetails = req.session.userDetails;
     const token = userDetails.token;
     try {
-        const subs = await paid_repair(data,token);
+        const subs = await updatePaidRepairInvoice(data,token,id);
         res.json( subs.resbody);
     } catch (err) {
         if (err) console.log('error', err)

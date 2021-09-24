@@ -93,8 +93,8 @@
                             <tr>
                               <th>Repair Name</th>
                               <th>Created By</th>
-                              <th>Auditor Approval</th>
-                              <th>Auditor Name</th>
+                              <!-- <th>Auditor Approval</th> -->
+                              <!-- <th>Auditor Name</th> -->
                               <th>Finance Approval</th>
                               <th>Finance Name</th>
                               
@@ -108,8 +108,8 @@
                                 <%if (paid.auditor_approval == 'APPROVED') { %>
                                 <td><%=paid.repair_name%></td>
                                 <td><%=paid.created_by%></td>
-                                <td><%= paid.auditor_approval%></td>
-                                <td><%= paid.auditor_name%></td>
+                                <!-- <td><%= paid.auditor_approval%></td> -->
+                                <!-- <td><%= paid.auditor_name%></td> -->
                                 <td><%= paid.finance_approval%></td>
                                 <td><%= paid.finance_name%></td>
                                 <% if (paid.finance_approval == 'PENDING') { %>

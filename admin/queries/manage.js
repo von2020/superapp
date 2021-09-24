@@ -1161,6 +1161,17 @@ class admin_manage_queries {
         }
     };
 
+    static async updatePaidRepairInvoice(query, token, id) {
+        const url = `generator/paid_repair/${id}/upload`;
+        try {
+            const { result, resbody } = await putResponse(query, url, token)
+            return { result, resbody };
+
+        } catch (err) {
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async genFaultList(token) {
         const url = 'generator/report_faults';
         try {

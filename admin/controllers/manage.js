@@ -40,6 +40,8 @@ const {
     updatePurchaseOrder,
     sendGenServicePayment,
     genServicePaymentList,
+    viewPaid_repair,
+    paid_repair,
     sendGenServiceStatus,
     genServiceStatusList,
     viewGenServiceStatus,
@@ -2755,7 +2757,8 @@ class admin_manage_controllers {
           
         };
 
-    static async genPaidRepair (req, res) {
+
+    static async createGenPaidPayment (req, res) {
         var userDetails = req.session.userDetails
         var token = userDetails.token
         var id = req.query.id
@@ -2766,6 +2769,64 @@ class admin_manage_controllers {
             const repair = req.query.id;            
             console.log('repair', req.query.id)
             console.log('repairs', repairs)
+            
+            if (result.statusCode == 200) {
+                res.render('admin/genRepairPayment', {userDetails, repairs,repair});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/admin/dashboard')
+            }
+        }catch(err) {
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        } 
+        };
+
+    static async handleGenPaidPayment (req, res) {
+        var userDetails = req.session.userDetails
+        const token = userDetails.token;
+        
+        const query = {
+            
+            repair: req.body.repair,
+            created_by: req.body.created_by,
+                      
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            
+            const {result, resbody} = await paid_repair(query, token);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a generator payment slip, now upload invoice`,`/admin/manage/gen_paidRepair?id=${response.id}`)
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/gen_repairList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
+                return;
+        }
+    };
+
+    static async genPaidRepair (req, res) {
+        var userDetails = req.session.userDetails
+        var token = userDetails.token
+        var id = req.query.id
+        
+        try{
+            const {result, resbody} = await viewPaid_repair(token, id);
+            
+            const repairs = resbody
+            const repair = repairs.id;            
+            console.log('repair', req.query.id)
+            console.log('repairs', repairs)
+            
             if (result.statusCode == 200) {
                 res.render('admin/paid_repair', {userDetails, repairs,repair});
             } else if (result.statusCode == 401){
@@ -2852,7 +2913,7 @@ class admin_manage_controllers {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a generator repair status`,'/admin/manage/gen_repairList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a generator repair status`,'/admin/manage/genRepairStatusList')
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/gen_repairList')
             }

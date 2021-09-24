@@ -93,9 +93,9 @@
                           
                           
                           <%if (repair.within_sla == false)  { %>
-                          <td><a href="/admin/manage/gen_paidRepair?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Paid Repair</a>   </td>
+                          <td><a href="/admin/manage/genRepairPayment?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Payment</a>   </td>
                           <% } else{ %> 
-                          <td><a href="/admin/manage/gen_repairStatus?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Repair Status</a>   </td>
+                          <td><a href="/admin/manage/gen_repairStatus?id=<%=repair.id%>" id='<%=repair.id%>' class="btn btn-sm btn-success rounded-pill" >Status</a>   </td>
                           <% } %>
                         </tr>
                         <% }) %>

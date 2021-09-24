@@ -64,11 +64,12 @@
                           <tr>
                             
                             <th>Repair Name</th>
+                            <th>Generator Condition</th>
                             <th>Status Comment</th>
                             <th>Created By</th>
                             <th>Created On</th>
-                            <th>Update</th>
-                            <th>View</th>
+                            
+                            <!-- <th>View</th> -->
                             
                             
                           </tr>
@@ -84,8 +85,8 @@
                               <td><%= item.generator_condition%></td>
                               <td><%= item.status_comment%></td>
                               <td><%= item.created_by%></td>
-                              <td><%= item.created_on%></td>
-                              <td><a href="/admin/manage/viewGenRepairStatus?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td>
+                              <td><%= item.created_on.slice(0,10)%></td>
+                              <!-- <td><a href="/admin/manage/viewGenRepairStatus?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View</a>   </td> -->
                                 
                               
                             </tr>

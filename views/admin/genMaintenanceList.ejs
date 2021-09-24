@@ -98,7 +98,7 @@
                           <td><%= item.cleaning_unit_exterior%></td>
                           <td><%= item.fuel_cleaning%></td>
                           <td><%= item.oil_change%></td>
-                          <td><%= item.created_on%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
                           
                         </tr>
                         <% })%>

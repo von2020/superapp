@@ -75,7 +75,7 @@
                         <th>Severity</th>
                         <th>Created By</th>
                         <th>Created On</th>
-                        <th>Status</th>
+                        <th>View</th>
                         
                       </tr>
                     </thead>
@@ -86,10 +86,10 @@
                           <td><%=paid_repair.repair_name%></td>
                           <td><%=paid_repair.severity%></td>
                           <td><%=paid_repair.created_by%></td>
-                          <td><%=paid_repair.created_on%></td>
+                          <td><%=paid_repair.created_on.slice(0,10)%></td>
                           
                           
-                          <td> <a href="/admin/manage/gen_repairStatus?id=<%= paid_repair.repair%>" id='<%= paid_repair.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Repair Status </td>
+                          <td> <a href="/admin/manage/gen_paidRepair?id=<%= paid_repair.repair%>" id='<%= paid_repair.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View</a> </td>
                           
                         </tr>
                         <% })%>

@@ -89,18 +89,29 @@
                                             </tr>
 
                                             <tr>
-                                                <th> Fault Name </th>
-                                                <td> <%= repairs.fault_name%> </td>
+                                                <th> Invoice </th>
+                                                <td> <a class="text-primary" href="<%= repairs.invoice%>">view</a> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Severity </th>
                                                 <td> <%= repairs.severity%> </td>
                                             </tr>
-
                                             <tr>
-                                                <th> Within SLA </th>
-                                                <td> <%= repairs.within_sla%> </td>
+                                                <th> Auditor Name </th>
+                                                <td> <%= repairs.auditor_name%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Auditor Approval </th>
+                                                <td> <%= repairs.auditor_approval%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Finance Name </th>
+                                                <td> <%= repairs.finance_name%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Finance Approval </th>
+                                                <td> <%= repairs.finance_approval%> </td>
                                             </tr>
 
                                             <tr>
@@ -112,8 +123,16 @@
                                                 <th> Created On </th>
                                                 <td> <%= repairs.created_on.slice(0,10)%> </td>
                                             </tr>
-
                                             
+                                                <%if (repairs.auditor_approval == 'APPROVED' && repairs.finance_approval == 'APPROVED') { %>
+                                            <tr>
+                                                <th> Create Status </th>
+                                                <td><a href="/admin/manage/gen_repairStatus?id=<%= repairs.repair%>" id='<%= repairs.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Repair Status </a></td>
+                                            </tr>
+                                            <% } else{ %> 
+    
+                                                <% } %>
+                                        
                                             
                                             
 
@@ -233,16 +252,18 @@ var file = document.getElementById('invoice').files[0];
                   console.log(repair)
                   var created_by= $('#created_by').val();
                   console.log(created_by)
+                  var ID= $('#repair').val();
+                  console.log(ID)
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
 type: 'POST',
-data:JSON.stringify({"invoice"  : reader.result, "repair": repair, "created_by": created_by}),
+data:JSON.stringify({"invoice"  : reader.result}),
 contentType: 'application/json'
 });
 };
 
-putJSON(`/api/upload/paid_repair`).done(function(data, status){
+putJSON(`/api/upload/paid_repair?id=${ID}`).done(function(data, status){
                       console.log("here",data),
                       
                       console.log("here")

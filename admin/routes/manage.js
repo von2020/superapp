@@ -101,6 +101,8 @@ const {
     handleGenSLA,
     genSLA_list,
     genSLA_file,
+    createGenPaidPayment,
+    handleGenPaidPayment,
     genRepairStatus,
     handleGenRepairStatus,
     genRepairStatusList,
@@ -220,6 +222,9 @@ router.get('/genFaultList', [adminCheckSession, superAdminAuthorize], genFaultLi
 
 router.get('/gen_repair', [adminCheckSession, superAdminAuthorize], gen_repairs),
 router.post('/gen_repair', [adminCheckSession, superAdminAuthorize], handleGen_repairs),
+
+router.get('/genRepairPayment', [adminCheckSession, superAdminAuthorize], createGenPaidPayment),
+router.post('/genRepairPayment', [adminCheckSession, superAdminAuthorize], handleGenPaidPayment),
 
 router.get('/gen_repairList', [adminCheckSession, superAdminAuthorize], gen_repairList),
 

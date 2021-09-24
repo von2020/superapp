@@ -78,22 +78,7 @@
                                         <tbody>
                                             
 
-                                            <tr>
-                                                <th> Generator Condition </th>
-                                                <td>
-                                                    <select class="form-control-lg" id="generator_condition" name="generator_condition" required>
-                                                        <option selected disabled>-----</option>
-                                                        <option value="perfect">Perfect</option>
-                                                        <option value="adjust">Adjust</option>
-                                                        <option value="bad">Bad</option>
-                                                    </select>
-                                                 </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Status Comment </th>
-                                                <td> <textarea  name="status_comment" class="form-control" id="status_comment"  required></textarea> </td>
-                                            </tr>
+                        
 
                                             <tr>
                                                 <th> Repair Name </th>
@@ -115,8 +100,6 @@
                                                 <td> <%= repairs.within_sla%> </td>
                                             </tr>
 
-                                            
-
                                             <tr>
                                                 <th> Created By </th>
                                                 <td> <%= repairs.created_by%> </td>
@@ -127,7 +110,10 @@
                                                 <td> <%= repairs.created_on.slice(0,10)%> </td>
                                             </tr>
                                             
-                                            
+                                            <tr>
+                                                <th> Repair Name </th>
+                                                <td> <%= repairs.repair_name%> </td>
+                                            </tr>
 
                                             
                                         </tbody>

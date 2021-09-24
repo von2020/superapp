@@ -80,8 +80,7 @@
                         
                                       <tr>
                                         <th>Repair Name</th>
-                                        <th>Finance Approval</th>
-                                        <th>Finance Comment</th>
+                                        
                                         <th>Created By</th>
                                         <th>Created On</th>
                                         
@@ -91,8 +90,7 @@
                                     <tbody>
                                       <tr>
                                         <td><%= materials.repair_name%></th>
-                                        <td><%= materials.finance_approval%></th>
-                                        <td><%= materials.finance_comment%></th>
+                                        
                                         <td><%= materials.created_by%></th>
                                         
                                         <td><%= materials.created_on.slice(0,10)%></th>
@@ -126,7 +124,7 @@
                                 <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=materials.created_by%>" required>
                                 
                                 
-                                <input type="hidden" name="auditor_name" class="form-control" id="auditor_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
+                                <input type="hidden" name="finance_name" class="form-control" id="finance_name" value="<%=userDetails.first_name +' ' + userDetails.last_name%>" required>
 
                                 <input type="hidden" name="id" class="form-control" id="id" value="<%=materials.repair%>" required>
           
@@ -134,7 +132,7 @@
                             <div class="thread-foot p-4 d-flex justify-content-between">
                               <h5>Take Action</h5>
                              <div>
-                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = false>Reject</button>
+                                <button class="btn btn-success mr-2 rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = false>Reject</button>
                               </div>
                             </div>
                           </div>
@@ -225,7 +223,7 @@
         var comment = document.getElementById('finance_comment').value;
         console.log(comment)
         if(comment == ''){
-          alert('rejection must have a reason')
+          alert('acception/rejection must have a reason')
           event.preventDefault();
         };
       }
