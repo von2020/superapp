@@ -102,7 +102,7 @@
                           <td><%= item.created_on.slice(0,10)%></td>
                           
                           <% if (item.finance_approval == 'PENDING') { %>
-                            <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" ><%= item.finance_approval%></a></td>
+                            <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-danger rounded-pill" ><%= item.finance_approval%></a></td>
                           <% }  else { %>
                             <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > <%= item.finance_approval%></a></td>
                           <% }%>

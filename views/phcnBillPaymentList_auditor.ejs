@@ -101,7 +101,7 @@
                           <td><%= item.created_on.slice(0,10)%></td>
                           
                           <% if (item.auditor_approval == 'PENDING') { %>
-                            <td><a href="/facilities/billPayment_auditor?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" ><%= item.auditor_approval%></a>   </td>
+                            <td><a href="/facilities/billPayment_auditor?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-danger rounded-pill" ><%= item.auditor_approval%></a>   </td>
                           <% }  else { %>
                             <td><a href="/facilities/billPayment_auditor?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > <%= item.auditor_approval%></a>   </td>
                           <% }%>

@@ -29,6 +29,7 @@ const {
     quotationList,
     viewQuotation,
     updateQuotation,
+    viewUser,
     dieselVendorList,
     dieselRequestQuotationList,
     viewDieselRequestQuotation,
@@ -1178,12 +1179,14 @@ class admin_manage_controllers {
 
         try{
             const ups = await getUpline_edit(id);
-            // var user = req.session.user;
+            const {result, resbody} = await viewUser(token, user_id);
+            const user = resbody;
 
             
             // user = user[0]
             console.log('uplines', ups);
-            res.render('admin/admin-edit-profile', {userDetails,  ups: ups.resbody})
+            console.log('user', user);
+            res.render('admin/admin-edit-profile', {userDetails,  ups: ups.resbody, user})
         } catch(err){
             if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");

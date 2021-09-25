@@ -13,6 +13,16 @@ class Dashboard_queries {
         }
     };
 
+    static async viewUser(token, user_id) {
+        const url = `accounts/user/${user_id}`;
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
     //update the account of a user
     static async updateUsers(query, token, user_id) {
         const url = `accounts/user/${user_id}`;

@@ -102,7 +102,7 @@
                                             <tr>
                                                 <th> Upload Bill </th>
                                                 <td> <input type="file" name="data" class="form-control" id="uploaded_bill" accept="application/pdf,.jpg, .jpeg, .png"></td>
-                                                    required> </td>
+                                                    
                                             </tr>
 
                                             <tr>
@@ -127,7 +127,11 @@
 
                                             <tr>
                                                 <th> Uploaded Bill </th>
+                                                <%if (phcn.uploaded_bill == null) { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %> 
                                                 <td><a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="view" /></a> </td>
+                                                <% } %>
                                             </tr>
                                             
                                             <tr>

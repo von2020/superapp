@@ -120,9 +120,9 @@
                           <td><%= item.requester_role%></td>
                           <td><%= item.request_type%></td>
                           <% if (item.driver_admin_approval == 'PENDING') { %>
-                            <td><button class="btn btn-primary rounded-pill">Pending</button></td>
+                            <td><button class="badge badge-primary">Pending</button></td>
                           <% }  else { %>
-                            <td><button class="btn btn-danger rounded-pill">Reassign Priority</button></td>
+                            <td><button class="badge badge-danger">Reassign Priority</button></td>
                           <% }%>
                           <td> <a href="/admin/manage/individual_request?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > View request</a></td>
                         </tr>

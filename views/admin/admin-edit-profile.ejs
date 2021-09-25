@@ -125,7 +125,7 @@
 											<div class="form-group" id="divupline">
 											  <label for="exampleFormControlSelect1">Upline</label>
 											  <select class="form-control" id="upline" name="upline" onchange="changeFun()">
-												<option selected><%= userDetails.upline_first_name +' '+userDetails.upline_last_name  %> </option>
+												<option selected><%= user.upline_name %> </option>
 												<% 
 																		  ups.forEach((up, i) => { 
 																		%>

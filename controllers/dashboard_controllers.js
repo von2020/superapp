@@ -5,6 +5,7 @@ const { resMessageRedirect, getDate, checkRequest, multipleRequestPosition } = r
 //store the list of the queries
 const {
     getUpline,
+    viewUser,
     updateUsers
     
 } = dashboard_queries;
@@ -33,12 +34,14 @@ static async editProfile (req, res) {
 
     try{
         const ups = await getUpline(id);
-        // var user = req.session.user;
+        const {result, resbody} = await viewUser(token, user_id);
+            const user = resbody;
 
             
-        // user = user[0]
-        console.log('uplines', ups);
-        res.render('edit-profile', {userDetails,  ups: ups.resbody})
+            // user = user[0]
+            console.log('uplines', ups);
+            console.log('user', user);
+        res.render('edit-profile', {userDetails,  ups: ups.resbody, user})
     } catch(err){
         if (err) console.log('error', err)
         res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");

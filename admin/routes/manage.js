@@ -249,8 +249,8 @@ router.get('/phcnBillPayment_driverAdmin', [adminCheckSession, superAdminAuthori
 router.post('/phcnBillPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], handlePhcnBillPayment_driverAdmin),
 
 router.get('/AllPhcnBillPayment', [adminCheckSession, superAdminAuthorize], AllPhcnBillPayment),
-router.get('/billPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], viewBillPayment_driverAdmin),
-router.post('/billPayment_driverAdmin', [adminCheckSession, superAdminAuthorize], updateViewBillPayment_driverAdmin),
+router.get('/billPayment_Admin', [adminCheckSession, superAdminAuthorize], viewBillPayment_driverAdmin),
+router.post('/billPayment_Admin', [adminCheckSession, superAdminAuthorize], updateViewBillPayment_driverAdmin),
 
 router.get('/viewGenRepairStatus', [adminCheckSession, superAdminAuthorize], viewGenRepairStatus),
 

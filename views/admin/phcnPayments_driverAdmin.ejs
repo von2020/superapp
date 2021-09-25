@@ -80,8 +80,11 @@
                                         <tbody>
                                             <tr> 
                                                 <th> Bill </th>
-                                                <!-- <td> <img src="{{uri:`data:image/jpg;base64,<%= phcn.uploaded_bill%>`}}" style="height: 100; width: 100; " alt="bill not uploaded yet" />  </td> -->
+                                                <%if (phcn.uploaded_bill == null) { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %>
                                                 <td style="height: 100px; "> <a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="view" /></a></td>
+                                                <% } %>
                                             </tr>
                                             <tr>
                                                 <th> Watt Consumed </th>

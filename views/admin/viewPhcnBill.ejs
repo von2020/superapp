@@ -101,7 +101,11 @@
 
                                             <tr>
                                                 <th> Uploaded Bill </th>
+                                                <%if (phcn.uploaded_bill == null) { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %> 
                                                 <td> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /> </td>
+                                                <% } %>
                                             </tr>
 
                                             <tr>
