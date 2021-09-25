@@ -4608,6 +4608,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             unit_consumed: Number(req.body.unit_consumed),
             consumption_rate: Number(req.body.consumption_rate),
             comment: req.body.comment,
+            due_date: req.body.due_date,
             created_by: req.body.created_by,
             
         }
@@ -4621,7 +4622,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a phcn bill`,'/facilities/phcnBilling')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully submitted a phcn bill`,`/facilities/viewPhcnBill?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response.watt_consumed} ${response.unit_consumed}`,'/facilities/phcnBilling')
             }
@@ -5213,6 +5214,7 @@ static async viewGenServicing_diverAdmin (req, res) {
         const query = {
             id: req.body.id,
             received_payment: req.body.received_payment,
+            due_date: req.body.due_date,
             unit_consumed: Number(req.body.unit_consumed),
             consumption_rate: Number(req.body.consumption_rate),
             vat: Number(req.body.vat),

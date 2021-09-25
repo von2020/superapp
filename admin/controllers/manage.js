@@ -3276,6 +3276,7 @@ class admin_manage_controllers {
             unit_consumed: req.body.unit_consumed,
             amount_due: req.body.amount_due,
             consumption_rate: req.body.consumption_rate,
+            due_date: req.body.due_date,
             admin_approval: boolValue,
             admin_comment: req.body.admin_comment,
             admin_name: req.body.admin_name,

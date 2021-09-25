@@ -262,6 +262,8 @@ router.post('/gen_repairStatus', [checkSession, procurementAuthorize], handleGen
 
 router.get('/genRepairStatusList', [checkSession, procurementAuthorize], genRepairStatusList),
 
+router.get('/genRepairStatusList_facility', [checkSession, facilityAuthorize], genRepairStatusList),
+
 router.get('/requestFilesList', [checkSession, driverAuthorize], requestFilesList),
 
 router.get('/viewServicingStatus', [checkSession, carDriverAuthorize], viewServicingStatus_driver),

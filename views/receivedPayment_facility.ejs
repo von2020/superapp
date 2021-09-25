@@ -125,8 +125,8 @@
                                             </tr>
                                             
                                             <tr>
-                                                <th> Updated On </th>
-                                                <td> <%= phcn.updated_on.slice(0,10)%> </td>
+                                                <th> Due Date </th>
+                                                <td> <%= phcn.due_date%> </td>
                                             </tr>
 
                                             <tr>
@@ -205,9 +205,10 @@
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 
-                                    <input type="hidden" name="unit_consumed" class="form-control" id="unit_consumed" value="<%phcn.unit_consumed%>" required>
-                                    <input type="hidden" name="consumption_rate" class="form-control" id="consumption_rate" value="<%phcn.consumption_rate%>" required>
-                                    <input type="hidden" name="vat" class="form-control" id="vat" value="<%phcn.vat%>" required>
+                                    <input type="hidden" name="unit_consumed" class="form-control" id="unit_consumed" value="<%=phcn.unit_consumed%>" required>
+                                    <input type="hidden" name="due_date" class="form-control" id="due_date" value="<%=phcn.due_date%>" required>
+                                    <input type="hidden" name="consumption_rate" class="form-control" id="consumption_rate" value="<%=phcn.consumption_rate%>" required>
+                                    <input type="hidden" name="vat" class="form-control" id="vat" value="<%=phcn.vat%>" required>
 
                                     
                                     

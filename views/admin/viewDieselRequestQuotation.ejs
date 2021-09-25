@@ -109,6 +109,11 @@
                                                 <td> <%= diesel.purpose%> </td>
                                             </tr>
                                             <tr>
+                                                <th>Author Email</th>
+                                                <td> <%= diesel.author_email%> </td>
+                                            </tr>
+                                            
+                                            <tr>
                                                 <th> Created By </th>
                                                 <td> <%= diesel.created_by%> </td>
                                             </tr>
@@ -168,7 +173,11 @@
 
                                             <tr>
                                                 <th> Delivery Status </th>
-                                                <td> <%= diesel.delivery_status%> </td>
+                                                <%if ( diesel.delivery_status == true) { %>
+                                                <td> Yes... Delivered </td>
+                                                <% } else{ %>
+                                                    <td> Not Delivered </td>
+                                                    <% } %>
                                             </tr>
 
                                             

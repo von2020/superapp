@@ -68,11 +68,9 @@
                                       <tr>
                                         <th>Consumption Rate</th>
                                         <th>Unit Consumed</th>
-                                        <th>Vat</th>
+                                        
                                         <th>Amount Due</th>
-                                        <!-- <th>Created By</th>
-                                        <th>Comment</th> -->
-                                        <th>Created On</th>
+                                        
                                         
                                         <th>Bill</th>
                                       </tr>
@@ -81,16 +79,14 @@
                                       <tr>
                                         <td><%= phcn.consumption_rate%></th>
                                         <td><%= phcn.unit_consumed%></th>
-                                        <td><%= phcn.vat%></th>
+                                        
                                         <td><%= phcn.amount_due%></th>
-                                        <!-- <td><%= phcn.created_by%></th>
-                                        <td><%= phcn.comment%></th> -->
-                                        <td><%= phcn.created_on.slice(0,10)%></th>
+                                        
                                         
                                           <%if (phcn.uploaded_bill == '') { %>
                                         <td>Not Yet Uploaded</th>
                                           <% } else{ %> 
-                                        <td><a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></a> </th>
+                                        <td><a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="view" /></a> </th>
                                           <% } %>
                                       </tr>
                                     </tbody>  
@@ -117,6 +113,7 @@
                                 <input type="hidden" name="unit_consumed" class="form-control" id="unit_consumed" value="<%=phcn.unit_consumed%>" required>
                                 <input type="hidden" name="consumption_rate" class="form-control" id="consumption_rate" value="<%= phcn.consumption_rate%>" required>
                                 <input type="hidden" name="amount_due" class="form-control" id="amount_due" value="<%=phcn.amount_due%>" required>
+                                <input type="hidden" name="due_date" class="form-control" id="due_date" value="<%=phcn.due_date%>" required>
           
                                 <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=phcn.created_by%>" required>
                                 
@@ -129,7 +126,7 @@
                             <div class="thread-foot p-4 d-flex justify-content-between">
                               <h5>Take Action</h5>
                              <div>
-                                <button class="btn btn-success mr-2 rounded-pill" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button" onclick="onSubmit()" value = false>Reject</button>
+                                <button class="btn btn-success mr-2 rounded-pill" onclick="onSubmit()" type = "submit" name = "button" value = true>Approve</button><button class="btn btn-danger rounded-pill" type = "submit" name = "button" onclick="onSubmit()" value = false>Reject</button>
                               </div>
                             </div>
                           </div>
@@ -221,7 +218,7 @@
           var comment = document.getElementById('admin_comment').value;
           console.log(comment)
           if(comment == ''){
-            alert('rejection must have a reason')
+            alert('acception/rejection must have a reason')
             event.preventDefault();;
           };
         }

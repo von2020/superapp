@@ -81,7 +81,7 @@
                                             <tr> 
                                                 <th> Bill </th>
                                                 <!-- <td> <img src="{{uri:`data:image/jpg;base64,<%= phcn.uploaded_bill%>`}}" style="height: 100; width: 100; " alt="bill not uploaded yet" />  </td> -->
-                                                <td style="height: 100px; "> <a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="bill not uploaded yet" /></a></td>
+                                                <td style="height: 100px; "> <a data-fancybox="gallery" href="<%=phcn.uploaded_bill%>"> <img src="<%=phcn.uploaded_bill%>" style="height: 150px; width: 150px; " alt="view" /></a></td>
                                             </tr>
                                             <tr>
                                                 <th> Watt Consumed </th>
@@ -100,12 +100,12 @@
                                             
                                             <tr>
                                                 <th>Created On</th>
-                                                <td> <%= phcn.created_on%> </td>
+                                                <td> <%= phcn.created_on.slice(0,10)%> </td>
                                             </tr>
                                             
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= phcn.updated_on%> </td>
+                                                <td> <%= phcn.updated_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>

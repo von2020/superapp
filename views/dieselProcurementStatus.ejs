@@ -95,6 +95,7 @@
                                         <tbody>
                                             <tr>
                                                 <th> Quotation Set </th>
+                                                <td>
                                             <% diesel.quotation_set.forEach((item) => { %>
                                                 
                                                     <p> <%= item.liter%> </p>
@@ -123,6 +124,14 @@
                                             <tr>
                                                 <th> Purpose </th>
                                                 <td> <%= diesel.purpose%> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Delivery Status </th>
+                                                <%if ( diesel.delivery_status == true) { %>
+                                                <td> Yes... Delivered </td>
+                                                <% } else{ %>
+                                                    <td> Not Delivered </td>
+                                                    <% } %>
                                             </tr>
                                             <tr>
                                                 <th> Created By </th>
@@ -161,17 +170,11 @@
                                                 <td> <%= diesel.author_email%> </td>
                                             </tr>
 
-                                            <tr>
-                                                <th> Delivery Status </th>
-                                                <td> <%= diesel.delivery_status%> </td>
-                                            </tr>
+                                            
 
                                             
 
-                                            <tr>
-                                                <th> Admin Comment </th>
-                                                <td> <%= diesel.admin_content%> </td>
-                                            </tr>
+                                            
 
                                             
                                         </tbody>

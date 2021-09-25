@@ -80,6 +80,19 @@
                                                 <th> Purpose </th>
                                                 <td> <%= diesel.purpose%> </td>
                                             </tr>
+                                            <tr>
+                                                <th> Author Email </th>
+                                                <td> <%= diesel.author_email%> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Delivery Status </th>
+                                                <%if ( diesel.delivery_status == true) { %>
+                                                <td> Yes... Delivered </td>
+                                                <% } else{ %>
+                                                    <td> Not Delivered </td>
+                                                    <% } %>
+                                            </tr>
 
                                             <tr>
                                                 <th> Created By </th>
@@ -88,12 +101,12 @@
 
                                             <tr>
                                                 <th> Created On </th>
-                                                <td> <%= diesel.created_on%> </td>
+                                                <td> <%= diesel.created_on.slice(0,10)%> </td>
                                             </tr>
 
                                             <tr>
                                                 <th> Updated On </th>
-                                                <td> <%= diesel.updated_on%> </td>
+                                                <td> <%= diesel.updated_on.slice(0,10)%> </td>
                                             </tr>
                                             <tr>
                                                 <th> Liters </th>
@@ -101,7 +114,7 @@
                                             </tr>
                                             <tr>
                                                 <th> Delivery Date </th>
-                                                <td> <input type="date"  name="delivery_date" class="form-control" id="delivery_date" value="2021-01-01"  required> </td>
+                                                <td> <input type="date"  name="delivery_date" class="form-control" id="delivery_date"  required> </td>
                                             </tr>
 
                                             <tr>
@@ -165,6 +178,7 @@
     <!-- end custom js for this page -->
 
     <script>
+        document.getElementById("delivery_date").valueAsDate = new Date()
         // this did not work because the google API was at the bottom
         $(document).ready(function () {
           

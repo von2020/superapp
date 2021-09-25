@@ -71,10 +71,10 @@
         
                       <tr>
                       <th>Created On</th>
-                        <th>Purpose</th>
+                        
                         <th>Created By</th>
                         <th>Author Email</th>
-                        <th>Updated On</th>
+                        
                         
                         <th>View</th>
                         
@@ -85,11 +85,11 @@
                       <% diesel.forEach((diesel) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <td><%= diesel.created_on%></td>
-                          <td><%= diesel.purpose%></td>
+                          <td><%= diesel.created_on.slice(0,10)%></td>
+                          
                           <td><%= diesel.created_by%></td>
                           <td><%= diesel.author_email%></td>
-                          <td><%= diesel.updated_on.slice(0,10)%></td>
+                          
                           <%if (diesel.admin_status != 'APPROVED' && diesel.purchase_status != 'Purchase has been created') { %>
                           <td> <a href="/admin/manage/viewDieselRequestQuotation?id=<%=diesel.id%>" id='<%= diesel.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Update </td>
                             <% } else if(diesel.admin_status != 'APPROVED' && diesel.purchase_status != 'Purchase has been created'){ %>

@@ -84,7 +84,7 @@
                         <th>Auditor Approval</th>
                         <th>Finance Approval</th>
                         <th> Created By </th>
-                        <th> Updated On </th>
+                        
                         <th>Status</th>
                         <th>Payment Update</th>
                         
@@ -100,7 +100,7 @@
                           <td><%= item.auditor_approval%></td>
                           <td><%= item.finance_approval%></td>
                           <td><%= item.created_on.slice(0,10)%></td>
-                          <td><%= item.updated_on.slice(0,10)%></td>
+                          
                           <% if (item.finance_approval == 'PENDING') { %>
                             <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" ><%= item.finance_approval%></a></td>
                           <% }  else { %>
@@ -111,7 +111,7 @@
                           <% }  else if (item.finance_approval == 'APPROVED' && item.finance_sent_payment == 'yes' ){ %>
                             <td><a  class="badge badge-primary"> Payment Sent</a></td>
                           <% }  else { %>
-                            <td><a  class="badge badge-danger"> Payment Rejected</a></td>
+                            <td><a href="/facilities/sendPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="badge badge-danger"> Payment Pending</a></td>
                           <% }%>
                           <!-- <td><a href="/facilities/billPayment_finance?id=<%=item.id%>" id='<%=item.id%>' class="btn btn-sm btn-success rounded-pill" > Approve/reject</a>   </td> -->
                              

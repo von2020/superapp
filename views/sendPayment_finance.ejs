@@ -102,7 +102,7 @@
 
                                             <tr>
                                                 <th> Payment Date </th>
-                                                <td><input name="sent_payment_date" type="date" value="2020-01-01" class="form-control" id="sent_payment_date" required></td>
+                                                <td><input name="sent_payment_date" type="date"  class="form-control" id="sent_payment_date" required></td>
                                             </tr>
 
                                             <tr>
@@ -122,13 +122,10 @@
                                             
                                             <tr>
                                                 <th>Created On</th>
-                                                <td> <%= phcn.created_on%> </td>
+                                                <td> <%= phcn.created_on.slice(0,10)%> </td>
                                             </tr>
                                             
-                                            <tr>
-                                                <th> Updated On </th>
-                                                <td> <%= phcn.updated_on%> </td>
-                                            </tr>
+                                            
 
                                             <tr>
                                                 <th> Comment </th>
@@ -226,6 +223,9 @@
 
         </div>
     </div>
+    <script>
+        document.getElementById("sent_payment_date").valueAsDate = new Date()
+    </script>
 
     <!-- core:js -->
     <script src="../../../assets/vendors/core/core.js"></script>
