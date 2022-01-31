@@ -84,8 +84,9 @@ class Requests {
             if (result.statusCode == 200) {
                 res.render('request_list',{userDetails, data})
             } else {
-                req.flash('error_msg', 'The request could not be made');
-                res.redirect('/requests/create_request')
+                // req.flash('error_msg', `response: ${resbody.response}`);
+                // res.redirect('/dashboard')
+                res.send(" '<script> alert(' You do not have permission to view page '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
             }
         }catch(err){
             if (err) return console.error('Error', error)
@@ -101,22 +102,23 @@ class Requests {
 
         try{
             // you will need to come back to this logic
-            // const {result, resbody} = await indRequests(token, id);
-            // console.log('result', result.statusCode);
-            // console.log('resbody', resbody)
+            const {result, resbody} = await indRequests(token, id);
+            const data = resbody;
+            console.log('result', result.statusCode);
+            console.log('resbody', data)
 
-            const car_requests = req.session.carRequests;
+            // const car_requests = req.session.carRequests;
             
 
-            var car_request =  car_requests.filter(function(car_request) {
-                return car_request.id == req.query.id;
+            // var car_request =  car_requests.filter(function(car_request) {
+            //     return car_request.id == req.query.id;
                 
-              });
-              car_request = car_request[0];
-              req.session.car_request = car_request;
-              res.render('indCarRequest', {data:car_request, userDetails});
+            //   });
+            //   car_request = car_request[0];
+            //   req.session.car_request = car_request;
+              res.render('indCarRequest', {data, userDetails});
         }catch(err){
-            if (err) return console.error('Error', error)
+            if (err) console.error('display page details error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
                     return;
         }
@@ -153,22 +155,22 @@ class Requests {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
         const car_request = req.session.car_request;
-        const id = car_request.id; // you need to come back to all of this.
+        const id = req.body.id; // you need to come back to all of this.
 
         var stringValue = req.body.button;
         var boolValue = stringValue.toLowerCase() == 'true' ? 'APPROVED' : 'DENIED';   //returns true
 
         const query = {
-            requester: car_request.requester,
-            trip_type:  car_request.trip_type,
-            request_type: car_request.request_type,
+            requester: req.body.requester,
+            trip_type:  req.body.trip_type,
+            request_type: req.body.request_type,
             priority: Number(req.body.priority),
-            destination: car_request.destination,
-            purpose: car_request.purpose,
+            destination: req.body.destination,
+            purpose: req.body.purpose,
             upline: userDetails.id,
             upline_approval: boolValue,
             upline_reason: req.body.upline_reason,
-            trip_duration:  car_request.trip_duration
+            trip_duration:  req.body.trip_duration
         };
         console.log('the query is ', query)
         

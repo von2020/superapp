@@ -1327,6 +1327,16 @@ class admin_manage_queries {
             if (err) console.log('login error', err)
         }
     };
+    static async vehicleAssign(query, token) {
+        const url = 'core/assign_vehicle';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    }; 
 
     static async handlePurchaseOrder(query, token) {
         const url = 'diesel/purchase_order';

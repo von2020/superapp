@@ -23,6 +23,7 @@ const {
     getUpline_edit,
     viewGenServiceRequest,
     updateRecommendServiceCompany,
+    admin_dash_counts,
     getBillOfMaterials,
     viewBillOfMaterials,
     updateBillOfMaterials,
@@ -60,6 +61,7 @@ const {
     updateGenService,
     allGenerator,
     sendMaintenance,
+    vehicleAssign,
     genMaintenanceList,
     genDailyMaintenanceList,
     sendGenDailyMaintenance,
@@ -1622,7 +1624,7 @@ class admin_manage_controllers {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.gen_maker } ${query.gen_model }`,'/admin/manage/generatorList')
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added ${query.gen_maker } ${query.gen_model }`,'/admin/manage/all_generators')
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` ${response.error}  ${query.gen_maker} ${query.gen_model }`,'/admin/manage/addGenerator')
             }
@@ -2468,12 +2470,13 @@ class admin_manage_controllers {
             console.log('token', token)
     
             try {
-                // const gens = await allGenerator(token);
+                const technicians = await genServiceCompanyList(token);
+                const techs = technicians.resbody
     
-                // console.log('response',gens.resbody)
-                // console.log('token',token)
+                console.log('response',techs)
+                console.log('token',token)
     
-                res.render('admin/sLA', {userDetails, id}); 
+                res.render('admin/sLA', {userDetails, id, techs}); 
             } catch (err) {
                 if (err) console.log('error', err)
             res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/admin/dashboard'; </script>");
@@ -2726,7 +2729,7 @@ class admin_manage_controllers {
             const response = resbody
             console.log("response", response)
             if (result.statusCode == '201') {
-                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated repair, pls upload paid repair document`,`/admin/manage/gen_paidRepair?id=${response.id}`)
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully updated repair, pls create payment slip`,`/admin/manage/genRepairPayment?id=${response.id}`)
             } else {
                 resMessageRedirect(res, req, 'error_msg', ` error, contact`,'/admin/manage/gen_repair')
             }
@@ -2774,7 +2777,7 @@ class admin_manage_controllers {
             console.log('repairs', repairs)
             
             if (result.statusCode == 200) {
-                res.render('admin/genRepairPayment', {userDetails, repairs,repair});
+                res.render('admin/viewGenPayment', {userDetails, repairs,repair});
             } else if (result.statusCode == 401){
                 req.flash('error_msg', resbody.detail);
                 res.redirect('/admin/dashboard')

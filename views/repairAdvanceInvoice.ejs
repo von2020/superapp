@@ -243,7 +243,7 @@ var file = document.getElementById('advance_invoice').files[0];
                     var putJSON = function (url) {
 return $.ajax({
 url: url,
-type: 'PUT',
+type: 'POST',
 data:JSON.stringify({"advance_invoice"  : reader.result}),
 headers: { "Authorization": "Token 835bf12929dd3bc50c2c8b0125db6ac0919ba5d4" },
 contentType: 'application/json'

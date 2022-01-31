@@ -7,6 +7,7 @@ const {auth_queries} = require('../queries');
 const {
     loginRequest,
     getTotals,
+    admin_dash_counts,
     getAdminTotals,
 } = auth_queries;
 
@@ -79,13 +80,16 @@ class auth_controllers {
 
         try{
             const {result, resbody} = await getTotals(token);
+            const response = await admin_dash_counts(token);
+            const counts = response.resbody
+            console.log("response", counts)
             const totals = resbody;
             // const adminTotals = await getAdminTotals(token);
             // var dashTotals = adminTotals.resbody
             // console.log('dashtotals', dashTotals)
             req.session.totals = resbody;
             console.log("totals", totals)
-        res.render('admin/admin_dashboard_old', {userDetails, totals}) 
+        res.render('admin/admin_dashboard_old', {userDetails, totals, counts}) 
     
         }catch(err){
             if (err) console.log('error', err)

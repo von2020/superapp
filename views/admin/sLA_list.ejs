@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 <body>
 	<div class="main-wrapper">
@@ -71,13 +72,7 @@
         
                       <tr>
                         <th>Company Name</th>
-                        <th>Description</th>
-                        <th>Opening Time</th>
-                        <th>Closing Time</th>
-                        <th>Weekend Opening Time</th>
-                        <th>Weekend Closing Time</th>
-                        <th>Status</th>
-                        <th>Weekend Support Active?</th>
+                        
                         <th>Duration</th>
                         <th>Expiration</th>
                         <th>Created By</th>
@@ -89,13 +84,7 @@
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
                           <td><%=sla.company_name%></td>
-                          <td><%= sla.description%></td>
-                          <td><%= sla.opening_time%></td>
-                          <td><%= sla.closing_time%></td>
-                          <td><%= sla.weekend_opening_time%></td>
-                          <td><%= sla.weekend_closing_time%></td>
-                          <td><%= sla.status%></td>
-                          <td><%= sla.weekend_support_active%></td>
+                          
                           <td><%= sla.duration%></td>
                           <td><%= sla.expiration%></td>
                           <td><%= sla.created_by%></td>
@@ -107,6 +96,7 @@
                   </table>
                 </form>
                 </div>
+                <div style="float:right; font-size: 2rem; color:grey;"><a href="/admin/manage/genSLA"><i class="fa fa-plus fa-10x" aria-hidden="true"></a></i></div>
               </div>
             </div>
 					</div>

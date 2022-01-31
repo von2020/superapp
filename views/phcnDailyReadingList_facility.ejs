@@ -89,7 +89,7 @@
                         <th>Status</th>
                         <th>Status Time</th>
                         <th> Created On </th>
-                        <th> Updated On </th>
+                        
                         
                       </tr>
                     </thead>
@@ -103,8 +103,8 @@
                             <td><%= item.meter_type%></td>
                             <td><%= item.status%></td>
                             <td><%= item.status_time%></td>
-                            <td><%= item.created_on%></td>
-                            <td><%= item.updated_on%></td>
+                            <td><%= item.created_on.slice(0,10)%></td>
+                            
                              
                         </tr>
                         <% })%>

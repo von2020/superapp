@@ -51,6 +51,17 @@ class auth_queries {
         }
     };    
 
+    static async admin_dash_counts(token) {
+        const url = 'generator/sa_dash_counts';
+        try {
+            const { result, resbody } = await getResponse_request(url, token)
+            return { result, resbody }
+
+        } catch (err) {
+            if (err) console.log('error', err)
+        }
+    };
+
     //Get list of the departments
     
 

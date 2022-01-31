@@ -127,7 +127,8 @@
                       <tr>
                         <th>Staff Name</th>
                         <th>Role</th>
-                        <th>Reqeust Type</th>
+                        <th>Request Type</th>
+                        <th>Created On</th>
                         <th>Priority</th>
                         <th>Upline Name</th>
                         
@@ -140,6 +141,7 @@
                           <td><%= item.requester_name%></td>
                           <td><%= item.requester_role %></td>
                           <td><%= item.request_type%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
                           <%if (item.priority == 1) { %>
                             <td ><span class="badge badge-info">LOW</span></td>
                           <% } else if(item.priority == 2) { %>
@@ -147,7 +149,7 @@
                           <% } else{ %>
                             <td ><span class="badge badge-danger">HIGH</span></td>
                           <% } %>
-                          <td><button class="btn btn-danger rounded-pill"><%= item.requester_upline%></button></td>
+                          <td><span class="badge badge-danger"><%= item.requester_upline%></span></td>
                           
                             <% })%>
                           </tr>

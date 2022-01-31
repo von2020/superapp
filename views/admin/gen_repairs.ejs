@@ -60,8 +60,8 @@
                         <label for="exampleFormControlSelect1" >Within SLA</label>
                         <select class="form-control-lg" id="within_sla" name="within_sla"
                           onchange="changeFun2()" required>
-                          <option value="true" selected>True</option>
-                          <option value="false">False</option>
+                          <option value="true" selected>Yes</option>
+                          <option value="false">No</option>
                         </select>
                       </div>
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col">
                       <div class="form-group" id="divservicing_company">
-                          <label for="exampleFormControlSelect1">Servicing Company</label>
+                          <label for="exampleFormControlSelect1">Repair Company</label>
                           <select class='form-control' id='servicing_company' name='servicing_company'>
                             <option selected disabled> ---- </option>
                             <% 
@@ -113,7 +113,7 @@
                         <div class="form-group" id="divsla">
                           <label for="exampleFormControlSelect1">SLAs</label>
                           <select class="form-control" id="sla" name="sla" >
-                            <option selected> --- </option>
+                            <option selected disabled> --- </option>
                             <% 
                                                       slas.forEach((sla, i) => { 
                                                     %>

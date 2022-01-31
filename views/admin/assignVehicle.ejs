@@ -91,7 +91,7 @@
                           <td><%= vehicle.vcolor%></td>
                           <td><%= vehicle.fuel_type%></td>
                           <td><%= vehicle.plate%></td>
-                          
+                          <td> <a href="/admin/manage/handleassign_vehicle?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > Assign Vehicle </td>
                         </tr>
                         <% })%>
                     </tbody>

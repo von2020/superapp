@@ -108,6 +108,7 @@
                         <th>Staff Name</th>
                         <th>Role</th>
                         <th>Request Type</th>
+                        <th>Created On</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th>View Details</th>
@@ -120,6 +121,7 @@
                           <td><%= item.requester_name%></td>
                           <td><%= item.requester_role %></td>
                           <td><%= item.request_type%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
                           <%if (item.priority == 1) { %>
                             <td ><span class="badge badge-info">LOW</span></td>
                           <% } else if(item.priority == 2) { %>

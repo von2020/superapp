@@ -390,7 +390,7 @@ class auth_controllers {
                 const myData = await getSupervisorCount(token);
                 
                 const data = resbody;
-            console.log('vehicle request', resbody)
+                console.log('vehicle request', resbody)
                 console.log('mydata', myData.resbody)
                 var dashboardCount = myData.resbody
             

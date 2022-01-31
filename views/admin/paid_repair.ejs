@@ -90,7 +90,11 @@
 
                                             <tr>
                                                 <th> Invoice </th>
+                                                <%if (repairs.invoice == 'Invoice has not been uploaded!') { %>
+                                                    <td>Not Yet Uploaded</th>
+                                                      <% } else{ %>
                                                 <td> <a class="text-primary" href="<%= repairs.invoice%>">view</a> </td>
+                                                <% } %>
                                             </tr>
 
                                             <tr>

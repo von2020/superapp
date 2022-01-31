@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
+    
 </head>
 
 <body>
@@ -76,6 +77,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
+                                            <tr>
+                                                <th>Repair Company</th>
+                                            <td><select class='form-control' id='company' name='company'>
+                                                      <option selected disabled> ---- </option>
+                                                      <% 
+                                                                                techs.forEach((tech, i) => { 
+                                                                              %>
+                                                      <option value=<%= tech.id %>> <%= tech.company_name %> </option>
+                                                      <% 
+                                                                                }) 
+                                                                              %>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <th> Desription </th>
                                                 <td> <textarea name="description" class="form-control" id="description"  required> </textarea></td>
@@ -164,7 +180,7 @@
                                     </table>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="company" class="form-control" id="company" value="<%=id%>" required>
+                                    <!-- <input type="hidden" name="company" class="form-control" id="company" value="<%=id%>" required> -->
                                     
                                     <input type="hidden" name="created_by" class="form-control" id="created_by" value="<%=userDetails.first_name + ' ' + userDetails.last_name%>" required>
 

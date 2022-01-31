@@ -199,7 +199,7 @@ class auth_queries {
     }
 
     static async reset_password(query, token) {
-        const url = 'https://telnetsupperapp.com.ng:8443/api/password_reset/';
+        const url = 'https://telnetsuperapp.com.ng:8443/api/password_reset/';
         try {
             const {result, resbody} = await postResponse_reset(query, url)
             return {result, resbody}
@@ -210,7 +210,7 @@ class auth_queries {
     };
 
     static async reset_password_confirm(query, token) {
-        const url = 'https://telnetsupperapp.com.ng:8443/api/password_reset/confirm/';
+        const url = 'https://telnetsuperapp.com.ng:8443/api/password_reset/confirm/';
         try {
             const {result, resbody} = await postResponse_reset(query, url)
             return {result, resbody}

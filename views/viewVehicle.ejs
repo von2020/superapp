@@ -103,6 +103,7 @@
                                                 <td> <div class="form-group">
                                                     <select class='form-control' id='driver' name='driver'>
                                                         <option value="<%= materials.driver_id%>" selected><%= materials.driver_name%></option>
+                                                        <option value="">-----</option>
 										            <% drivers.forEach((driver) => { %>
 											            <option value = "<%= driver.id%>"> <%= driver.first_name + ' ' + driver.last_name%> </option>
 										            <% }) %>
@@ -120,9 +121,9 @@
                                                 <td> <div class="form-group">
                                                     <select class="form-control-lg"  name= "idle" class="form-control" id="idle" required>
                                                         <%if (materials.idle == 'true' ) { %>
-                                                        <option value="true" selected disabled> Yes</option>
+                                                        <option value="true" selected > Yes</option>
                                                         <% } else{ %>
-                                                            <option value="false" selected disabled> No</option>
+                                                            <option value="false" selected > No</option>
                                                         <% } %>
                                                         <option value = "true"> Yes</option>
                                                         <option value = "false">No</option>

@@ -1057,7 +1057,7 @@ class Facilities {
             if (result.statusCode == '200') {
                 resMessageRedirect(res, req, 'success_msg', `You have succesfully updated Vehicle`,'/facilities/vehicleList')
             } else {
-                resMessageRedirect(res, req, 'error_msg', ` ${response.detail} `,'/facilities/vehicleList')
+                resMessageRedirect(res, req, 'error_msg', ` ${response.driver} `,'/facilities/vehicleList')
             }
         } catch(err){
             if (err) console.log('error', err)
@@ -4609,6 +4609,7 @@ static async viewGenServicing_diverAdmin (req, res) {
             consumption_rate: Number(req.body.consumption_rate),
             comment: req.body.comment,
             due_date: req.body.due_date,
+            payment_date: req.body.payment_date,
             created_by: req.body.created_by,
             
         }

@@ -59,7 +59,7 @@
 			<!-- partial -->
 
 			<div class="page-content">
-
+        <%- include('./partials/messages')%>
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Requests</a></li>
@@ -88,7 +88,7 @@
                         <th>Request Type</th>
                         <th>Destination</th>
                         <th>Purpose</th>
-
+                        <th>Created On</th>
                         <!-- find a way to display the admin reason-->
                         <th> Upline approval status </th>
                         <th> Driver Admin approval status </th>
@@ -116,6 +116,7 @@
                           <td><%=item.request_type %></td>
                           <td><%= destination%></td>
                           <td><%= purpose%></td>
+                          <td><%= item.created_on.slice(0,10)%></td>
                           <td><%= item.upline_approval%></td>
                           <!--  <td><%= item.upline_reason%></td> -->
                           

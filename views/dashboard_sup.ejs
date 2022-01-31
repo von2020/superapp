@@ -165,6 +165,7 @@
                 <th>Staff Name</th>
                 <th>Role</th>
                 <th>Request Type</th>
+                <th>Created On</th>
                 <th>Status</th>
                 <th>View Details</th>
               </tr>
@@ -177,6 +178,7 @@
                   <td><%= item.requester_name%></td>
                   <td><%= item.requester_role%></td>
                   <td><%= item.request_type%></td>
+                  <td><%= item.created_on.slice(0,10)%></td>
                   <% if (item.driver_admin_approval == 'PENDING' && item.upline_approval == 'PENDING') { %>
                     <td><button class="badge badge-danger">Pending</button></td>
                   <% }  else if (item.driver_admin_approval == 'PENDING' && item.upline_approval == 'APPROVED'){ %>
@@ -403,7 +405,7 @@
   <!-- custom js for this page -->
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/datepicker.js"></script>
-  <script src="../../../assets/js/data-table.js"></script>
+  <script src="./../assets/js/data-table.js"></script>
 	<!-- end custom js for this page -->
   
 </body>
