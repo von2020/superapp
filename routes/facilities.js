@@ -13,6 +13,12 @@ const {
     handleAddVehicle,
     vehicleList,
     viewVehicle,
+    vehicleBudget,
+    vehicleFuelConsumption,
+    handleVehicleBudget,
+    vehicleBudgetList,
+    vehicleFuelConsumptionList,
+    handleVehicleFuelConsumption,
     handleUpdateVehicle,
     addVehiclePart,
     handleAddVehiclePart,
@@ -224,6 +230,14 @@ router.post('/addVehicle', [checkSession, driverAuthorize], handleAddVehicle)
 router.get('/vehicleList', [checkSession, driverAuthorize], vehicleList),
 router.get('/viewVehicle', [checkSession, driverAuthorize], viewVehicle),
 router.post('/viewVehicle', [checkSession, driverAuthorize], handleUpdateVehicle)
+
+router.get('/vehicleBudget', [checkSession, driverAuthorize], vehicleBudget),
+router.post('/vehicleBudget', [checkSession, driverAuthorize], handleVehicleBudget)
+router.get('/vehicleBudgetList', [checkSession, driverAuthorize], vehicleBudgetList),
+
+router.get('/vehicleFuelConsumption', [checkSession, driverAuthorize], vehicleFuelConsumption),
+router.post('/vehicleFuelConsumption', [checkSession, driverAuthorize], handleVehicleFuelConsumption)
+router.get('/vehicleFuelConsumptionList', [checkSession, driverAuthorize], vehicleFuelConsumptionList),
 
 router.get('/addVehiclePart', [checkSession, driverAuthorize], addVehiclePart),
 router.post('/addVehiclePart', [checkSession, driverAuthorize], handleAddVehiclePart)

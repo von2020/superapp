@@ -317,8 +317,9 @@ class Requests {
             const {result, resbody} = await uplinequery(query, token, id);
             const data = resbody;
             console.log("data", data)
+            console.log("result", result.statusCode)
             if (result.statusCode == 200) {
-                if (data.driver_admin_status == 'APPROVED'){
+                if (data.driver_admin_approval == 'APPROVED'){
                     req.session.approved = resbody
                     req.flash('success_msg', 'You have succesfully approved a request. Assign Vehicle')
                     res.redirect('/requests/assign_vehicle')

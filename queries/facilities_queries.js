@@ -1082,6 +1082,28 @@ class vehicle_queries {
         }
     };
 
+    static async vehicleBudgetList(token) {
+        const url = 'core/budget';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async vehicleFuelConsumptionList(token) {
+        const url = 'core/fuel_consumption';
+        try {
+            const {result, resbody} = await getResponse_request(url, token)
+            return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
     static async viewVehicle(token, id) {
         const url = `vehicle/vehicle/${id}`;
         try {
@@ -1098,6 +1120,28 @@ class vehicle_queries {
         try {
             const {result, resbody} = await putResponse(query, url, token)
             return {result, resbody};
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async vehicleBudget(query, token) {
+        const url = 'core/budget';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
+            
+        }catch(err){
+            if (err) console.log('login error', err)
+        }
+    };
+
+    static async vehicleFuelConsumption(query, token) {
+        const url = 'core/fuel_consumption';
+        try {
+            const {result, resbody} = await postResponse_request(query, url, token)
+            return {result, resbody}
             
         }catch(err){
             if (err) console.log('login error', err)

@@ -204,7 +204,18 @@
                                                 <td> <%= materials.created_on.slice(0,10)%> </td>
                                             </tr>
 
-                                            
+                                            <tr>
+                                                <th> Create Budget </th>
+                                                <td>
+                                                    <a href="/facilities/vehicleBudget?id=<%= materials.id%>" id='<%= materials.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >Create</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Fuel Consumption </th>
+                                                <td>
+                                                    <a href="/facilities/vehicleFuelConsumption?id=<%= materials.id%>" id='<%= materials.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" >Create</a>
+                                                </td>
+                                            </tr>
                                             
                                             
 

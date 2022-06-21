@@ -65,6 +65,10 @@ const {
     updateRepairQueue,
     updateRepairStatus_driver,
     genRepairStatusList,
+    vehicleBudget,
+    vehicleFuelConsumption,
+    vehicleBudgetList,
+    vehicleFuelConsumptionList,
     dieselUsageList,
     handleDieselVendor,
     dieselVendorList,
@@ -708,6 +712,8 @@ class Facilities {
         }
     }
 
+    
+
     static async serviceStatus (req, res) {
         const userDetails = req.session.userDetails;
         const token = userDetails.token;
@@ -1065,6 +1071,173 @@ class Facilities {
                 return;
         }
             
+    };
+
+    static async vehicleBudget (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewVehicle(token, id);
+            const queues = resbody
+            console.log('queues', queues)
+            if (result.statusCode == 200) {
+                res.render('vehicleBudget', {userDetails, queues});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+    static async handleVehicleBudget (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id
+
+        console.log("id", id)
+        
+        const query = {
+            vehicle: req.body.id,
+            budgetfee: req.body.budgetfee,
+            status: req.body.status,
+            deactivation_reason: req.body.deactivation_reason,
+            per_trip_cost: req.body.per_trip_cost,
+                    
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await vehicleBudget(query, token, id);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully created a vehicle budget`,'/facilities/vehicleBudgetList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.driver} `,'/facilities/vehicleBudgetList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+            
+    };
+
+    static async vehicleBudgetList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await vehicleBudgetList(token);
+            const vehicles = resbody
+            console.log('vehicles', vehicles)
+            if (result.statusCode == 200) {
+                res.render('vehicleBudgetList', {userDetails, vehicles});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+
+    static async vehicleFuelConsumption (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.query.id;
+        console.log('id', id)
+        
+        try {
+
+            const {result, resbody} = await viewVehicle(token, id);
+            const queues = resbody
+            console.log('queues', queues)
+            if (result.statusCode == 200) {
+                res.render('vehicleFuelConsumption', {userDetails, queues});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
+    };
+
+    static async handleVehicleFuelConsumption (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        const id = req.body.id
+
+        console.log("id", id)
+        
+        const query = {
+            vehicle: req.body.id,
+            lower_band: req.body.lower_band,
+            upper_band: req.body.upper_band,
+            fuel_volume: req.body.fuel_volume,
+            fuel_price_per_litre: req.body.fuel_price_per_litre,
+            fuel_cost: req.body.fuel_cost,
+        }
+
+        console.log('query', query)
+        console.log('token', token)
+        try{
+            
+            const {result, resbody} = await vehicleFuelConsumption(query, token, id);
+            const response = resbody
+            console.log("response", response)
+            if (result.statusCode == '201') {
+                resMessageRedirect(res, req, 'success_msg', `You have succesfully added vehicle Fuel Consumption`,'/facilities/vehicleFuelConsumptionList')
+            } else {
+                resMessageRedirect(res, req, 'error_msg', ` ${response.driver} `,'/facilities/vehicleFuelConsumptionList')
+            }
+        } catch(err){
+            if (err) console.log('error', err)
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+            
+    };
+
+    static async vehicleFuelConsumptionList (req, res) {
+        const userDetails = req.session.userDetails;
+        const token = userDetails.token;
+        
+        try {
+            const {result, resbody} = await vehicleFuelConsumptionList(token);
+            const vehicles = resbody
+            console.log('vehicles', vehicles)
+            if (result.statusCode == 200) {
+                res.render('vehicleConsumptionList', {userDetails, vehicles});
+            } else if (result.statusCode == 401){
+                req.flash('error_msg', resbody.detail);
+                res.redirect('/dashboard')
+            }
+        }catch(err) {
+            if (err) console.error('Error', err);
+            res.send(" '<script> alert(' Network Error '); </script>' " + "<script> window.location.href='/dashboard'; </script>");
+                return;
+        }
+
     };
 
     static async carFaultList_driver (req, res) {

@@ -21,7 +21,6 @@
   <link rel="stylesheet" href="../../../assets/css/demo_1/custom.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
-  <link rel="stylesheet" href="../../../assets/vendors/font-awesome/css/font-awesome.min.css" />
 </head>
 <body>
 	<div class="main-wrapper">
@@ -30,9 +29,9 @@
 <% if (userDetails.role == 'Staff') { %>
   <%- include('./bars/sidebar_staff') %>
   <% } else if (userDetails.role == 'Supervisor') { %>
-  <%- include('./bars/sidebar_sup') %> 
+  <%- include('./bars/sidebar_sup') %>
   <% } else if (userDetails.role == 'Auditor') { %>
-  <%- include('./bars/sidebar_auditor') %> 
+  <%- include('./bars/sidebar_auditor') %>
   <% } else if (userDetails.role == 'Finance') { %>
   <%- include('./bars/sidebar_finance') %>  
   <%  } else if (userDetails.role == 'Driver Admin') { %>
@@ -40,7 +39,7 @@
   <%  } else if (userDetails.role == 'Director') { %>
   <%- include('./bars/sidebar_director') %>
   <%  } else if (userDetails.role == 'Group Managing Director') { %>
-  <%- include('./bars/sidebar_gmd') %>    
+  <%- include('./bars/sidebar_gmd') %>  
   <%  } else if (userDetails.role == 'Driver') { %>
   <%- include('./bars/sidebar_carDriver') %>  
   <%  } else { %>
@@ -56,11 +55,12 @@
 
 			<div class="page-content">
         <%- include('./partials/messages')%>
+    
 
 				<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Vehicles</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Vehicle List</li>
+						<li class="breadcrumb-item"><a href="#">Facilities</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Vehicle Consumption List</li>
 					</ol>
                 </nav>
 
@@ -71,7 +71,7 @@
               <div class="card-body">
                 <div class="row justify-content-between">
                   <div>
-                  <h6 class="card-title d-block">List of Vehicles</h6>
+                  <h6 class="card-title d-block">Vehicle Consumption List</h6>
                   </div>
 
                   <div class="d-flex align-items-center flex-wrap text-nowrap ">
@@ -84,41 +84,38 @@
                 <!-- this will need to be updated for the drop off part of the request-->
                 
                 <div class="table-responsive">
-                  <table id="dataTableExample" class="table">
+                  <form action="/requests/assign_vehicle" method="post">
+                  <table id="dataTableExample" class="table" data-order=''>
                     <thead>
         
                       <tr>
-                        <th>Driver Name</th>
-                        <th>Type</th>
-                        <th>Brand</th>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>Fuel Type</th>
-                        <th>Reg Number</th>
-                        <!-- <th>Chasis Number</th> -->
-                        <th>View</th>
+                        <th>Vehicle</th>
+                        <th>Lower Band</th>
+                        <th>Upper Band</th>
+                        <th>Fuel Volume</th>
+                        <th>Fuel Price(liter)</th>
+                        <th>Fuel Cost</th>
+                        
+                        
                       </tr>
                     </thead>
                     <tbody>
                       <% vehicles.forEach((vehicle) => {%>
                     <!-- here you have to come back to add the pill thing to this page if it is accepted pending or rejected-->
                         <tr>
-                          <td><%= vehicle.driver_name%></td>
-                          <td><%= vehicle.type%></td>
-                          <td><%= vehicle.vmake%></td>
-                          <td><%= vehicle.vmodel%></td>
-                          <td><%= vehicle.vcolor%></td>
-                          <td><%= vehicle.fuel_type%></td>
-                          <td><%= vehicle.plate%></td>
-                          <!-- <td><%= vehicle.vin%></td> -->
-                          <td> <a href="/facilities/viewVehicle?id=<%= vehicle.id%>" id='<%= vehicle.id%>' class="btn btn-sm btn-success rounded-pill" type="submit" > View </a></td>
+                          <td><%= vehicle.vehicle_plate%></td>
+                          <td><%= vehicle.lower_band%></td>
+                          <td><%= vehicle.upper_band%></td>
+                          <td><%= vehicle.fuel_volume%></td>
+                          <td><%= vehicle.fuel_price_per_litre%></td>
+                          <td><%= vehicle.fuel_cost%></td>
                           
                         </tr>
-                      <% })%>
+                        <% })%>
                     </tbody>
                   </table>
+                </form>
                 </div>
-                <div style="float:right; font-size: 2rem; color:grey;"><a href="/facilities/addVehicle"><i class="fa fa-plus fa-10x" aria-hidden="true"></a></i></div>
               </div>
             </div>
 					</div>
@@ -156,3 +153,7 @@
 	<!-- end custom js for this page -->
 </body>
 </html>
+
+
+
+
