@@ -362,22 +362,22 @@
         }
     }
         //var url = "dashboard.ejs";
-        $.ajax({
-          url:'/api/ajax/dashboard_admin_total_subsidiary_trip',
-          type:'GET',
-          dataType: 'json',
-          success:function(data){
-              if(data){
-                let iteco     = data.iteco_total_trips;
-                let softworks = data.softworks_total_trips;
-                let telnet    = data.telnet_total_trips;
-                TripsInSubsidiaryID(iteco,softworks,telnet);
-              }               
-          }, 
-          error:function(data){
-           // alert('Error Retrieving data');
-          }
-        });
+        // $.ajax({
+        //   url:'/api/ajax/dashboard_admin_total_subsidiary_trip',
+        //   type:'GET',
+        //   dataType: 'json',
+        //   success:function(data){
+        //       if(data){
+        //         let iteco     = data.iteco_total_trips;
+        //         let softworks = data.softworks_total_trips;
+        //         let telnet    = data.telnet_total_trips;
+        //         TripsInSubsidiaryID(iteco,softworks,telnet);
+        //       }               
+        //   }, 
+        //   error:function(data){
+           
+        //   }
+        // });
 
 
 //         $(document).ready(function() {
@@ -401,9 +401,7 @@ function formatDate (str) {
   }
 
 jQuery(document).ready(function($) {
- 
-  
-        
+
  var jobtable = $('#TripRange').DataTable({
    ajax: {
     url: "/api/ajax/admin_filter_diesel_bi_report",
@@ -414,10 +412,6 @@ jQuery(document).ready(function($) {
                 xhr.setRequestHeader ('Authorization', 'Token 48a79b9a6fcef0b70b6a9219e392205c7327c701');
             },
           },
-
-
-//Create new Datatable
-
         
    columns: [
                 {

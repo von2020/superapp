@@ -56,6 +56,7 @@
 			<!-- partial -->
 
 			<div class="page-content">
+        <%- include('./partials/messages')%>
         <div class="d-flex">
           <div class="col-sm-7">
             <div class="row">
@@ -97,6 +98,8 @@
                                 <%} %>
                                 <% purpose.forEach((item) => {%>
                                 <p><%= item.purpose%></p>
+                                <p><%= item.project_title%></p>
+                                <p><%= item.project_code%></p>
                                 <% })%>
       
                         </div>
@@ -114,12 +117,14 @@
                 </div>
                 <input type="hidden" name="id" class="form-control" id="id" value="<%= data.id %>" required>
                 <input type="hidden" name="requester" class="form-control" id="requester" value="<%= data.requester %>" required>
+                <input type="hidden" name="project_title" class="form-control" id="project_title" value="<%= data.project_title %>" required>
+                <input type="hidden" name="project_code" class="form-control" id="project_code" value="<%= data.project_code %>" required>
                 <input type="hidden" name="trip_type" class="form-control" id="trip_type" value="<%= data.trip_type %>" required>
                 <input type="hidden" name="request_type" class="form-control" id="request_type" value="<%= data.request_type %>" required>
                 <input type="hidden" name="destination" class="form-control" id="destination" value="<%= data.destination %>" required>
                 <input type="hidden" name="purpose" class="form-control" id="purpose" value="<%= data.purpose %>" required>
                 <input type="hidden" name="trip_duration" class="form-control" id="trip_duration" value="<%= data.trip_duration %>" required>
-                v
+                
 
                 <hr>
                 <h3> Specify The Reason for Rejection Or Acceptance</h3>

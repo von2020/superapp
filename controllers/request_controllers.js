@@ -35,6 +35,8 @@ class Requests {
                 request_type: req.body.request_type,
                 destination: req.body.destination,
                 purpose: req.body.purpose,
+                project_title: req.body.project_title,
+                project_code: req.body.project_code,
                 upline: userDetails.upline_id,
                 trip_duration: req.body.duration
             }
@@ -44,6 +46,8 @@ class Requests {
                 requester: userDetails.id,
                 trip_type: req.body.trip_type,
                 request_type: req.body.request_type,
+                project_title: req.body.project_title,
+                project_code: req.body.project_code,
                 upline: userDetails.upline_id,
                 place_set: JSON.parse(req.body.random),
                 trip_duration: req.body.duration
@@ -79,7 +83,7 @@ class Requests {
             // console.log('vehicle request', resbody)
 
             
-            console.log('the data complete', data)
+            // console.log('the data complete', data)
             req.session.carRequests = resbody
             if (result.statusCode == 200) {
                 res.render('request_list',{userDetails, data})
@@ -164,6 +168,8 @@ class Requests {
             requester: req.body.requester,
             trip_type:  req.body.trip_type,
             request_type: req.body.request_type,
+            project_title: req.body.project_title,
+            project_code: req.body.project_code,
             priority: Number(req.body.priority),
             destination: req.body.destination,
             purpose: req.body.purpose,
@@ -210,7 +216,7 @@ class Requests {
         try{
             const {result, resbody} = await carRequests(token);
             const data_request = resbody;
-            console.log('see', data_request)
+            // console.log('see', data_request)
 
             var dataApproved = data_request.filter(function (dataApproved){
                 return dataApproved.upline_approval == 'APPROVED'
@@ -302,6 +308,8 @@ class Requests {
             request_type: car_request.request_type,
             priority: car_request.priority,
             destination: car_request.destination,
+            project_title: car_request.project_title,
+            project_code: car_request.project_code,
             purpose: car_request.purpose,
             upline: car_request.upline_id,//car_request.upline, // this was taking out to see 
             driver_admin_approval: boolValue,
@@ -418,7 +426,7 @@ class Requests {
         };
         try {
             const {result, resbody} = await vehicleAssign(query, token)
-            if (result.statusCode == 201) {
+            if (result.statusCode == 200) {
                 req.flash('success_msg', 'A vehicle has been assigned')
                 res.redirect('/requests/viewmanage_request')
             } else if (result.statusCode == 401){

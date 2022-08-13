@@ -368,23 +368,24 @@
           });
         }
     }
+        
         //var url = "dashboard.ejs";
-        $.ajax({
-          url:'/api/ajax/dashboard_admin_total_subsidiary_trip',
-          type:'GET',
-          dataType: 'json',
-          success:function(data){
-              if(data){
-                let iteco     = data.iteco_total_trips;
-                let softworks = data.softworks_total_trips;
-                let telnet    = data.telnet_total_trips;
-                TripsInSubsidiaryID(iteco,softworks,telnet);
-              }               
-          }, 
-          error:function(data){
-           // alert('Error Retrieving data');
-          }
-        });
+        // $.ajax({
+        //   url:'/api/ajax/dashboard_admin_total_subsidiary_trip',
+        //   type:'GET',
+        //   dataType: 'json',
+        //   success:function(data){
+        //       if(data){
+        //         let iteco     = data.iteco_total_trips;
+        //         let softworks = data.softworks_total_trips;
+        //         let telnet    = data.telnet_total_trips;
+        //         TripsInSubsidiaryID(iteco,softworks,telnet);
+        //       }               
+        //   }, 
+        //   error:function(data){
+           
+        //   }
+        // });
 
 
 //         $(document).ready(function() {

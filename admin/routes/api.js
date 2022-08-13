@@ -560,12 +560,12 @@ router.post('/ajax/admin_diesel_bi_report', async (req, res)=> {
 })
 
 router.get('/ajax/admin_filter_diesel_bi_report', async (req, res)=> {
-    
     const userDetails = req.session.userDetails;
     const token = userDetails.token;
     try {
         const subs = await admin_filter_diesel_bi_report(token);
         res.json( subs.resbody);
+        // console.log('see', subs.resbody)
     } catch (err) {
         if (err) console.log('error', err)
         

@@ -594,6 +594,8 @@ class admin_manage_controllers {
             trip_type:  car_request.trip_type,
             request_type: car_request.request_type,
             priority: car_request.priority,
+            project_title: car_request.project_title,
+            project_code: car_request.project_code,
             destination: car_request.destination,
             purpose: car_request.purpose,
             upline: userDetails.upline_id,//car_request.upline, // this was taking out to see 
@@ -610,8 +612,9 @@ class admin_manage_controllers {
             const {result, resbody} = await uplinequery(query, token, id);
             const data = resbody;
             console.log("resbody", resbody)
+            console.log('status', result.statusCode)
             if (result.statusCode == 200) {
-                if (resbody.driver_admin_status == 'APPROVED'){
+                if (resbody.driver_admin_approval == 'APPROVED'){
                     req.session.approved = resbody
 
                     res.redirect('/admin/manage/vehicle_list')
@@ -722,6 +725,8 @@ class admin_manage_controllers {
             priority: parseInt(req.body.priority),
             destination: car_request.destination,
             purpose: car_request.purpose,
+            project_title: car_request.project_title,
+            project_code: car_request.project_code,
             upline: userDetails.id,
             upline_approval: boolValue,
             upline_reason: req.body.upline_reason,
